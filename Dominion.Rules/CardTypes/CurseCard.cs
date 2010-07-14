@@ -1,10 +1,11 @@
-﻿namespace Dominion.Rules.CardTypes
+﻿using System;
+
+namespace Dominion.Rules.CardTypes
 {
     public abstract class CurseCard : Card
     {
-        public override bool CanPlay(TurnContext context)
-        {
-            return false;
-        }
+        protected CurseCard(int cost) : base(cost)
+        {}
+
     }
 }

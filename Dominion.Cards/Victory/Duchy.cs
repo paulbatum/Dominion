@@ -5,7 +5,7 @@ namespace Dominion.Cards.Victory
     public class Duchy : VictoryCard
     {
         public Duchy()
-            : base(5)
+            : base(3, 5)
         { }
     }
 }

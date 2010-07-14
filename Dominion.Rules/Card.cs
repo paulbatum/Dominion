@@ -9,10 +9,11 @@ namespace Dominion.Rules
         private CardZone _currentZone;
         private readonly CardZoneChanger _zoneChanger;
 
-        protected Card()
+        protected Card(int cost)
         {
+            Cost = cost;
             _currentZone = new NullZone();
-            _zoneChanger = zone => _currentZone = zone;
+            _zoneChanger = zone => _currentZone = zone;            
         }
 
         public void MoveTo(CardZone targetZone)
@@ -25,25 +26,16 @@ namespace Dominion.Rules
             get { return _currentZone; }
         }
 
-        public abstract bool CanPlay(TurnContext context);
-        public abstract void Play(TurnContext context);
+        public int Cost { get; protected set; }
 
         public virtual int Score(DrawDeck deck)
         {
             return 0;
         }
-    }    
 
-    public class NullZone : CardZone
-    {
-        protected override void AddCard(Card card)
+        public override string ToString()
         {
-            // NO OP
-        }
-
-        protected override void RemoveCard(Card card)
-        {
-            // NO OP
+            return this.GetType().Name;
         }
     }
 }

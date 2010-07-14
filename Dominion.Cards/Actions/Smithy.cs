@@ -9,7 +9,9 @@ namespace Dominion.Cards.Actions
 {
     public class Smithy : ActionCard
     {
-        public override void Play(TurnContext context)
+        public Smithy() : base(4) { }
+
+        protected override void Play(TurnContext context)
         {
             context.DrawCards(3);
         }

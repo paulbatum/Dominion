@@ -2,9 +2,8 @@
 {
     public abstract class TreasureCard : Card
     {
-        public override bool CanPlay(TurnContext context)
-        {
-            return true;
-        }
+        protected TreasureCard(int cost) : base(cost)
+        {}
+
     }
 }

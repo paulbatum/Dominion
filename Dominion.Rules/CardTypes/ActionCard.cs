@@ -2,9 +2,15 @@
 {
     public abstract class ActionCard : Card
     {
-        public override bool CanPlay(TurnContext context)
+        protected ActionCard(int cost) : base(cost)
+        {}
+
+        protected internal virtual bool CanPlay(TurnContext context)
         {
             return context.RemainingActions > 0;
         }
+
+        protected internal abstract void Play(TurnContext context);
+
     }
 }

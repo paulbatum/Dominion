@@ -5,7 +5,7 @@ namespace Dominion.Cards.Treasure
 {
     public class Copper : MoneyCard
     {
-        public Copper() : base(1)
+        public Copper() : base(1, 0)
         {}
     }
 }

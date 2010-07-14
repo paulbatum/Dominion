@@ -1,10 +1,26 @@
+using System;
+using System.Collections.Generic;
+
 namespace Dominion.Rules
 {
     public class Player
     {
-        public DrawDeck Deck { get; set; }
-        public DiscardPile Discards { get; set; }
-        public Hand Hand { get; set; }
+        public Player(string name, IEnumerable<Card> startingDeck)
+        {
+            Name = name;
+            Discards = new DiscardPile();
+
+            Deck = new DrawDeck(startingDeck, Discards);
+            Deck.Shuffle();
+
+            Hand = new Hand();
+            Deck.MoveCards(Hand, 5);
+        }
+
+        public string Name { get; private set; }
+        public DrawDeck Deck { get; private set; }
+        public DiscardPile Discards { get; private set; }
+        public Hand Hand { get; private set; }
 
         public TurnContext BeginTurn()
         {            

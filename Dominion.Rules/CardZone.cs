@@ -13,7 +13,7 @@ namespace Dominion.Rules
             _cards = new List<Card>();
         }
 
-        public int CardCount
+        public virtual int CardCount
         {
             get { return this.Cards.Count(); }
         }
