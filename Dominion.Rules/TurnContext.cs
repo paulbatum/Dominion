@@ -10,7 +10,6 @@ namespace Dominion.Rules
         public TurnContext(Player player)
         {
             Player = player;
-            PlayArea = new CardZone();
             MoneyToSpend = 0;
             RemainingActions = 1;
             Buys = 1;
@@ -18,7 +17,6 @@ namespace Dominion.Rules
         }
 
         public Player Player { get; private set; }
-        public CardZone PlayArea { get; private set; }
         public int MoneyToSpend { get; set; }
         public int RemainingActions { get; set; }
         public int Buys { get; set; }
@@ -45,7 +43,7 @@ namespace Dominion.Rules
             RemainingActions--;
             card.Play(this);
 
-            card.MoveTo(PlayArea);
+            card.MoveTo(Player.PlayArea);
         }
 
         public void Buy(Card cardToBuy)
@@ -57,26 +55,29 @@ namespace Dominion.Rules
                 throw new ArgumentException(string.Format("Cannot buy the card '{0}' - no more buys.", cardToBuy));
 
             if (MoneyToSpend < cardToBuy.Cost)
-                throw new ArgumentException(string.Format("Cannot buy the card '{0}', you only have {1} to spend.", cardToBuy, cardToBuy.Cost));
+                throw new ArgumentException(string.Format("Cannot buy the card '{0}', you only have {1} to spend.", cardToBuy, MoneyToSpend));
 
             Buys--;
             MoneyToSpend -= cardToBuy.Cost;
-            RemainingActions = 0;
             
             cardToBuy.MoveTo(this.Player.Discards);
         }
 
         public void EndTurn()
         {
-            PlayArea.MoveAll(Player.Discards);
+            Player.PlayArea.MoveAll(Player.Discards);
             Player.Hand.MoveAll(Player.Discards);
             DrawCards(5);
         }
 
         public void MoveToBuyStep()
         {
+            if(InBuyStep)
+                throw new InvalidOperationException("Cannot enter the buy step - already in buy step.");
+
             InBuyStep = true;
-            MoneyToSpend = MoneyToSpend + this.Player.Hand.OfType<MoneyCard>().Select(x => x.Value).Sum();
+            RemainingActions = 0;
+            MoneyToSpend = MoneyToSpend + this.Player.Hand.OfType<MoneyCard>().Sum(x => x.Value);
         }
     }
 }

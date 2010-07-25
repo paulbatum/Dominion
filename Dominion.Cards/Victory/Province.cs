@@ -5,7 +5,7 @@ namespace Dominion.Cards.Victory
     public class Province : VictoryCard
     {
         public Province()
-            : base(6,8)
+            : base(6, 8)
         {}
     }
 }

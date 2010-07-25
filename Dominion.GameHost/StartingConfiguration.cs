@@ -27,7 +27,7 @@ namespace Dominion.GameHost
             bank.AddCardPile(Gold);
             bank.AddCardPile(Estates);
             bank.AddCardPile(Duchies);
-            bank.AddCardPile(Provinces);
+            bank.AddCardPileWhichEndsTheGameWhenEmpty(Provinces);
             bank.AddCardPile(Curses);
         }
 

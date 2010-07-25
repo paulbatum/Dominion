@@ -43,7 +43,9 @@ namespace Dominion.Rules
             foreach (var player in TurnLoop)
             {
                 if(IsComplete)
+                {
                     yield break;
+                }                    
 
                 ActivePlayer = player;
                 yield return player.BeginTurn();

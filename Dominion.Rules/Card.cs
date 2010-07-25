@@ -28,7 +28,7 @@ namespace Dominion.Rules
 
         public int Cost { get; protected set; }
 
-        public virtual int Score(DrawDeck deck)
+        public virtual int Score(CardZone allCards)
         {
             return 0;
         }

@@ -39,5 +39,6 @@ namespace Dominion.Rules
         {
             numberOfCardsToDraw.Times(() => TopCard.MoveTo(cardZone));
         }
+
     }
 }

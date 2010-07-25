@@ -3,7 +3,7 @@ namespace Dominion.Cards.Victory
 {
     public class Estate : VictoryCard
     {
-        public Estate() : base(2, 2)
+        public Estate() : base(1, 2)
         {}
     }
 }

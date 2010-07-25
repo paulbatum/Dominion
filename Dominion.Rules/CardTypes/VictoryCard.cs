@@ -11,7 +11,7 @@ namespace Dominion.Rules.CardTypes
 
         public int Value { get; protected set; }
 
-        public override int Score(DrawDeck deck)
+        public override int Score(CardZone allCards)
         {
             return Value;
         }

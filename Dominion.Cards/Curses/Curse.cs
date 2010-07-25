@@ -7,7 +7,7 @@ namespace Dominion.Cards.Curses
     {
         public Curse() : base(0) { }
 
-        public override int Score(DrawDeck deck)
+        public override int Score(CardZone allCards)
         {
             return -1;
         }

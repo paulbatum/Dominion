@@ -20,18 +20,20 @@ namespace Dominion
         public GameForm()
         {
             InitializeComponent();
+            StartNewGame();
+        }
 
+        private void StartNewGame()
+        {
             var host = new SolitaireHost();
             _game = host.CreateNewGame("Player");
             _turnEnumerator = _game.GameTurns().GetEnumerator();
-            
+            _turnEnumerator.MoveNext();
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-
-            _turnEnumerator.MoveNext();
             RefreshUI();
         }
 
@@ -41,6 +43,8 @@ namespace Dominion
             UpdateHand(turn);
             UpdateTurnStats(turn);
             UpdateBank(_game.Bank);
+
+            btnBuyStep.Enabled = !turn.InBuyStep;                
         }
 
         private void UpdateBank(CardBank bank)
@@ -53,23 +57,26 @@ namespace Dominion
                 var button = new Button();
                 button.Width = 200;
 
-                button.Enabled = _turnEnumerator.Current.InBuyStep && _turnEnumerator.Current.Buys > 0;
+                button.Enabled = _turnEnumerator.Current.InBuyStep
+                                 && _turnEnumerator.Current.Buys > 0
+                                 && _turnEnumerator.Current.MoneyToSpend >= pile.TopCard.Cost
+                                 && !pile.IsEmpty;
 
                 var currentPile = pile;
 
                 if(pile is UnlimitedSupplyCardPile)
                 {
-                    button.Text = "Buy " + pile.TopCard;
+                    button.Text = string.Format("Buy {0} for {1} ", pile.TopCard, pile.TopCard.Cost);
                     button.Click += (sender, args) => { _turnEnumerator.Current.Buy(currentPile.TopCard); RefreshUI(); };
                 }
                 else if(pile.IsEmpty)
                 {
                     button.Text = string.Format("Sold out");
-
+                    button.Enabled = false;
                 }
                 else
                 {
-                    button.Text = string.Format("Buy {0} ({1} remaining)", pile.TopCard, pile.CardCount);
+                    button.Text = string.Format("Buy {0} for {1} ({2} remaining)", pile.TopCard, pile.TopCard.Cost, pile.CardCount);
                     button.Click += (sender, args) => { _turnEnumerator.Current.Buy(currentPile.TopCard); RefreshUI(); };
                 }
 
@@ -94,7 +101,13 @@ namespace Dominion
         private void btnEndTurn_Click(object sender, EventArgs e)
         {
             _turnEnumerator.Current.EndTurn();
-            _turnEnumerator.MoveNext();
+            if (_turnEnumerator.MoveNext() == false)
+            {
+                var scorer = _game.ActivePlayer.CreateScorer();
+                MessageBox.Show("The game is over. Score: " + scorer.CalculateScore());
+                StartNewGame();
+            }
+
             RefreshUI();
         }
 

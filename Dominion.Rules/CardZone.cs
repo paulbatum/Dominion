@@ -6,11 +6,19 @@ namespace Dominion.Rules
 {
     public class CardZone
     {
+        private Random _random;
         private List<Card> _cards;
 
         public CardZone()
-        {
+        {            
             _cards = new List<Card>();
+
+            unchecked
+            {
+                int seed = this.GetHashCode() * Environment.TickCount;
+                _random = new Random(seed);
+            }
+            
         }
 
         public virtual int CardCount
@@ -39,8 +47,7 @@ namespace Dominion.Rules
 
         protected void RandomizeOrder()
         {
-            Random r = new Random();
-            _cards.Sort((c1, c2) => r.Next());
+            _cards = _cards.OrderBy(_ => _random.NextDouble()).ToList();
         }
 
         protected virtual void AddCard(Card card)
