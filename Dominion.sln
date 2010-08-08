@@ -1,16 +1,16 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Binaries", "Binaries", "{9DD30803-1110-42F3-B375-E67D9D6B8EE4}"
+	ProjectSection(SolutionItems) = preProject
+		Binaries\nunit.framework.dll = Binaries\nunit.framework.dll
+	EndProjectSection
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dominion", "Dominion\Dominion.csproj", "{564069D4-7946-4930-A106-2F3047FE391A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dominion.Cards", "Dominion.Cards\Dominion.Cards.csproj", "{EBFD38DB-CE38-4560-A786-67C5CD55EA9A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dominion.Rules", "Dominion.Rules\Dominion.Rules.csproj", "{0DDDE57C-2EA0-4AD8-8F3F-7994B2439DE1}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Binaries", "Binaries", "{9DD30803-1110-42F3-B375-E67D9D6B8EE4}"
-	ProjectSection(SolutionItems) = preProject
-		Binaries\nunit.framework.dll = Binaries\nunit.framework.dll
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dominion.Tests", "Dominion.Tests\Dominion.Tests.csproj", "{5ED50106-22B0-44B4-92B5-60E8053D8C8E}"
 EndProject
