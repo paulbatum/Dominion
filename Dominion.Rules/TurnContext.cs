@@ -27,16 +27,20 @@ namespace Dominion.Rules
             Player.Deck.MoveCards(Player.Hand, numberOfCardsToDraw);
         }
 
-        public bool CanPlay(ActionCard card)
+        public bool CanPlay(Card card)
         {
-            return card.CanPlay(this);
+            if (InBuyStep)
+                return false;
+
+            var actionCard = card as ActionCard;
+            if (actionCard != null)                
+                return actionCard.CanPlay(this);
+
+            return false;
         }
 
         public void Play(ActionCard card)
         {
-            if(InBuyStep)
-                throw new InvalidOperationException("Cannot play cards once in buy step");
-
             if(!card.CanPlay(this))
                 throw new ArgumentException(string.Format("The card '{0}' cannot be played", card), "card");
 
@@ -46,16 +50,32 @@ namespace Dominion.Rules
             card.MoveTo(Player.PlayArea);
         }
 
-        public void Buy(Card cardToBuy)
+        public bool CanBuy(CardPile pile)
         {
             if (!InBuyStep)
-                throw new InvalidOperationException("Cannot buy cards until you are in buy step");
+                return false;
+                //throw new InvalidOperationException("Cannot buy cards until you are in buy step");
 
-            if(Buys < 1) 
-                throw new ArgumentException(string.Format("Cannot buy the card '{0}' - no more buys.", cardToBuy));
+            if (Buys < 1)
+                return false;
+                //throw new ArgumentException(string.Format("Cannot buy the card '{0}' - no more buys.", cardToBuy));
 
-            if (MoneyToSpend < cardToBuy.Cost)
-                throw new ArgumentException(string.Format("Cannot buy the card '{0}', you only have {1} to spend.", cardToBuy, MoneyToSpend));
+            if (pile.IsEmpty)
+                return false;
+
+            if (MoneyToSpend < pile.TopCard.Cost)
+                return false;
+                //throw new ArgumentException(string.Format("Cannot buy the card '{0}', you only have {1} to spend.", cardToBuy, MoneyToSpend));
+
+            return true;
+        }
+
+        public void Buy(CardPile pile)
+        {
+            if(!CanBuy(pile))
+                throw new InvalidOperationException("Cannot buy card.");
+
+            var cardToBuy = pile.TopCard;
 
             Buys--;
             MoneyToSpend -= cardToBuy.Cost;

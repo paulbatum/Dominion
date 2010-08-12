@@ -67,7 +67,7 @@ namespace Dominion
                 if(pile is UnlimitedSupplyCardPile)
                 {
                     button.Text = string.Format("Buy {0} for {1} ", pile.TopCard, pile.TopCard.Cost);
-                    button.Click += (sender, args) => { _turnEnumerator.Current.Buy(currentPile.TopCard); RefreshUI(); };
+                    button.Click += (sender, args) => { _turnEnumerator.Current.Buy(currentPile); RefreshUI(); };
                 }
                 else if(pile.IsEmpty)
                 {
@@ -77,7 +77,7 @@ namespace Dominion
                 else
                 {
                     button.Text = string.Format("Buy {0} for {1} ({2} remaining)", pile.TopCard, pile.TopCard.Cost, pile.CardCount);
-                    button.Click += (sender, args) => { _turnEnumerator.Current.Buy(currentPile.TopCard); RefreshUI(); };
+                    button.Click += (sender, args) => { _turnEnumerator.Current.Buy(currentPile); RefreshUI(); };
                 }
 
                 container.Controls.Add(button);

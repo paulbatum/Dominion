@@ -48,8 +48,15 @@ namespace Dominion.Rules
 
     public abstract class CardPile : CardZone
     {
+        public Guid Id { get; set; }
         public abstract bool IsEmpty { get; }
         public abstract Card TopCard { get; }
+        public abstract bool IsLimited { get; }
+
+        public CardPile()
+        {
+            Id = Guid.NewGuid();
+        }
     }
 
     public class LimitedSupplyCardPile : CardPile
@@ -62,6 +69,11 @@ namespace Dominion.Rules
         public override Card TopCard
         {
             get { return Cards.First(); }
+        }
+
+        public override bool IsLimited
+        {
+            get { return true; }
         }
     }
 
@@ -90,6 +102,11 @@ namespace Dominion.Rules
         public override Card TopCard
         {
             get { return _cardCreator(); }
+        }
+
+        public override bool IsLimited
+        {
+            get { return false; }
         }
 
         protected override void AddCard(Card card)

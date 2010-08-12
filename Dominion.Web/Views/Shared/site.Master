@@ -5,8 +5,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head runat="server">
     <title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /></title>
+    <link href="../../Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="../../Content/jqueryUI/jquery-ui-1.8.4.custom.css" rel="stylesheet" type="text/css" />
     <script src="../../Scripts/jquery-1.4.1.js" type="text/javascript"></script>
     <script src="../../Scripts/jquery-ui-1.8.4.custom.min.js" type="text/javascript"></script>    
+    <script src="../../Scripts/jquery.tmpl.js" type="text/javascript"></script>
+    <script src="../../Scripts/jquery.form.js" type="text/javascript"></script>
     <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
 </head>
 <body>
