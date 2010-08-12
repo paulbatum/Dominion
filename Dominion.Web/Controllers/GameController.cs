@@ -33,7 +33,7 @@ namespace Dominion.Web.Controllers
         [HttpGet]
         public ActionResult GameData()
         {
-            var model = new GameViewModel(_gameHost);
+            var model = new GameViewModel(_gameHost, this.Url);
             return Json(model, JsonRequestBehavior.AllowGet);            
         }
 
@@ -51,7 +51,7 @@ namespace Dominion.Web.Controllers
                 {
                     _gameHost.CurrentTurn.Play((ActionCard)card);
                     model.Success = true;
-                    model.GameState = new GameViewModel(_gameHost);
+                    model.GameState = new GameViewModel(_gameHost, this.Url);
                 }
                 else
                 {
@@ -80,7 +80,7 @@ namespace Dominion.Web.Controllers
                 {
                     _gameHost.CurrentTurn.Buy(pile);
                     model.Success = true;
-                    model.GameState = new GameViewModel(_gameHost);
+                    model.GameState = new GameViewModel(_gameHost, this.Url);
                 }
                 else
                 {
@@ -104,7 +104,7 @@ namespace Dominion.Web.Controllers
             _gameHost.CurrentTurn.MoveToBuyStep();
 
             model.Success = true;
-            model.GameState = new GameViewModel(_gameHost);
+            model.GameState = new GameViewModel(_gameHost, this.Url);
 
             return Json(model);
         }
@@ -118,7 +118,7 @@ namespace Dominion.Web.Controllers
             {
 
                 model.Success = true;
-                model.GameState = new GameViewModel(_gameHost);
+                model.GameState = new GameViewModel(_gameHost, this.Url);
             }
             else
             {

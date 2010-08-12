@@ -10,3 +10,4 @@ _ReSharper.*
 *~
 *.swp
 Dominion.Web/Content/Images/Cards
+*.Publish.xml

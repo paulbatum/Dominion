@@ -2,6 +2,7 @@
 <asp:Content runat="server" ID="Content" ContentPlaceHolderID="TitleContent"></asp:Content>
 <asp:Content runat="server" ID="Content1" ContentPlaceHolderID="HeadContent">
     <script type="text/javascript">
+
         $(document).ready(function () {
             loadGame();
             bindHand();
@@ -78,16 +79,14 @@
                 .buttonset();
         }
 
+        
+
     </script>
     <script id="cardpileTemplate" type="text/html">
         <div class="cardpile">            
             <img src="${ImageUrl}" />   
             <div>
-                {{if (IsLimited)}}
-                    (${Count} Remaining)
-                {{else}}
-                    (Unlimited)
-                {{/if}}                     
+                (${CountDescription})                        
             </div>
         </div>
     </script>

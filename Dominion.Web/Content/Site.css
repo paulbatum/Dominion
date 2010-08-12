@@ -1,6 +1,6 @@
 body
 {
-    font-family:Cambria, Calibri, Verdana;
+    font-family:Cambria, Calibri, Optima, Verdana;
 }
 
 .cardpile, .card
@@ -11,7 +11,7 @@ body
 
 .cardpile img
 {
-    height: 200px;   
+    height: 160px;   
 }
 
 .card img

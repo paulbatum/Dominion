@@ -45,11 +45,16 @@
     <Reference Include="Autofac.Integration.Web.Mvc">
       <HintPath>..\Binaries\Autofac\Autofac.Integration.Web.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Web.Mvc">
+      <HintPath>..\Binaries\Microsoft.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
@@ -65,7 +70,6 @@
     <Compile Include="ViewModels\PlayerActionResultViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\HTMLPage1.htm" />
     <Content Include="Content\jqueryUI\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\jqueryUI\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\jqueryUI\images\ui-bg_glass_55_fbf9ee_1x400.png" />
