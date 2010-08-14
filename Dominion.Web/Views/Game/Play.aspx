@@ -18,6 +18,14 @@
             updateBank(data.Bank);
             updateHand(data.Hand);
             updateStatus(data.Status);
+            updateInPlay(data.InPlay);
+            updateDeck(data.Deck);
+            updateSection('#discards', data.Discards, '#discardpileTemplate');
+        }
+
+        function updateSection(sectionSelector, data, templateSelector) {
+            $(sectionSelector)
+                .html($(templateSelector).tmpl(data));
         }
 
         function updateBank(data) {
@@ -41,15 +49,26 @@
                 );
         }
 
+        function updateInPlay(data) {
+            $('#playArea')
+                .html(
+                    $('#cardTemplate').tmpl(data)
+                );
+        }
+
+        function updateDeck(data) {            
+            $('#deck')
+                .html(
+                    $('#deckTemplate').tmpl(data)
+                );
+        }
+
         function bindHand() {
             $('#hand .card')
                 .live('click', function (e) {
                     var data = $.tmplItem(e.target).data;
                     $.post('PlayCard', { id: data.Id }, function (response) {
-                        if (response.Success)
-                            updateGameState(response.GameState);
-                        else
-                            alert(response.ErrorMessage);
+                        updateGameState(response.GameState);                        
                     });
                 });
         }
@@ -59,20 +78,14 @@
                 .live('click', function (e) {
                     var data = $.tmplItem(e.target).data;
                     $.post('BuyCard', { id: data.Id }, function (response) {
-                        if (response.Success)
-                            updateGameState(response.GameState);
-                        else
-                            alert(response.ErrorMessage);
+                        updateGameState(response.GameState);                        
                     });
                 });
         }
 
         function bindCommands() {
             $('form').ajaxForm(function (response) {
-                if (response.Success)
-                    updateGameState(response.GameState);
-                else
-                    alert(response.ErrorMessage);
+                updateGameState(response.GameState);                
             });
 
             $('#commands')
@@ -81,6 +94,22 @@
 
         
 
+    </script>
+    <script id="discardpileTemplate" type="text/html">
+        <div class="card">            
+            <img src="${ImageUrl}" />   
+            <div>
+                (${CountDescription})                        
+            </div>
+        </div>
+    </script>
+    <script id="deckTemplate" type="text/html">
+        <div class="card">            
+            <img src="${ImageUrl}" />   
+            <div>
+                (${CountDescription})                        
+            </div>
+        </div>
     </script>
     <script id="cardpileTemplate" type="text/html">
         <div class="cardpile">            
@@ -119,14 +148,18 @@
             <div id="status" class="container"></div>
             <div id="commands" class="container">
                 <form id="buyForm" action="DoBuys" method="post">
-                    <input type="submit" value="Move to buy step" />
+                    <input type="submit" value="Do Buys" />
                 </form>
                 <form id="endTurnForm" action="EndTurn" method="post">
-                    <input type="submit" value="End turn"/>
+                    <input type="submit" value="End Turn"/>
                 </form>
             </div>
         </div>        
         <div id="playArea"></div>
     </div>        
-    <div id="hand"></div>
+    <div id="bottom">
+        <div id="deck"></div>
+        <div id="hand"></div>
+        <div id="discards"></div>
+    </div>    
 </asp:Content>

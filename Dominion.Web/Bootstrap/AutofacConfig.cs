@@ -11,18 +11,26 @@ namespace Dominion.Web.Bootstrap
 {
     public class AutofacConfig
     {
+        private static IContainer _container;
+
+
+        public static IContainer Container
+        {
+            get { return _container; }
+        }
+
         public static void Initialize()
         {
             var builder = new ContainerBuilder();
-            builder.RegisterControllers(Assembly.GetExecutingAssembly());
+            builder.RegisterControllers(Assembly.GetExecutingAssembly());            
 
-            var host = new SolitaireHost();
-            host.CreateNewGame("Paul");
+            var host = new MultiGameHost();            
             builder.RegisterInstance(host)
-                .As<IGameHost>();                
+                .As<MultiGameHost>();
 
-            var provider = new ContainerProvider(builder.Build());
-            ControllerBuilder.Current.SetControllerFactory(new AutofacControllerFactory(provider));
+            _container = builder.Build();
+            
+            ControllerBuilder.Current.SetControllerFactory(new AutofacControllerFactory(new ContainerProvider(_container)));
         }
-    }
+    }    
 }

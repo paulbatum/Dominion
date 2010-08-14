@@ -33,7 +33,7 @@ namespace Dominion.Tests
             var firstTurn = _game.GameTurns().First();
             var firstPlayer = _players.First();
 
-            firstTurn.Player.ShouldEqual(firstPlayer);
+            firstTurn.ActivePlayer.ShouldEqual(firstPlayer);
             _game.ActivePlayer.ShouldEqual(firstPlayer);
         }
 
@@ -43,7 +43,7 @@ namespace Dominion.Tests
             var secondTurn = _game.GameTurns().Skip(1).First();
             var secondPlayer = _players.Skip(1).First();
 
-            secondTurn.Player.ShouldEqual(secondPlayer);
+            secondTurn.ActivePlayer.ShouldEqual(secondPlayer);
             _game.ActivePlayer.ShouldEqual(secondPlayer);
         }
 
@@ -53,7 +53,7 @@ namespace Dominion.Tests
             var thirdTurn = _game.GameTurns().Skip(2).First();
             var thirdPlayer = _players.Skip(2).First();
 
-            thirdTurn.Player.ShouldEqual(thirdPlayer);
+            thirdTurn.ActivePlayer.ShouldEqual(thirdPlayer);
             _game.ActivePlayer.ShouldEqual(thirdPlayer);
         }
 
@@ -63,7 +63,7 @@ namespace Dominion.Tests
             var turn = _game.GameTurns().Skip(_players.Count).First();
             var firstPlayer = _players.First();
 
-            turn.Player.ShouldEqual(firstPlayer);
+            turn.ActivePlayer.ShouldEqual(firstPlayer);
             _game.ActivePlayer.ShouldEqual(firstPlayer);
         }
 

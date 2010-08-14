@@ -9,22 +9,26 @@ namespace Dominion.Rules
     {
         public TurnContext(Player player)
         {
-            Player = player;
+            ActivePlayer = player;
             MoneyToSpend = 0;
             RemainingActions = 1;
             Buys = 1;
-            InBuyStep = false;
+
+            MoveToBuyStepIfNoMorePlays();            
         }
 
-        public Player Player { get; private set; }
+        public Player ActivePlayer { get; private set; }
         public int MoneyToSpend { get; set; }
         public int RemainingActions { get; set; }
         public int Buys { get; set; }
-        public bool InBuyStep { get; set; }
+        public bool InBuyStep { get; private set; }
+        public bool HasEnded { get; private set; }
         
         public void DrawCards(int numberOfCardsToDraw)
         {
-            Player.Deck.MoveCards(Player.Hand, numberOfCardsToDraw);
+            var actualDrawCount = Math.Min(ActivePlayer.Deck.CardCount + ActivePlayer.Discards.CardCount,
+                                           numberOfCardsToDraw);
+            ActivePlayer.Deck.MoveCards(ActivePlayer.Hand, actualDrawCount);
         }
 
         public bool CanPlay(Card card)
@@ -47,7 +51,8 @@ namespace Dominion.Rules
             RemainingActions--;
             card.Play(this);
 
-            card.MoveTo(Player.PlayArea);
+            card.MoveTo(ActivePlayer.PlayArea);
+            MoveToBuyStepIfNoMorePlays();
         }
 
         public bool CanBuy(CardPile pile)
@@ -80,14 +85,16 @@ namespace Dominion.Rules
             Buys--;
             MoneyToSpend -= cardToBuy.Cost;
             
-            cardToBuy.MoveTo(this.Player.Discards);
+            cardToBuy.MoveTo(this.ActivePlayer.Discards);
+            EndTurnIfNoMoreBuys();
         }
 
         public void EndTurn()
         {
-            Player.PlayArea.MoveAll(Player.Discards);
-            Player.Hand.MoveAll(Player.Discards);
+            ActivePlayer.PlayArea.MoveAll(ActivePlayer.Discards);
+            ActivePlayer.Hand.MoveAll(ActivePlayer.Discards);
             DrawCards(5);
+            HasEnded = true;
         }
 
         public void MoveToBuyStep()
@@ -97,7 +104,19 @@ namespace Dominion.Rules
 
             InBuyStep = true;
             RemainingActions = 0;
-            MoneyToSpend = MoneyToSpend + this.Player.Hand.OfType<MoneyCard>().Sum(x => x.Value);
+            MoneyToSpend = MoneyToSpend + this.ActivePlayer.Hand.OfType<MoneyCard>().Sum(x => x.Value);
+        }
+
+        private void MoveToBuyStepIfNoMorePlays()
+        {
+            if(ActivePlayer.Hand.OfType<ActionCard>().Any() == false || RemainingActions == 0)
+                MoveToBuyStep();
+        }
+
+        private void EndTurnIfNoMoreBuys()
+        {
+            if(InBuyStep && Buys == 0)
+                EndTurn();
         }
     }
 }

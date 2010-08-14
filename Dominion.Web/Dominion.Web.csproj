@@ -60,8 +60,10 @@
     <Reference Include="System.Web.Routing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionFilters\InjectGameAttribute.cs" />
     <Compile Include="Bootstrap\AutofacConfig.cs" />
     <Compile Include="Controllers\GameController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -70,6 +72,7 @@
     <Compile Include="ViewModels\PlayerActionResultViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\Cards\empty.jpg" />
     <Content Include="Content\jqueryUI\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\jqueryUI\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\jqueryUI\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -90,6 +93,7 @@
     <Content Include="Scripts\jquery.form.js" />
     <Content Include="Scripts\jquery.tmpl.js" />
     <Content Include="Views\Game\Play.aspx" />
+    <Content Include="Views\Home\Index.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -102,9 +106,7 @@
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
     <Content Include="Views\Web.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Content\Images\Cards\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Views\Shared\site.Master" />
   </ItemGroup>
@@ -135,17 +137,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>2620</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
-          <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
-          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>

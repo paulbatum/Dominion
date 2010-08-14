@@ -13,11 +13,23 @@ namespace Dominion.Web
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            
+            routes.MapRoute(
+                "PlayGame",
+                "game/{id}/{action}",
+                new {action = "Index", controller = "Game"}
+                );
 
             routes.MapRoute(
-                "Default", // Route name
-                "{controller}/{action}/{id}", // URL with parameters
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
+                "Root", 
+                "", 
+                new { controller = "Home", action = "Index" }
+            );
+
+            routes.MapRoute(
+                "NewGame",
+                "home/newgame",
+                new { controller = "Home", action = "NewGame" }
             );
 
         }

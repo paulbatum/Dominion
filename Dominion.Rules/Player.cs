@@ -16,14 +16,14 @@ namespace Dominion.Rules
             Hand = new Hand();
             Deck.MoveCards(Hand, 5);
 
-            PlayArea = new CardZone();
+            PlayArea = new PlayArea();
         }
 
         public string Name { get; private set; }
         public DrawDeck Deck { get; private set; }
         public DiscardPile Discards { get; private set; }
         public Hand Hand { get; private set; }
-        public CardZone PlayArea { get; private set; }
+        public PlayArea PlayArea { get; private set; }
 
         public TurnContext BeginTurn()
         {            

@@ -7,16 +7,20 @@ namespace Dominion.Rules
     public class Game
     {
         private IList<Player> _players;
+        private IEnumerator<TurnContext> _gameTurns;
         public Player ActivePlayer { get; private set; }
-        public CardBank Bank { get; private set; }        
+        public CardBank Bank { get; private set; }
 
         public Game(IEnumerable<Player> players, CardBank bank)
         {
             if(!players.Any())
                 throw new ArgumentException("There must be at least one player");
 
-            _players = new List<Player>(players);
+            _players = new List<Player>(players);            
             Bank = bank;
+
+            _gameTurns = GameTurns().GetEnumerator();
+            _gameTurns.MoveNext();
         }
 
         public IEnumerable<Player> Players
@@ -49,9 +53,20 @@ namespace Dominion.Rules
 
                 ActivePlayer = player;
                 yield return player.BeginTurn();
-            }
-                
+            }                
         }
+
+        public TurnContext CurrentTurn
+        {
+            get
+            {
+                if(_gameTurns.Current.HasEnded)
+                    _gameTurns.MoveNext();
+
+                return _gameTurns.Current;
+            }
+        }
+        
 
         public bool IsComplete
         {

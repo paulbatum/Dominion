@@ -16,4 +16,17 @@ namespace Dominion.Rules
             return GetEnumerator();
         }
     }
+
+    public class PlayArea : CardZone, IEnumerable<Card>
+    {
+        public IEnumerator<Card> GetEnumerator()
+        {
+            return this.Cards.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+    }
 }

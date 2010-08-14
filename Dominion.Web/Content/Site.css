@@ -11,7 +11,7 @@ body
 
 .cardpile img
 {
-    height: 160px;   
+    height: 150px;   
 }
 
 .card img
@@ -24,7 +24,7 @@ body
     padding:10px;
 }
 
-#bank, #main, #hand
+#bank, #main, #bottom
 {
     overflow:visible;
     display:inline-block;
@@ -63,10 +63,11 @@ body
     height: 100%;
     width: 85%;
     float:right;
-    background-color:Green;       
+    background-color:Green;                 
 }
 
-#hand
+#deck, #hand, #discards
 {
-    padding:10px;    
+    float:left;
+    padding:10px;        
 }

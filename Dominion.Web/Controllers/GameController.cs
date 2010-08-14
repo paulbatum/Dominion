@@ -6,17 +6,19 @@ using System.Web.Mvc;
 using Dominion.GameHost;
 using Dominion.Rules;
 using Dominion.Rules.CardTypes;
+using Dominion.Web.ActionFilters;
 using Dominion.Web.ViewModels;
 
 namespace Dominion.Web.Controllers
 {
+    [InjectGame]
     public class GameController : Controller
     {
-        private readonly IGameHost _gameHost;
+        public Game CurrentGame { get; set; }
 
-        public GameController(IGameHost gameHost)
+        private TurnContext CurrentTurn
         {
-            _gameHost = gameHost;
+            get { return CurrentGame.CurrentTurn; }
         }
 
         public ActionResult Index()
@@ -33,67 +35,32 @@ namespace Dominion.Web.Controllers
         [HttpGet]
         public ActionResult GameData()
         {
-            var model = new GameViewModel(_gameHost, this.Url);
-            return Json(model, JsonRequestBehavior.AllowGet);            
+            var model = new GameViewModel(CurrentGame, this.Url);
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public ActionResult PlayCard(Guid id)
-        {            
+        {
             var model = new PlayerActionResultViewModel();
+            
+            var card = CurrentGame.ActivePlayer.Hand
+                .Single(c => c.Id == id);
 
-            try
-            {
-                var card = _gameHost.CurrentGame.ActivePlayer.Hand                    
-                    .Single(c => c.Id == id);
+            CurrentTurn.Play((ActionCard)card);
 
-                if(_gameHost.CurrentTurn.CanPlay(card))
-                {
-                    _gameHost.CurrentTurn.Play((ActionCard)card);
-                    model.Success = true;
-                    model.GameState = new GameViewModel(_gameHost, this.Url);
-                }
-                else
-                {
-                    model.Success = false;
-                    model.ErrorMessage = "Not an action card";
-                }
-            }
-            catch (Exception e)
-            {
-                model.Success = false;
-                model.ErrorMessage = e.ToString();
-            }
-
+            model.GameState = new GameViewModel(CurrentGame, this.Url);
             return Json(model);
         }
 
         public ActionResult BuyCard(Guid id)
         {
             var model = new PlayerActionResultViewModel();
+            var pile = CurrentGame.Bank.Piles.Single(p => p.Id == id);
 
-            try
-            {
-                var pile = _gameHost.CurrentGame.Bank.Piles.Single(p => p.Id == id);
+            CurrentTurn.Buy(pile);
 
-                if (_gameHost.CurrentTurn.CanBuy(pile))
-                {
-                    _gameHost.CurrentTurn.Buy(pile);
-                    model.Success = true;
-                    model.GameState = new GameViewModel(_gameHost, this.Url);
-                }
-                else
-                {
-                    model.Success = false;
-                    model.ErrorMessage = "Cannot buy .";
-                }
-            }
-            catch (Exception e)
-            {
-                model.Success = false;
-                model.ErrorMessage = e.ToString();
-            }
-
+            model.GameState = new GameViewModel(CurrentGame, this.Url);
             return Json(model);
         }
 
@@ -101,11 +68,10 @@ namespace Dominion.Web.Controllers
         public ActionResult DoBuys()
         {
             var model = new PlayerActionResultViewModel();
-            _gameHost.CurrentTurn.MoveToBuyStep();
 
-            model.Success = true;
-            model.GameState = new GameViewModel(_gameHost, this.Url);
+            CurrentTurn.MoveToBuyStep();
 
+            model.GameState = new GameViewModel(CurrentGame, this.Url);
             return Json(model);
         }
 
@@ -114,20 +80,9 @@ namespace Dominion.Web.Controllers
         {
             var model = new PlayerActionResultViewModel();
 
-            if (_gameHost.NextTurn())
-            {
+            CurrentTurn.EndTurn();
 
-                model.Success = true;
-                model.GameState = new GameViewModel(_gameHost, this.Url);
-            }
-            else
-            {
-
-                model.Success = false;
-                model.ErrorMessage = "Game has ended. Refresh the page to start a new game.";
-                _gameHost.BeginNewGame();
-            }
-
+            model.GameState = new GameViewModel(CurrentGame, this.Url);
             return Json(model);
         }
     }

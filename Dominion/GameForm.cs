@@ -87,7 +87,7 @@ namespace Dominion
         private void UpdateHand(TurnContext turn)
         {
             lbHand.Items.Clear();
-            foreach (var card in turn.Player.Hand)
+            foreach (var card in turn.ActivePlayer.Hand)
                 lbHand.Items.Add(card);
         }
 
