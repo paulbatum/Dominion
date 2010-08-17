@@ -4,11 +4,46 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
+            createLayout();
+
+
             loadGame();
             bindHand();
             bindBank();
             bindCommands();
         });
+
+        function createLayout() {
+            var defaults = {
+                resizable: false,
+                spacing_open: 0
+            };
+
+            $('body').layout({
+                defaults: defaults,
+                north: {
+                    minSize: 200
+                },
+                south: {
+                    minSize: 250
+                },
+                center: {
+                    minHeight: 200
+                }
+            });
+
+            $('#main').layout({
+                defaults: defaults,
+                east: {
+                    minSize: 100
+                }
+            });
+
+            $('#bottom').layout({
+                defaults: defaults,
+
+            });
+        }
 
         function loadGame() {
             $.getJSON('GameData', {}, updateGameState);
@@ -142,9 +177,9 @@
     </script>
 </asp:Content>
 <asp:Content runat="server" ID="Content2" ContentPlaceHolderID="MainContent">
-    <div id="bank"></div>
-    <div id="main">        
-        <div id="display">
+    <div id="bank" class="ui-layout-north container"></div>
+    <div id="main" class="ui-layout-center">        
+        <div id="display" class="ui-layout-west">
             <div id="status" class="container"></div>
             <div id="commands" class="container">
                 <form id="buyForm" action="DoBuys" method="post">
@@ -155,11 +190,11 @@
                 </form>
             </div>
         </div>        
-        <div id="playArea"></div>
+        <div id="playArea" class="ui-layout-center container"></div>
     </div>        
-    <div id="bottom">
-        <div id="deck"></div>
-        <div id="hand"></div>
-        <div id="discards"></div>
+    <div id="bottom" class="ui-layout-south">        
+        <div id="deck" class="ui-layout-west container"></div>
+        <div id="hand" class="ui-layout-center container "></div>
+        <div id="discards" class="ui-layout-east container"></div>
     </div>    
 </asp:Content>

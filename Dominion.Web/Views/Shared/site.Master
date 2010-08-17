@@ -11,11 +11,10 @@
     <%= Html.Script("jquery-ui-1.8.4.custom.min.js")%>
     <%= Html.Script("jquery.tmpl.js")%>
     <%= Html.Script("jquery.form.js")%>    
+    <%= Html.Script("jquery.layout-1.2.0.js")%>  
     <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
 </head>
 <body>
-    <div>
-        <asp:ContentPlaceHolder ID="MainContent" runat="server" />
-    </div>
+    <asp:ContentPlaceHolder ID="MainContent" runat="server" />    
 </body>
 </html>

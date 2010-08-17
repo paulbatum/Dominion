@@ -16,58 +16,28 @@ body
 
 .card img
 {
-    height: 200px;       
+    height: 200px;           
 }
 
 .container
 {
-    padding:10px;
-}
-
-#bank, #main, #bottom
-{
-    overflow:visible;
-    display:inline-block;
-    clear:both;    
-    width:100%;
+    padding:10px;   
+    overflow-y:auto; 
 }
 
 #bank
-{    
-    padding:10px;
+{        
     background-color:Black;        
-    color:White;    
-}
-
-#main
-{
-    height:220px;      
+    color:White;        
 }
 
 #display
 {          
     font-weight:bold;
-    height: 100%;
-    width: 15%;
-    float:left;   
     background-color:Gray;
 }
 
-#status table
-{
-    width:100%;   
-}
-
 #playArea
-{            
-    height: 100%;
-    width: 85%;
-    float:right;
+{                    
     background-color:Green;                 
-}
-
-#deck, #hand, #discards
-{
-    float:left;
-    padding:10px;        
 }
