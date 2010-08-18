@@ -91,7 +91,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\jquery-ui-1.8.4.custom.min.js" />
     <Content Include="Scripts\jquery.form.js" />
-    <Content Include="Scripts\jquery.layout-1.2.0.js" />
+    <Content Include="Scripts\jquery.layout-1.3.0.rc29.4.js" />
     <Content Include="Scripts\jquery.tmpl.js" />
     <Content Include="Views\Game\Play.aspx" />
     <Content Include="Views\Home\Index.aspx" />

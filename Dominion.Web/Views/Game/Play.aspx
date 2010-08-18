@@ -16,19 +16,20 @@
         function createLayout() {
             var defaults = {
                 resizable: false,
-                spacing_open: 0
+                spacing_open: 0,
+                autoResize: true
             };
 
             $('body').layout({
                 defaults: defaults,
-                north: {
-                    minSize: 200
+                north: {                    
+                    size: '33%'
                 },
-                south: {
-                    minSize: 250
+                south: {                    
+                    size: '33%'
                 },
-                center: {
-                    minHeight: 200
+                center: {                    
+                    size: '33%'
                 }
             });
 
@@ -131,19 +132,19 @@
 
     </script>
     <script id="discardpileTemplate" type="text/html">
-        <div class="card">            
+        <div class="card">                   
             <img src="${ImageUrl}" />   
             <div>
-                (${CountDescription})                        
+                Discards (${CountDescription})                        
             </div>
         </div>
     </script>
     <script id="deckTemplate" type="text/html">
-        <div class="card">            
+        <div class="card">                
             <img src="${ImageUrl}" />   
             <div>
-                (${CountDescription})                        
-            </div>
+                Deck (${CountDescription})                        
+            </div>            
         </div>
     </script>
     <script id="cardpileTemplate" type="text/html">
@@ -193,8 +194,8 @@
         <div id="playArea" class="ui-layout-center container"></div>
     </div>        
     <div id="bottom" class="ui-layout-south">        
-        <div id="deck" class="ui-layout-west container"></div>
+        <div id="deck" class="ui-layout-west"></div>
         <div id="hand" class="ui-layout-center container "></div>
-        <div id="discards" class="ui-layout-east container"></div>
+        <div id="discards" class="ui-layout-east"></div>
     </div>    
 </asp:Content>

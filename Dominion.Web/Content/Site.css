@@ -25,9 +25,15 @@ body
     overflow-y:auto; 
 }
 
+#deck, #discards
+{
+    padding:10px; 
+          
+}
+
 #bank
 {        
-    background-color:Black;        
+    background-color:DarkSlateGray;        
     color:White;        
 }
 
@@ -40,4 +46,11 @@ body
 #playArea
 {                    
     background-color:Green;                 
+}
+
+#display, #playArea, #bank, #bottom
+{
+    border-style:double;
+    border-width:3px;
+    border-color:Black;
 }
