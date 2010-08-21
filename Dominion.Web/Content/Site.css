@@ -16,7 +16,7 @@ body
 
 .card img
 {
-    height: 200px;           
+    height: 150px;   
 }
 
 .container
@@ -53,4 +53,10 @@ body
     border-style:double;
     border-width:3px;
     border-color:Black;
+}
+
+#doBuys, #endTurn
+{
+    font-size:smaller;
+    width:100px;    
 }

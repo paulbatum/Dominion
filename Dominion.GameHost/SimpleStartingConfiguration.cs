@@ -9,18 +9,18 @@ namespace Dominion.GameHost
         {}
 
         public override void InitializeBank(Dominion.Rules.CardBank bank)
-        {
+        {            
+            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Smithy>(10));
+            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Village>(10));
+            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Woodcutter>(10));
+            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Smithy>(10));
+            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Village>(10));
+            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Woodcutter>(10));
+            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Smithy>(10));
+            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Village>(10));
+            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Woodcutter>(10));
+            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Smithy>(10));
             base.InitializeBank(bank);
-            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Smithy>(10));
-            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Village>(10));
-            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Woodcutter>(10));
-            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Smithy>(10));
-            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Village>(10));
-            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Woodcutter>(10));
-            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Smithy>(10));
-            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Village>(10));
-            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Woodcutter>(10));
-            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Smithy>(10));
         }
 
     }

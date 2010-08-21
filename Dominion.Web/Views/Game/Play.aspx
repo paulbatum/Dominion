@@ -23,13 +23,13 @@
             $('body').layout({
                 defaults: defaults,
                 north: {                    
-                    size: '33%'
-                },
-                south: {                    
-                    size: '33%'
+                    size: '50%'
                 },
                 center: {                    
-                    size: '33%'
+                    size: '25%'
+                },
+                south: {                    
+                    size: '25%'
                 }
             });
 
@@ -51,52 +51,17 @@
         }
 
         function updateGameState(data) {
-            updateBank(data.Bank);
-            updateHand(data.Hand);
-            updateStatus(data.Status);
-            updateInPlay(data.InPlay);
-            updateDeck(data.Deck);
+            updateSection('#bank', data.Bank, '#cardpileTemplate');
+            updateSection('#hand', data.Hand, '#cardTemplate');
+            updateSection('#status', data.Status, '#statusTemplate');
+            updateSection('#playArea', data.InPlay, '#cardTemplate');            
+            updateSection('#deck', data.Deck, '#deckTemplate');                        
             updateSection('#discards', data.Discards, '#discardpileTemplate');
         }
 
         function updateSection(sectionSelector, data, templateSelector) {
             $(sectionSelector)
                 .html($(templateSelector).tmpl(data));
-        }
-
-        function updateBank(data) {
-            $('#bank')
-                .html(
-                    $('#cardpileTemplate').tmpl(data)
-                );
-        }
-
-        function updateHand(data) {
-            $('#hand')
-                .html(
-                    $('#cardTemplate').tmpl(data)
-                );
-        }
-
-        function updateStatus(data) {
-            $('#status')
-                .html(
-                    $('#statusTemplate').tmpl(data)
-                );
-        }
-
-        function updateInPlay(data) {
-            $('#playArea')
-                .html(
-                    $('#cardTemplate').tmpl(data)
-                );
-        }
-
-        function updateDeck(data) {            
-            $('#deck')
-                .html(
-                    $('#deckTemplate').tmpl(data)
-                );
         }
 
         function bindHand() {
@@ -124,8 +89,8 @@
                 updateGameState(response.GameState);                
             });
 
-            $('#commands')
-                .buttonset();
+            $('#doBuys').button();
+            $('#endTurn').button();
         }
 
         
@@ -184,10 +149,10 @@
             <div id="status" class="container"></div>
             <div id="commands" class="container">
                 <form id="buyForm" action="DoBuys" method="post">
-                    <input type="submit" value="Do Buys" />
+                    <input id="doBuys" type="submit" class="small-button" value="Do Buys" />
                 </form>
                 <form id="endTurnForm" action="EndTurn" method="post">
-                    <input type="submit" value="End Turn"/>
+                    <input id="endTurn" type="submit" class="small-button" value="End Turn"/>
                 </form>
             </div>
         </div>        
