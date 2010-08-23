@@ -32,5 +32,20 @@ namespace Dominion.GameHost
         {
             return _games.ContainsKey(key);
         }
+
+        public event Action<string> GameStateUpdated;
+
+        private readonly object _gameStateLock = new object();
+        
+        public void RaiseGameStateUpdated(string key)
+        {
+            lock (_gameStateLock)
+            {
+                if (GameStateUpdated != null)
+                    GameStateUpdated(key);
+
+                GameStateUpdated = null;
+            }
+        }
     }
 }

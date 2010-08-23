@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="ActionFilters\InjectGameAttribute.cs" />
     <Compile Include="Bootstrap\AutofacConfig.cs" />
+    <Compile Include="Controllers\CometController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">

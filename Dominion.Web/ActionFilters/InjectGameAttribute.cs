@@ -17,7 +17,8 @@ namespace Dominion.Web.ActionFilters
             var gameKey = filterContext.RouteData.Values["id"].ToString();
 
             var multiHost = AutofacConfig.Container.Resolve<MultiGameHost>();
-            
+
+            gameController.Key = gameKey;
             gameController.CurrentGame = multiHost.FindGame(gameKey).CurrentGame;
         }
     }

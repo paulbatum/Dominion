@@ -1,4 +1,5 @@
 <%@ Page Title="" Language="C#" Inherits="System.Web.Mvc.ViewPage<Dominion.Web.ViewModels.GameViewModel>" MasterPageFile="~/Views/Shared/site.Master" %>
+<%@ Import Namespace="Dominion.Web.Controllers" %>
 <asp:Content runat="server" ID="Content" ContentPlaceHolderID="TitleContent"></asp:Content>
 <asp:Content runat="server" ID="Content1" ContentPlaceHolderID="HeadContent">
     <script type="text/javascript">
@@ -6,12 +7,20 @@
         $(document).ready(function () {
             createLayout();
 
+            doComet();
 
             loadGame();
             bindHand();
             bindBank();
             bindCommands();
         });
+
+        function doComet() {
+            $.get('gamestateloop', {}, function(response) {
+                updateGameState(response);  
+                doComet();   
+            });
+        }
 
         function createLayout() {
             var defaults = {
@@ -23,13 +32,13 @@
             $('body').layout({
                 defaults: defaults,
                 north: {                    
-                    size: '50%'
+                    size: '40%'
                 },
                 center: {                    
-                    size: '25%'
+                    size: '30%'
                 },
                 south: {                    
-                    size: '25%'
+                    size: '30%'
                 }
             });
 
@@ -69,7 +78,7 @@
                 .live('click', function (e) {
                     var data = $.tmplItem(e.target).data;
                     $.post('PlayCard', { id: data.Id }, function (response) {
-                        updateGameState(response.GameState);                        
+                        //updateGameState(response.GameState);                        
                     });
                 });
         }
@@ -79,14 +88,14 @@
                 .live('click', function (e) {
                     var data = $.tmplItem(e.target).data;
                     $.post('BuyCard', { id: data.Id }, function (response) {
-                        updateGameState(response.GameState);                        
+                        //updateGameState(response.GameState);                        
                     });
                 });
         }
 
         function bindCommands() {
             $('form').ajaxForm(function (response) {
-                updateGameState(response.GameState);                
+                //updateGameState(response.GameState);                
             });
 
             $('#doBuys').button();

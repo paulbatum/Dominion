@@ -14,7 +14,14 @@ namespace Dominion.Web.Controllers
     [InjectGame]
     public class GameController : Controller
     {
+        public GameController(MultiGameHost host)
+        {
+            _host = host;
+        }
+
+        private readonly MultiGameHost _host;
         public Game CurrentGame { get; set; }
+        public string Key { get; set; }
 
         private TurnContext CurrentTurn
         {
@@ -49,7 +56,8 @@ namespace Dominion.Web.Controllers
 
             CurrentTurn.Play((ActionCard)card);
 
-            model.GameState = new GameViewModel(CurrentGame, this.Url);
+            //model.GameState = new GameViewModel(CurrentGame, this.Url);
+            _host.RaiseGameStateUpdated(Key);
             return Json(model);
         }
 
@@ -60,7 +68,8 @@ namespace Dominion.Web.Controllers
 
             CurrentTurn.Buy(pile);
 
-            model.GameState = new GameViewModel(CurrentGame, this.Url);
+            //model.GameState = new GameViewModel(CurrentGame, this.Url);
+            _host.RaiseGameStateUpdated(Key);
             return Json(model);
         }
 
@@ -71,7 +80,8 @@ namespace Dominion.Web.Controllers
 
             CurrentTurn.MoveToBuyStep();
 
-            model.GameState = new GameViewModel(CurrentGame, this.Url);
+            //model.GameState = new GameViewModel(CurrentGame, this.Url);
+            _host.RaiseGameStateUpdated(Key);
             return Json(model);
         }
 
@@ -82,7 +92,8 @@ namespace Dominion.Web.Controllers
 
             CurrentTurn.EndTurn();
 
-            model.GameState = new GameViewModel(CurrentGame, this.Url);
+            //model.GameState = new GameViewModel(CurrentGame, this.Url);
+            _host.RaiseGameStateUpdated(Key);
             return Json(model);
         }
     }

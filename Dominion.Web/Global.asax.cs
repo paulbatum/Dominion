@@ -13,7 +13,13 @@ namespace Dominion.Web
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            
+
+            routes.MapRoute(
+                "Comet",
+                "game/{id}/gamestateloop",
+                new { action = "GameState", controller = "Comet" }
+                );
+
             routes.MapRoute(
                 "PlayGame",
                 "game/{id}/{action}",
