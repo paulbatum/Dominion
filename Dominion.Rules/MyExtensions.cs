@@ -23,5 +23,14 @@ namespace Dominion.Rules
                 yield return builder();
         }
 
+        public static IEnumerable<T> Items<T>(this int count, Func<int, T> builder)
+        {
+            if (builder == null)
+                yield break;
+
+            for (int i = 1; i <= count; i++)
+                yield return builder(i);
+        }
+
     }
 }

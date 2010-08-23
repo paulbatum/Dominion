@@ -16,11 +16,7 @@ namespace Dominion.GameHost
         public Game CreateNewGame(string playerName)
         {
             var startingConfig = new SimpleStartingConfiguration(1);
-            var bank = new CardBank();
-
-            startingConfig.InitializeBank(bank);
-
-            this.CurrentGame = new Game(new[] { new Player(playerName, startingConfig.CreateStartingDeck()) }, bank);
+            this.CurrentGame = startingConfig.CreateGame(new[] { playerName });
             return this.CurrentGame;
         }
 

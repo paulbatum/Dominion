@@ -40,5 +40,10 @@ namespace Dominion.Rules
             numberOfCardsToDraw.Times(() => TopCard.MoveTo(cardZone));
         }
 
+        public IEnumerable<Card> Contents
+        {
+            get { return this.Cards; }
+        }
+
     }
 }

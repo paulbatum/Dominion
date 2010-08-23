@@ -31,6 +31,18 @@ namespace Dominion.GameHost
             bank.AddCardPile(Curses);
         }
 
+        public Game CreateGame(IEnumerable<string> playerNames)
+        {
+            if(playerNames.Count() != _numberOfPlayers)
+                throw new ArgumentException(string.Format("Expected {0} player names.", playerNames));
+
+            var bank = new CardBank();
+            InitializeBank(bank);
+
+            var players = playerNames.Select(name => new Player(name, CreateStartingDeck()));
+            return new Game(players, bank);
+        }
+
         public IEnumerable<Card> CreateStartingDeck()
         {
             return 3.NewCards<Estate>().Concat(7.NewCards<Copper>());
