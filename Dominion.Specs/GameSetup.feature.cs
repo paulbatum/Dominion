@@ -97,6 +97,111 @@ testRunner.Then("There should be 12 Province available to buy");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Available provinces in 4 player game")]
+        public virtual void AvailableProvincesIn4PlayerGame()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Available provinces in 4 player game", ((string[])(null)));
+#line 18
+this.ScenarioSetup(scenarioInfo);
+#line 19
+testRunner.Given("A new game with 4 players");
+#line 20
+testRunner.Then("There should be 12 Province available to buy");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Available provinces in 5 player game")]
+        public virtual void AvailableProvincesIn5PlayerGame()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Available provinces in 5 player game", ((string[])(null)));
+#line 22
+this.ScenarioSetup(scenarioInfo);
+#line 23
+testRunner.Given("A new game with 5 players");
+#line 24
+testRunner.Then("There should be 15 Province available to buy");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Available provinces in 6 player game")]
+        public virtual void AvailableProvincesIn6PlayerGame()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Available provinces in 6 player game", ((string[])(null)));
+#line 26
+this.ScenarioSetup(scenarioInfo);
+#line 27
+testRunner.Given("A new game with 6 players");
+#line 28
+testRunner.Then("There should be 18 Province available to buy");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Available curses in 3 player game")]
+        public virtual void AvailableCursesIn3PlayerGame()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Available curses in 3 player game", ((string[])(null)));
+#line 30
+this.ScenarioSetup(scenarioInfo);
+#line 31
+testRunner.Given("A new game with 3 players");
+#line 32
+testRunner.Then("There should be 20 Curse available to buy");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Available curses in 4 player game")]
+        public virtual void AvailableCursesIn4PlayerGame()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Available curses in 4 player game", ((string[])(null)));
+#line 34
+this.ScenarioSetup(scenarioInfo);
+#line 35
+testRunner.Given("A new game with 4 players");
+#line 36
+testRunner.Then("There should be 30 Curse available to buy");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Available curses in 5 player game")]
+        public virtual void AvailableCursesIn5PlayerGame()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Available curses in 5 player game", ((string[])(null)));
+#line 38
+this.ScenarioSetup(scenarioInfo);
+#line 39
+testRunner.Given("A new game with 5 players");
+#line 40
+testRunner.Then("There should be 40 Curse available to buy");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Available curses in 6 player game")]
+        public virtual void AvailableCursesIn6PlayerGame()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Available curses in 6 player game", ((string[])(null)));
+#line 42
+this.ScenarioSetup(scenarioInfo);
+#line 43
+testRunner.Given("A new game with 6 players");
+#line 44
+testRunner.Then("There should be 50 Curse available to buy");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
     }
 }
 #endregion
