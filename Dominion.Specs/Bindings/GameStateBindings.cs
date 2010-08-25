@@ -12,6 +12,7 @@ namespace Dominion.Specs.Bindings
     public class GameStateBindings : BindingBase
     {
         private Game _game;
+        private Player _player;
 
         [Given(@"A new game with (\d+) players")]
         public void GivenANewGameWithPlayers(int playerCount)
@@ -54,39 +55,41 @@ namespace Dominion.Specs.Bindings
             _game.Bank.Piles.Single(x => x.TopCard.Name == cardName).CardCount.ShouldEqual(cardCount);
         }
 
-
-
-
-
-
-        [Given(@"A game is in progress")]
-        public void GivenAGameIsInProgress()
+        [Given(@"It is my turn")]
+        public void GivenItIsMyTurn()
         {
-            ScenarioContext.Current.Pending();
+            _player = _game.CurrentTurn.ActivePlayer;
         }
 
-        [Given(@"I have 4 cards in hand")]
-        public void GivenIHave4CardsInHand()
+        [When(@"I end my turn")]
+        public void WhenIEndMyTurn()
         {
-            ScenarioContext.Current.Pending();
+            _game.CurrentTurn.EndTurn();
         }
 
-        [Given(@"My deck is not empty")]
-        public void GivenMyDeckIsNotEmpty()
+        [Then(@"I should have (\d+) cards in the discard pile")]
+        public void ThenIShouldHave5CardsInTheDiscardPile(int cardCount)
         {
-            ScenarioContext.Current.Pending();
+            _player.Discards.CardCount.ShouldEqual(cardCount);
         }
 
-        [When(@"I draw a card")]
-        public void WhenIDrawACard()
+        [Then(@"I should have (\d+) cards in hand")]
+        public void ThenIShouldHave5CardsInHand(int cardCount)
         {
-            ScenarioContext.Current.Pending();
+            _player.Hand.CardCount.ShouldEqual(cardCount);
         }
 
-        [Then(@"I should have (.*) cards in hand")]
-        public void ThenIShouldHaveCardsInHand(int numberOfCards)
+        [Then(@"(.*) is the active player")]
+        public void ThenIsTheActivePlayer(string playerName)
         {
-            ScenarioContext.Current.Pending();
+            _game.ActivePlayer.Name.ShouldEqual(playerName);
+        }
+
+        [When(@"(.*) ends their turn")]
+        public void WhenPlayerEndsTheirTurn(string playerName)
+        {
+            _game.ActivePlayer.Name.ShouldEqual(playerName);
+            _game.CurrentTurn.EndTurn();
         }
     }
 }

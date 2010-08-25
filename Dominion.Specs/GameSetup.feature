@@ -33,4 +33,4 @@ Scenario Outline: Available curses for number of players
 		|5				|40				|
 		|6				|50				|
 
-	
+

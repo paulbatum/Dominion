@@ -28,46 +28,6 @@ namespace Dominion.Tests
         }
 
         [Test]
-        public void Should_give_first_player_the_first_turn()
-        {
-            var firstTurn = _game.GameTurns().First();
-            var firstPlayer = _players.First();
-
-            firstTurn.ActivePlayer.ShouldEqual(firstPlayer);
-            _game.ActivePlayer.ShouldEqual(firstPlayer);
-        }
-
-        [Test]
-        public void Should_give_second_player_the_second_turn()
-        {
-            var secondTurn = _game.GameTurns().Skip(1).First();
-            var secondPlayer = _players.Skip(1).First();
-
-            secondTurn.ActivePlayer.ShouldEqual(secondPlayer);
-            _game.ActivePlayer.ShouldEqual(secondPlayer);
-        }
-
-        [Test]
-        public void Should_give_third_player_the_third_turn()
-        {
-            var thirdTurn = _game.GameTurns().Skip(2).First();
-            var thirdPlayer = _players.Skip(2).First();
-
-            thirdTurn.ActivePlayer.ShouldEqual(thirdPlayer);
-            _game.ActivePlayer.ShouldEqual(thirdPlayer);
-        }
-
-        [Test]
-        public void Should_give_the_first_player_another_turn()
-        {
-            var turn = _game.GameTurns().Skip(_players.Count).First();
-            var firstPlayer = _players.First();
-
-            turn.ActivePlayer.ShouldEqual(firstPlayer);
-            _game.ActivePlayer.ShouldEqual(firstPlayer);
-        }
-
-        [Test]
         public void Game_with_three_players_should_be_over_when_there_are_three_empty_piles()
         {
             _game.Bank.AddCardPile(new LimitedSupplyCardPile());

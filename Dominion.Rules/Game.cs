@@ -8,7 +8,7 @@ namespace Dominion.Rules
     {
         private IList<Player> _players;
         private IEnumerator<TurnContext> _gameTurns;
-        public Player ActivePlayer { get; private set; }
+        private Player _activePlayer;
         public CardBank Bank { get; private set; }
 
         public Game(IEnumerable<Player> players, CardBank bank)
@@ -26,6 +26,11 @@ namespace Dominion.Rules
         public IEnumerable<Player> Players
         {
             get { return _players; }
+        }
+
+        public Player ActivePlayer
+        {
+            get { return CurrentTurn.ActivePlayer; }
         }
 
         private IEnumerable<Player> TurnLoop
@@ -51,7 +56,7 @@ namespace Dominion.Rules
                     yield break;
                 }                    
 
-                ActivePlayer = player;
+                _activePlayer = player;
                 yield return player.BeginTurn();
             }                
         }

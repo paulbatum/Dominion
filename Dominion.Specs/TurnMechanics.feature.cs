@@ -17,20 +17,20 @@ namespace Dominion.Specs
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.3.5.2")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Drawing Cards")]
-    public partial class DrawingCardsFeature
+    [NUnit.Framework.DescriptionAttribute("Turn Mechanics")]
+    public partial class TurnMechanicsFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "DrawingCards.feature"
+#line 1 "TurnMechanics.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Drawing Cards", "In order to have my turn\r\nAs a dominion player\r\nI want to be able to draw cards", ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Turn Mechanics", "In order to have my turn\r\nAs a dominion player\r\nI can perform certain actions", ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -44,6 +44,7 @@ namespace Dominion.Specs
         public virtual void ScenarioSetup(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
         {
             testRunner.OnScenarioStart(scenarioInfo);
+            this.FeatureBackground();
         }
         
         [NUnit.Framework.TearDownAttribute()]
@@ -52,24 +53,41 @@ namespace Dominion.Specs
             testRunner.OnScenarioEnd();
         }
         
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Draw a single card")]
-        [NUnit.Framework.CategoryAttribute("mytag")]
-        public virtual void DrawASingleCard()
+        public virtual void FeatureBackground()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Draw a single card", new string[] {
-                        "mytag"});
+#line 6
 #line 7
-this.ScenarioSetup(scenarioInfo);
+testRunner.Given("A new game with 3 players");
 #line 8
-testRunner.Given("A game is in progress");
-#line 9
-testRunner.And("I have 4 cards in hand");
+testRunner.And("It is my turn");
+#line hidden
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Discard hand at end of turn")]
+        public virtual void DiscardHandAtEndOfTurn()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Discard hand at end of turn", ((string[])(null)));
 #line 10
-testRunner.And("My deck is not empty");
+this.ScenarioSetup(scenarioInfo);
 #line 11
-testRunner.When("I draw a card");
+testRunner.When("I end my turn");
 #line 12
+testRunner.Then("I should have 5 cards in the discard pile");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Draw cards after discarding at end of turn")]
+        public virtual void DrawCardsAfterDiscardingAtEndOfTurn()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Draw cards after discarding at end of turn", ((string[])(null)));
+#line 14
+this.ScenarioSetup(scenarioInfo);
+#line 15
+testRunner.When("I end my turn");
+#line 16
 testRunner.Then("I should have 5 cards in hand");
 #line hidden
             testRunner.CollectScenarioErrors();
