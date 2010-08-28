@@ -4,6 +4,7 @@ using Dominion.Cards.Treasure;
 using Dominion.Cards.Victory;
 using Dominion.GameHost;
 using Dominion.Rules;
+using Dominion.Rules.CardTypes;
 using TechTalk.SpecFlow;
 
 namespace Dominion.Specs.Bindings
@@ -90,6 +91,47 @@ namespace Dominion.Specs.Bindings
         {
             _game.ActivePlayer.Name.ShouldEqual(playerName);
             _game.CurrentTurn.EndTurn();
+        }
+
+        [Given(@"I have a (.*) in hand instead of a (.*)")]
+        public void GivenIHaveAInHandInsteadOfA(string cardName, string cardToReplace)
+        {
+            var card = CardFactory.CreateCard(cardName);
+            card.MoveTo(_player.Hand);
+
+            _player.Hand
+                .First(c => c.Name == cardToReplace)
+                .MoveTo(new NullZone());
+        }
+
+        //[Given(@"(\d+) action[s]? remaining")]
+        //public void GivenActionRemaining(int actionCount)
+        //{
+        //    _game.CurrentTurn.RemainingActions = actionCount;            
+        //}
+
+        [When(@"I play (.*)")]
+        public void WhenIPlay(string cardName)
+        {
+            var card = _player.Hand
+                .OfType<ActionCard>()
+                .First(c => c.Name == cardName);
+
+            _game.CurrentTurn.Play(card);
+        }
+
+        [Then(@"I should have (\d+) actions remaining")]
+        public void ThenIShouldHaveActionsRemaining(int actionCount)
+        {
+            _game.CurrentTurn.RemainingActions.ShouldEqual(actionCount);
+        }
+
+        [Then(@"(.*) should be in play")]
+        public void ThenShouldBeInPlay(string cardName)
+        {
+            _game.ActivePlayer.PlayArea
+                .SingleOrDefault(c => c.Name == cardName)
+                .ShouldNotBeNull();
         }
     }
 }

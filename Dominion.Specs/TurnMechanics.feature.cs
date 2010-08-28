@@ -92,6 +92,25 @@ testRunner.Then("I should have 5 cards in hand");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Use single action")]
+        public virtual void UseSingleAction()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Use single action", ((string[])(null)));
+#line 18
+this.ScenarioSetup(scenarioInfo);
+#line 19
+testRunner.Given("I have a Smithy in hand instead of a Copper");
+#line 20
+testRunner.When("I play Smithy");
+#line 21
+testRunner.Then("I should have 0 actions remaining");
+#line 22
+testRunner.And("Smithy should be in play");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
     }
 }
 #endregion

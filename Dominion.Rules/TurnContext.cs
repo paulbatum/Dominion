@@ -109,14 +109,14 @@ namespace Dominion.Rules
 
         private void MoveToBuyStepIfNoMorePlays()
         {
-            if(ActivePlayer.Hand.OfType<ActionCard>().Any() == false || RemainingActions == 0)
-                MoveToBuyStep();
+            //if(ActivePlayer.Hand.OfType<ActionCard>().Any() == false || RemainingActions == 0)
+            //    MoveToBuyStep();
         }
 
         private void EndTurnIfNoMoreBuys()
         {
-            if(InBuyStep && Buys == 0)
-                EndTurn();
+            //if(InBuyStep && Buys == 0)
+            //    EndTurn();
         }
     }
 }
