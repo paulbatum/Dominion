@@ -42,7 +42,7 @@ namespace Dominion.GameHost
             _lock.EnterWriteLock();
             try
             {
-                message.UpdateGameState(_game);
+                message.UpdateGameState(_game);                
             }
             finally
             {
@@ -72,7 +72,7 @@ namespace Dominion.GameHost
         private void NotifyClients()
         {
             foreach (var client in _players.Keys)
-                client.GameStateUpdated();
+                client.RaiseGameStateUpdated(this);
         }
     }
 
@@ -89,20 +89,38 @@ namespace Dominion.GameHost
         {
             var pile = game.Bank.Piles.Single(p => p.Id == PileId);
             game.CurrentTurn.Buy(pile);
+            game.CurrentTurn.EndTurnIfNoMoreBuys();
+            game.CurrentTurn.MoveToBuyStepIfNoMorePlays();
+        }
+    }
+
+    public class BeginGameMessage : IGameActionMessage
+    {
+        public void UpdateGameState(Game game)
+        {
+            game.CurrentTurn.MoveToBuyStepIfNoMorePlays();
         }
     }
 
     public interface IGameClient
     {
-        void GameStateUpdated();
+        void RaiseGameStateUpdated(LockingGameHost host);
+        IObservable<GameViewModel> GameStateUpdates { get; }
     }
 
     public class GameClient : IGameClient
     {
         public string PlayerName { get; set; }
-        public void GameStateUpdated()
+        private readonly Subject<GameViewModel> _subject = new Subject<GameViewModel>();
+
+        public void RaiseGameStateUpdated(LockingGameHost host)
         {
-            //TODO: Implement
+            _subject.OnNext(host.GetGameState(this));
+        }
+
+        public IObservable<GameViewModel> GameStateUpdates
+        {
+            get { return _subject; }
         }
     }
 }

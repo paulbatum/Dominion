@@ -13,8 +13,6 @@ namespace Dominion.Rules
             MoneyToSpend = 0;
             RemainingActions = 1;
             Buys = 1;
-
-            MoveToBuyStepIfNoMorePlays();            
         }
 
         public Player ActivePlayer { get; private set; }
@@ -52,7 +50,6 @@ namespace Dominion.Rules
             card.Play(this);
 
             card.MoveTo(ActivePlayer.PlayArea);
-            MoveToBuyStepIfNoMorePlays();
         }
 
         public bool CanBuy(CardPile pile)
@@ -86,7 +83,6 @@ namespace Dominion.Rules
             MoneyToSpend -= cardToBuy.Cost;
             
             cardToBuy.MoveTo(this.ActivePlayer.Discards);
-            EndTurnIfNoMoreBuys();
         }
 
         public void EndTurn()
@@ -107,16 +103,16 @@ namespace Dominion.Rules
             MoneyToSpend = MoneyToSpend + this.ActivePlayer.Hand.OfType<MoneyCard>().Sum(x => x.Value);
         }
 
-        private void MoveToBuyStepIfNoMorePlays()
+        public void MoveToBuyStepIfNoMorePlays()
         {
-            //if(ActivePlayer.Hand.OfType<ActionCard>().Any() == false || RemainingActions == 0)
-            //    MoveToBuyStep();
+            if (ActivePlayer.Hand.OfType<ActionCard>().Any() == false || RemainingActions == 0)
+                MoveToBuyStep();
         }
 
-        private void EndTurnIfNoMoreBuys()
+        public void EndTurnIfNoMoreBuys()
         {
-            //if(InBuyStep && Buys == 0)
-            //    EndTurn();
+            if (InBuyStep && Buys == 0)
+                EndTurn();
         }
     }
 }

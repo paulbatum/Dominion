@@ -11,6 +11,7 @@ namespace Dominion.Specs.Bindings
     {
         private LockingGameHost _gameHost;
         private IList<GameClient> _clients;
+        private IDictionary<GameClient, int> _notifications;
 
         [Given(@"A new hosted game with (\d+) players")]
         public void GivenANewHostedGameWithPlayers(int playerCount)
@@ -19,16 +20,22 @@ namespace Dominion.Specs.Bindings
             gameBinding.GivenANewGameWithPlayers(playerCount);
 
             _gameHost = new LockingGameHost(gameBinding.Game);
+            _gameHost.AcceptMessage(new BeginGameMessage());
 
             _clients = new List<GameClient>();
+            _notifications = new Dictionary<GameClient, int>();
 
             foreach(var player in gameBinding.Game.Players)
             {
                 var client = new GameClient {PlayerName = player.Name};
                 _gameHost.RegisterGameClient(client, player);
                 _clients.Add(client);
+                _notifications[client] = 0;
+                client.GameStateUpdates.Subscribe( _ => _notifications[client] += 1 );
             }
+
             
+
         }
 
         [When(@"(.*) tells the host to buy (.*)")]
@@ -44,7 +51,9 @@ namespace Dominion.Specs.Bindings
         [Then(@"All players should recieve a game state update")]
         public void ThenAllPlayersShouldRecieveAGameStateUpdate()
         {
-            ScenarioContext.Current.Pending();
+            _notifications.Values
+                .All(x => x == 1)
+                .ShouldBeTrue();
         }
     }
 }
