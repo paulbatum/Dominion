@@ -15,9 +15,14 @@ namespace Dominion.Specs.Bindings
         private Game _game;
         private Player _player;
 
+        public Game Game
+        {
+            get { return _game; }
+        }
+
         [Given(@"A new game with (\d+) players")]
         public void GivenANewGameWithPlayers(int playerCount)
-        {
+        {            
             var startingConfig = new SimpleStartingConfiguration(playerCount);
             var names = playerCount.Items(i => "Player" + i);
             _game = startingConfig.CreateGame(names);

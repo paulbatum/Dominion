@@ -42,7 +42,7 @@ namespace Dominion.Web.Controllers
         [HttpGet]
         public ActionResult GameData()
         {
-            var model = new GameViewModel(CurrentGame, this.Url);
+            var model = new GameViewModel(CurrentGame, CurrentGame.ActivePlayer);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 

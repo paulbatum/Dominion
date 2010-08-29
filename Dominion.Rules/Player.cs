@@ -7,6 +7,7 @@ namespace Dominion.Rules
     {
         public Player(string name, IEnumerable<Card> startingDeck)
         {
+            Id = Guid.NewGuid();
             Name = name;
             Discards = new DiscardPile();
 
@@ -16,9 +17,10 @@ namespace Dominion.Rules
             Hand = new Hand();
             Deck.MoveCards(Hand, 5);
 
-            PlayArea = new PlayArea();
+            PlayArea = new PlayArea();                       
         }
 
+        public Guid Id { get; private set; }
         public string Name { get; private set; }
         public DrawDeck Deck { get; private set; }
         public DiscardPile Discards { get; private set; }

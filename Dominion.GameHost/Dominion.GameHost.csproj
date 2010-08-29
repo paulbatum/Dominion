@@ -67,6 +67,8 @@
   <ItemGroup>
     <Compile Include="CardBuilderExtensions.cs" />
     <Compile Include="CardFactory.cs" />
+    <Compile Include="GameViewModel.cs" />
+    <Compile Include="LockingGameHost.cs" />
     <Compile Include="MultiGameHost.cs" />
     <Compile Include="SimpleStartingConfiguration.cs" />
     <Compile Include="SolitaireHost.cs" />

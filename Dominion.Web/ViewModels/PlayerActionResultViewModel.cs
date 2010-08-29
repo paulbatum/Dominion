@@ -1,4 +1,6 @@
-﻿namespace Dominion.Web.ViewModels
+﻿using Dominion.GameHost;
+
+namespace Dominion.Web.ViewModels
 {
     public class PlayerActionResultViewModel
     {

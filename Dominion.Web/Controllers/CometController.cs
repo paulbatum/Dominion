@@ -36,7 +36,7 @@ namespace Dominion.Web.Controllers
         public ActionResult GameStateCompleted(string gameKey)
         {
             var game = _host.FindGame(gameKey).CurrentGame;
-            return Json(new GameViewModel(game, this.Url), JsonRequestBehavior.AllowGet);
+            return Json(new GameViewModel(game, game.ActivePlayer), JsonRequestBehavior.AllowGet);
         }
 
     }

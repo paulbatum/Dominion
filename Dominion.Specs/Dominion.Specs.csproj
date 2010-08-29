@@ -62,10 +62,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bindings\BindingBase.cs" />
+    <Compile Include="Bindings\GameHostBindings.cs" />
     <Compile Include="Cards\Smithy.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Smithy.feature</DependentUpon>
+    </Compile>
+    <Compile Include="GameHost.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GameHost.feature</DependentUpon>
     </Compile>
     <Compile Include="GameSetup.feature.cs">
       <AutoGen>True</AutoGen>
@@ -90,6 +96,10 @@
     <None Include="Cards\Smithy.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Smithy.feature.cs</LastGenOutput>
+    </None>
+    <None Include="GameHost.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>GameHost.feature.cs</LastGenOutput>
     </None>
     <None Include="GameSetup.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

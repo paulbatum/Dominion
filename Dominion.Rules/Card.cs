@@ -9,7 +9,7 @@ namespace Dominion.Rules
         private CardZone _currentZone;
         private readonly CardZoneChanger _zoneChanger;
 
-        public Guid Id { get; set; }
+        public Guid Id { get; private set; }
         
         protected Card(int cost)
         {
