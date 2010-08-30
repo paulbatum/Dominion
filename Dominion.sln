@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dominion", "Dominion\Dominion.csproj", "{564069D4-7946-4930-A106-2F3047FE391A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dominion.Cards", "Dominion.Cards\Dominion.Cards.csproj", "{EBFD38DB-CE38-4560-A786-67C5CD55EA9A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dominion.Rules", "Dominion.Rules\Dominion.Rules.csproj", "{0DDDE57C-2EA0-4AD8-8F3F-7994B2439DE1}"
@@ -21,10 +19,6 @@ Global
 		Release|Mixed Platforms = Release|Mixed Platforms
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{564069D4-7946-4930-A106-2F3047FE391A}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{564069D4-7946-4930-A106-2F3047FE391A}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{564069D4-7946-4930-A106-2F3047FE391A}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{564069D4-7946-4930-A106-2F3047FE391A}.Release|Mixed Platforms.Build.0 = Release|x86
 		{EBFD38DB-CE38-4560-A786-67C5CD55EA9A}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{EBFD38DB-CE38-4560-A786-67C5CD55EA9A}.Debug|Mixed Platforms.Build.0 = Debug|x86
 		{EBFD38DB-CE38-4560-A786-67C5CD55EA9A}.Release|Mixed Platforms.ActiveCfg = Release|x86

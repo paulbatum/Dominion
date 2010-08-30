@@ -14,11 +14,6 @@
             Prepends a value to a sequence.
             </summary>
         </member>
-        <member name="M:System.Linq.EnumerableEx.StartWith``1(System.Collections.Generic.IEnumerable{``0},``0[])">
-            <summary>
-            Prepends values to a sequence.
-            </summary>
-        </member>
         <member name="M:System.Linq.EnumerableEx.SelectMany``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1})">
             <summary>
             Projects each value of a sequence to a sequence and flattens the resulting sequences into one sequence.
@@ -101,7 +96,7 @@
             Invokes finallyAction after source sequence terminates normally or by an exception.
             </summary>
         </member>
-        <member name="M:System.Linq.EnumerableEx.Using``2(System.Func{``1},System.Func{``1,System.Collections.Generic.IEnumerable{``0}})">
+        <member name="M:System.Linq.EnumerableEx.Using``1(System.Func{System.IDisposable},System.Func{System.IDisposable,System.Collections.Generic.IEnumerable{``0}})">
             <summary>
             Retrieves resource from resourceSelector for use in resourceUsage and disposes 
             the resource once the resulting sequence terminates.
@@ -271,6 +266,11 @@
             <summary>
             Repeats the source  sequence the retryCount times or until it successfully terminates.
             </summary>
+        </member>
+        <member name="M:System.Linq.EnumerableEx.Zip``3(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,``2})">
+            <summary>
+            Merges two sequences into one sequence by using the selector function.
+            </summary>        
         </member>
         <member name="M:System.Linq.EnumerableEx.Remotable``1(System.Collections.Generic.IEnumerable{``0})">
             <summary>
