@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Dominion.Web.Bootstrap;
+using MvcContrib.Routing;
 
 namespace Dominion.Web
 {
@@ -33,10 +34,11 @@ namespace Dominion.Web
             );
 
             routes.MapRoute(
-                "NewGame",
-                "home/newgame",
-                new { controller = "Home", action = "NewGame" }
+                "Home",
+                "home/{Action}",
+                new { controller = "Home", action = "Index" }
             );
+           
 
         }
 
@@ -44,6 +46,7 @@ namespace Dominion.Web
         {
             AreaRegistration.RegisterAllAreas();
             RegisterRoutes(RouteTable.Routes);
+            //RouteDebugger.RewriteRoutesForTesting(RouteTable.Routes);
 
             AutofacConfig.Initialize();
         }

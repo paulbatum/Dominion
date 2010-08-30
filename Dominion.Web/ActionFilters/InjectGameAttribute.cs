@@ -14,12 +14,14 @@ namespace Dominion.Web.ActionFilters
         {
             var gameController = (GameController)filterContext.Controller;
 
-            var gameKey = filterContext.RouteData.Values["id"].ToString();
+            string gameKey = filterContext.RouteData.Values["id"].ToString();
+            Guid playerId = (Guid) filterContext.RequestContext.HttpContext.Session["playerId"];
 
             var multiHost = AutofacConfig.Container.Resolve<MultiGameHost>();
 
-            gameController.Key = gameKey;
-            gameController.CurrentGame = multiHost.FindGame(gameKey).CurrentGame;
+            //gameController.Key = gameKey;
+            gameController.Host = multiHost.FindGame(gameKey);
+            gameController.Client = multiHost.FindClient(playerId);
         }
     }
 }

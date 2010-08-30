@@ -25,10 +25,24 @@ namespace Dominion.Web.Controllers
         [HttpPost]
         public ActionResult NewGame()
         {
-            var key = _host.CreateNewGame();
+            string gameKey = _host.CreateNewGame();
+            return this.RedirectToAction(x => x.ViewPlayers(gameKey));
+        }        
 
-            return this.RedirectToAction("Play", "Game", new {id = key});
+        [HttpGet]
+        public ActionResult ViewPlayers(string gameKey)
+        {
+            var model = _host.GetGameData(gameKey);
+            return View("ViewPlayers", model);
         }
+
+        [HttpPost]
+        public ActionResult JoinGame(string id, Guid playerId)
+        {
+            Session["playerId"] = playerId;
+            return RedirectToAction("Play", "Game", new { id });
+        }
+
 
     }
 }

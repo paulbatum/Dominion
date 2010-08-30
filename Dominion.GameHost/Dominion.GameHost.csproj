@@ -72,7 +72,6 @@
     <Compile Include="LockingGameHost.cs" />
     <Compile Include="MultiGameHost.cs" />
     <Compile Include="SimpleStartingConfiguration.cs" />
-    <Compile Include="SolitaireHost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StartingConfiguration.cs" />
   </ItemGroup>

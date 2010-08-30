@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Dominion.GameHost;
 using Dominion.Web.ViewModels;
+using Newtonsoft.Json;
 
 namespace Dominion.Web.Controllers
 {
@@ -17,27 +18,46 @@ namespace Dominion.Web.Controllers
             _host = host;
         }
 
-        [HttpGet, NoAsyncTimeout]
+        [HttpGet, AsyncTimeout(30000)]
         public void GameStateAsync(int id)
         {
             AsyncManager.OutstandingOperations.Increment();
             var key = id.ToString();
-            
-            _host.GameStateUpdated += gameKey =>
-            {                
-                if (key == gameKey)
+
+            var playerId = (Guid) Session["playerId"];
+
+            _host.FindClient(playerId)
+                .GameStateUpdates.Take(1)
+                .Subscribe(gvm =>
                 {
-                    AsyncManager.Parameters["gameKey"] = gameKey;
+                    AsyncManager.Parameters["gameState"] = gvm;
                     AsyncManager.OutstandingOperations.Decrement();
-                }
-            };
+                });
+            
+            //_host.GameStateUpdated += gameKey =>
+            //{                
+            //    if (key == gameKey)
+            //    {
+            //        AsyncManager.Parameters["gameKey"] = gameKey;
+            //        AsyncManager.OutstandingOperations.Decrement();
+            //    }
+            //};
         }
         
-        public ActionResult GameStateCompleted(string gameKey)
+        public ActionResult GameStateCompleted(GameViewModel gameState)
         {
-            var game = _host.FindGame(gameKey).CurrentGame;
-            return Json(new GameViewModel(game, game.ActivePlayer), JsonRequestBehavior.AllowGet);
+            var client = _host.FindClient((Guid)Session["playerId"]);            
+            return JsonNet(gameState);
         }
 
+        private ActionResult JsonNet(GameViewModel model)
+        {
+            return new JsonNetResult
+            {
+                Data = model,
+                SerializerSettings = new JsonSerializerSettings { Converters = { new GameViewModelConverter(this.Url) } }                
+            };
+        }
+      
     }
 }

@@ -39,7 +39,7 @@ namespace Dominion.Specs.Bindings
         }
 
         [When(@"(.*) tells the host to buy (.*)")]
-        public void WhenPlayer1TellsTheHostToBuy(string playerName, string cardName)
+        public void WhenTellsTheHostToBuy(string playerName, string cardName)
         {
             var client = _clients.Single(c => c.PlayerName == playerName);
             var gameState = _gameHost.GetGameState(client);

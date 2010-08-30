@@ -6,7 +6,14 @@ using Dominion.Rules;
 
 namespace Dominion.GameHost
 {
-    public class LockingGameHost
+    public interface IGameHost
+    {
+        void RegisterGameClient(IGameClient client, Player associatedPlayer);
+        GameViewModel GetGameState(IGameClient client);
+        void AcceptMessage(IGameActionMessage message);
+    }
+
+    public class LockingGameHost : IGameHost
     {
         private readonly Game _game;
         private readonly IDictionary<IGameClient, Player> _players;
@@ -92,7 +99,7 @@ namespace Dominion.GameHost
             game.CurrentTurn.EndTurnIfNoMoreBuys();
             game.CurrentTurn.MoveToBuyStepIfNoMorePlays();
         }
-    }
+    }    
 
     public class BeginGameMessage : IGameActionMessage
     {

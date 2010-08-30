@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" Inherits="System.Web.Mvc.ViewPage<Dominion.Web.ViewModels.GameViewModel>" MasterPageFile="~/Views/Shared/site.Master" %>
+<%@ Page Title="" Language="C#" Inherits="System.Web.Mvc.ViewPage" MasterPageFile="~/Views/Shared/site.Master" %>
 <%@ Import Namespace="Dominion.Web.Controllers" %>
 <asp:Content runat="server" ID="Content" ContentPlaceHolderID="TitleContent"></asp:Content>
 <asp:Content runat="server" ID="Content1" ContentPlaceHolderID="HeadContent">
@@ -7,18 +7,20 @@
         $(document).ready(function () {
             createLayout();
 
-            doComet();
+            
 
             loadGame();
+            doComet();
             bindHand();
             bindBank();
             bindCommands();
         });
 
         function doComet() {
-            $.get('gamestateloop', {}, function(response) {
-                updateGameState(response);  
-                doComet();   
+            $.ajax({
+                url: 'gamestateloop', 
+                complete: function() { loadGame(); doComet(); },
+                success: updateGameState                
             });
         }
 
