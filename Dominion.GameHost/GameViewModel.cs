@@ -39,16 +39,27 @@ namespace Dominion.GameHost
     {
         public TurnContextViewModel(TurnContext currentTurn, Player player)
         {
-            BuyCount = currentTurn.Buys;
-            RemainingActions = currentTurn.RemainingActions;
-            MoneyToSpend = currentTurn.MoneyToSpend;
-            IsActive = currentTurn.ActivePlayer == player;
+            if(currentTurn.ActivePlayer == player)
+            {
+                BuyCount = currentTurn.Buys;
+                RemainingActions = currentTurn.RemainingActions;
+                MoneyToSpend = currentTurn.MoneyToSpend;
+                IsActive = true;
+            }
+            else
+            {
+                IsActive = false;
+            }
+
+            ActivePlayerName = currentTurn.ActivePlayer.Name;
+
         }
 
         public bool IsActive { get; set; }
         public int MoneyToSpend { get; set; }
         public int RemainingActions { get; set; }
         public int BuyCount { get; set; }
+        public string ActivePlayerName { get; set; }
     }
 
     public class CardPileViewModel
@@ -72,11 +83,6 @@ namespace Dominion.GameHost
         public int Count { get; set; }
         public bool IsLimited { get; set; }
 
-        //public string ImageUrl
-        //{
-        //    get { return _urlHelper.ResolveCardImage(Name); }
-        //}
-
         public string CountDescription
         {
             get { return IsLimited ? Count.ToString() : "Unlimited"; }
@@ -94,11 +100,6 @@ namespace Dominion.GameHost
         public string Id { get; set; }
         public string Name { get; set; }
         public int Cost { get; set; }
-
-        //public string ImageUrl
-        //{
-        //    get { return _urlHelper.ResolveCardImage(Name); }
-        //}
     }
 
     public class DeckViewModel
@@ -111,14 +112,6 @@ namespace Dominion.GameHost
 
         public string CountDescription { get; set; }
         public bool IsEmpty { get; set; }
-
-        //public string ImageUrl
-        //{
-        //    get
-        //    {
-        //        return _urlHelper.ResolveCardImage(IsEmpty ? "empty" : "deck");
-        //    }
-        //}
 
     }
 
@@ -136,10 +129,5 @@ namespace Dominion.GameHost
         public string CountDescription { get; set; }
         public bool IsEmpty { get; set; }
         public string TopCardName { get; set; }
-
-        //public string ImageUrl
-        //{
-        //    get { return _urlHelper.ResolveCardImage(IsEmpty ? "empty" : TopCardName); }
-        //}
     }
 }

@@ -6,6 +6,7 @@ using Autofac.Integration.Web;
 using Autofac.Integration.Web.Mvc;
 using System.Reflection;
 using Dominion.GameHost;
+using Microsoft.Web.Mvc;
 
 namespace Dominion.Web.Bootstrap
 {
@@ -29,8 +30,10 @@ namespace Dominion.Web.Bootstrap
                 .As<MultiGameHost>();
 
             _container = builder.Build();
-            
-            ControllerBuilder.Current.SetControllerFactory(new AutofacControllerFactory(new ContainerProvider(_container)));
+
+            var factory =
+                new MvcDynamicSessionControllerFactory(new AutofacControllerFactory(new ContainerProvider(_container)));
+            ControllerBuilder.Current.SetControllerFactory(factory);
         }
     }    
 }

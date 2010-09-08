@@ -52,13 +52,18 @@
             });
 
             $('#bottom').layout({
-                defaults: defaults,
-
+                defaults: defaults
             });
         }
 
         function loadGame() {
-            $.getJSON('GameData', {}, updateGameState);
+            $.ajax({
+              url: 'GameData',
+              dataType: 'json',
+              data: {},
+              success: updateGameState,
+              async: false
+            });            
         }
 
         function updateGameState(data) {
@@ -79,9 +84,7 @@
             $('#hand .card')
                 .live('click', function (e) {
                     var data = $.tmplItem(e.target).data;
-                    $.post('PlayCard', { id: data.Id }, function (response) {
-                        //updateGameState(response.GameState);                        
-                    });
+                    $.post('PlayCard', { id: data.Id }, handleInteractionResponse);
                 });
         }
 
@@ -89,21 +92,20 @@
             $('#bank .cardpile')
                 .live('click', function (e) {
                     var data = $.tmplItem(e.target).data;
-                    $.post('BuyCard', { id: data.Id }, function (response) {
-                        //updateGameState(response.GameState);                        
-                    });
+                    $.post('BuyCard', { id: data.Id }, handleInteractionResponse);
                 });
         }
 
         function bindCommands() {
-            $('form').ajaxForm(function (response) {
-                //updateGameState(response.GameState);                
-            });
+            $('form').ajaxForm(handleInteractionResponse);
 
             $('#doBuys').button();
             $('#endTurn').button();
         }
 
+        function handleInteractionResponse(response) {
+            
+        }
         
 
     </script>

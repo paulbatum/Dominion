@@ -5,10 +5,12 @@ using System.Web;
 using System.Web.Mvc;
 using Dominion.GameHost;
 using Dominion.Web.ViewModels;
+using Microsoft.Web.Mvc;
 using Newtonsoft.Json;
 
 namespace Dominion.Web.Controllers
 {
+    [ControllerSessionState(ControllerSessionState.ReadOnly)]
     public class CometController : AsyncController
     {
         private readonly MultiGameHost _host;
