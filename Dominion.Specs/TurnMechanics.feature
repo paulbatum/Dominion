@@ -5,7 +5,7 @@
 
 Background: 
 	Given A new game with 3 players
-	And It is my turn
+	And I am going first
 
 Scenario: Discard hand at end of turn	
 	When I end my turn

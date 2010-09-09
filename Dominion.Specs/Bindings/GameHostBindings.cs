@@ -37,8 +37,8 @@ namespace Dominion.Specs.Bindings
 
         }
 
-        [Given(@"The game has begun")]
-        public void GivenTheGameHasBegun()
+        [When(@"The game begins")]
+        public void WhenTheGameBegins()
         {
             _gameHost.AcceptMessage(new BeginGameMessage());
         }
@@ -53,21 +53,30 @@ namespace Dominion.Specs.Bindings
             _gameHost.AcceptMessage(message);
         }
 
-        [Then(@"All players should recieve a game state update")]
-        public void ThenAllPlayersShouldRecieveAGameStateUpdate()
+        [When(@"(.*) tells the host to play (.*)")]
+        public void WhenTellsTheHostToPlay(string playerName, string cardName)
         {
-            _notifications.Values
-                .All(x => x == 1)
-                .ShouldBeTrue();
+            var client = _clients.Single(c => c.PlayerName == playerName);
+            var gameState = _gameHost.GetGameState(client);
+            var cardId = gameState.Hand.Single(p => p.Name == cardName).Id;
+            var message = new PlayCardMessage(client.PlayerId, cardId);
+            _gameHost.AcceptMessage(message);
         }
 
-        //[Then(@"(.*) should be in the buy step")]
-        //public void ThenPlayerShouldBeInTheBuyStep(string playerName)
-        //{
-        //    var client = _clients.Single(c => c.PlayerName == playerName);
-        //    var gameState = _gameHost.GetGameState(client);
-        //    gameState.Status.IsActive.ShouldBeTrue();
-        //    gameState.Status.InBuyStep.ShouldBeTrue();
-        //}
+        [Then(@"All players should recieve (\d+) game state update[s]?")]
+        public void ThenAllPlayersShouldRecieveAGameStateUpdate(int updateCount)
+        {
+            foreach (var value in _notifications.Values)
+                value.ShouldEqual(updateCount);
+        }
+
+        [Then(@"(.*) should be in the buy step")]
+        public void ThenPlayerShouldBeInTheBuyStep(string playerName)
+        {
+            var client = _clients.Single(c => c.PlayerName == playerName);
+            var gameState = _gameHost.GetGameState(client);
+            gameState.Status.IsActive.ShouldBeTrue();
+            gameState.Status.InBuyStep.ShouldBeTrue();
+        }
     }
 }

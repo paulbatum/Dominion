@@ -63,8 +63,10 @@ this.ScenarioSetup(scenarioInfo);
 #line 7
 testRunner.Given("A new hosted game with 3 players");
 #line 8
-testRunner.And("It is my turn");
+testRunner.And("I am going first");
 #line 9
+testRunner.When("The game begins");
+#line 10
 testRunner.Then("I should be in my buy step");
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -75,18 +77,66 @@ testRunner.Then("I should be in my buy step");
         public virtual void AllowPlayerToPlayActions()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Allow player to play actions", ((string[])(null)));
-#line 11
-this.ScenarioSetup(scenarioInfo);
 #line 12
-testRunner.Given("A new hosted game with 3 players");
+this.ScenarioSetup(scenarioInfo);
 #line 13
-testRunner.And("It is my turn");
+testRunner.Given("A new hosted game with 3 players");
 #line 14
-testRunner.And("I have a Smithy in hand instead of a Copper");
+testRunner.And("I am going first");
 #line 15
-testRunner.And("The game has begun");
+testRunner.And("I have a Smithy in hand instead of a Copper");
 #line 16
+testRunner.When("The game begins");
+#line 17
 testRunner.Then("I should have 1 remaining action");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Immediately move to buy step when previous player uses their buys and current pla" +
+            "yer has no actions")]
+        public virtual void ImmediatelyMoveToBuyStepWhenPreviousPlayerUsesTheirBuysAndCurrentPlayerHasNoActions()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Immediately move to buy step when previous player uses their buys and current pla" +
+                    "yer has no actions", ((string[])(null)));
+#line 19
+this.ScenarioSetup(scenarioInfo);
+#line 20
+testRunner.Given("A new hosted game with 3 players");
+#line 21
+testRunner.And("I am going first");
+#line 22
+testRunner.When("The game begins");
+#line 23
+testRunner.And("Player1 tells the host to buy Copper");
+#line 24
+testRunner.Then("Player2 should be in the buy step");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Automatic progression with multiple buys")]
+        public virtual void AutomaticProgressionWithMultipleBuys()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Automatic progression with multiple buys", ((string[])(null)));
+#line 26
+this.ScenarioSetup(scenarioInfo);
+#line 27
+testRunner.Given("A new hosted game with 3 players");
+#line 28
+testRunner.And("I am going first");
+#line 29
+testRunner.And("I have a Woodcutter in hand instead of a Copper");
+#line 30
+testRunner.When("The game begins");
+#line 31
+testRunner.And("Player1 tells the host to play Woodcutter");
+#line 32
+testRunner.And("Player1 tells the host to buy Copper");
+#line 33
+testRunner.Then("Player1 should be in the buy step");
 #line hidden
             testRunner.CollectScenarioErrors();
         }

@@ -95,11 +95,11 @@ namespace Dominion.GameHost
     {
         public CardViewModel(Card card)
         {
-            Id = card.Id.ToString();
+            Id = card.Id;
             Cost = card.Cost;
             Name = card.Name;
         }
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public int Cost { get; set; }
     }

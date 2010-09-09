@@ -54,20 +54,37 @@ namespace Dominion.Specs.Hosted
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Player interacts with game")]
-        public virtual void PlayerInteractsWithGame()
+        [NUnit.Framework.DescriptionAttribute("Game Begins")]
+        public virtual void GameBegins()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Player interacts with game", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Game Begins", ((string[])(null)));
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
 testRunner.Given("A new hosted game with 3 players");
 #line 9
-testRunner.And("The game has begun");
+testRunner.When("The game begins");
 #line 10
-testRunner.When("Player1 tells the host to buy Copper");
-#line 11
-testRunner.Then("All players should recieve a game state update");
+testRunner.Then("All players should recieve 1 game state update");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Player interacts with game")]
+        public virtual void PlayerInteractsWithGame()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Player interacts with game", ((string[])(null)));
+#line 12
+this.ScenarioSetup(scenarioInfo);
+#line 13
+testRunner.Given("A new hosted game with 3 players");
+#line 14
+testRunner.When("The game begins");
+#line 15
+testRunner.And("Player1 tells the host to buy Copper");
+#line 16
+testRunner.Then("All players should recieve 2 game state updates");
 #line hidden
             testRunner.CollectScenarioErrors();
         }

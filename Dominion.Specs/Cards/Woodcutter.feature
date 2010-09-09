@@ -2,7 +2,7 @@
 
 Background:
 	Given A new game with 3 players
-	And It is my turn
+	And I am going first
 	And I have a Woodcutter in hand instead of a Copper
 
 Scenario: Woodcutter grants extra buy	

@@ -61,10 +61,10 @@ namespace Dominion.Specs.Bindings
             _game.Bank.Piles.Single(x => x.TopCard.Name == cardName).CardCount.ShouldEqual(cardCount);
         }
 
-        [Given(@"It is my turn")]
-        public void GivenItIsMyTurn()
+        [Given(@"I am going first")]
+        public void GivenIAmGoingFirst()
         {
-            _player = _game.CurrentTurn.ActivePlayer;
+            _player = _game.Players.First();
         }
 
         [When(@"I end my turn")]

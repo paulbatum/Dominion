@@ -59,7 +59,7 @@ namespace Dominion.Specs
 #line 7
 testRunner.Given("A new game with 3 players");
 #line 8
-testRunner.And("It is my turn");
+testRunner.And("I am going first");
 #line hidden
         }
         

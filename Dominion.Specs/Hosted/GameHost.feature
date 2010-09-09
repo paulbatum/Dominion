@@ -4,8 +4,13 @@
 	I want to interact with the game 
 	And know when the game state changes
 
+Scenario: Game Begins
+	Given A new hosted game with 3 players		
+	When The game begins
+	Then All players should recieve 1 game state update
+
 Scenario: Player interacts with game
 	Given A new hosted game with 3 players		
-	And The game has begun
-	When Player1 tells the host to buy Copper
-	Then All players should recieve a game state update
+	When The game begins
+	And Player1 tells the host to buy Copper
+	Then All players should recieve 2 game state updates

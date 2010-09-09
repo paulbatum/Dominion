@@ -158,6 +158,7 @@ namespace Dominion.GameHost
         public void UpdateGameState(Game game)
         {
             game.CurrentTurn.EndTurn();
+            game.CurrentTurn.MoveToBuyStepIfNoMorePlays();
         }
 
         public void Validate(Game game)

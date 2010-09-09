@@ -59,7 +59,7 @@ namespace Dominion.Specs.Cards
 #line 4
 testRunner.Given("A new game with 3 players");
 #line 5
-testRunner.And("It is my turn");
+testRunner.And("I am going first");
 #line 6
 testRunner.And("I have a Woodcutter in hand instead of a Copper");
 #line hidden
