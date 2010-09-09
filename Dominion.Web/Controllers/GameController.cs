@@ -18,7 +18,7 @@ namespace Dominion.Web.Controllers
 {
     [InjectGame]
     public class GameController : Controller
-    {
+    {        
         public IGameHost Host { get; set;}
         public IGameClient Client { get; set; }
 
@@ -43,27 +43,33 @@ namespace Dominion.Web.Controllers
         [HttpPost]
         public ActionResult PlayCard(Guid id)
         {
-            throw new NotImplementedException();
+            var message = new PlayCardMessage(playerId: Client.PlayerId, cardId: id);
+            Host.AcceptMessage(message);
+            return new EmptyResult();
         }
 
         [HttpPost]
         public ActionResult BuyCard(Guid id)
         {
-            var model = new PlayerActionResultViewModel();
-            Host.AcceptMessage(new BuyCardMessage {PileId = id});
-            return Json(model);
+            var message = new BuyCardMessage(playerId: Client.PlayerId, pileId: id);
+            Host.AcceptMessage(message);
+            return new EmptyResult();
         }
 
         [HttpPost]
         public ActionResult DoBuys()
         {
-            throw new NotImplementedException();
+            var message = new MoveToBuyStepMessage(playerId: Client.PlayerId);
+            Host.AcceptMessage(message);
+            return new EmptyResult();
         }
 
         [HttpPost]
         public ActionResult EndTurn()
         {
-            throw new NotImplementedException();
+            var message = new EndTurnMessage(playerId: Client.PlayerId);
+            Host.AcceptMessage(message);
+            return new EmptyResult();
         }
 
 

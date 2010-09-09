@@ -6,5 +6,6 @@
 
 Scenario: Player interacts with game
 	Given A new hosted game with 3 players		
+	And The game has begun
 	When Player1 tells the host to buy Copper
 	Then All players should recieve a game state update

@@ -30,7 +30,7 @@ namespace Dominion.GameHost
 
             foreach(var player in game.Players)
             {
-                var client = new GameClient {PlayerName = player.Name};
+                var client = new GameClient(player.Id, player.Name);
                 host.RegisterGameClient(client, player);
                 _clients[player.Id] = client;
                 _gameData[key].Slots[player.Name] = player.Id;

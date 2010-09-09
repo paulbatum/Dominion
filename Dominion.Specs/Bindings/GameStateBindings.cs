@@ -69,7 +69,7 @@ namespace Dominion.Specs.Bindings
 
         [When(@"I end my turn")]
         public void WhenIEndMyTurn()
-        {
+        {            
             _game.CurrentTurn.EndTurn();
         }
 
@@ -137,6 +137,44 @@ namespace Dominion.Specs.Bindings
             _game.ActivePlayer.PlayArea
                 .SingleOrDefault(c => c.Name == cardName)
                 .ShouldNotBeNull();
+        }
+
+        //[Given(@"I have a hand of (\d+) (.*), (\d+) (.*) and (\d+) (.*)")]
+        //public void GivenIHaveAHandOf(int cardCount1, string cardName1, int cardCount2, string cardName2, int cardCount3, string cardName3)
+        //{
+        //    _player.Hand.MoveAll(new NullZone());
+
+        //    var cards = new List<Card>();
+        //    cards.AddRange(cardCount1.Items(() => CardFactory.CreateCard(cardName1)));
+        //    cards.AddRange(cardCount2.Items(() => CardFactory.CreateCard(cardName2)));
+        //    cards.AddRange(cardCount3.Items(() => CardFactory.CreateCard(cardName3)));
+
+        //    foreach (var card in cards)
+        //        card.MoveTo(_player.Hand);
+        //}
+
+        [Then(@"I should have (\d+) buys")]
+        public void ThenIShouldHaveBuys(int buyCount)
+        {
+            _game.CurrentTurn.Buys.ShouldEqual(buyCount);
+        }
+
+        [Then(@"I should have (\d+) to spend")]
+        public void ThenIShouldHaveToSpend(int moneyCount)
+        {
+            _game.CurrentTurn.MoneyToSpend.ShouldEqual(moneyCount);
+        }
+
+        [Then(@"I should have (\d+) remaining action[s]?")]
+        public void ThenIShouldHaveRemainingActions(int remainingActions)
+        {
+            _game.CurrentTurn.RemainingActions.ShouldEqual(remainingActions);
+        }
+
+        [Then(@"I should be in my buy step")]
+        public void ThenIShouldBeInMyBuyStep()
+        {
+            _game.CurrentTurn.InBuyStep.ShouldBeTrue();
         }
     }
 }

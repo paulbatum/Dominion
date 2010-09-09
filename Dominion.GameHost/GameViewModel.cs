@@ -45,6 +45,7 @@ namespace Dominion.GameHost
                 RemainingActions = currentTurn.RemainingActions;
                 MoneyToSpend = currentTurn.MoneyToSpend;
                 IsActive = true;
+                InBuyStep = currentTurn.InBuyStep;
             }
             else
             {
@@ -52,10 +53,11 @@ namespace Dominion.GameHost
             }
 
             ActivePlayerName = currentTurn.ActivePlayer.Name;
-
+            
         }
 
         public bool IsActive { get; set; }
+        public bool InBuyStep { get; set; }
         public int MoneyToSpend { get; set; }
         public int RemainingActions { get; set; }
         public int BuyCount { get; set; }

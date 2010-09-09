@@ -67,6 +67,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Hosted\AutomaticProgression.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AutomaticProgression.feature</DependentUpon>
+    </Compile>
     <Compile Include="Bindings\BindingBase.cs" />
     <Compile Include="Bindings\GameHostBindings.cs" />
     <Compile Include="Cards\Smithy.feature.cs">
@@ -74,7 +79,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Smithy.feature</DependentUpon>
     </Compile>
-    <Compile Include="GameHost.feature.cs">
+    <Compile Include="Cards\Woodcutter.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Woodcutter.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Hosted\GameHost.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GameHost.feature</DependentUpon>
@@ -99,11 +109,19 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Hosted\AutomaticProgression.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>AutomaticProgression.feature.cs</LastGenOutput>
+    </None>
     <None Include="Cards\Smithy.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Smithy.feature.cs</LastGenOutput>
     </None>
-    <None Include="GameHost.feature">
+    <None Include="Cards\Woodcutter.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Woodcutter.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Hosted\GameHost.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>GameHost.feature.cs</LastGenOutput>
     </None>

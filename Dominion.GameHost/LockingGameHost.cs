@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Dominion.Rules;
+using Dominion.Rules.CardTypes;
 
 namespace Dominion.GameHost
 {
@@ -49,6 +50,7 @@ namespace Dominion.GameHost
             _lock.EnterWriteLock();
             try
             {
+                message.Validate(_game);
                 message.UpdateGameState(_game);                
             }
             finally
@@ -58,23 +60,6 @@ namespace Dominion.GameHost
 
             NotifyClients();
         }
-
-        //public IGameClient ActiveClient
-        //{
-        //    get
-        //    {
-        //        _lock.EnterReadLock();
-        //        try
-        //        {
-        //            return _players[]
-        //        }
-        //        catch (Exception)
-        //        {
-                    
-        //            throw;
-        //        }
-        //    }
-        //}
 
         private void NotifyClients()
         {
@@ -86,20 +71,101 @@ namespace Dominion.GameHost
     public interface IGameActionMessage
     {
         void UpdateGameState(Game game);
+        void Validate(Game game);
     }
 
     public class BuyCardMessage : IGameActionMessage
     {
-        public Guid PileId { get; set; }        
+        public BuyCardMessage(Guid playerId, Guid pileId)
+        {
+            PlayerId = playerId;
+            PileId = pileId;
+        }
+
+        public Guid PlayerId { get; private set; }
+        public Guid PileId { get; private set; }        
 
         public void UpdateGameState(Game game)
-        {
-            var pile = game.Bank.Piles.Single(p => p.Id == PileId);
+        {            
+            CardPile pile = game.Bank.Piles.Single(p => p.Id == PileId);
             game.CurrentTurn.Buy(pile);
             game.CurrentTurn.EndTurnIfNoMoreBuys();
             game.CurrentTurn.MoveToBuyStepIfNoMorePlays();
         }
-    }    
+
+        public void Validate(Game game)
+        {
+            if(game.ActivePlayer.Id != PlayerId)
+                throw new InvalidOperationException(string.Format("Player '{0}' is not active.", PlayerId));
+        }
+    }
+
+    public class PlayCardMessage : IGameActionMessage
+    {
+        public PlayCardMessage(Guid playerId, Guid cardId)
+        {
+            PlayerId = playerId;
+            CardId = cardId;
+        }
+
+        public Guid PlayerId { get; private set; }
+        public Guid CardId { get; private set; }
+
+        public void UpdateGameState(Game game)
+        {
+            Card card = game.CurrentTurn.ActivePlayer.Hand.Single(c => c.Id == CardId);
+            game.CurrentTurn.Play((ActionCard) card);
+            game.CurrentTurn.MoveToBuyStepIfNoMorePlays();
+        }
+
+        public void Validate(Game game)
+        {
+            if (game.ActivePlayer.Id != PlayerId)
+                throw new InvalidOperationException(string.Format("Player '{0}' is not active.", PlayerId));
+        }
+    }
+
+    public class MoveToBuyStepMessage : IGameActionMessage
+    {
+        public MoveToBuyStepMessage(Guid playerId)
+        {
+            PlayerId = playerId;
+        }
+
+        public Guid PlayerId { get; private set; }
+
+        public void UpdateGameState(Game game)
+        {
+            game.CurrentTurn.MoveToBuyStep();            
+        }
+
+        public void Validate(Game game)
+        {
+            if (game.ActivePlayer.Id != PlayerId)
+                throw new InvalidOperationException(string.Format("Player '{0}' is not active.", PlayerId));
+        }
+    }
+
+    public class EndTurnMessage : IGameActionMessage
+    {
+        public EndTurnMessage(Guid playerId)
+        {
+            PlayerId = playerId;
+        }
+
+        public Guid PlayerId { get; private set; }
+
+        public void UpdateGameState(Game game)
+        {
+            game.CurrentTurn.EndTurn();
+        }
+
+        public void Validate(Game game)
+        {
+            if (game.ActivePlayer.Id != PlayerId)
+                throw new InvalidOperationException(string.Format("Player '{0}' is not active.", PlayerId));
+        }
+    }
 
     public class BeginGameMessage : IGameActionMessage
     {
@@ -107,17 +173,31 @@ namespace Dominion.GameHost
         {
             game.CurrentTurn.MoveToBuyStepIfNoMorePlays();
         }
+
+        public void Validate(Game game)
+        {
+            
+        }
     }
 
     public interface IGameClient
     {
+        Guid PlayerId { get; }
         void RaiseGameStateUpdated(LockingGameHost host);
         IObservable<GameViewModel> GameStateUpdates { get; }
     }
 
     public class GameClient : IGameClient
     {
-        public string PlayerName { get; set; }
+        public GameClient(Guid playerId, string playerName)
+        {
+            PlayerId = playerId;
+            PlayerName = playerName;
+        }
+
+        public Guid PlayerId { get; private set; }
+        public string PlayerName { get; private set; }
+
         private readonly Subject<GameViewModel> _subject = new Subject<GameViewModel>();
 
         public void RaiseGameStateUpdated(LockingGameHost host)

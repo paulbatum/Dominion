@@ -6,9 +6,6 @@
 
         $(document).ready(function () {
             createLayout();
-
-            
-
             loadGame();
             doComet();
             bindHand();
@@ -62,7 +59,7 @@
               dataType: 'json',
               data: {},
               success: updateGameState,
-              async: false
+              async: true
             });            
         }
 

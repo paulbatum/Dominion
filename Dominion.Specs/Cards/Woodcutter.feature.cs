@@ -9,7 +9,7 @@
 //  </auto-generated>
 // ------------------------------------------------------------------------------
 #region Designer generated code
-namespace Dominion.Specs
+namespace Dominion.Specs.Cards
 {
     using TechTalk.SpecFlow;
     
@@ -17,21 +17,20 @@ namespace Dominion.Specs
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.3.5.2")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Game Host")]
-    public partial class GameHostFeature
+    [NUnit.Framework.DescriptionAttribute("Woodcutter")]
+    public partial class WoodcutterFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "GameHost.feature"
+#line 1 "Woodcutter.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Game Host", "In order to play with other people\r\nAs a Dominion player\r\nI want to interact with" +
-                    " the game\r\nAnd know when the game state changes", ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Woodcutter", "", ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -45,6 +44,7 @@ namespace Dominion.Specs
         public virtual void ScenarioSetup(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
         {
             testRunner.OnScenarioStart(scenarioInfo);
+            this.FeatureBackground();
         }
         
         [NUnit.Framework.TearDownAttribute()]
@@ -53,19 +53,44 @@ namespace Dominion.Specs
             testRunner.OnScenarioEnd();
         }
         
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Player interacts with game")]
-        public virtual void PlayerInteractsWithGame()
+        public virtual void FeatureBackground()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Player interacts with game", ((string[])(null)));
-#line 7
-this.ScenarioSetup(scenarioInfo);
+#line 3
+#line 4
+testRunner.Given("A new game with 3 players");
+#line 5
+testRunner.And("It is my turn");
+#line 6
+testRunner.And("I have a Woodcutter in hand instead of a Copper");
+#line hidden
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Woodcutter grants extra buy")]
+        public virtual void WoodcutterGrantsExtraBuy()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Woodcutter grants extra buy", ((string[])(null)));
 #line 8
-testRunner.Given("A new hosted game with 3 players");
+this.ScenarioSetup(scenarioInfo);
 #line 9
-testRunner.When("Player1 tells the host to buy Copper");
+testRunner.When("I play Woodcutter");
 #line 10
-testRunner.Then("All players should recieve a game state update");
+testRunner.Then("I should have 2 buys");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Woodcutter is +2 money")]
+        public virtual void WoodcutterIs2Money()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Woodcutter is +2 money", ((string[])(null)));
+#line 12
+this.ScenarioSetup(scenarioInfo);
+#line 13
+testRunner.When("I play Woodcutter");
+#line 14
+testRunner.Then("I should have 2 to spend");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
