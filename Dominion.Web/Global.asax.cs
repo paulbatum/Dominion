@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Dominion.Web.Bootstrap;
 using MvcContrib.Routing;
+using System.Threading;
 
 namespace Dominion.Web
 {
@@ -43,7 +44,7 @@ namespace Dominion.Web
         }
 
         protected void Application_Start()
-        {
+        {            
             AreaRegistration.RegisterAllAreas();
             RegisterRoutes(RouteTable.Routes);
             //RouteDebugger.RewriteRoutesForTesting(RouteTable.Routes);

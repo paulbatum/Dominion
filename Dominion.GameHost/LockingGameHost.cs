@@ -51,7 +51,9 @@ namespace Dominion.GameHost
             try
             {
                 message.Validate(_game);
-                message.UpdateGameState(_game);                
+                message.UpdateGameState(_game);
+
+                AutomaticallyProgress();
             }
             finally
             {
@@ -59,6 +61,35 @@ namespace Dominion.GameHost
             }
 
             NotifyClients();
+        }
+
+        private void AutomaticallyProgress()
+        {
+            while(true)
+            {
+                if (_game.IsComplete)
+                    break;
+
+                TurnContext currentTurn = _game.CurrentTurn;
+                if (currentTurn.InBuyStep)
+                {
+                    if (currentTurn.Buys == 0)
+                    {
+                        currentTurn.EndTurn();
+                        continue;
+                    }
+                }
+                else
+                {
+                    if(currentTurn.ActivePlayer.Hand.OfType<ActionCard>().Any() == false || currentTurn.RemainingActions == 0)
+                    {
+                        currentTurn.MoveToBuyStep();
+                        continue;
+                    }
+                }
+
+                break;
+            }
         }
 
         private void NotifyClients()
@@ -88,9 +119,7 @@ namespace Dominion.GameHost
         public void UpdateGameState(Game game)
         {            
             CardPile pile = game.Bank.Piles.Single(p => p.Id == PileId);
-            game.CurrentTurn.Buy(pile);
-            game.CurrentTurn.EndTurnIfNoMoreBuys();
-            game.CurrentTurn.MoveToBuyStepIfNoMorePlays();
+            game.CurrentTurn.Buy(pile);            
         }
 
         public void Validate(Game game)
@@ -114,8 +143,7 @@ namespace Dominion.GameHost
         public void UpdateGameState(Game game)
         {
             Card card = game.CurrentTurn.ActivePlayer.Hand.Single(c => c.Id == CardId);
-            game.CurrentTurn.Play((ActionCard) card);
-            game.CurrentTurn.MoveToBuyStepIfNoMorePlays();
+            game.CurrentTurn.Play((ActionCard) card);            
         }
 
         public void Validate(Game game)
@@ -157,8 +185,7 @@ namespace Dominion.GameHost
 
         public void UpdateGameState(Game game)
         {
-            game.CurrentTurn.EndTurn();
-            game.CurrentTurn.MoveToBuyStepIfNoMorePlays();
+            game.CurrentTurn.EndTurn();            
         }
 
         public void Validate(Game game)
@@ -172,7 +199,9 @@ namespace Dominion.GameHost
     {
         public void UpdateGameState(Game game)
         {
-            game.CurrentTurn.MoveToBuyStepIfNoMorePlays();
+            TurnContext tempQualifier = game.CurrentTurn;
+            if (tempQualifier.ActivePlayer.Hand.OfType<ActionCard>().Any() == false || tempQualifier.RemainingActions == 0)
+                tempQualifier.MoveToBuyStep();
         }
 
         public void Validate(Game game)
@@ -202,7 +231,7 @@ namespace Dominion.GameHost
         private readonly Subject<GameViewModel> _subject = new Subject<GameViewModel>();
 
         public void RaiseGameStateUpdated(LockingGameHost host)
-        {
+        {            
             _subject.OnNext(host.GetGameState(this));
         }
 

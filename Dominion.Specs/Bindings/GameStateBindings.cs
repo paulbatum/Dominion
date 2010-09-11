@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using Dominion.Cards.Treasure;
@@ -153,6 +154,17 @@ namespace Dominion.Specs.Bindings
         //        card.MoveTo(_player.Hand);
         //}
 
+        [Given(@"I have a hand of all (.*)")]
+        public void GivenIHaveAHandOf(string cardName)
+        {
+            _player.Hand.MoveAll(new NullZone());
+
+            var cards = 5.Items(() => CardFactory.CreateCard(cardName)).ToList();            
+
+            foreach (var card in cards)
+                card.MoveTo(_player.Hand);
+        }
+
         [Then(@"I should have (\d+) buys")]
         public void ThenIShouldHaveBuys(int buyCount)
         {
@@ -175,6 +187,24 @@ namespace Dominion.Specs.Bindings
         public void ThenIShouldBeInMyBuyStep()
         {
             _game.CurrentTurn.InBuyStep.ShouldBeTrue();
+        }
+
+        [Given(@"There is only (\d+) (.*) left")]
+        public void GivenThereIsOnlyLeft(int cardCount, string cardName)
+        {
+            var pile = _game.Bank.Piles.Single(c => c.TopCard.Name == cardName);
+            
+            if(!pile.IsLimited)
+                throw new InvalidOperationException("Cannot set the number of cards on an unlimited pile.");
+
+            while(pile.CardCount > cardCount)
+                pile.TopCard.MoveTo(new NullZone());
+        }
+
+        [Then(@"The game should have ended")]
+        public void ThenTheGameShouldHaveEnded()
+        {
+            _game.IsComplete.ShouldBeTrue();
         }
     }
 }

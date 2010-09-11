@@ -94,12 +94,12 @@ testRunner.Then("I should have 1 remaining action");
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Immediately move to buy step when previous player uses their buys and current pla" +
-            "yer has no actions")]
-        public virtual void ImmediatelyMoveToBuyStepWhenPreviousPlayerUsesTheirBuysAndCurrentPlayerHasNoActions()
+        [NUnit.Framework.DescriptionAttribute("Automatic progression when previous player uses their buys and current player has" +
+            " no actions")]
+        public virtual void AutomaticProgressionWhenPreviousPlayerUsesTheirBuysAndCurrentPlayerHasNoActions()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Immediately move to buy step when previous player uses their buys and current pla" +
-                    "yer has no actions", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Automatic progression when previous player uses their buys and current player has" +
+                    " no actions", ((string[])(null)));
 #line 19
 this.ScenarioSetup(scenarioInfo);
 #line 20
@@ -117,10 +117,10 @@ testRunner.Then("Player2 should be in the buy step");
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Automatic progression with multiple buys")]
-        public virtual void AutomaticProgressionWithMultipleBuys()
+        [NUnit.Framework.DescriptionAttribute("Automatic progression when using 1 of 2 buys")]
+        public virtual void AutomaticProgressionWhenUsing1Of2Buys()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Automatic progression with multiple buys", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Automatic progression when using 1 of 2 buys", ((string[])(null)));
 #line 26
 this.ScenarioSetup(scenarioInfo);
 #line 27
@@ -137,6 +137,58 @@ testRunner.And("Player1 tells the host to play Woodcutter");
 testRunner.And("Player1 tells the host to buy Copper");
 #line 33
 testRunner.Then("Player1 should be in the buy step");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Automatic progression when using 2 of 2 buys")]
+        public virtual void AutomaticProgressionWhenUsing2Of2Buys()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Automatic progression when using 2 of 2 buys", ((string[])(null)));
+#line 35
+this.ScenarioSetup(scenarioInfo);
+#line 36
+testRunner.Given("A new hosted game with 3 players");
+#line 37
+testRunner.And("I am going first");
+#line 38
+testRunner.And("I have a Woodcutter in hand instead of a Copper");
+#line 39
+testRunner.When("The game begins");
+#line 40
+testRunner.And("Player1 tells the host to play Woodcutter");
+#line 41
+testRunner.And("Player1 tells the host to buy Copper");
+#line 42
+testRunner.And("Player1 tells the host to buy Copper");
+#line 43
+testRunner.Then("Player2 should be in the buy step");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Automatic progression at the game end")]
+        public virtual void AutomaticProgressionAtTheGameEnd()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Automatic progression at the game end", ((string[])(null)));
+#line 45
+this.ScenarioSetup(scenarioInfo);
+#line 46
+testRunner.Given("A new hosted game with 3 players");
+#line 47
+testRunner.But("There is only 1 Province left");
+#line 48
+testRunner.And("I am going first");
+#line 49
+testRunner.And("I have a hand of all Gold");
+#line 50
+testRunner.When("The game begins");
+#line 51
+testRunner.And("Player1 tells the host to buy Province");
+#line 52
+testRunner.Then("The game should have ended");
 #line hidden
             testRunner.CollectScenarioErrors();
         }

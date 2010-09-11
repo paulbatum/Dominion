@@ -102,17 +102,5 @@ namespace Dominion.Rules
             RemainingActions = 0;
             MoneyToSpend = MoneyToSpend + this.ActivePlayer.Hand.OfType<MoneyCard>().Sum(x => x.Value);
         }
-
-        public void MoveToBuyStepIfNoMorePlays()
-        {
-            if (ActivePlayer.Hand.OfType<ActionCard>().Any() == false || RemainingActions == 0)
-                MoveToBuyStep();
-        }
-
-        public void EndTurnIfNoMoreBuys()
-        {
-            if (InBuyStep && Buys == 0)
-                EndTurn();
-        }
     }
 }

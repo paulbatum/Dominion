@@ -23,9 +23,9 @@ namespace Dominion.Web.Controllers
         }        
         
         [HttpPost]
-        public ActionResult NewGame()
+        public ActionResult NewGame(int numberOfPlayers)
         {
-            string gameKey = _host.CreateNewGame();
+            string gameKey = _host.CreateNewGame(numberOfPlayers);
             return this.RedirectToAction(x => x.ViewPlayers(gameKey));
         }        
 

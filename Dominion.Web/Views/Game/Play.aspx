@@ -15,9 +15,10 @@
 
         function doComet() {
             $.ajax({
-                url: 'gamestateloop', 
-                complete: function() { loadGame(); doComet(); },
-                success: updateGameState                
+                url: 'gamestateloop',
+                complete: doComet,
+                success: updateGameState,
+                error: loadGame
             });
         }
 
@@ -58,8 +59,7 @@
               url: 'GameData',
               dataType: 'json',
               data: {},
-              success: updateGameState,
-              async: true
+              success: updateGameState              
             });            
         }
 

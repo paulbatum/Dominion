@@ -1,12 +1,12 @@
 body
 {
-    font-family:Cambria, Calibri, Optima, Verdana;
+    font-family:Cambria, Calibri, Optima, Verdana;    
 }
 
 .cardpile, .card
 {
     float:left;    
-    text-align:center;
+    text-align:center;    
 }
 
 .cardpile img

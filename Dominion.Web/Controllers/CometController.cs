@@ -27,7 +27,7 @@ namespace Dominion.Web.Controllers
             var key = id.ToString();
 
             var playerId = (Guid) Session["playerId"];
-
+            
             _host.FindClient(playerId)
                 .GameStateUpdates.Take(1)
                 .Subscribe(gvm =>

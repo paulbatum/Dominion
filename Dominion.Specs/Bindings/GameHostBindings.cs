@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Dominion.GameHost;
 using TechTalk.SpecFlow;
+using System.Threading;
 
 namespace Dominion.Specs.Bindings
 {
@@ -30,7 +31,10 @@ namespace Dominion.Specs.Bindings
                 _gameHost.RegisterGameClient(client, player);
                 _clients.Add(client);
                 _notifications[client] = 0;
-                client.GameStateUpdates.Subscribe( _ => _notifications[client] += 1 );
+                client.GameStateUpdates.Subscribe( _ =>
+                                                       {                                                           
+                                                           _notifications[client] += 1;
+                                                       });
             }
 
             
