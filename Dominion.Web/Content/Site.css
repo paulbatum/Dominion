@@ -60,3 +60,18 @@ body
     font-size:smaller;
     width:100px;    
 }
+
+.ui-effects-transfer
+{
+    border-width:1px;
+    border-color:Black;
+    border-style:dashed;
+    z-index: 10;
+}
+
+.playAreaTransferTarget
+{
+    height:150px;
+    width:93px;
+    display:inline-block;
+}

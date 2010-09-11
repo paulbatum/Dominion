@@ -11,9 +11,34 @@
             bindHand();
             bindBank();
             bindCommands();
+
         });
 
+        function loadGame() {
+            console.log("loadGame");
+            $.ajax({
+                url: 'GameData',
+                dataType: 'json',
+                data: {},
+                success: updateGameState,
+                async: false
+            });
+        }
+
+        function updateGameState(data) {
+            console.log("updateGameState");
+            updateSection('#bank', data.Bank, '#cardpileTemplate');
+            updateSection('#hand', data.Hand, '#cardTemplate');
+            updateSection('#status', data.Status, '#statusTemplate');
+            updateSection('#playArea', data.InPlay, '#cardTemplate');
+            updateSection('#deck', data.Deck, '#deckTemplate');
+            updateSection('#discards', data.Discards, '#discardpileTemplate');
+
+            $('#playArea')
+                .append($('<div>').addClass('playAreaTransferTarget'));
+        }
         function doComet() {
+            console.log("doComet");
             $.ajax({
                 url: 'gamestateloop',
                 complete: doComet,
@@ -52,25 +77,7 @@
             $('#bottom').layout({
                 defaults: defaults
             });
-        }
-
-        function loadGame() {
-            $.ajax({
-              url: 'GameData',
-              dataType: 'json',
-              data: {},
-              success: updateGameState              
-            });            
-        }
-
-        function updateGameState(data) {
-            updateSection('#bank', data.Bank, '#cardpileTemplate');
-            updateSection('#hand', data.Hand, '#cardTemplate');
-            updateSection('#status', data.Status, '#statusTemplate');
-            updateSection('#playArea', data.InPlay, '#cardTemplate');            
-            updateSection('#deck', data.Deck, '#deckTemplate');                        
-            updateSection('#discards', data.Discards, '#discardpileTemplate');
-        }
+        }       
 
         function updateSection(sectionSelector, data, templateSelector) {
             $(sectionSelector)
@@ -82,6 +89,7 @@
                 .live('click', function (e) {
                     var data = $.tmplItem(e.target).data;
                     $.post('PlayCard', { id: data.Id }, handleInteractionResponse);
+                    $(this).effect('transfer', { to: '.playAreaTransferTarget' }, 200);
                 });
         }
 
@@ -90,6 +98,7 @@
                 .live('click', function (e) {
                     var data = $.tmplItem(e.target).data;
                     $.post('BuyCard', { id: data.Id }, handleInteractionResponse);
+                    $(this).effect('transfer', { to: '#discards .card' }, 200);                    
                 });
         }
 

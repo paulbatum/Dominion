@@ -34,21 +34,11 @@ namespace Dominion.Web.Controllers
                 {
                     AsyncManager.Parameters["gameState"] = gvm;
                     AsyncManager.OutstandingOperations.Decrement();
-                });
-            
-            //_host.GameStateUpdated += gameKey =>
-            //{                
-            //    if (key == gameKey)
-            //    {
-            //        AsyncManager.Parameters["gameKey"] = gameKey;
-            //        AsyncManager.OutstandingOperations.Decrement();
-            //    }
-            //};
+                });            
         }
         
         public ActionResult GameStateCompleted(GameViewModel gameState)
-        {
-            var client = _host.FindClient((Guid)Session["playerId"]);            
+        {            
             return JsonNet(gameState);
         }
 

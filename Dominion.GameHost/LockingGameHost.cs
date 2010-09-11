@@ -231,7 +231,7 @@ namespace Dominion.GameHost
         private readonly Subject<GameViewModel> _subject = new Subject<GameViewModel>();
 
         public void RaiseGameStateUpdated(LockingGameHost host)
-        {            
+        {
             _subject.OnNext(host.GetGameState(this));
         }
 
