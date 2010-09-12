@@ -20,7 +20,7 @@ namespace Dominion.Web.Controllers
             _host = host;
         }
 
-        [HttpGet, AsyncTimeout(30000)]
+        [HttpGet, AsyncTimeout(15000)]
         public void GameStateAsync(int id)
         {
             AsyncManager.OutstandingOperations.Increment();
@@ -47,7 +47,7 @@ namespace Dominion.Web.Controllers
             return new JsonNetResult
             {
                 Data = model,
-                SerializerSettings = new JsonSerializerSettings { Converters = { new GameViewModelConverter(this.Url) } }                
+                SerializerSettings = new JsonSerializerSettings { Converters = { new ImageConverter(this.Url) } }                
             };
         }
       

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Dominion.Rules.CardTypes;
 
 namespace Dominion.Rules
 {
@@ -10,14 +11,17 @@ namespace Dominion.Rules
         private IEnumerator<TurnContext> _gameTurns;
         private Player _activePlayer;
         public CardBank Bank { get; private set; }
+        public IGameLog Log { get; private set; }
 
-        public Game(IEnumerable<Player> players, CardBank bank)
+        public Game(IEnumerable<Player> players, CardBank bank, IGameLog log)
         {
             if(!players.Any())
                 throw new ArgumentException("There must be at least one player");
 
-            _players = new List<Player>(players);            
+            _players = new List<Player>(players);
+
             Bank = bank;
+            Log = log;
 
             _gameTurns = GameTurns().GetEnumerator();
             _gameTurns.MoveNext();
@@ -40,7 +44,9 @@ namespace Dominion.Rules
                 int current = 0;
                 while(true)
                 {
-                    yield return _players[current++];
+                    var nextPlayer = _players[current++];
+                    Log.LogTurn(nextPlayer);
+                    yield return nextPlayer;
                     if (current == _players.Count)
                         current = 0;
                 }
@@ -52,12 +58,12 @@ namespace Dominion.Rules
             foreach (var player in TurnLoop)
             {
                 if(IsComplete)
-                {
+                {                    
                     yield break;
                 }                    
 
                 _activePlayer = player;
-                yield return player.BeginTurn();
+                yield return player.BeginTurn(this);
             }                
         }
 
@@ -88,4 +94,5 @@ namespace Dominion.Rules
             get { return Bank.EmptyPileCount == (_players.Count < 5 ? 3 : 4); }
         }
     }
+
 }

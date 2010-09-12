@@ -24,7 +24,7 @@ namespace Dominion.Tests
             _anatoli = new Player("Anatoli", config.CreateStartingDeck());
 
             _players = new List<Player>(new[] { _paul, _tristan, _anatoli });
-            _game = new Game(_players, new CardBank());
+            _game = new Game(_players, new CardBank(), new TextGameLog());
         }
 
         [Test]

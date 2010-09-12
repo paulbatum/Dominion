@@ -53,6 +53,11 @@ namespace Dominion.Rules
         public abstract Card TopCard { get; }
         public abstract bool IsLimited { get; }
 
+        public string Name
+        {
+            get { return TopCard.Name; }
+        }
+
         public CardPile()
         {
             Id = Guid.NewGuid();

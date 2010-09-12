@@ -27,9 +27,9 @@ namespace Dominion.Rules
         public Hand Hand { get; private set; }
         public PlayArea PlayArea { get; private set; }
 
-        public TurnContext BeginTurn()
+        public TurnContext BeginTurn(Game game)
         {            
-            var context = new TurnContext(this);
+            var context = new TurnContext(this, game);
             return context;
         }
 

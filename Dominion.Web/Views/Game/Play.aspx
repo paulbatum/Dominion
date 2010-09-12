@@ -14,8 +14,7 @@
 
         });
 
-        function loadGame() {
-            console.log("loadGame");
+        function loadGame() {            
             $.ajax({
                 url: 'GameData',
                 dataType: 'json',
@@ -25,8 +24,7 @@
             });
         }
 
-        function updateGameState(data) {
-            console.log("updateGameState");
+        function updateGameState(data) {            
             updateSection('#bank', data.Bank, '#cardpileTemplate');
             updateSection('#hand', data.Hand, '#cardTemplate');
             updateSection('#status', data.Status, '#statusTemplate');
@@ -36,9 +34,12 @@
 
             $('#playArea')
                 .append($('<div>').addClass('playAreaTransferTarget'));
+
+            $('#log')
+                .html(data.Log)
+                .animate({ scrollTop: $('#log').height() }, 1000);
         }
-        function doComet() {
-            console.log("doComet");
+        function doComet() {            
             $.ajax({
                 url: 'gamestateloop',
                 complete: doComet,
@@ -70,8 +71,14 @@
             $('#main').layout({
                 defaults: defaults,
                 east: {
-                    minSize: 100
-                }
+                    size:'20%'
+                },     
+                center: {
+                    size:'60%'
+                }, 
+                west: {
+                    size:'20%'            
+                }                         
             });
 
             $('#bottom').layout({
@@ -176,6 +183,7 @@
             </div>
         </div>        
         <div id="playArea" class="ui-layout-center container"></div>
+        <div id="log" class="ui-layout-east container" style="overflow-y:scroll"></div>
     </div>        
     <div id="bottom" class="ui-layout-south">        
         <div id="deck" class="ui-layout-west"></div>

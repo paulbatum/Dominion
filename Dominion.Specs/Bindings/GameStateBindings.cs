@@ -206,5 +206,81 @@ namespace Dominion.Specs.Bindings
         {
             _game.IsComplete.ShouldBeTrue();
         }
+
+        [When(@"(.*) ends his turn")]
+        public void WhenEndsHisTurn(string playerName)
+        {
+            if(_game.ActivePlayer.Name != playerName)
+                throw new InvalidOperationException(string.Format("{0} cannot end their turn because it is currently {1}'s turn.", playerName, _game.ActivePlayer.Name));
+
+            _game.CurrentTurn.EndTurn();
+        }
+
+        [Then(@"The game log should report that (.*)'s turn has begun")]
+        public void ThenTheGameLogShouldReportThatTurnHasBegun(string playerName)
+        {
+            _game.Log.Contents.ShouldContain(playerName + "'s turn has begun.");
+        }
+
+        [When(@"(.*) moves to the buy step")]
+        public void WhenMovesToTheBuyStep(string playerName)
+        {
+            if (_game.ActivePlayer.Name != playerName)
+                throw new InvalidOperationException(string.Format("{0} cannot move to the buy step because it is currently {1}'s turn.", playerName, _game.ActivePlayer.Name));
+            
+            _game.CurrentTurn.MoveToBuyStep();
+        }
+
+        [When(@"(.*) buys a (.*)")]
+        public void WhenBuysA(string playerName, string cardName)
+        {
+            if (_game.ActivePlayer.Name != playerName)
+                throw new InvalidOperationException(string.Format("{0} cannot buy a {1} because it is currently {2}'s turn.", playerName, cardName, _game.ActivePlayer.Name));
+
+            var pile = _game.Bank.Piles.Single(c => c.TopCard.Name == cardName);
+
+            _game.CurrentTurn.Buy(pile);
+        }
+
+        [Then(@"The game log should report that (.*) bought a (.*)")]
+        public void ThenTheGameLogShouldReportThatBoughtA(string playerName, string cardName)
+        {
+            _game.Log.Contents.ShouldContain(playerName + " bought a " + cardName);
+        }
+
+        [Given(@"(.*) has a (.*) in hand instead of a (.*)")]
+        public void GivenHasAInHandInsteadOfA(string playerName, string cardName, string cardToReplace)
+        {
+            var player = _game.Players.Single(p => p.Name == playerName);
+
+            var card = CardFactory.CreateCard(cardName);
+            card.MoveTo(player.Hand);
+
+            player.Hand
+                .First(c => c.Name == cardToReplace)
+                .MoveTo(new NullZone());
+        }
+
+        [When(@"(.*) plays a (.*)")]
+        public void WhenPlaysA(string playerName, string cardName)
+        {
+            if (_game.ActivePlayer.Name != playerName)
+                throw new InvalidOperationException(string.Format("{0} cannot play a {1} because it is currently {2}'s turn.", playerName, cardName, _game.ActivePlayer.Name));
+
+            var card = _game.ActivePlayer.Hand
+                .OfType<ActionCard>()
+                .First(c => c.Name == cardName);
+
+            _game.CurrentTurn.Play(card);
+        }
+
+        [Then(@"The game log should report that (.*) played a (.*)")]
+        public void ThenTheGameLogShouldReportThatPlayedA(string playerName, string cardName)
+        {
+            _game.Log.Contents.ShouldContain(playerName + " played a " + cardName);
+        }
+
+
+
     }
 }

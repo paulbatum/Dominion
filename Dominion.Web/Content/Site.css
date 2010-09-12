@@ -3,6 +3,12 @@ body
     font-family:Cambria, Calibri, Optima, Verdana;    
 }
 
+#bank .cardpile,
+#hand .card
+{
+    cursor: pointer;
+}
+
 .cardpile, .card
 {
     float:left;    

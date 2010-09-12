@@ -40,7 +40,7 @@ namespace Dominion.GameHost
             InitializeBank(bank);
 
             var players = playerNames.Select(name => new Player(name, CreateStartingDeck()));
-            return new Game(players, bank);
+            return new Game(players, bank, new TextGameLog());
         }
 
         public IEnumerable<Card> CreateStartingDeck()

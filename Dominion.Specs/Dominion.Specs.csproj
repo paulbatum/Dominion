@@ -68,6 +68,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameLog.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GameLog.feature</DependentUpon>
+    </Compile>
     <Compile Include="Hosted\AutomaticProgression.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -110,6 +115,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="GameLog.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>GameLog.feature.cs</LastGenOutput>
+    </None>
     <None Include="Hosted\AutomaticProgression.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AutomaticProgression.feature.cs</LastGenOutput>

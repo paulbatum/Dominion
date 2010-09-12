@@ -7,15 +7,17 @@ namespace Dominion.Rules
 {
     public class TurnContext
     {
-        public TurnContext(Player player)
+        public TurnContext(Player player, Game game)
         {
             ActivePlayer = player;
+            Game = game;
             MoneyToSpend = 0;
             RemainingActions = 1;
             Buys = 1;
         }
 
         public Player ActivePlayer { get; private set; }
+        public Game Game { get; private set; }
         public int MoneyToSpend { get; set; }
         public int RemainingActions { get; set; }
         public int Buys { get; set; }
@@ -47,6 +49,7 @@ namespace Dominion.Rules
                 throw new ArgumentException(string.Format("The card '{0}' cannot be played", card), "card");
 
             RemainingActions--;
+            this.Game.Log.LogPlay(this.ActivePlayer, card);
             card.Play(this);
 
             card.MoveTo(ActivePlayer.PlayArea);
@@ -81,6 +84,7 @@ namespace Dominion.Rules
 
             Buys--;
             MoneyToSpend -= cardToBuy.Cost;
+            this.Game.Log.LogBuy(this.ActivePlayer, pile);
             
             cardToBuy.MoveTo(this.ActivePlayer.Discards);
         }

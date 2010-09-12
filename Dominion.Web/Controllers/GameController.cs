@@ -75,11 +75,11 @@ namespace Dominion.Web.Controllers
 
 
         private ActionResult JsonNet(GameViewModel model)
-        {
+        {            
             return new JsonNetResult
             {
                 Data = model,
-                SerializerSettings = new JsonSerializerSettings { Converters = { new GameViewModelConverter(this.Url) } }
+                SerializerSettings = new JsonSerializerSettings { Converters = { new ImageConverter(this.Url) } }
             };
         }
 
@@ -88,11 +88,11 @@ namespace Dominion.Web.Controllers
         
     }
     
-    public class GameViewModelConverter : KeyValuePairConverter
+    public class ImageConverter : KeyValuePairConverter
     {
         private readonly UrlHelper _url;
 
-        public GameViewModelConverter(UrlHelper url)
+        public ImageConverter(UrlHelper url)
         {
             _url = url;
         }
@@ -105,7 +105,7 @@ namespace Dominion.Web.Controllers
                         typeof (CardViewModel), 
                         typeof (CardPileViewModel), 
                         typeof (DeckViewModel),
-                        typeof (DiscardPileViewModel)
+                        typeof (DiscardPileViewModel)                        
                     }
                 .Contains(objectType);
         }
@@ -128,4 +128,5 @@ namespace Dominion.Web.Controllers
             writer.WriteRawValue(o.ToString());
         }
     }
+    
 }

@@ -8,6 +8,8 @@ namespace Dominion.GameHost
     {
         public GameViewModel(Game game, Player player)
         {
+            Log = game.Log.Contents;
+
             TimeStamp = DateTime.Now.Ticks;
 
             Bank = game.Bank.Piles
@@ -26,6 +28,7 @@ namespace Dominion.GameHost
             Discards = new DiscardPileViewModel(player.Discards);
         }
 
+        public string Log { get; set; }
         public long TimeStamp { get; set; }
         public TurnContextViewModel Status { get; set; }
         public CardPileViewModel[] Bank { get; set; }
