@@ -26,9 +26,7 @@ namespace Dominion.Rules
         
         public void DrawCards(int numberOfCardsToDraw)
         {
-            var actualDrawCount = Math.Min(ActivePlayer.Deck.CardCount + ActivePlayer.Discards.CardCount,
-                                           numberOfCardsToDraw);
-            ActivePlayer.Deck.MoveCards(ActivePlayer.Hand, actualDrawCount);
+            ActivePlayer.DrawCards(numberOfCardsToDraw);
         }
 
         public bool CanPlay(Card card)

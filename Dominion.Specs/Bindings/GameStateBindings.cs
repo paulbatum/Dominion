@@ -280,7 +280,19 @@ namespace Dominion.Specs.Bindings
             _game.Log.Contents.ShouldContain(playerName + " played a " + cardName);
         }
 
+        [Then(@"Player (.*?) should have (\d+) card[s]? in hand")]
+        public void PlayerShouldHaveNumberOfCardsInHand(string playerName, int numberOfCards)
+        {
+            var player = _game.Players.Single(c => c.Name.Equals(playerName, StringComparison.InvariantCultureIgnoreCase));
+            player.Hand.Count().ShouldEqual(numberOfCards);
+        }
 
-
+        [Then(@"Player (.*?) should have a (.*?) card on top of the discard pile")]
+        public void PlayerShouldHaveCardOnTopOfDiscardPile(string playerName, string cardName)
+        {
+            var player = _game.Players.Single(c => c.Name.Equals(playerName, StringComparison.InvariantCultureIgnoreCase));
+            var cardType = _game.Bank.Piles.Single(x => x.Name.Equals(cardName, StringComparison.InvariantCultureIgnoreCase)).TopCard.GetType();
+            player.Discards.TopCard.GetType().ShouldEqual(cardType);
+        }
     }
 }

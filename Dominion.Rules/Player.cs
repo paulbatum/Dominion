@@ -39,6 +39,11 @@ namespace Dominion.Rules
             return scorer;
         }
 
-       
+        public void DrawCards(int numberOfCards)
+        {
+            var actualDrawCount = Math.Min(Deck.CardCount + Discards.CardCount,
+                               numberOfCards);
+            Deck.MoveCards(Hand, actualDrawCount);
+        }
     }
 }

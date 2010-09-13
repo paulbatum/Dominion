@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{632796B6-68E3-4C17-85D9-D9444A96A3F7}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -68,6 +68,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cards\CouncilRoom.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CouncilRoom.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Cards\Market.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Market.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Cards\Witch.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Witch.feature</DependentUpon>
+    </Compile>
     <Compile Include="GameLog.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -115,6 +130,18 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Cards\CouncilRoom.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>CouncilRoom.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\Market.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Market.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\Witch.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Witch.feature.cs</LastGenOutput>
+    </None>
     <None Include="GameLog.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>GameLog.feature.cs</LastGenOutput>

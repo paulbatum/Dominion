@@ -9,5 +9,7 @@ namespace Dominion.Rules
         {
             get { return this.Cards.Last(); }
         }
+
+
     }
 }

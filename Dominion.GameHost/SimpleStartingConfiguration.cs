@@ -13,9 +13,9 @@ namespace Dominion.GameHost
             bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Smithy>(10));
             bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Village>(10));
             bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Woodcutter>(10));
-            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Smithy>(10));
-            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Village>(10));
-            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Woodcutter>(10));
+            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Market>(10));
+            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Witch>(10));
+            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<CouncilRoom>(10));
             bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Smithy>(10));
             bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Village>(10));
             bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Woodcutter>(10));
