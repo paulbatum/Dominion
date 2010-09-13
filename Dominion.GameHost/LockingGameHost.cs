@@ -30,6 +30,7 @@ namespace Dominion.GameHost
         public void RegisterGameClient(IGameClient client, Player associatedPlayer)
         {
             _players[client] = associatedPlayer;
+            client.AssociateWithHost(this);
         }
 
         public GameViewModel GetGameState(IGameClient client)
@@ -213,8 +214,10 @@ namespace Dominion.GameHost
     public interface IGameClient
     {
         Guid PlayerId { get; }
-        void RaiseGameStateUpdated(LockingGameHost host);
+        void RaiseGameStateUpdated(IGameHost host);
         IObservable<GameViewModel> GameStateUpdates { get; }
+        GameViewModel GetGameState();
+        void AssociateWithHost(IGameHost gameHost);
     }
 
     public class GameClient : IGameClient
@@ -228,9 +231,10 @@ namespace Dominion.GameHost
         public Guid PlayerId { get; private set; }
         public string PlayerName { get; private set; }
 
+        private IGameHost _host;
         private readonly Subject<GameViewModel> _subject = new Subject<GameViewModel>();
 
-        public void RaiseGameStateUpdated(LockingGameHost host)
+        public void RaiseGameStateUpdated(IGameHost  host)
         {
             _subject.OnNext(host.GetGameState(this));
         }
@@ -238,6 +242,19 @@ namespace Dominion.GameHost
         public IObservable<GameViewModel> GameStateUpdates
         {
             get { return _subject; }
+        }
+
+        public GameViewModel GetGameState()
+        {
+            return _host.GetGameState(this);
+        }
+
+        public void AssociateWithHost(IGameHost gameHost)
+        {
+            if(_host != null)
+                throw new InvalidOperationException("Already associated with a host.");
+
+            _host = gameHost;
         }
     }
 }

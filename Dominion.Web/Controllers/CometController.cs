@@ -20,7 +20,7 @@ namespace Dominion.Web.Controllers
             _host = host;
         }
 
-        [HttpGet, AsyncTimeout(15000)]
+        [HttpGet]
         public void GameStateAsync(int id)
         {
             AsyncManager.OutstandingOperations.Increment();
@@ -28,8 +28,12 @@ namespace Dominion.Web.Controllers
 
             var playerId = (Guid) Session["playerId"];
             
-            _host.FindClient(playerId)
-                .GameStateUpdates.Take(1)
+            var client = _host.FindClient(playerId);
+            
+            client
+                .GameStateUpdates
+                .Timeout(TimeSpan.FromSeconds(15), Observable.Return(client.GetGameState()))
+                .Take(1)
                 .Subscribe(gvm =>
                 {
                     AsyncManager.Parameters["gameState"] = gvm;

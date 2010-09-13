@@ -35,16 +35,18 @@
             $('#playArea')
                 .append($('<div>').addClass('playAreaTransferTarget'));
 
+
             $('#log')
                 .html(data.Log)
-                .animate({ scrollTop: 50000 }, 1000);
+                .animate({ scrollTop: $('#log').attr("scrollHeight") - $('#log').height() }, 1000);
         }
         function doComet() {            
             $.ajax({
                 url: 'gamestateloop',
                 complete: doComet,
                 success: updateGameState,
-                error: loadGame
+                error: loadGame,
+                cache: false
             });
         }
 
