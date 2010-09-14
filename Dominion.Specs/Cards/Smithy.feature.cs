@@ -62,13 +62,11 @@ this.ScenarioSetup(scenarioInfo);
 #line 4
 testRunner.Given("A new game with 3 players");
 #line 5
-testRunner.And("I am going first");
+testRunner.And("Player1 has a Smithy in hand instead of a Copper");
 #line 6
-testRunner.And("I have a Smithy in hand instead of a Copper");
+testRunner.When("Player1 plays a Smithy");
 #line 7
-testRunner.When("I play Smithy");
-#line 8
-testRunner.Then("I should have 7 cards in hand");
+testRunner.Then("Player1 should have 7 cards in hand");
 #line hidden
             testRunner.CollectScenarioErrors();
         }

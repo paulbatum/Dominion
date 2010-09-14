@@ -63,11 +63,9 @@ this.ScenarioSetup(scenarioInfo);
 #line 7
 testRunner.Given("A new hosted game with 3 players");
 #line 8
-testRunner.And("I am going first");
-#line 9
 testRunner.When("The game begins");
-#line 10
-testRunner.Then("I should be in my buy step");
+#line 9
+testRunner.Then("Player1 should be in the buy step");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
@@ -77,18 +75,16 @@ testRunner.Then("I should be in my buy step");
         public virtual void AllowPlayerToPlayActions()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Allow player to play actions", ((string[])(null)));
-#line 12
+#line 11
 this.ScenarioSetup(scenarioInfo);
-#line 13
+#line 12
 testRunner.Given("A new hosted game with 3 players");
+#line 13
+testRunner.And("Player1 has a Smithy in hand instead of a Copper");
 #line 14
-testRunner.And("I am going first");
-#line 15
-testRunner.And("I have a Smithy in hand instead of a Copper");
-#line 16
 testRunner.When("The game begins");
-#line 17
-testRunner.Then("I should have 1 remaining action");
+#line 15
+testRunner.Then("Player1 should have 1 remaining action");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
@@ -100,17 +96,15 @@ testRunner.Then("I should have 1 remaining action");
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Automatic progression when previous player uses their buys and current player has" +
                     " no actions", ((string[])(null)));
-#line 19
+#line 17
 this.ScenarioSetup(scenarioInfo);
-#line 20
+#line 18
 testRunner.Given("A new hosted game with 3 players");
-#line 21
-testRunner.And("I am going first");
-#line 22
+#line 19
 testRunner.When("The game begins");
-#line 23
+#line 20
 testRunner.And("Player1 tells the host to buy Copper");
-#line 24
+#line 21
 testRunner.Then("Player2 should be in the buy step");
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -121,21 +115,19 @@ testRunner.Then("Player2 should be in the buy step");
         public virtual void AutomaticProgressionWhenUsing1Of2Buys()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Automatic progression when using 1 of 2 buys", ((string[])(null)));
-#line 26
+#line 23
 this.ScenarioSetup(scenarioInfo);
-#line 27
+#line 24
 testRunner.Given("A new hosted game with 3 players");
-#line 28
-testRunner.And("I am going first");
-#line 29
-testRunner.And("I have a Woodcutter in hand instead of a Copper");
-#line 30
+#line 25
+testRunner.And("Player1 has a Woodcutter in hand instead of a Copper");
+#line 26
 testRunner.When("The game begins");
-#line 31
+#line 27
 testRunner.And("Player1 tells the host to play Woodcutter");
-#line 32
+#line 28
 testRunner.And("Player1 tells the host to buy Copper");
-#line 33
+#line 29
 testRunner.Then("Player1 should be in the buy step");
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -146,23 +138,21 @@ testRunner.Then("Player1 should be in the buy step");
         public virtual void AutomaticProgressionWhenUsing2Of2Buys()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Automatic progression when using 2 of 2 buys", ((string[])(null)));
-#line 35
+#line 31
 this.ScenarioSetup(scenarioInfo);
-#line 36
+#line 32
 testRunner.Given("A new hosted game with 3 players");
-#line 37
-testRunner.And("I am going first");
-#line 38
-testRunner.And("I have a Woodcutter in hand instead of a Copper");
-#line 39
+#line 33
+testRunner.And("Player1 has a Woodcutter in hand instead of a Copper");
+#line 34
 testRunner.When("The game begins");
-#line 40
+#line 35
 testRunner.And("Player1 tells the host to play Woodcutter");
-#line 41
+#line 36
 testRunner.And("Player1 tells the host to buy Copper");
-#line 42
+#line 37
 testRunner.And("Player1 tells the host to buy Copper");
-#line 43
+#line 38
 testRunner.Then("Player2 should be in the buy step");
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -173,21 +163,19 @@ testRunner.Then("Player2 should be in the buy step");
         public virtual void AutomaticProgressionAtTheGameEnd()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Automatic progression at the game end", ((string[])(null)));
-#line 45
+#line 40
 this.ScenarioSetup(scenarioInfo);
-#line 46
+#line 41
 testRunner.Given("A new hosted game with 3 players");
-#line 47
+#line 42
 testRunner.But("There is only 1 Province left");
-#line 48
-testRunner.And("I am going first");
-#line 49
-testRunner.And("I have a hand of all Gold");
-#line 50
+#line 43
+testRunner.And("Player1 has a hand of all Gold");
+#line 44
 testRunner.When("The game begins");
-#line 51
+#line 45
 testRunner.And("Player1 tells the host to buy Province");
-#line 52
+#line 46
 testRunner.Then("The game should have ended");
 #line hidden
             testRunner.CollectScenarioErrors();

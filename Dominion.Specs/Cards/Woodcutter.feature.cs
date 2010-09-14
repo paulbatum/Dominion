@@ -59,9 +59,7 @@ namespace Dominion.Specs.Cards
 #line 4
 testRunner.Given("A new game with 3 players");
 #line 5
-testRunner.And("I am going first");
-#line 6
-testRunner.And("I have a Woodcutter in hand instead of a Copper");
+testRunner.And("Player1 has a Woodcutter in hand instead of a Copper");
 #line hidden
         }
         
@@ -70,12 +68,12 @@ testRunner.And("I have a Woodcutter in hand instead of a Copper");
         public virtual void WoodcutterGrantsExtraBuy()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Woodcutter grants extra buy", ((string[])(null)));
-#line 8
+#line 7
 this.ScenarioSetup(scenarioInfo);
+#line 8
+testRunner.When("Player1 plays a Woodcutter");
 #line 9
-testRunner.When("I play Woodcutter");
-#line 10
-testRunner.Then("I should have 2 buys");
+testRunner.Then("Player1 should have 2 buys");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
@@ -85,12 +83,12 @@ testRunner.Then("I should have 2 buys");
         public virtual void WoodcutterIs2Money()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Woodcutter is +2 money", ((string[])(null)));
-#line 12
+#line 11
 this.ScenarioSetup(scenarioInfo);
+#line 12
+testRunner.When("Player1 plays a Woodcutter");
 #line 13
-testRunner.When("I play Woodcutter");
-#line 14
-testRunner.Then("I should have 2 to spend");
+testRunner.Then("Player1 should have 2 to spend");
 #line hidden
             testRunner.CollectScenarioErrors();
         }

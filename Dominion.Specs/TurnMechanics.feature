@@ -4,20 +4,19 @@
 	I can perform certain actions
 
 Background: 
-	Given A new game with 3 players
-	And I am going first
+	Given A new game with 3 players	
 
 Scenario: Discard hand at end of turn	
-	When I end my turn
-	Then I should have 5 cards in the discard pile
+	When Player1 ends their turn
+	Then Player1 should have 5 cards in the discard pile
 
 Scenario: Draw cards after discarding at end of turn
-	When I end my turn
-	Then I should have 5 cards in hand
+	When Player1 ends their turn
+	Then Player1 should have 5 cards in hand
 
 Scenario: Use single action
-	Given I have a Smithy in hand instead of a Copper
-	When I play Smithy
-	Then I should have 0 actions remaining
+	Given Player1 has a Smithy in hand instead of a Copper
+	When Player1 plays a Smithy
+	Then Player1 should have 0 actions remaining
 	And Smithy should be in play
 	

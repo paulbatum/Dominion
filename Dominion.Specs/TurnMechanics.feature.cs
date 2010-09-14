@@ -58,8 +58,6 @@ namespace Dominion.Specs
 #line 6
 #line 7
 testRunner.Given("A new game with 3 players");
-#line 8
-testRunner.And("I am going first");
 #line hidden
         }
         
@@ -68,12 +66,12 @@ testRunner.And("I am going first");
         public virtual void DiscardHandAtEndOfTurn()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Discard hand at end of turn", ((string[])(null)));
-#line 10
+#line 9
 this.ScenarioSetup(scenarioInfo);
+#line 10
+testRunner.When("Player1 ends their turn");
 #line 11
-testRunner.When("I end my turn");
-#line 12
-testRunner.Then("I should have 5 cards in the discard pile");
+testRunner.Then("Player1 should have 5 cards in the discard pile");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
@@ -83,12 +81,12 @@ testRunner.Then("I should have 5 cards in the discard pile");
         public virtual void DrawCardsAfterDiscardingAtEndOfTurn()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Draw cards after discarding at end of turn", ((string[])(null)));
-#line 14
+#line 13
 this.ScenarioSetup(scenarioInfo);
+#line 14
+testRunner.When("Player1 ends their turn");
 #line 15
-testRunner.When("I end my turn");
-#line 16
-testRunner.Then("I should have 5 cards in hand");
+testRunner.Then("Player1 should have 5 cards in hand");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
@@ -98,15 +96,15 @@ testRunner.Then("I should have 5 cards in hand");
         public virtual void UseSingleAction()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Use single action", ((string[])(null)));
-#line 18
+#line 17
 this.ScenarioSetup(scenarioInfo);
+#line 18
+testRunner.Given("Player1 has a Smithy in hand instead of a Copper");
 #line 19
-testRunner.Given("I have a Smithy in hand instead of a Copper");
+testRunner.When("Player1 plays a Smithy");
 #line 20
-testRunner.When("I play Smithy");
+testRunner.Then("Player1 should have 0 actions remaining");
 #line 21
-testRunner.Then("I should have 0 actions remaining");
-#line 22
 testRunner.And("Smithy should be in play");
 #line hidden
             testRunner.CollectScenarioErrors();
