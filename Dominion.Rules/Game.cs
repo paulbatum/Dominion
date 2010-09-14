@@ -70,10 +70,7 @@ namespace Dominion.Rules
         public TurnContext CurrentTurn
         {
             get
-            {
-                if(_gameTurns.Current.HasEnded)
-                    _gameTurns.MoveNext();
-
+            {                
                 return _gameTurns.Current;
             }
         }
@@ -92,6 +89,19 @@ namespace Dominion.Rules
         private bool TooManyEmptyPiles
         {
             get { return Bank.EmptyPileCount == (_players.Count < 5 ? 3 : 4); }
+        }
+
+        public IEnumerable<PlayerScorer> Score()
+        {
+            return _players
+                .Select(p => new PlayerScorer(p));
+        }
+
+        public void EndTurn()
+        {
+            CurrentTurn.EndTurn();            
+            if(!_gameTurns.MoveNext())
+                Log.LogGameEnd(this);
         }
     }
 

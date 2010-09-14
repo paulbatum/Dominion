@@ -35,9 +35,9 @@ namespace Dominion.Rules
             }
         }
 
-        public void MoveCards(CardZone cardZone, int numberOfCardsToDraw)
+        public void MoveCards(CardZone cardZone, int count)
         {
-            numberOfCardsToDraw.Times(() => TopCard.MoveTo(cardZone));
+            count.Times(() => TopCard.MoveTo(cardZone));
         }
 
         public IEnumerable<Card> Contents

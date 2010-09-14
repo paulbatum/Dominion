@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 using Dominion.Rules.CardTypes;
 
@@ -9,8 +10,10 @@ namespace Dominion.Rules
         void LogTurn(Player player);
         void LogPlay(Player player, ActionCard card);
         void LogBuy(Player player, CardPile pile);
+        void LogGameEnd(Game game);
 
         string Contents { get; }
+        
     }
 
     public class TextGameLog : IGameLog
@@ -34,6 +37,29 @@ namespace Dominion.Rules
         {
             _builder.AppendFormat("{0} bought a {1}.", player.Name, pile.Name);
             _builder.AppendLine();
+        }
+
+        public void LogGameEnd(Game game)
+        {
+            var scores = game.Score();
+
+            _builder
+                .AppendLine("The game has ended!")
+                .AppendLine()
+                .AppendLine("----- SCORES -----");                
+
+            foreach (var score in scores)
+                _builder
+                    .AppendFormat("{0}: {1}", score.PlayerName, score.Total)
+                    .AppendLine();
+
+            _builder.AppendLine("------------------");
+            var winner = scores.Last(score => score.Total == scores.Max(x => x.Total));
+
+            _builder.AppendLine();
+            _builder.AppendLine(winner.PlayerName + " is the winner!");
+
+
         }
 
         public string Contents

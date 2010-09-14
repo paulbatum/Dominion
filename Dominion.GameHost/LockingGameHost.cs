@@ -76,7 +76,7 @@ namespace Dominion.GameHost
                 {
                     if (currentTurn.Buys == 0)
                     {
-                        currentTurn.EndTurn();
+                        _game.EndTurn();
                         continue;
                     }
                 }
@@ -186,7 +186,7 @@ namespace Dominion.GameHost
 
         public void UpdateGameState(Game game)
         {
-            game.CurrentTurn.EndTurn();            
+            game.EndTurn();            
         }
 
         public void Validate(Game game)

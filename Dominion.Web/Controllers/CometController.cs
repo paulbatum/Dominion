@@ -42,17 +42,8 @@ namespace Dominion.Web.Controllers
         }
         
         public ActionResult GameStateCompleted(GameViewModel gameState)
-        {            
-            return JsonNet(gameState);
-        }
-
-        private ActionResult JsonNet(GameViewModel model)
         {
-            return new JsonNetResult
-            {
-                Data = model,
-                SerializerSettings = new JsonSerializerSettings { Converters = { new ImageConverter(this.Url) } }                
-            };
+            return new GameViewModelResult(gameState, this);
         }
       
     }

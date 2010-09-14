@@ -60,7 +60,7 @@
     </Reference>
     <Reference Include="System.CoreEx, Version=1.0.2698.102, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Binaries\Rx\System.CoreEx.dll</HintPath>      
+      <HintPath>..\Binaries\Rx\System.CoreEx.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Observable, Version=1.0.0.102, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -120,7 +120,7 @@
     <Content Include="Scripts\jquery.tmpl.js" />
     <Content Include="Views\Game\Play.aspx" />
     <Content Include="Views\Home\ViewPlayers.aspx" />
-    <Content Include="Views\Home\Index.aspx" />
+    <Content Include="Views\Home\NewGame.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

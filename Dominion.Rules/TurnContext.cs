@@ -21,8 +21,7 @@ namespace Dominion.Rules
         public int MoneyToSpend { get; set; }
         public int RemainingActions { get; set; }
         public int Buys { get; set; }
-        public bool InBuyStep { get; private set; }
-        public bool HasEnded { get; private set; }
+        public bool InBuyStep { get; private set; }        
         
         public void DrawCards(int numberOfCardsToDraw)
         {
@@ -87,12 +86,11 @@ namespace Dominion.Rules
             cardToBuy.MoveTo(this.ActivePlayer.Discards);
         }
 
-        public void EndTurn()
+        internal void EndTurn()
         {
             ActivePlayer.PlayArea.MoveAll(ActivePlayer.Discards);
             ActivePlayer.Hand.MoveAll(ActivePlayer.Discards);
-            DrawCards(5);
-            HasEnded = true;
+            DrawCards(5);            
         }
 
         public void MoveToBuyStep()

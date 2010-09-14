@@ -37,7 +37,7 @@
 
 
             $('#log')
-                .html(data.Log)
+                .html(data.Log)                
                 .animate({ scrollTop: $('#log').attr("scrollHeight") - $('#log').height() }, 1000);
         }
         function doComet() {            

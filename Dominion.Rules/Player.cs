@@ -33,9 +33,9 @@ namespace Dominion.Rules
             return context;
         }
 
-        public GameScorer CreateScorer()
+        public PlayerScorer CreateScorer()
         {
-            var scorer = new GameScorer(this);
+            var scorer = new PlayerScorer(this);
             return scorer;
         }
 

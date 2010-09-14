@@ -54,7 +54,7 @@ namespace Dominion.GameHost
                 var client = new GameClient(player.Id, player.Name);
                 host.RegisterGameClient(client, player);
                 _clients[player.Id] = client;
-                _gameData[key].Slots[player.Name] = player.Id;
+                _gameData[key].Slots[player.Id] = player.Name;
             }
 
             return key;
@@ -64,11 +64,11 @@ namespace Dominion.GameHost
     public class GameData
     {
         public string GameKey { get; set; }
-        public IDictionary<string, Guid> Slots { get; private set; }
+        public IDictionary<Guid, string> Slots { get; private set; }
 
         public GameData()
         {
-            Slots = new Dictionary<string, Guid>();
+            Slots = new Dictionary<Guid, string>();
         }
     }
 }

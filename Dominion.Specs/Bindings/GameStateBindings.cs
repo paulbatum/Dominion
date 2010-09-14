@@ -106,7 +106,7 @@ namespace Dominion.Specs.Bindings
         public void WhenPlayerEndsTheirTurn(string playerName)
         {
             _game.ActivePlayer.Name.ShouldEqual(playerName);
-            _game.CurrentTurn.EndTurn();
+            _game.EndTurn();
         }
 
         // Then
@@ -231,6 +231,19 @@ namespace Dominion.Specs.Bindings
         {
             _game.Log.Contents.ShouldContain(playerName + " played a " + cardName);
         }
+
+        [Then(@"The game log should report the scores")]
+        public void ThenTheGameLogShouldReportTheScores()
+        {
+            _game.Log.Contents.ShouldContain("SCORES");
+        }
+
+        [Then(@"(.*) should be the winner")]
+        public void ThenPlayerShouldBeTheWinner(string playerName)
+        {
+            _game.Log.Contents.ShouldContain(playerName + " is the winner");
+        }
+
         #endregion
     }
 }

@@ -37,7 +37,7 @@ namespace Dominion.Web.Controllers
         public ActionResult GameData(string playerId)
         {
             var model = Host.GetGameState(Client);
-            return JsonNet(model);
+            return new GameViewModelResult(model, this);
         }
 
         [HttpPost]
@@ -69,23 +69,25 @@ namespace Dominion.Web.Controllers
         {
             var message = new EndTurnMessage(playerId: Client.PlayerId);
             Host.AcceptMessage(message);
-            return new EmptyResult();
+            return new EmptyResult();            
         }
 
 
 
-        private ActionResult JsonNet(GameViewModel model)
-        {            
-            return new JsonNetResult
-            {
-                Data = model,
-                SerializerSettings = new JsonSerializerSettings { Converters = { new ImageConverter(this.Url) } }
-            };
+        
+
+        
+    }
+
+    public class GameViewModelResult : JsonNetResult
+    {
+        public GameViewModelResult(GameViewModel model, Controller controller)
+        {
+            model.Log = controller.Server.HtmlEncode(model.Log)
+                .Replace(Environment.NewLine, "<br/>"); // there has to be a better way to do this, why am I so dumb
+            Data = model;
+            SerializerSettings = new JsonSerializerSettings { Converters = { new ImageConverter(controller.Url) } };
         }
-
-        
-
-        
     }
     
     public class ImageConverter : KeyValuePairConverter

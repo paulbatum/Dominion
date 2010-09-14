@@ -1,0 +1,16 @@
+<Configuration>
+  <SharedSolutionTemplateManager>
+    <LiveTemplates>
+      <Template uid="e6b23f6f-ea39-4590-b9d7-44062fbbb3c7" shortcut="player" description="" text="var player = _game.Players.Single(p =&gt; p.Name == playerName);" reformat="True" shortenQualifiedReferences="True">
+        <Categories />
+        <Variables />
+        <CustomProperties />
+      </Template>
+      <Template uid="41579f53-fcdb-47e9-84f7-4df191c93fa1" shortcut="checkActivePlayer" description="" text="_game.ActivePlayer.Name.ShouldEqual(playerName);" reformat="True" shortenQualifiedReferences="True">
+        <Categories />
+        <Variables />
+        <CustomProperties />
+      </Template>
+    </LiveTemplates>
+  </SharedSolutionTemplateManager>
+</Configuration>

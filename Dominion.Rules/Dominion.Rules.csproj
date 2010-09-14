@@ -68,7 +68,7 @@
     <Compile Include="DiscardPile.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="TextGameLog.cs" />
-    <Compile Include="GameScorer.cs" />
+    <Compile Include="PlayerScorer.cs" />
     <Compile Include="Hand.cs" />
     <Compile Include="MyExtensions.cs" />
     <Compile Include="NullZone.cs" />

@@ -18,3 +18,14 @@ Scenario: A player buys a card
 	When Player1 moves to the buy step
 	And Player1 buys a Copper
 	Then The game log should report that Player1 bought a Copper
+
+@Ignore
+Scenario: The game ends
+	Given A new game with 3 players
+	But There is only 1 Province left	
+	And Player1 has a hand of all Gold	
+	When Player1 moves to the buy step
+	And Player1 buys a Province	
+	And Player1 ends their turn
+	Then The game log should report the scores
+	And Player1 should be the winner

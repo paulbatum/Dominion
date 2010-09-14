@@ -19,8 +19,14 @@ namespace Dominion.Web.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("NewGame");
         }        
+
+        [HttpGet]
+        public ActionResult NewGame()
+        {
+            return View();            
+        }
         
         [HttpPost]
         public ActionResult NewGame(int numberOfPlayers)

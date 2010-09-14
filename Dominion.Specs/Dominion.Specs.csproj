@@ -83,6 +83,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Witch.feature</DependentUpon>
     </Compile>
+    <Compile Include="GameEnd.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GameEnd.feature</DependentUpon>
+    </Compile>
     <Compile Include="GameLog.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -141,6 +146,10 @@
     <None Include="Cards\Witch.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Witch.feature.cs</LastGenOutput>
+    </None>
+    <None Include="GameEnd.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>GameEnd.feature.cs</LastGenOutput>
     </None>
     <None Include="GameLog.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
