@@ -262,6 +262,13 @@ namespace Dominion.Specs.Bindings
             _game.Log.Contents.ShouldContain(playerName + " is the winner");
         }
 
+        [Then(@"(.*)? should have (\d+) victory point[s]?")]
+        public void ThenPlayerShouldHaveVictoryPoints(string playerName, int victoryPoints)
+        {
+            var player = _game.Players.Single(p => p.Name == playerName);
+            player.CreateScorer().Total.ShouldEqual(victoryPoints);
+        }
+
         #endregion
 
         [Then(@"(.*) must discard (\d+) cards")]
