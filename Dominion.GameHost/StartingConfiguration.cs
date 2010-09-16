@@ -45,13 +45,13 @@ namespace Dominion.GameHost
 
         public IEnumerable<Card> CreateStartingDeck()
         {
-            //return 3.NewCards<Estate>().Concat(7.NewCards<Copper>());
-            var cards = new List<Card>();
-            cards.AddRange(3.NewCards<Dominion.Cards.Actions.ThroneRoom>());
-            cards.AddRange(2.NewCards<Dominion.Cards.Actions.Witch>());
-            cards.AddRange(2.NewCards<Dominion.Cards.Actions.Market>());            
-            cards.AddRange(3.NewCards<Gold>());
-            return cards;
+            return 3.NewCards<Estate>().Concat(7.NewCards<Copper>());
+            //var cards = new List<Card>();
+            //cards.AddRange(3.NewCards<Dominion.Cards.Actions.ThroneRoom>());
+            //cards.AddRange(2.NewCards<Dominion.Cards.Actions.Witch>());
+            //cards.AddRange(2.NewCards<Dominion.Cards.Actions.Market>());            
+            //cards.AddRange(3.NewCards<Gold>());
+            //return cards;
         }
 
         private int VictoryCardCount
