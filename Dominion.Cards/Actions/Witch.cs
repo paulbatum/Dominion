@@ -27,9 +27,18 @@ namespace Dominion.Cards.Actions
                     continue;
                 }
 
-                var card = context.Game.Bank.Piles.Single(x => x.TopCard is CurseCard).TopCard;
-                card.MoveTo(player.Discards);
-                context.Game.Log.LogGain(player, card);
+                var cursePile = context.Game.Bank.Piles.SingleOrDefault(x => x.TopCard is CurseCard);
+
+                if (cursePile != null)
+                {
+                    var card = cursePile.TopCard;
+                    card.MoveTo(player.Discards);
+                    context.Game.Log.LogGain(player, card);
+                }
+                else
+                {
+                    context.Game.Log.LogMessage("{0} avoided a Curse because the pile is empty", player.Name);
+                }
             }
         }
     }
