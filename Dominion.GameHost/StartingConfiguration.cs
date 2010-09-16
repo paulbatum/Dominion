@@ -45,14 +45,13 @@ namespace Dominion.GameHost
 
         public IEnumerable<Card> CreateStartingDeck()
         {
-            return 3.NewCards<Estate>().Concat(7.NewCards<Copper>());
-            //var cards = new List<Card>();
-            //cards.AddRange(3.NewCards<Dominion.Cards.Actions.ThroneRoom>());
-            //cards.AddRange(2.NewCards<Dominion.Cards.Actions.Market>());
-            //cards.AddRange(1.NewCards<Dominion.Cards.Actions.Chancellor>());
-            //cards.AddRange(1.NewCards<Dominion.Cards.Actions.CouncilRoom>());
-            //cards.AddRange(3.NewCards<Silver>());
-            //return cards;
+            //return 3.NewCards<Estate>().Concat(7.NewCards<Copper>());
+            var cards = new List<Card>();
+            cards.AddRange(3.NewCards<Dominion.Cards.Actions.ThroneRoom>());
+            cards.AddRange(2.NewCards<Dominion.Cards.Actions.Witch>());
+            cards.AddRange(2.NewCards<Dominion.Cards.Actions.Market>());            
+            cards.AddRange(3.NewCards<Gold>());
+            return cards;
         }
 
         private int VictoryCardCount
@@ -92,7 +91,7 @@ namespace Dominion.GameHost
 
         private CardPile Curses
         {
-            get { return new LimitedSupplyCardPile().WithNewCards<Curse>(Math.Max(10, (_numberOfPlayers - 1) * 10)); }
+            get { return new LimitedSupplyCardPile().WithNewCards<Curse>(Math.Max(10, (_numberOfPlayers - 1) * 10)); }            
         }
     }
 }

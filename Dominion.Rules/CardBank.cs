@@ -53,15 +53,24 @@ namespace Dominion.Rules
         public abstract Card TopCard { get; }
         public abstract bool IsLimited { get; }
 
+        private string _cachedName;
+
         public string Name
         {
-            get { return TopCard.Name; }
+            get
+            {
+                // The pile could run out, lets remember the name.
+                if (_cachedName == null)
+                    _cachedName = TopCard.Name;
+
+                return _cachedName;
+            }
         }
 
         public CardPile()
         {
             Id = Guid.NewGuid();
-        }
+        }        
     }
 
     public class LimitedSupplyCardPile : CardPile
@@ -73,7 +82,7 @@ namespace Dominion.Rules
 
         public override Card TopCard
         {
-            get { return Cards.First(); }
+            get { return Cards.FirstOrDefault(); }
         }
 
         public override bool IsLimited

@@ -141,7 +141,10 @@ namespace Dominion.Web.Controllers
             if (value is CardViewModel)
                 cardName = ((CardViewModel)value).Name;
             else if (value is CardPileViewModel)
-                cardName = ((CardPileViewModel)value).Name;
+            {
+                var pile = ((CardPileViewModel) value);
+                cardName = (!pile.IsLimited) || pile.Count > 0 ? pile.Name : "empty";
+            }
             else if (value is DeckViewModel)
                 cardName = ((DeckViewModel)value).IsEmpty ? "empty" : "deck";
             else if (value is DiscardPileViewModel)

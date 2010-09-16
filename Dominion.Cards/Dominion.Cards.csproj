@@ -64,6 +64,7 @@
     <Compile Include="Actions\CouncilRoom.cs" />
     <Compile Include="Actions\Market.cs" />
     <Compile Include="Actions\Militia.cs" />
+    <Compile Include="Actions\Moat.cs" />
     <Compile Include="Actions\Smithy.cs" />
     <Compile Include="Actions\ThroneRoom.cs" />
     <Compile Include="Actions\Village.cs" />

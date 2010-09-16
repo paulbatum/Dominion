@@ -366,5 +366,14 @@ namespace Dominion.Specs.Bindings
             activity.UpToCost.ShouldEqual(cardCost);
         }
 
+        [Then(@"(.*) must wait")]
+        public void ThenPlayerMustWait(string playerName)
+        {
+            var player = _game.Players.Single(p => p.Name == playerName);
+            var activity = _game.GetPendingActivity(player);
+
+            activity.ShouldBeOfType<WaitingForPlayersActivity>();
+        }
+
     }
 }

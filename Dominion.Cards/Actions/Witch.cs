@@ -19,13 +19,17 @@ namespace Dominion.Cards.Actions
         {
             context.DrawCards(2);
 
-            foreach (var player in context.Game.Players)
+            foreach (var player in context.Opponents)
             {
-                if (player != context.Game.ActivePlayer)
+                if (player.Hand.OfType<Moat>().Any())
                 {
-                    var card = context.Game.Bank.Piles.Single(x => x.TopCard is CurseCard).TopCard;
-                    card.MoveTo(player.Discards);
+                    context.Game.Log.LogMoat(player);
+                    continue;
                 }
+
+                var card = context.Game.Bank.Piles.Single(x => x.TopCard is CurseCard).TopCard;
+                card.MoveTo(player.Discards);
+                context.Game.Log.LogGain(player, card);
             }
         }
     }

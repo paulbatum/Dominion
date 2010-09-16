@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Dominion.Rules;
@@ -25,6 +24,12 @@ namespace Dominion.Cards.Actions
             {
                 foreach (var player in context.Opponents)
                 {
+                    if (player.Hand.OfType<Moat>().Any())
+                    {
+                        context.Game.Log.LogMoat(player);
+                        continue;
+                    }
+
                     var numberToDiscard = player.Hand.CardCount - 3;
 
                     if(numberToDiscard > 0)
@@ -33,6 +38,4 @@ namespace Dominion.Cards.Actions
             }
         }
     }
-    
-
 }

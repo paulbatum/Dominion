@@ -24,7 +24,7 @@ namespace Dominion.GameHost
             Hand = player.Hand
                 .Select(c => new CardViewModel(c)).ToArray();
 
-            InPlay = player.PlayArea
+            InPlay = game.ActivePlayer.PlayArea
                 .Select(c => new CardViewModel(c)).ToArray();
 
             Status = new TurnContextViewModel(game.CurrentTurn, player);
@@ -107,11 +107,11 @@ namespace Dominion.GameHost
             Id = pile.Id;
             IsLimited = pile.IsLimited;
             Count = pile.IsLimited ? pile.CardCount : 0;
+            Name = pile.Name;
 
             if (!pile.IsEmpty)
             {
-                Cost = pile.TopCard.Cost;
-                Name = pile.TopCard.Name;
+                Cost = pile.TopCard.Cost;                
             }
         }
 

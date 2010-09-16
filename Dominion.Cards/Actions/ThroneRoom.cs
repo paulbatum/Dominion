@@ -40,6 +40,7 @@ namespace Dominion.Cards.Actions
                 public override void Execute(IEnumerable<Card> cards)
                 {
                     var actionCard = cards.OfType<ActionCard>().Single();
+                    _context.Game.Log.LogMessage("{0} selected {1} to be played twice.", Player.Name, actionCard.Name);
 
                     if (actionCard != null)
                     {

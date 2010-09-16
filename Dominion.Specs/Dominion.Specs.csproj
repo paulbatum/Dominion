@@ -93,6 +93,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Militia.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\Moat.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Moat.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\ThroneRoom.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -179,6 +184,10 @@
     <None Include="Cards\Militia.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Militia.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\Moat.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Moat.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\ThroneRoom.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
