@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Actions\Chancellor.cs" />
     <Compile Include="Actions\CouncilRoom.cs" />
+    <Compile Include="Actions\Feast.cs" />
     <Compile Include="Actions\Market.cs" />
     <Compile Include="Actions\Militia.cs" />
     <Compile Include="Actions\Moat.cs" />

@@ -14,6 +14,7 @@ namespace Dominion.Rules
         public CardBank Bank { get; private set; }
         public IGameLog Log { get; private set; }
         public long Version { get; private set; }
+        public TrashPile Trash {get; private set; }
 
         public Game(IEnumerable<Player> players, CardBank bank, IGameLog log)
         {
@@ -24,9 +25,12 @@ namespace Dominion.Rules
 
             Bank = bank;
             Log = log;
+            Trash = new TrashPile();
 
             _gameTurns = GameTurns().GetEnumerator();
             _gameTurns.MoveNext();
+
+
         }
 
         public IEnumerable<Player> Players

@@ -78,6 +78,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CouncilRoom.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\Feast.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Feast.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\Gardens.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -172,6 +177,10 @@
     <None Include="Cards\CouncilRoom.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>CouncilRoom.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\Feast.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Feast.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\Gardens.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

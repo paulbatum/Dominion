@@ -278,6 +278,12 @@ namespace Dominion.Specs.Bindings
             var player = _game.Players.Single(p => p.Name == playerName);                        
             player.Discards.TopCard.Name.ShouldEqual(cardName);
         }
+
+        [Then(@"There should be a (.*) on top of the trash pile")]
+        public void PlayerShouldHaveCardOnTopOfTrashPile(string cardName)
+        {
+            _game.Trash.TopCard.Name.ShouldEqual(cardName);
+        }
         
         [Then(@"The game log should report that (.*)'s turn has begun")]
         public void ThenTheGameLogShouldReportThatTurnHasBegun(string playerName)
