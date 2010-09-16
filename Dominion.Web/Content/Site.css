@@ -1,6 +1,6 @@
 body
 {
-    font-family:Cambria, Calibri, Optima, Verdana;    
+    font-family:Cambria, Calibri, Optima, Verdana;        
 }
 
 #bank .cardpile,
@@ -15,14 +15,16 @@ body
     text-align:center;    
 }
 
-.cardpile img
-{
-    height: 150px;   
-}
-
+.cardpile img,
 .card img
 {
-    height: 150px;   
+    height: 150px;           
+}   
+
+#bank .cardpile img,
+#hand .card img
+{
+     border: 1px Solid Black;    
 }
 
 .container
@@ -54,11 +56,16 @@ body
     background-color:Green;                 
 }
 
-#display, #playArea, #bank, #bottom
+#display, #playArea, #bank, #bottom, #prompt, #log
 {
     border-style:double;
     border-width:3px;
     border-color:Black;
+}
+
+#log
+{
+    font-size:small;
 }
 
 #doBuys, #endTurn
@@ -80,4 +87,26 @@ body
     height:150px;
     width:93px;
     display:inline-block;
+}
+
+#prompt
+{
+    background: white;    
+}
+
+.selectedCard
+{    
+    border: 1px solid red !important;    
+}
+
+#message
+{
+    float:left;    
+    text-align:center;
+}
+
+.promptButton
+{
+    font-size:smaller !important;    
+    float:right;    
 }

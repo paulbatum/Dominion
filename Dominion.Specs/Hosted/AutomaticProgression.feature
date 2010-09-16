@@ -44,3 +44,10 @@ Scenario: Automatic progression at the game end
 	When The game begins
 	And Player1 tells the host to buy Province	
 	Then The game should have ended
+
+Scenario: Automatic progression when an effect is in progress
+	Given A new hosted game with 3 players		
+	And Player1 has a Militia in hand instead of a Copper	
+	When The game begins
+	And Player1 tells the host to play Militia
+	Then Player1 should be in the action step

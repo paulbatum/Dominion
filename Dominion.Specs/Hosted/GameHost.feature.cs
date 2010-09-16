@@ -88,6 +88,29 @@ testRunner.Then("All players should recieve 2 game state updates");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Player plays an action that requires other players to make decisions")]
+        public virtual void PlayerPlaysAnActionThatRequiresOtherPlayersToMakeDecisions()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Player plays an action that requires other players to make decisions", ((string[])(null)));
+#line 18
+this.ScenarioSetup(scenarioInfo);
+#line 19
+testRunner.Given("A new hosted game with 3 players");
+#line 20
+testRunner.And("Player1 has a Militia in hand instead of a Copper");
+#line 21
+testRunner.When("The game begins");
+#line 22
+testRunner.And("Player1 tells the host to play Militia");
+#line 23
+testRunner.Then("The host should tell Player2 to discard 2 cards");
+#line 24
+testRunner.Then("The host should tell Player3 to discard 2 cards");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
     }
 }
 #endregion

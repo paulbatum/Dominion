@@ -4,15 +4,67 @@
 <asp:Content runat="server" ID="Content1" ContentPlaceHolderID="HeadContent">
     <script type="text/javascript">
 
-        $(document).ready(function () {
-            createLayout();
-            loadGame();
-            doComet();
-            bindHand();
-            bindBank();
-            bindCommands();
+        var actions = {
+            buy: function (event) {
+                var data = $.tmplItem(event.target).data;
+                $.post('BuyCard', { id: data.Id }, handleInteractionResponse);
+                $(event.target).effect('transfer', { to: '#discards .card' }, 200);
+            },
+            play: function (event) {
+                var data = $.tmplItem(event.target).data;
+                $.post('PlayCard', { id: data.Id }, handleInteractionResponse);
+                $(event.target).effect('transfer', { to: '.playAreaTransferTarget' }, 200);
+            },
+            selectFixedNumberOfCards: function (event, activity) {
+                $(event.target).toggleClass('selectedCard');
 
+                var ids = $('#hand .selectedCard')
+                            .get()
+                            .map($.tmplItem)
+                            .map(function (tmpl) { return tmpl.data.Id });
+
+                if (ids.length == activity.Properties.NumberOfCardsToSelect) {
+                    $.post('SelectCards', { ids: ids }, handleInteractionResponse);
+                }
+            },
+            makeYesNoChoice: function (choice) {
+                $.post('MakeYesNoChoice', { choice: choice }, handleInteractionResponse);
+            }
+        };
+
+        var controller = {};
+
+        var version = 0;
+
+        $(document).ready(function () {
+            jQuery.ajaxSettings.traditional = true;
+
+            createLayout();
+            bindDefaultClickEvents();
+            loadGame();
+            doComet();            
+            //bindActivity({ count: 3 });
+            bindCommands();
         });
+
+        function bindActivity(activity) {
+            controller.HandClick = function (event) { };
+            controller.BankClick = function (event) { };
+
+            if (activity.Type == "SelectFixedNumberOfCards") {
+                controller.HandClick = function (event) { actions.selectFixedNumberOfCards(event, activity); };
+            }
+
+            if (activity.Type == "MakeYesNoChoice") {
+                $('#yesChoice').show();
+                $('#noChoice').show();
+            }
+            else {
+                $('#yesChoice').hide();
+                $('#noChoice').hide();
+            }
+
+        }
 
         function loadGame() {            
             $.ajax({
@@ -24,7 +76,13 @@
             });
         }
 
-        function updateGameState(data) {            
+        function updateGameState(data) {
+
+            if (version == data.Version)
+                return;
+            else
+                version = data.Version;
+
             updateSection('#bank', data.Bank, '#cardpileTemplate');
             updateSection('#hand', data.Hand, '#cardTemplate');
             updateSection('#status', data.Status, '#statusTemplate');
@@ -32,14 +90,30 @@
             updateSection('#deck', data.Deck, '#deckTemplate');
             updateSection('#discards', data.Discards, '#discardpileTemplate');
 
+
+            if (data.PendingActivity) {
+                bindActivity(data.PendingActivity)
+                $('#prompt').show()
+                $('#message').text(data.PendingActivity.Message);
+            }
+            else {
+                bindDefaultClickEvents();
+                $('#prompt').hide();
+            }
+
             $('#playArea')
                 .append($('<div>').addClass('playAreaTransferTarget'));
-
 
             $('#log')
                 .html(data.Log)                
                 .animate({ scrollTop: $('#log').attr("scrollHeight") - $('#log').height() }, 1000);
         }
+
+        function bindDefaultClickEvents() {
+            controller.HandClick = actions.play;
+            controller.BankClick = actions.buy;
+        }
+
         function doComet() {            
             $.ajax({
                 url: 'gamestateloop',
@@ -83,9 +157,17 @@
                 }                         
             });
 
+            $('#middle').layout({
+                defaults: defaults,
+
+                south: {
+                    initClosed: true
+                }
+            });
+
             $('#bottom').layout({
                 defaults: defaults
-            });
+            });            
         }       
 
         function updateSection(sectionSelector, data, templateSelector) {
@@ -93,25 +175,18 @@
                 .html($(templateSelector).tmpl(data));
         }
 
-        function bindHand() {
-            $('#hand .card')
-                .live('click', function (e) {
-                    var data = $.tmplItem(e.target).data;
-                    $.post('PlayCard', { id: data.Id }, handleInteractionResponse);
-                    $(this).effect('transfer', { to: '.playAreaTransferTarget' }, 200);
-                });
-        }
-
-        function bindBank() {
-            $('#bank .cardpile')
-                .live('click', function (e) {
-                    var data = $.tmplItem(e.target).data;
-                    $.post('BuyCard', { id: data.Id }, handleInteractionResponse);
-                    $(this).effect('transfer', { to: '#discards .card' }, 200);                    
-                });
-        }
-
         function bindCommands() {
+            $('#hand .card').live('click', function (event) { controller.HandClick(event); });
+            $('#bank .cardpile').live('click', function (event) { controller.BankClick(event); });
+
+            $('#yesChoice')
+                    .click(function () { actions.makeYesNoChoice(true); })
+                    .button();
+
+            $('#noChoice')
+                    .click(function () { actions.makeYesNoChoice(false); })
+                    .button();
+
             $('form').ajaxForm(handleInteractionResponse);
 
             $('#doBuys').button();
@@ -184,7 +259,14 @@
                 </form>
             </div>
         </div>        
-        <div id="playArea" class="ui-layout-center container"></div>
+        <div id="middle" class="ui-layout-center">
+            <div id="playArea" class="ui-layout-center container"></div>
+            <div id="prompt" class="ui-layout-south container">
+                <div id="message"></div>
+                <input id="noChoice" type="submit" class="promptButton" value="No" />
+                <input id="yesChoice" type="submit" class="promptButton" value="Yes" />                
+            </div>
+        </div>
         <div id="log" class="ui-layout-east container" style="overflow-y:scroll"></div>
     </div>        
     <div id="bottom" class="ui-layout-south">        

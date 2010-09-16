@@ -53,6 +53,7 @@ namespace Dominion.GameHost
             {
                 message.Validate(_game);
                 message.UpdateGameState(_game);
+                _game.IncrementVersion();
 
                 AutomaticallyProgress();
             }
@@ -69,9 +70,13 @@ namespace Dominion.GameHost
             while(true)
             {
                 if (_game.IsComplete)
-                    break;
+                    break;                
 
                 TurnContext currentTurn = _game.CurrentTurn;
+
+                if (currentTurn.CurrentEffect != null)
+                    break;
+
                 if (currentTurn.InBuyStep)
                 {
                     if (currentTurn.Buys == 0)
@@ -100,161 +105,4 @@ namespace Dominion.GameHost
         }
     }
 
-    public interface IGameActionMessage
-    {
-        void UpdateGameState(Game game);
-        void Validate(Game game);
-    }
-
-    public class BuyCardMessage : IGameActionMessage
-    {
-        public BuyCardMessage(Guid playerId, Guid pileId)
-        {
-            PlayerId = playerId;
-            PileId = pileId;
-        }
-
-        public Guid PlayerId { get; private set; }
-        public Guid PileId { get; private set; }        
-
-        public void UpdateGameState(Game game)
-        {            
-            CardPile pile = game.Bank.Piles.Single(p => p.Id == PileId);
-            game.CurrentTurn.Buy(pile);            
-        }
-
-        public void Validate(Game game)
-        {
-            if(game.ActivePlayer.Id != PlayerId)
-                throw new InvalidOperationException(string.Format("Player '{0}' is not active.", PlayerId));
-        }
-    }
-
-    public class PlayCardMessage : IGameActionMessage
-    {
-        public PlayCardMessage(Guid playerId, Guid cardId)
-        {
-            PlayerId = playerId;
-            CardId = cardId;
-        }
-
-        public Guid PlayerId { get; private set; }
-        public Guid CardId { get; private set; }
-
-        public void UpdateGameState(Game game)
-        {
-            Card card = game.CurrentTurn.ActivePlayer.Hand.Single(c => c.Id == CardId);
-            game.CurrentTurn.Play((ActionCard) card);            
-        }
-
-        public void Validate(Game game)
-        {
-            if (game.ActivePlayer.Id != PlayerId)
-                throw new InvalidOperationException(string.Format("Player '{0}' is not active.", PlayerId));
-        }
-    }
-
-    public class MoveToBuyStepMessage : IGameActionMessage
-    {
-        public MoveToBuyStepMessage(Guid playerId)
-        {
-            PlayerId = playerId;
-        }
-
-        public Guid PlayerId { get; private set; }
-
-        public void UpdateGameState(Game game)
-        {
-            game.CurrentTurn.MoveToBuyStep();            
-        }
-
-        public void Validate(Game game)
-        {
-            if (game.ActivePlayer.Id != PlayerId)
-                throw new InvalidOperationException(string.Format("Player '{0}' is not active.", PlayerId));
-        }
-    }
-
-    public class EndTurnMessage : IGameActionMessage
-    {
-        public EndTurnMessage(Guid playerId)
-        {
-            PlayerId = playerId;
-        }
-
-        public Guid PlayerId { get; private set; }
-
-        public void UpdateGameState(Game game)
-        {
-            game.EndTurn();            
-        }
-
-        public void Validate(Game game)
-        {
-            if (game.ActivePlayer.Id != PlayerId)
-                throw new InvalidOperationException(string.Format("Player '{0}' is not active.", PlayerId));
-        }
-    }
-
-    public class BeginGameMessage : IGameActionMessage
-    {
-        public void UpdateGameState(Game game)
-        {
-            TurnContext tempQualifier = game.CurrentTurn;
-            if (tempQualifier.ActivePlayer.Hand.OfType<ActionCard>().Any() == false || tempQualifier.RemainingActions == 0)
-                tempQualifier.MoveToBuyStep();
-        }
-
-        public void Validate(Game game)
-        {
-            
-        }
-    }
-
-    public interface IGameClient
-    {
-        Guid PlayerId { get; }
-        void RaiseGameStateUpdated(IGameHost host);
-        IObservable<GameViewModel> GameStateUpdates { get; }
-        GameViewModel GetGameState();
-        void AssociateWithHost(IGameHost gameHost);
-    }
-
-    public class GameClient : IGameClient
-    {
-        public GameClient(Guid playerId, string playerName)
-        {
-            PlayerId = playerId;
-            PlayerName = playerName;
-        }
-
-        public Guid PlayerId { get; private set; }
-        public string PlayerName { get; private set; }
-
-        private IGameHost _host;
-        private readonly Subject<GameViewModel> _subject = new Subject<GameViewModel>();
-
-        public void RaiseGameStateUpdated(IGameHost  host)
-        {
-            _subject.OnNext(host.GetGameState(this));
-        }
-
-        public IObservable<GameViewModel> GameStateUpdates
-        {
-            get { return _subject; }
-        }
-
-        public GameViewModel GetGameState()
-        {
-            return _host.GetGameState(this);
-        }
-
-        public void AssociateWithHost(IGameHost gameHost)
-        {
-            if(_host != null)
-                throw new InvalidOperationException("Already associated with a host.");
-
-            _host = gameHost;
-        }
-    }
 }

@@ -180,6 +180,27 @@ testRunner.Then("The game should have ended");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Automatic progression when an effect is in progress")]
+        public virtual void AutomaticProgressionWhenAnEffectIsInProgress()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Automatic progression when an effect is in progress", ((string[])(null)));
+#line 48
+this.ScenarioSetup(scenarioInfo);
+#line 49
+testRunner.Given("A new hosted game with 3 players");
+#line 50
+testRunner.And("Player1 has a Militia in hand instead of a Copper");
+#line 51
+testRunner.When("The game begins");
+#line 52
+testRunner.And("Player1 tells the host to play Militia");
+#line 53
+testRunner.Then("Player1 should be in the action step");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
     }
 }
 #endregion

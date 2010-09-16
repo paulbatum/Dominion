@@ -5,6 +5,7 @@ using Dominion.Cards.Treasure;
 using Dominion.Cards.Victory;
 using Dominion.GameHost;
 using Dominion.Rules;
+using Dominion.Rules.Activities;
 using Dominion.Rules.CardTypes;
 using TechTalk.SpecFlow;
 
@@ -109,6 +110,16 @@ namespace Dominion.Specs.Bindings
             _game.EndTurn();
         }
 
+        [When(@"(.*) discards (\d+) (.*)")]
+        public void WhenPlayerDiscardsCards(string playerName, int numberOfCards, string cardToDiscard)
+        {
+            var player = _game.Players.Single(p => p.Name == playerName);
+            var cards = player.Hand.Where(c => c.Name == cardToDiscard).Take(numberOfCards);
+            var activity = _game.GetPendingActivity(player) as DiscardCardsActivity;
+
+            activity.SelectCards(cards);
+        }
+
         // Then
         // 
 
@@ -200,6 +211,13 @@ namespace Dominion.Specs.Bindings
             _game.CurrentTurn.InBuyStep.ShouldBeTrue();
         }
 
+        [Then(@"(.*) should be in the action step")]
+        public void ThenPlayerShouldBeInTheActionStep(string playerName)
+        {
+            _game.ActivePlayer.Name.ShouldEqual(playerName);
+            _game.CurrentTurn.InBuyStep.ShouldBeFalse();
+        }
+
         [Then(@"The game should have ended")]
         public void ThenTheGameShouldHaveEnded()
         {
@@ -245,5 +263,20 @@ namespace Dominion.Specs.Bindings
         }
 
         #endregion
+
+        [Then(@"(.*) must discard (\d+) cards")]
+        public void ThenPlayerMustDiscardCards(string playerName, int cardsToDiscard)
+        {
+            var player = _game.Players.Single(p => p.Name == playerName);
+            var activity = _game.GetPendingActivity(player) as DiscardCardsActivity;
+
+            activity.Count.ShouldEqual(cardsToDiscard);
+        }
+
+        [Then(@"All actions should be resolved")]
+        public void ThenAllActionsShouldBeResolved()
+        {
+            _game.CurrentTurn.CurrentEffect.ShouldBeNull();
+        }
     }
 }

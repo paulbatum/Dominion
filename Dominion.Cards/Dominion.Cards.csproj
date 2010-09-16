@@ -58,8 +58,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions\Chancellor.cs" />
     <Compile Include="Actions\CouncilRoom.cs" />
     <Compile Include="Actions\Market.cs" />
+    <Compile Include="Actions\Militia.cs" />
     <Compile Include="Actions\Smithy.cs" />
     <Compile Include="Actions\Village.cs" />
     <Compile Include="Actions\Witch.cs" />

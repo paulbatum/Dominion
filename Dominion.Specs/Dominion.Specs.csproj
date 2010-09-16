@@ -78,6 +78,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Market.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\Militia.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Militia.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\Witch.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -142,6 +147,10 @@
     <None Include="Cards\Market.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Market.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\Militia.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Militia.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\Witch.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

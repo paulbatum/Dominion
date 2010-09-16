@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Dominion.Rules.Activities;
 using Dominion.Rules.CardTypes;
 
 namespace Dominion.Rules
@@ -16,13 +17,20 @@ namespace Dominion.Rules
             Buys = 1;
         }
 
+        private Stack<ICardEffect> _effects = new Stack<ICardEffect>();
+
         public Player ActivePlayer { get; private set; }
         public Game Game { get; private set; }
         public int MoneyToSpend { get; set; }
         public int RemainingActions { get; set; }
         public int Buys { get; set; }
-        public bool InBuyStep { get; private set; }        
-        
+        public bool InBuyStep { get; private set; }
+
+        public IEnumerable<Player> Opponents
+        {
+            get { return this.Game.Players.Where(p => p != ActivePlayer); }
+        }
+
         public void DrawCards(int numberOfCardsToDraw)
         {
             ActivePlayer.DrawCards(numberOfCardsToDraw);
@@ -30,6 +38,9 @@ namespace Dominion.Rules
 
         public bool CanPlay(Card card)
         {
+            if (CurrentEffect != null)
+                return false;
+
             if (InBuyStep)
                 return false;
 
@@ -54,6 +65,9 @@ namespace Dominion.Rules
 
         public bool CanBuy(CardPile pile)
         {
+            if (CurrentEffect != null)
+                return false;
+
             if (!InBuyStep)
                 return false;
                 //throw new InvalidOperationException("Cannot buy cards until you are in buy step");
@@ -88,6 +102,9 @@ namespace Dominion.Rules
 
         internal void EndTurn()
         {
+            if (CurrentEffect != null)
+                throw new InvalidOperationException("Cannot end the turn - there is a current effect.");
+
             ActivePlayer.PlayArea.MoveAll(ActivePlayer.Discards);
             ActivePlayer.Hand.MoveAll(ActivePlayer.Discards);
             DrawCards(5);            
@@ -95,6 +112,9 @@ namespace Dominion.Rules
 
         public void MoveToBuyStep()
         {
+            if (CurrentEffect != null)
+                throw new InvalidOperationException("Cannot enter the buy step - there is a current effect.");
+
             if(InBuyStep)
                 throw new InvalidOperationException("Cannot enter the buy step - already in buy step.");
 
@@ -102,5 +122,25 @@ namespace Dominion.Rules
             RemainingActions = 0;
             MoneyToSpend = MoneyToSpend + this.ActivePlayer.Hand.OfType<MoneyCard>().Sum(x => x.Value);
         }
+
+        public void AddEffect(ICardEffect cardEffect)
+        {
+            _effects.Push(cardEffect);
+        }
+
+        public ICardEffect CurrentEffect
+        {
+            get
+            {
+                while (_effects.Count > 0 && _effects.Peek().HasFinished)
+                    _effects.Pop();
+
+                if (_effects.Count == 0)
+                    return null;
+
+                return _effects.Peek();
+            }
+        }
     }
+
 }

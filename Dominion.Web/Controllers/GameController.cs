@@ -72,7 +72,21 @@ namespace Dominion.Web.Controllers
             return new EmptyResult();            
         }
 
+        [HttpPost]
+        public ActionResult SelectCards(Guid[] ids)
+        {
+            var message = new SelectCardsFromHandMessage(Client.PlayerId, ids);
+            Host.AcceptMessage(message);
+            return new EmptyResult();
+        }
 
+        [HttpPost]
+        public ActionResult MakeYesNoChoice(bool choice)
+        {
+            var message = new YesNoChoiceMessage(Client.PlayerId, choice);
+            Host.AcceptMessage(message);
+            return new EmptyResult();
+        }
 
         
 

@@ -58,7 +58,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activities\ActivityBase.cs" />
+    <Compile Include="Activities\DiscardCardsActivity.cs" />
+    <Compile Include="Activities\IActivity.cs" />
+    <Compile Include="Activities\YesNoChoiceActivity.cs" />
     <Compile Include="CardBank.cs" />
+    <Compile Include="CardEffectBase.cs" />
     <Compile Include="CardTypes\ActionCard.cs" />
     <Compile Include="Card.cs" />
     <Compile Include="CardTypes\CurseCard.cs" />
@@ -67,6 +72,7 @@
     <Compile Include="CardTypes\MoneyCard.cs" />
     <Compile Include="DiscardPile.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="Activities\SelectCardsFromHandActivity.cs" />
     <Compile Include="TextGameLog.cs" />
     <Compile Include="PlayerScorer.cs" />
     <Compile Include="Hand.cs" />

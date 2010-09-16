@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Dominion.Rules;
+using Dominion.Rules.Activities;
 
 namespace Dominion.GameHost
 {
@@ -10,7 +12,11 @@ namespace Dominion.GameHost
         {
             Log = game.Log.Contents;
 
-            TimeStamp = DateTime.Now.Ticks;
+            Version = game.Version;
+
+            var activity = game.GetPendingActivity(player);
+            if(activity != null)
+                PendingActivity = new ActivityModel(activity);
 
             Bank = game.Bank.Piles
                 .Select(p => new CardPileViewModel(p)).ToArray();
@@ -29,13 +35,35 @@ namespace Dominion.GameHost
         }
 
         public string Log { get; set; }
-        public long TimeStamp { get; set; }
+        public long Version { get; set; }
+        public ActivityModel PendingActivity { get; set; }
         public TurnContextViewModel Status { get; set; }
         public CardPileViewModel[] Bank { get; set; }
         public CardViewModel[] Hand { get; set; }
         public CardViewModel[] InPlay { get; set; }
         public DeckViewModel Deck { get; set; }
         public DiscardPileViewModel Discards { get; set; }
+    }
+
+    public class ActivityModel
+    {
+        public ActivityModel(IActivity activity)
+        {
+            Properties = new Dictionary<string, object>();
+            Type = activity.Type.ToString();
+            Message = activity.Message;
+
+            if(activity is DiscardCardsActivity)
+            {
+                var discard = (DiscardCardsActivity) activity;
+                Properties["NumberOfCardsToSelect"] = discard.Count;
+            }
+                
+        }
+
+        public string Type { get; set; }
+        public string Message { get; set; }
+        public IDictionary<string, object> Properties { get; set; }
     }
 
     public class TurnContextViewModel

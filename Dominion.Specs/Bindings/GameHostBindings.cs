@@ -74,6 +74,17 @@ namespace Dominion.Specs.Bindings
                 value.ShouldEqual(updateCount);
         }
 
+        [Then(@"The host should tell (.*) to discard (\d+) cards")]
+        public void ThenTheHostShouldTellPlayerToDiscardCards(string playerName, int discardCount)
+        {
+            var client = _clients.Single(c => c.PlayerName == playerName);
+            var gameState = _gameHost.GetGameState(client);
+
+            gameState.PendingActivity.Type.ShouldEqual("DiscardCards");
+            gameState.PendingActivity.Message.ShouldEqual(string.Format("Select {0} cards to discard", discardCount));
+            gameState.PendingActivity.Properties["NumberOfCardsToDiscard"].ShouldEqual(discardCount);
+        }
+
         
         // Should I use this binding in the automatic progression spec?
 

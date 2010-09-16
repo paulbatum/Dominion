@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Dominion.Rules.Activities;
 using Dominion.Rules.CardTypes;
 
 namespace Dominion.Rules
@@ -12,6 +13,7 @@ namespace Dominion.Rules
         private Player _activePlayer;
         public CardBank Bank { get; private set; }
         public IGameLog Log { get; private set; }
+        public long Version { get; private set; }
 
         public Game(IEnumerable<Player> players, CardBank bank, IGameLog log)
         {
@@ -102,6 +104,22 @@ namespace Dominion.Rules
             CurrentTurn.EndTurn();            
             if(!_gameTurns.MoveNext())
                 Log.LogGameEnd(this);
+        }
+
+        public IActivity GetPendingActivity(Player player)
+        {
+            if (CurrentTurn.CurrentEffect != null)
+                return CurrentTurn.CurrentEffect.GetActivity(player);
+
+            if(player != ActivePlayer)
+                return new WaitingForPlayersActivity(player);
+
+            return null;
+        }
+
+        public void IncrementVersion()
+        {
+            Version++;
         }
     }
 

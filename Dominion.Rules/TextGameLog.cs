@@ -7,19 +7,24 @@ namespace Dominion.Rules
 {
     public interface IGameLog
     {
+        string Contents { get; }
+
         void LogTurn(Player player);
         void LogPlay(Player player, ActionCard card);
         void LogBuy(Player player, CardPile pile);
         void LogGameEnd(Game game);
-
-        string Contents { get; }
-        
+        void LogDiscard(Player player, Card card);
+        void LogMessage(string message, params object[] values);
     }
 
     public class TextGameLog : IGameLog
     {
         private readonly StringBuilder _builder = new StringBuilder();
 
+        public string Contents
+        {
+            get { return _builder.ToString(); }
+        }
 
         public void LogTurn(Player player)
         {
@@ -62,12 +67,15 @@ namespace Dominion.Rules
 
         }
 
-        public string Contents
+        public void LogDiscard(Player player, Card card)
         {
-            get { return _builder.ToString(); }
+            _builder.AppendFormat("{0} discarded a {1}.", player.Name, card.Name);
+            _builder.AppendLine();
         }
 
-
-        
+        public void LogMessage(string message, params object[] values)
+        {
+            _builder.AppendLine(string.Format(message, values));
+        }
     }
 }
