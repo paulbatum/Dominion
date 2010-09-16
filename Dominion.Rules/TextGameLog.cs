@@ -15,6 +15,7 @@ namespace Dominion.Rules
         void LogGameEnd(Game game);
         void LogDiscard(Player player, Card card);
         void LogMessage(string message, params object[] values);
+        void LogGain(Player player, Card card);
     }
 
     public class TextGameLog : IGameLog
@@ -75,7 +76,16 @@ namespace Dominion.Rules
 
         public void LogMessage(string message, params object[] values)
         {
-            _builder.AppendLine(string.Format(message, values));
+            _builder.AppendFormat(message, values);
+            _builder.AppendLine();
+
+        }
+
+        public void LogGain(Player player, Card card)
+        {
+            _builder.AppendFormat("{0} gained a {1}", player.Name, card.Name);
+            _builder.AppendLine();
+
         }
     }
 }

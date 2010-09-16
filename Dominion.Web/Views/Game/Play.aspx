@@ -29,6 +29,10 @@
             },
             makeYesNoChoice: function (choice) {
                 $.post('MakeYesNoChoice', { choice: choice }, handleInteractionResponse);
+            },
+            selectPile: function (event, activity) {
+                var data = $.tmplItem(event.target).data;
+                $.post('SelectPile', { id: data.Id }, handleInteractionResponse);
             }
         };
 
@@ -62,6 +66,10 @@
             else {
                 $('#yesChoice').hide();
                 $('#noChoice').hide();
+            }
+
+            if (activity.Type == "SelectPile") {
+                controller.BankClick = function (event) { actions.selectPile(event, activity); };
             }
 
         }

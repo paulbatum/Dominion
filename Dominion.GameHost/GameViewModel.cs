@@ -58,6 +58,11 @@ namespace Dominion.GameHost
                 var selectActivity = (SelectCardsFromHandActivity)activity;
                 Properties["NumberOfCardsToSelect"] = selectActivity.Count;
             }
+            else if (activity is GainACardUpToActivity)
+            {
+                var gainActivity = (GainACardUpToActivity) activity;
+                Properties["UpToCost"] = gainActivity.UpToCost;
+            }
                 
         }
 

@@ -22,7 +22,8 @@
     {
         SelectFixedNumberOfCards,
         MakeYesNoChoice,
-        WaitingForOtherPlayers
+        WaitingForOtherPlayers,
+        SelectPile
     }
 
     public enum RestrictionType

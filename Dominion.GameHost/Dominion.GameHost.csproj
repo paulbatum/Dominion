@@ -74,6 +74,7 @@
     <Compile Include="BuyCardMessage.cs" />
     <Compile Include="CardBuilderExtensions.cs" />
     <Compile Include="CardFactory.cs" />
+    <Compile Include="ChooseAPileMessage.cs" />
     <Compile Include="EndTurnMessage.cs" />
     <Compile Include="GameClient.cs" />
     <Compile Include="GameViewModel.cs" />

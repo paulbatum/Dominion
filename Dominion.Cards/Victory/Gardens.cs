@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Dominion.Rules.CardTypes;
+﻿using Dominion.Rules.CardTypes;
 
-namespace Dominion.Cards.Treasure
+namespace Dominion.Cards.Victory
 {
     public class Gardens : VictoryCard
     {

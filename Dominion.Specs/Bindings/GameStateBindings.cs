@@ -158,6 +158,16 @@ namespace Dominion.Specs.Bindings
             activity.MakeChoice(choice == "yes");
         }
 
+        [When(@"(.*) gains a (.*)")]
+        public void WhenPlayerGainsACard(string playerName, string cardName)
+        {
+            var player = _game.Players.Single(p => p.Name == playerName);
+            var pile = _game.Bank.Piles.First(p => p.Name == cardName);
+            var activity = _game.GetPendingActivity(player) as GainACardActivity;
+
+            activity.SelectPileToGainFrom(pile);
+        }
+
         // Then
         // 
 
@@ -268,8 +278,7 @@ namespace Dominion.Specs.Bindings
             var player = _game.Players.Single(p => p.Name == playerName);                        
             player.Discards.TopCard.Name.ShouldEqual(cardName);
         }
-
-        #region GameLog
+        
         [Then(@"The game log should report that (.*)'s turn has begun")]
         public void ThenTheGameLogShouldReportThatTurnHasBegun(string playerName)
         {
@@ -298,16 +307,14 @@ namespace Dominion.Specs.Bindings
         public void ThenPlayerShouldBeTheWinner(string playerName)
         {
             _game.Log.Contents.ShouldContain(playerName + " is the winner");
-        }
+        }        
 
-        [Then(@"(.*)? should have (\d+) victory point[s]?")]
+        [Then(@"(.*) should have (\d+) victory point[s]?")]
         public void ThenPlayerShouldHaveVictoryPoints(string playerName, int victoryPoints)
         {
             var player = _game.Players.Single(p => p.Name == playerName);
             player.CreateScorer().Total.ShouldEqual(victoryPoints);
         }
-
-        #endregion
 
         [Then(@"(.*) must select (\d+) card[s]? to .*")]
         public void ThenPlayerMustSelectCards(string playerName, int numberOfCards)
@@ -350,6 +357,14 @@ namespace Dominion.Specs.Bindings
             activity.Restrictions.Single().ShouldEqual(RestrictionType.ActionCard);
         }
 
+        [Then(@"(.*) must gain a card of cost (\d+) or less")]
+        public void ThenPlayerMustGainACardOfCostOrLess(string playerName, int cardCost)
+        {
+            var player = _game.Players.Single(p => p.Name == playerName);
+            var activity = _game.GetPendingActivity(player) as GainACardUpToActivity;
+
+            activity.UpToCost.ShouldEqual(cardCost);
+        }
 
     }
 }

@@ -1,10 +1,39 @@
-﻿namespace Dominion.Rules.Activities
+﻿using System;
+
+namespace Dominion.Rules.Activities
 {
     public class GainACardActivity : ActivityBase
     {
         public GainACardActivity(IGameLog log, Player player, string message, ActivityType type) 
             : base(log, player, message, type)
         {
-        }        
+        }
+
+        public virtual void SelectPileToGainFrom(CardPile pile)
+        {
+            var card = pile.TopCard;
+            card.MoveTo(Player.Discards);
+            Log.LogGain(Player, card);
+            IsSatisfied = true;
+        }
     }    
+
+    public class GainACardUpToActivity : GainACardActivity
+    {
+        public GainACardUpToActivity(IGameLog log, Player player, int upToCost) 
+            : base(log, player, string.Format("Select a card to gain of cost {0} or less", upToCost), ActivityType.SelectPile)
+        {
+            UpToCost = upToCost;
+        }
+
+        public int UpToCost { get; private set; }
+
+        public override void SelectPileToGainFrom(CardPile pile)
+        {
+            if(pile.TopCard.Cost > UpToCost)
+                throw new ArgumentException("Pile cost exceeds limit.", "pile");
+
+            base.SelectPileToGainFrom(pile);
+        }
+    }
 }

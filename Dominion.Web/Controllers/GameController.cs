@@ -88,6 +88,14 @@ namespace Dominion.Web.Controllers
             return new EmptyResult();
         }
 
+        [HttpPost]
+        public ActionResult SelectPile(Guid id)
+        {
+            var message = new ChooseAPileMessage(Client.PlayerId, id);
+            Host.AcceptMessage(message);
+            return new EmptyResult();
+        }
+
         
 
         
