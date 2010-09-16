@@ -80,9 +80,9 @@ namespace Dominion.Specs.Bindings
             var client = _clients.Single(c => c.PlayerName == playerName);
             var gameState = _gameHost.GetGameState(client);
 
-            gameState.PendingActivity.Type.ShouldEqual("DiscardCards");
+            gameState.PendingActivity.Type.ShouldEqual("SelectFixedNumberOfCards");
             gameState.PendingActivity.Message.ShouldEqual(string.Format("Select {0} cards to discard", discardCount));
-            gameState.PendingActivity.Properties["NumberOfCardsToDiscard"].ShouldEqual(discardCount);
+            gameState.PendingActivity.Properties["NumberOfCardsToSelect"].ShouldEqual(discardCount);
         }
 
         

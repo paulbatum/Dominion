@@ -53,10 +53,10 @@ namespace Dominion.GameHost
             Type = activity.Type.ToString();
             Message = activity.Message;
 
-            if(activity is DiscardCardsActivity)
+            if(activity is SelectCardsFromHandActivity)
             {
-                var discard = (DiscardCardsActivity) activity;
-                Properties["NumberOfCardsToSelect"] = discard.Count;
+                var selectActivity = (SelectCardsFromHandActivity)activity;
+                Properties["NumberOfCardsToSelect"] = selectActivity.Count;
             }
                 
         }
@@ -129,10 +129,12 @@ namespace Dominion.GameHost
             Id = card.Id;
             Cost = card.Cost;
             Name = card.Name;
+            Type = card.GetType().BaseType.Name;
         }
         public Guid Id { get; set; }
         public string Name { get; set; }
         public int Cost { get; set; }
+        public string Type { get; set; }
     }
 
     public class DeckViewModel

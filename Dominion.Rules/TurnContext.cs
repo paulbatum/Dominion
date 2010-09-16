@@ -58,9 +58,8 @@ namespace Dominion.Rules
 
             RemainingActions--;
             this.Game.Log.LogPlay(this.ActivePlayer, card);
-            card.Play(this);
-
             card.MoveTo(ActivePlayer.PlayArea);
+            card.Play(this);
         }
 
         public bool CanBuy(CardPile pile)

@@ -24,4 +24,9 @@
         MakeYesNoChoice,
         WaitingForOtherPlayers
     }
+
+    public enum RestrictionType
+    {
+        ActionCard
+    }
 }

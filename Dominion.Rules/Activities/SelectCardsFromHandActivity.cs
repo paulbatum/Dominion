@@ -10,9 +10,11 @@ namespace Dominion.Rules.Activities
             : base(log, player, message, type)
         {
             Count = count;
+            Restrictions = new List<RestrictionType>();
         }
 
         public int Count { get; private set; }
+        public IList<RestrictionType> Restrictions { get; private set; }
 
         public void SelectCards(IEnumerable<Card> cards)
         {
@@ -27,4 +29,5 @@ namespace Dominion.Rules.Activities
 
         public abstract void Execute(IEnumerable<Card> cards);
     }
+
 }

@@ -47,13 +47,32 @@ namespace Dominion.Specs.Bindings
         }      
 
         [Given(@"(.*) has a hand of all (.*)")]
-        public void GivenPlayerHasAHandOf(string playerName, string cardName)
+        public void GivenPlayerHasAHandOfAll(string playerName, string cardName)
         {
             var player = _game.Players.Single(p => p.Name == playerName);
             
             player.Hand.MoveAll(new NullZone());
 
             var cards = 5.Items(() => CardFactory.CreateCard(cardName)).ToList();
+
+            foreach (var card in cards)
+                card.MoveTo(player.Hand);
+        }
+
+        [Given(@"(.*) has a hand of (.*), (.*), (.*), (.*), (.*)")]
+        public void GivenPlayerHasAHandOfExactly(string playerName, string cardName1, string cardName2, string cardName3, string cardName4, string cardName5)
+        {
+            var player = _game.Players.Single(p => p.Name == playerName);
+
+            player.Hand.MoveAll(new NullZone());
+
+            var cards = new List<Card>();
+
+            cards.Add(CardFactory.CreateCard(cardName1));
+            cards.Add(CardFactory.CreateCard(cardName2));
+            cards.Add(CardFactory.CreateCard(cardName3));
+            cards.Add(CardFactory.CreateCard(cardName4));
+            cards.Add(CardFactory.CreateCard(cardName5));
 
             foreach (var card in cards)
                 card.MoveTo(player.Hand);
@@ -110,14 +129,33 @@ namespace Dominion.Specs.Bindings
             _game.EndTurn();
         }
 
-        [When(@"(.*) discards (\d+) (.*)")]
-        public void WhenPlayerDiscardsCards(string playerName, int numberOfCards, string cardToDiscard)
+        [When(@"(.*) selects (\d+) (.*) to .*")]        
+        public void WhenPlayerSelectsCards(string playerName, int numberOfCards, string cardToDiscard)
         {
             var player = _game.Players.Single(p => p.Name == playerName);
             var cards = player.Hand.Where(c => c.Name == cardToDiscard).Take(numberOfCards);
-            var activity = _game.GetPendingActivity(player) as DiscardCardsActivity;
+            var activity = _game.GetPendingActivity(player) as SelectCardsFromHandActivity;
 
             activity.SelectCards(cards);
+        }
+
+        [When(@"(.*) selects a (.*) to .*")]
+        public void WhenPlayerSelectACard(string playerName, string cardToDiscard)
+        {
+            var player = _game.Players.Single(p => p.Name == playerName);
+            var cards = player.Hand.Where(c => c.Name == cardToDiscard).Take(1);
+            var activity = _game.GetPendingActivity(player) as SelectCardsFromHandActivity;
+
+            activity.SelectCards(cards);
+        }
+
+        [When(@"(.*) chooses (.*)")]
+        public void WhenPlayerChooses(string playerName, string choice)
+        {            
+            var player = _game.Players.Single(p => p.Name == playerName);            
+            var activity = _game.GetPendingActivity(player) as YesNoChoiceActivity;
+
+            activity.MakeChoice(choice == "yes");
         }
 
         // Then
@@ -271,13 +309,13 @@ namespace Dominion.Specs.Bindings
 
         #endregion
 
-        [Then(@"(.*) must discard (\d+) cards")]
-        public void ThenPlayerMustDiscardCards(string playerName, int cardsToDiscard)
+        [Then(@"(.*) must select (\d+) card[s]? to .*")]
+        public void ThenPlayerMustSelectCards(string playerName, int numberOfCards)
         {
             var player = _game.Players.Single(p => p.Name == playerName);
-            var activity = _game.GetPendingActivity(player) as DiscardCardsActivity;
+            var activity = _game.GetPendingActivity(player) as SelectCardsFromHandActivity;
 
-            activity.Count.ShouldEqual(cardsToDiscard);
+            activity.Count.ShouldEqual(numberOfCards);
         }
 
         [Then(@"All actions should be resolved")]
@@ -285,5 +323,33 @@ namespace Dominion.Specs.Bindings
         {
             _game.CurrentTurn.CurrentEffect.ShouldBeNull();
         }
+
+        [Then(@"(.*) should have a deck of (\d+) card[s]?")]
+        public void ThenPlayerShouldHaveADeckOf5Cards(string playerName, int cardCount)
+        {
+            var player = _game.Players.Single(p => p.Name == playerName);
+            player.Deck.CardCount.ShouldEqual(cardCount);
+        }
+
+        [Then(@"(.*) must choose yes or no")]
+        public void ThenPlayerMustChooseYesOrNo(string playerName)
+        {
+            var player = _game.Players.Single(p => p.Name == playerName);
+            var activity = _game.GetPendingActivity(player);
+
+            activity.ShouldBeOfType<YesNoChoiceActivity>();
+        }
+
+        [Then(@"(.*) must select (\d+) action card[s]?")]
+        public void ThenPlayerMustSelectActionCard(string playerName, int cardCount)
+        {
+            var player = _game.Players.Single(p => p.Name == playerName);
+            var activity = _game.GetPendingActivity(player) as SelectCardsFromHandActivity;
+
+            activity.Count.ShouldEqual(cardCount);
+            activity.Restrictions.Single().ShouldEqual(RestrictionType.ActionCard);
+        }
+
+
     }
 }

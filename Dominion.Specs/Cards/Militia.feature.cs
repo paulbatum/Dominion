@@ -68,9 +68,9 @@ testRunner.When("Player1 plays a Militia");
 #line 7
 testRunner.Then("Player1 should have 2 to spend");
 #line 8
-testRunner.And("Player2 must discard 2 cards");
+testRunner.And("Player2 must select 2 cards to discard");
 #line 9
-testRunner.And("Player3 must discard 2 cards");
+testRunner.And("Player3 must select 2 cards to discard");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
@@ -89,9 +89,9 @@ testRunner.And("Player1 has a Militia in hand instead of a Copper");
 #line 14
 testRunner.When("Player1 plays a Militia");
 #line 15
-testRunner.And("Player2 discards 2 Copper");
+testRunner.And("Player2 selects 2 Copper to discard");
 #line 16
-testRunner.And("Player3 discards 2 Copper");
+testRunner.And("Player3 selects 2 Copper to discard");
 #line 17
 testRunner.Then("All actions should be resolved");
 #line 18

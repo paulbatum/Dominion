@@ -15,12 +15,4 @@
 
         public abstract void Execute(bool choice);
     }
-
-    public class WaitingForPlayersActivity : ActivityBase
-    {
-        public WaitingForPlayersActivity(Player waitingPlayer) 
-            : base(null, waitingPlayer, "Waiting for other players...", ActivityType.WaitingForOtherPlayers)
-        {
-        }
-    }
 }

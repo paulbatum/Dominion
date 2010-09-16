@@ -68,6 +68,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cards\Chancellor.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Chancellor.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\CouncilRoom.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -87,6 +92,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Militia.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Cards\ThroneRoom.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ThroneRoom.feature</DependentUpon>
     </Compile>
     <Compile Include="Cards\Witch.feature.cs">
       <AutoGen>True</AutoGen>
@@ -145,6 +155,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Cards\Chancellor.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Chancellor.feature.cs</LastGenOutput>
+    </None>
     <None Include="Cards\CouncilRoom.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>CouncilRoom.feature.cs</LastGenOutput>
@@ -160,6 +174,10 @@
     <None Include="Cards\Militia.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Militia.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\ThroneRoom.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ThroneRoom.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\Witch.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

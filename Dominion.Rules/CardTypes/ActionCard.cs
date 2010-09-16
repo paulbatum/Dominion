@@ -12,5 +12,9 @@
 
         protected internal abstract void Play(TurnContext context);
 
+        public void PlayFromOtherAction(TurnContext context)
+        {
+            Play(context);
+        }
     }
 }
