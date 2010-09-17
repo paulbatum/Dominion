@@ -34,6 +34,10 @@ namespace Dominion.Cards.Actions
 
                     if(numberToDiscard > 0)
                         _activities.Add(new DiscardCardsActivity(context.Game.Log, player, numberToDiscard));
+                    else
+                    {
+                        context.Game.Log.LogMessage("{0} did not have to discard any cards", player.Name);
+                    }
                 }                    
             }
         }

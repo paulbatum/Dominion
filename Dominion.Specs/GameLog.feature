@@ -19,7 +19,6 @@ Scenario: A player buys a card
 	And Player1 buys a Copper
 	Then The game log should report that Player1 bought a Copper
 
-@Ignore
 Scenario: The game ends
 	Given A new game with 3 players
 	But There is only 1 Province left	

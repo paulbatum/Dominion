@@ -75,8 +75,10 @@
     <Compile Include="DrawDeck.cs" />
     <Compile Include="CardTypes\MoneyCard.cs" />
     <Compile Include="DiscardPile.cs" />
+    <Compile Include="EnumerableCardZone.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Activities\SelectCardsFromHandActivity.cs" />
+    <Compile Include="PlayArea.cs" />
     <Compile Include="TextGameLog.cs" />
     <Compile Include="PlayerScorer.cs" />
     <Compile Include="Hand.cs" />

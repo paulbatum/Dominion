@@ -49,7 +49,7 @@ namespace Dominion.Rules
 
         public void LogGameEnd(Game game)
         {
-            var scores = game.Score();
+            var scores = game.Score().ToList();
 
             _builder
                 .AppendLine("The game has ended!")

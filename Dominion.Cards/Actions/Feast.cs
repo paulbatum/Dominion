@@ -10,7 +10,7 @@ namespace Dominion.Cards.Actions
 
         protected override void Play(TurnContext context)
         {
-            this.MoveTo(context.Game.Trash);
+            context.Trash(context.ActivePlayer, this);
             context.AddEffect(new FeastEffect(context));
         }
     }

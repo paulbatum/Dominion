@@ -381,11 +381,5 @@ namespace Dominion.Specs.Bindings
             activity.ShouldBeOfType<WaitingForPlayersActivity>();
         }
 
-        [Then(@"The trash pile should contain a (.*)")]
-        public void ThenTheTrashPileShouldContainACopper(string cardName)
-        {
-            _game.Trash.ShouldContain(c => c.Name == cardName);
-        }
-
     }
 }

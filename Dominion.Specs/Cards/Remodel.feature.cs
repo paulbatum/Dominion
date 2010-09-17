@@ -110,7 +110,7 @@ testRunner.And("Player1 selects a Copper to remodel");
 #line 21
 testRunner.And("Player1 gains a Estate");
 #line 22
-testRunner.Then("The trash pile should contain a Copper");
+testRunner.Then("There should be a Copper on top of the trash pile");
 #line 23
 testRunner.Then("Player1 should have a Estate on top of the discard pile");
 #line hidden

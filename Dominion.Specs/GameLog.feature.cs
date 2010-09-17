@@ -108,28 +108,26 @@ testRunner.Then("The game log should report that Player1 bought a Copper");
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("The game ends")]
-        [NUnit.Framework.IgnoreAttribute()]
         public virtual void TheGameEnds()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The game ends", new string[] {
-                        "Ignore"});
-#line 23
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The game ends", ((string[])(null)));
+#line 22
 this.ScenarioSetup(scenarioInfo);
-#line 24
+#line 23
 testRunner.Given("A new game with 3 players");
-#line 25
+#line 24
 testRunner.But("There is only 1 Province left");
-#line 26
+#line 25
 testRunner.And("Player1 has a hand of all Gold");
-#line 27
+#line 26
 testRunner.When("Player1 moves to the buy step");
-#line 28
+#line 27
 testRunner.And("Player1 buys a Province");
-#line 29
+#line 28
 testRunner.And("Player1 ends their turn");
-#line 30
+#line 29
 testRunner.Then("The game log should report the scores");
-#line 31
+#line 30
 testRunner.And("Player1 should be the winner");
 #line hidden
             testRunner.CollectScenarioErrors();

@@ -5,13 +5,11 @@ using System.Text;
 
 namespace Dominion.Rules
 {
-    public class TrashPile : CardZone
+    public class TrashPile : EnumerableCardZone
     {
         public Card TopCard
         {
             get { return this.Cards.Last(); }
         }
-
-
     }
 }
