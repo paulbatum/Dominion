@@ -53,7 +53,7 @@ namespace Dominion.Tests
         public void Should_refill_draw_deck_from_discards_when_card_required()
         {
             var drawDeck = new DrawDeck(new List<Card> { _copper, _estate }, _discardPile);
-            var hand = new Hand();
+            var hand = new EnumerableCardZone();
 
             // First move the copper to the discard pile
             drawDeck.TopCard.MoveTo(_discardPile);

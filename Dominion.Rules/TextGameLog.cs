@@ -17,6 +17,7 @@ namespace Dominion.Rules
         void LogMessage(string message, params object[] values);
         void LogGain(Player player, Card card);
         void LogMoat(Player player);
+        void LogTrash(Player player, Card card);
     }
 
     public class TextGameLog : IGameLog
@@ -92,6 +93,12 @@ namespace Dominion.Rules
         public void LogMoat(Player player)
         {
             _builder.AppendFormat("{0} is protected due to a moat in hand.", player.Name);
+            _builder.AppendLine();
+        }
+
+        public void LogTrash(Player player, Card card)
+        {
+            _builder.AppendFormat("{0} trashed a {1}.", player.Name, card.Name);
             _builder.AppendLine();
         }
     }

@@ -14,18 +14,18 @@ namespace Dominion.Rules
             Deck = new DrawDeck(startingDeck, Discards);
             Deck.Shuffle();
 
-            Hand = new Hand();
+            Hand = new EnumerableCardZone();
             Deck.MoveCards(Hand, 5);
 
-            PlayArea = new PlayArea();                       
+            PlayArea = new EnumerableCardZone();                       
         }
 
         public Guid Id { get; private set; }
         public string Name { get; private set; }
         public DrawDeck Deck { get; private set; }
         public DiscardPile Discards { get; private set; }
-        public Hand Hand { get; private set; }
-        public PlayArea PlayArea { get; private set; }
+        public EnumerableCardZone Hand { get; private set; }
+        public EnumerableCardZone PlayArea { get; private set; }
 
         public TurnContext BeginTurn(Game game)
         {            

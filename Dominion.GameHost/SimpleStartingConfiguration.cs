@@ -20,7 +20,7 @@ namespace Dominion.GameHost
             bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Militia>(10));
             bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Chancellor>(10));
             bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<ThroneRoom>(10));
-            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Gardens>(10));
+            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Remodel>(10));
             base.InitializeBank(bank);
         }
 

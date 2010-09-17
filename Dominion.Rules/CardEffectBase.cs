@@ -24,7 +24,7 @@ namespace Dominion.Rules
 
         public IActivity GetActivity(Player player)
         {
-            var activity = _activities.SingleOrDefault(a => a.Player == player);
+            var activity = _activities.FirstOrDefault(a => a.Player == player && !a.IsSatisfied);
             if (activity != null)
                 return activity;
 

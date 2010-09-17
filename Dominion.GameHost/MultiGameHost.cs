@@ -38,11 +38,11 @@ namespace Dominion.GameHost
             return _gameData[key];
         }
 
-        public string CreateNewGame(int numberOfPlayers)
+        public string CreateNewGame(IEnumerable<string> playerNames, int numberOfPlayers)
         {
             var key = _games.Count.ToString();
             var startingConfig = new SimpleStartingConfiguration(numberOfPlayers);
-            var game = startingConfig.CreateGame( numberOfPlayers.Items(i => "Player" + i));
+            var game = startingConfig.CreateGame(playerNames);
 
             var host = new LockingGameHost(game);
             host.AcceptMessage(new BeginGameMessage());

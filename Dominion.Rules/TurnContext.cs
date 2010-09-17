@@ -140,6 +140,12 @@ namespace Dominion.Rules
                 return _effects.Peek();
             }
         }
+
+        public void Trash(Player player, Card card)
+        {
+            this.Game.Log.LogTrash(player, card);
+            card.MoveTo(this.Game.Trash);
+        }
     }
 
 }
