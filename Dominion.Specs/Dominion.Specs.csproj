@@ -88,6 +88,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Gardens.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\GreatHall.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GreatHall.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\Market.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -190,6 +195,10 @@
     <None Include="Cards\Gardens.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Gardens.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\GreatHall.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>GreatHall.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\Market.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

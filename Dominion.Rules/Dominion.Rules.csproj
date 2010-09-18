@@ -71,6 +71,7 @@
     <Compile Include="CardTypes\ActionCard.cs" />
     <Compile Include="Card.cs" />
     <Compile Include="CardTypes\CurseCard.cs" />
+    <Compile Include="CardTypes\ISCoreCard.cs" />
     <Compile Include="CardZone.cs" />
     <Compile Include="DrawDeck.cs" />
     <Compile Include="CardTypes\MoneyCard.cs" />

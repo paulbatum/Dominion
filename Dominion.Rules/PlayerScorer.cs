@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Dominion.Rules.CardTypes;
 
 namespace Dominion.Rules
 {
@@ -29,7 +30,7 @@ namespace Dominion.Rules
         {
             public int CalculateScore()
             {
-                return Cards.Sum(x => x.Score(this));
+                return Cards.Where(x=>x is IScoreCard).Sum(x => (x as IScoreCard).Score(this));
             }
         }
     }

@@ -74,6 +74,7 @@
     <Compile Include="Actions\Woodcutter.cs" />
     <Compile Include="Actions\Workshop.cs" />
     <Compile Include="Curses\Curse.cs" />
+    <Compile Include="Hybrid\GreatHall.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Treasure\Copper.cs" />
     <Compile Include="Victory\Gardens.cs" />
