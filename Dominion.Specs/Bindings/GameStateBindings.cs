@@ -130,10 +130,10 @@ namespace Dominion.Specs.Bindings
         }
 
         [When(@"(.*) selects (\d+) (.*) to .*")]        
-        public void WhenPlayerSelectsCards(string playerName, int numberOfCards, string cardToDiscard)
+        public void WhenPlayerSelectsCards(string playerName, int numberOfCards, string selectedCard)
         {
             var player = _game.Players.Single(p => p.Name == playerName);
-            var cards = player.Hand.Where(c => c.Name == cardToDiscard).Take(numberOfCards);
+            var cards = player.Hand.Where(c => c.Name == selectedCard).Take(numberOfCards);
             var activity = _game.GetPendingActivity(player) as SelectCardsFromHandActivity;
 
             activity.SelectCards(cards);

@@ -101,7 +101,7 @@ namespace Dominion.GameHost
         private void NotifyClients()
         {
             foreach (var client in _players.Keys)
-                client.RaiseGameStateUpdated(this);
+                client.RaiseGameStateUpdated();
         }
     }
 

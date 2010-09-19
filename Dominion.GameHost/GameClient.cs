@@ -6,7 +6,7 @@ namespace Dominion.GameHost
     public interface IGameClient
     {
         Guid PlayerId { get; }
-        void RaiseGameStateUpdated(IGameHost host);
+        void RaiseGameStateUpdated();
         IObservable<GameViewModel> GameStateUpdates { get; }
         GameViewModel GetGameState();
         void AssociateWithHost(IGameHost gameHost);
@@ -26,9 +26,10 @@ namespace Dominion.GameHost
         private IGameHost _host;
         private readonly Subject<GameViewModel> _subject = new Subject<GameViewModel>();
 
-        public void RaiseGameStateUpdated(IGameHost  host)
+        public void RaiseGameStateUpdated()
         {
-            _subject.OnNext(host.GetGameState(this));
+            var state = GetGameState();
+            _subject.OnNext(state);
         }
 
         public IObservable<GameViewModel> GameStateUpdates
@@ -49,4 +50,5 @@ namespace Dominion.GameHost
             _host = gameHost;
         }
     }
+
 }
