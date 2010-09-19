@@ -12,6 +12,8 @@ namespace Dominion.GameHost
         void RegisterGameClient(IGameClient client, Player associatedPlayer);
         GameViewModel GetGameState(IGameClient client);
         void AcceptMessage(IGameActionMessage message);
+        void SendChatMessage(string message);
+        IObservable<string> ChatMessages { get; }
     }
 
     public class LockingGameHost : IGameHost
@@ -19,12 +21,14 @@ namespace Dominion.GameHost
         private readonly Game _game;
         private readonly IDictionary<IGameClient, Player> _players;
         private readonly ReaderWriterLockSlim _lock;
+        private readonly Subject<string> _chatSubject;
 
         public LockingGameHost(Game game)
         {
             _game = game;
             _players = new Dictionary<IGameClient, Player>();      
             _lock = new ReaderWriterLockSlim();
+            _chatSubject = new Subject<string>();        
         }
 
         public void RegisterGameClient(IGameClient client, Player associatedPlayer)
@@ -63,6 +67,16 @@ namespace Dominion.GameHost
             }
 
             NotifyClients();
+        }
+
+        public IObservable<string> ChatMessages
+        {
+            get { return _chatSubject; }
+        }
+
+        public void SendChatMessage(string message)
+        {
+            _chatSubject.OnNext(message);
         }
 
         private void AutomaticallyProgress()

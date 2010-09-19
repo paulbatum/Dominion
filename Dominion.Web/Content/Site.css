@@ -115,3 +115,15 @@ body
 {
     z-index:20;
 }
+
+#chat
+{
+    text-align:center;        
+}
+
+#chatBox
+{
+    width:500px;
+    background-color:Silver;
+    color:Black;   
+}

@@ -8,9 +8,11 @@ namespace Dominion.GameHost
         Guid PlayerId { get; }
         void RaiseGameStateUpdated();
         IObservable<GameViewModel> GameStateUpdates { get; }
+        IObservable<string> ChatMessages { get; }
         GameViewModel GetGameState();
         void AssociateWithHost(IGameHost gameHost);
         void AcceptMessage(IGameActionMessage message);
+        void SendChatMessage(string message);
     }
 
     public class GameClient : IGameClient
@@ -25,7 +27,7 @@ namespace Dominion.GameHost
         public string PlayerName { get; private set; }
 
         private IGameHost _host;
-        private readonly Subject<GameViewModel> _subject = new Subject<GameViewModel>();
+        private readonly Subject<GameViewModel> _subject = new Subject<GameViewModel>();        
 
         public void RaiseGameStateUpdated()
         {
@@ -36,6 +38,11 @@ namespace Dominion.GameHost
         public IObservable<GameViewModel> GameStateUpdates
         {
             get { return _subject; }
+        }
+
+        public IObservable<string> ChatMessages
+        {
+            get { return _host.ChatMessages; }
         }
 
         public GameViewModel GetGameState()
@@ -54,6 +61,11 @@ namespace Dominion.GameHost
         public void AcceptMessage(IGameActionMessage message)
         {
             _host.AcceptMessage(message);
+        }
+
+        public void SendChatMessage(string message)
+        {
+            _host.SendChatMessage(message);
         }
     }
 

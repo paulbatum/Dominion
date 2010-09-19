@@ -23,6 +23,12 @@ namespace Dominion.Web
                 );
 
             routes.MapRoute(
+                "ChatComet",
+                "game/{id}/chatloop",
+                new { action = "Chat", controller = "Comet" }
+                );
+
+            routes.MapRoute(
                 "PlayGame",
                 "game/{id}/{action}",
                 new {action = "Index", controller = "Game"}

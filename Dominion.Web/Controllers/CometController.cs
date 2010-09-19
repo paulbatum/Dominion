@@ -36,6 +36,29 @@ namespace Dominion.Web.Controllers
         {
             return new GameViewModelResult(gameState, this);
         }
+
+
+
+        [HttpGet]
+        public void ChatAsync()
+        {
+            AsyncManager.OutstandingOperations.Increment();
+
+            Client
+                .ChatMessages
+                .Timeout(TimeSpan.FromSeconds(15), Observable.Return(""))
+                .Take(1)
+                .Subscribe(message =>
+                {
+                    AsyncManager.Parameters["message"] = message;
+                    AsyncManager.OutstandingOperations.Decrement();
+                });
+        }
+
+        public ActionResult ChatCompleted(string message)
+        {            
+            return new JsonNetResult { Data = new {message} };
+        }
       
     }
 

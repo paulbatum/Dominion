@@ -95,7 +95,12 @@ namespace Dominion.Web.Controllers
             return new EmptyResult();
         }
 
-        
+        [HttpPost]
+        public ActionResult Chat(string message)
+        {
+            Client.SendChatMessage(message);
+            return new EmptyResult();
+        }
 
         
     }

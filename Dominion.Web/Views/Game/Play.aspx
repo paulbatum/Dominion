@@ -33,6 +33,11 @@
             selectPile: function (event, activity) {
                 var data = $.tmplItem(event.target).data;
                 $.post('SelectPile', { id: data.Id }, handleInteractionResponse);
+            },
+            chat: function (text) {
+                if (text != "") {
+                    $.post('Chat', { message: text }, handleInteractionResponse);
+                }
             }
         };
 
@@ -43,14 +48,31 @@
         $(document).ready(function () {
             jQuery.ajaxSettings.traditional = true;
 
+
             createLayout();
+
+            $('#chat').hide();
+
+            $(document).bind('keydown', 'return', function () {
+                $('#chat').show();
+                $('#chatBox').focus();
+            });
+
+            $('#chatBox').bind('keydown', 'return', function (event) {
+                event.stopPropagation();
+                actions.chat($('#chatBox').val());
+                $('#chat').hide();
+                $('#chatBox').text('');
+            });
+
 
             setupHover();
             bindDefaultClickEvents();
 
             loadGame();
             doComet();
-            
+            doChatComet();
+
             bindCommands();
         });
 
@@ -135,6 +157,19 @@
             });
         }
 
+        function doChatComet() {
+            $.ajax({
+                url: 'chatloop',
+                complete: doChatComet,
+                success: updateChat,                
+                cache: false
+            });
+        }
+
+        function updateChat(data) {
+            alert(data.message);
+        }
+
         function createLayout() {
             var defaults = {
                 resizable: false,
@@ -177,7 +212,11 @@
             });
 
             $('#bottom').layout({
-                defaults: defaults
+                defaults: defaults,
+
+                south: {
+                    initClosed: true
+                }
             });            
         }       
 
@@ -293,5 +332,8 @@
         <div id="deck" class="ui-layout-west"></div>
         <div id="hand" class="ui-layout-center container "></div>
         <div id="discards" class="ui-layout-east"></div>
+        <div id="chat" class="ui-layout-south">
+            <input id="chatBox" type="text" />
+        </div>
     </div>    
 </asp:Content>
