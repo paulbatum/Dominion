@@ -51,6 +51,11 @@ namespace Dominion.Rules
             return false;
         }
 
+        public bool CanPlay(ICard card, Player player)
+        {
+            return this.ActivePlayer == player && CanPlay(card);
+        }
+
         public void Play(IActionCard card)
         {
             if (!CanPlay(card))
@@ -83,6 +88,11 @@ namespace Dominion.Rules
                 //throw new ArgumentException(string.Format("Cannot buy the card '{0}', you only have {1} to spend.", cardToBuy, MoneyToSpend));
 
             return true;
+        }
+
+        public bool CanBuy(CardPile pile, Player player)
+        {
+            return this.ActivePlayer == player && CanBuy(pile);
         }
 
         public void Buy(CardPile pile)
@@ -153,6 +163,8 @@ namespace Dominion.Rules
             this.Game.Log.LogTrash(player, card);
             card.MoveTo(this.Game.Trash);
         }
+
+
     }
 
 }

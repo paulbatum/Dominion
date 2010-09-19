@@ -19,10 +19,10 @@ namespace Dominion.GameHost
                 PendingActivity = new ActivityModel(activity);
 
             Bank = game.Bank.Piles
-                .Select(p => new CardPileViewModel(p)).ToArray();
+                .Select(p => new CardPileViewModel(p, game.CurrentTurn, player)).ToArray();
 
             Hand = player.Hand
-                .Select(c => new CardViewModel(c)).ToArray();
+                .Select(c => new CardViewModel(c, game.CurrentTurn, player)).ToArray();
 
             InPlay = game.ActivePlayer.PlayArea
                 .Select(c => new CardViewModel(c)).ToArray();
@@ -102,7 +102,7 @@ namespace Dominion.GameHost
 
     public class CardPileViewModel
     {
-        public CardPileViewModel(CardPile pile)
+        public CardPileViewModel(CardPile pile, TurnContext context, Player player)
         {
             Id = pile.Id;
             IsLimited = pile.IsLimited;
@@ -110,9 +110,9 @@ namespace Dominion.GameHost
             Name = pile.Name;
 
             if (!pile.IsEmpty)
-            {
-                Cost = pile.TopCard.Cost;                
-            }
+                Cost = pile.TopCard.Cost;
+
+            CanBuy = context.CanBuy(pile, player);
         }
 
         public Guid Id { get; set; }
@@ -120,6 +120,7 @@ namespace Dominion.GameHost
         public int Cost { get; set; }
         public int Count { get; set; }
         public bool IsLimited { get; set; }
+        public bool CanBuy { get; set; }
 
         public string CountDescription
         {
@@ -136,10 +137,18 @@ namespace Dominion.GameHost
             Name = card.Name;
             Type = card.GetType().BaseType.Name;
         }
+
+        public CardViewModel(Card card, TurnContext currentTurn, Player player) : this(card)
+        {
+            CanPlay = currentTurn.CanPlay(card, player);
+        }
+
         public Guid Id { get; set; }
         public string Name { get; set; }
         public int Cost { get; set; }
         public string Type { get; set; }
+        public bool CanPlay { get; set; }
+
     }
 
     public class DeckViewModel

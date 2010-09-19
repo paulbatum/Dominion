@@ -120,6 +120,7 @@
     <Content Include="Scripts\jquery.thumbhover.js" />
     <Content Include="Scripts\jquery.layout-1.3.0.rc29.4.js" />
     <Content Include="Scripts\jquery.tmpl.js" />
+    <Content Include="Scripts\play.js" />
     <Content Include="Views\Game\Play.aspx" />
     <Content Include="Views\Home\ViewPlayers.aspx" />
     <Content Include="Views\Home\NewGame.aspx" />

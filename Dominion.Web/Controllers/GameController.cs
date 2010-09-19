@@ -43,7 +43,7 @@ namespace Dominion.Web.Controllers
         public ActionResult PlayCard(Guid id)
         {
             var message = new PlayCardMessage(playerId: Client.PlayerId, cardId: id);
-            Client.AcceptMessage(message);
+            Client.AcceptMessage(message);            
             return new EmptyResult();
         }
 
