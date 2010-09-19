@@ -4,7 +4,7 @@ using Dominion.Rules.CardTypes;
 
 namespace Dominion.Cards.Actions
 {
-    public class Moat : Card, IActionCard
+    public class Moat : Card, IActionCard, IReactionCard
     {
         public Moat() : base(2)
         {

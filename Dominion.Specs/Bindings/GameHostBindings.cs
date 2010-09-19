@@ -67,6 +67,15 @@ namespace Dominion.Specs.Bindings
             _gameHost.AcceptMessage(message);
         }
 
+        [When(@"(.*) tells the host to move to the buy step")]
+        public void WhenPlayer1TellTheHostToMoveToTheBuyStep(string playerName)
+        {
+            var client = _clients.Single(c => c.PlayerName == playerName);
+            var message = new MoveToBuyStepMessage(client.PlayerId);
+            _gameHost.AcceptMessage(message);
+        }
+
+
         [Then(@"All players should recieve (\d+) game state update[s]?")]
         public void ThenAllPlayersShouldRecieveAGameStateUpdate(int updateCount)
         {
@@ -84,6 +93,70 @@ namespace Dominion.Specs.Bindings
             gameState.PendingActivity.Message.ShouldEqual(string.Format("Select {0} cards to discard", discardCount));
             gameState.PendingActivity.Properties["NumberOfCardsToSelect"].ShouldEqual(discardCount);
         }
+
+        [Then(@"(.*)'s view includes a (.*) in hand with types (.*) and (.*)")]
+        public void ThenPlayerViewIncludesCardWithTypes(string playerName, string cardName, string type1, string type2)
+        {
+            var client = _clients.Single(c => c.PlayerName == playerName);
+            var gameState = _gameHost.GetGameState(client);
+
+            var card = gameState.Hand.First(x => x.Name == cardName);
+            card.Types.ShouldContain(type1);
+            card.Types.ShouldContain(type2);
+        }
+        
+        [Then(@"(.*)'s view includes a (.*) in hand with the type (.*)")]
+        public void ThenPlayerViewIncludesCardWithType(string playerName, string cardName, string type)
+        {
+            var client = _clients.Single(c => c.PlayerName == playerName);
+            var gameState = _gameHost.GetGameState(client);
+
+            var card = gameState.Hand.First(x => x.Name == cardName);
+            card.Types.Single().ShouldEqual(type);            
+        }
+
+        [Then(@"(.*)'s view includes a (.*) in the bank that can be bought")]        
+        public void ThenPlayerViewIncludesACardInTheBankThatCanBeBought(string playerName, string cardName)
+        {
+            var client = _clients.Single(c => c.PlayerName == playerName);
+            var gameState = _gameHost.GetGameState(client);
+
+            var card = gameState.Bank.First(x => x.Name == cardName);
+            card.CanBuy.ShouldBeTrue();
+        }
+
+        [Then(@"(.*)'s view includes nothing in the bank that can be bought")]
+        public void ThenPlayer1SViewIncludesNothingInTheBankThatCanBeBought(string playerName)
+        {
+            var client = _clients.Single(c => c.PlayerName == playerName);
+            var gameState = _gameHost.GetGameState(client);
+
+            gameState.Bank.Any(b => b.CanBuy).ShouldBeFalse();            
+        }
+
+        [Then(@"(.*)'s view includes nothing in hand that can be played")]
+        public void ThenPlayersViewIncludesNothingInHandThatCanBePlayed(string playerName)
+        {
+            var client = _clients.Single(c => c.PlayerName == playerName);
+            var gameState = _gameHost.GetGameState(client);
+
+            gameState.Hand.Any(b => b.CanPlay).ShouldBeFalse();         
+        }
+
+        [Then(@"(.*)'s view includes a (.*) in hand that can be played")]
+        public void ThenPlayerViewIncludesACardInHandThatCanBePlayed(string playerName, string cardName)
+        {
+            var client = _clients.Single(c => c.PlayerName == playerName);
+            var gameState = _gameHost.GetGameState(client);
+
+            gameState.Hand.Single(c => c.Name == cardName)
+                .CanPlay.ShouldBeTrue();            
+        }
+
+
+
+
+
 
         
         // Should I use this binding in the automatic progression spec?

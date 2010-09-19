@@ -8,7 +8,7 @@ using Dominion.Cards.Curses;
 
 namespace Dominion.Cards.Actions
 {
-    public class Witch : Card, IActionCard
+    public class Witch : Card, IActionCard, IAttackCard
     {
         public Witch()
            : base(5)

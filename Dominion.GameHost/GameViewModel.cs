@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Dominion.Rules;
 using Dominion.Rules.Activities;
+using Dominion.Rules.CardTypes;
 
 namespace Dominion.GameHost
 {
@@ -135,7 +136,22 @@ namespace Dominion.GameHost
             Id = card.Id;
             Cost = card.Cost;
             Name = card.Name;
-            Type = card.GetType().BaseType.Name;
+
+            var types = new List<string>();
+            if(card is IActionCard)
+                types.Add("Action");
+            if (card is IReactionCard)
+                types.Add("Reaction");
+            if (card is IAttackCard)
+                types.Add("Attack");
+            if (card is IVictoryCard)
+                types.Add("Victory");
+            if (card is ICurseCard)
+                types.Add("Curse");
+            if (card is ITreasureCard)
+                types.Add("Treasure");
+
+            Types = types.ToArray();
         }
 
         public CardViewModel(Card card, TurnContext currentTurn, Player player) : this(card)
@@ -146,7 +162,7 @@ namespace Dominion.GameHost
         public Guid Id { get; set; }
         public string Name { get; set; }
         public int Cost { get; set; }
-        public string Type { get; set; }
+        public string[] Types { get; set; }
         public bool CanPlay { get; set; }
 
     }

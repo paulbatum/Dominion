@@ -6,7 +6,7 @@ using Dominion.Rules.CardTypes;
 
 namespace Dominion.Cards.Actions
 {
-    public class Militia : Card, IActionCard
+    public class Militia : Card, IActionCard, IAttackCard
     {
         public Militia() : base(4)
         {
