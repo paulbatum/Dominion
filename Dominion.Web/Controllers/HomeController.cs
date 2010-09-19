@@ -47,9 +47,8 @@ namespace Dominion.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult JoinGame(string id, Guid playerId)
-        {
-            Session["playerId"] = playerId;
+        public ActionResult JoinGame(Guid id)
+        {            
             return RedirectToAction("Play", "Game", new { id });
         }
 

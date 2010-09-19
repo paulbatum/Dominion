@@ -16,10 +16,9 @@ using Newtonsoft.Json.Linq;
 
 namespace Dominion.Web.Controllers
 {
-    [InjectGame]
-    public class GameController : Controller
+    [InjectClient]
+    public class GameController : Controller, IHasGameClient
     {        
-        public IGameHost Host { get; set;}
         public IGameClient Client { get; set; }
 
         public ActionResult Index()
@@ -36,7 +35,7 @@ namespace Dominion.Web.Controllers
         [HttpGet]
         public ActionResult GameData(string playerId)
         {
-            var model = Host.GetGameState(Client);
+            var model = Client.GetGameState();
             return new GameViewModelResult(model, this);
         }
 
@@ -44,7 +43,7 @@ namespace Dominion.Web.Controllers
         public ActionResult PlayCard(Guid id)
         {
             var message = new PlayCardMessage(playerId: Client.PlayerId, cardId: id);
-            Host.AcceptMessage(message);
+            Client.AcceptMessage(message);
             return new EmptyResult();
         }
 
@@ -52,7 +51,7 @@ namespace Dominion.Web.Controllers
         public ActionResult BuyCard(Guid id)
         {
             var message = new BuyCardMessage(playerId: Client.PlayerId, pileId: id);
-            Host.AcceptMessage(message);
+            Client.AcceptMessage(message);
             return new EmptyResult();
         }
 
@@ -60,7 +59,7 @@ namespace Dominion.Web.Controllers
         public ActionResult DoBuys()
         {
             var message = new MoveToBuyStepMessage(playerId: Client.PlayerId);
-            Host.AcceptMessage(message);
+            Client.AcceptMessage(message);
             return new EmptyResult();
         }
 
@@ -68,7 +67,7 @@ namespace Dominion.Web.Controllers
         public ActionResult EndTurn()
         {
             var message = new EndTurnMessage(playerId: Client.PlayerId);
-            Host.AcceptMessage(message);
+            Client.AcceptMessage(message);
             return new EmptyResult();            
         }
 
@@ -76,7 +75,7 @@ namespace Dominion.Web.Controllers
         public ActionResult SelectCards(Guid[] ids)
         {
             var message = new SelectCardsFromHandMessage(Client.PlayerId, ids);
-            Host.AcceptMessage(message);
+            Client.AcceptMessage(message);
             return new EmptyResult();
         }
 
@@ -84,7 +83,7 @@ namespace Dominion.Web.Controllers
         public ActionResult MakeYesNoChoice(bool choice)
         {
             var message = new YesNoChoiceMessage(Client.PlayerId, choice);
-            Host.AcceptMessage(message);
+            Client.AcceptMessage(message);
             return new EmptyResult();
         }
 
@@ -92,7 +91,7 @@ namespace Dominion.Web.Controllers
         public ActionResult SelectPile(Guid id)
         {
             var message = new ChooseAPileMessage(Client.PlayerId, id);
-            Host.AcceptMessage(message);
+            Client.AcceptMessage(message);
             return new EmptyResult();
         }
 

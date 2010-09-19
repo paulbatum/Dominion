@@ -10,6 +10,7 @@ namespace Dominion.GameHost
         IObservable<GameViewModel> GameStateUpdates { get; }
         GameViewModel GetGameState();
         void AssociateWithHost(IGameHost gameHost);
+        void AcceptMessage(IGameActionMessage message);
     }
 
     public class GameClient : IGameClient
@@ -48,6 +49,11 @@ namespace Dominion.GameHost
                 throw new InvalidOperationException("Already associated with a host.");
 
             _host = gameHost;
+        }
+
+        public void AcceptMessage(IGameActionMessage message)
+        {
+            _host.AcceptMessage(message);
         }
     }
 

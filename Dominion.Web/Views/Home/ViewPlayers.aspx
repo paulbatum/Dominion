@@ -6,7 +6,7 @@
     Game key: <%= Model.GameKey %>
     <% foreach(var item in Model.Slots)
        {  
-           using(Html.BeginForm("JoinGame", "Home", new {id = Model.GameKey, playerId = item.Key }))
+           using(Html.BeginForm("JoinGame", "Home", new {id = item.Key }))
             { %>
                 <%= item.Value %> <%=Html.SubmitButton("join", "Play") %>
           <%}  

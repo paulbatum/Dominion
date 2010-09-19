@@ -7,25 +7,13 @@ namespace Dominion.GameHost
 {
     public class MultiGameHost
     {
-        private readonly IDictionary<string, IGameHost> _games;
         private readonly IDictionary<Guid, IGameClient> _clients;
         private readonly IDictionary<string, GameData> _gameData;
 
         public MultiGameHost()
         {
-            _games = new Dictionary<string, IGameHost>();
             _clients = new Dictionary<Guid, IGameClient>();
             _gameData = new Dictionary<string, GameData>();
-        }
-
-        public IGameHost FindGame(string key)
-        {
-            return _games[key];
-        }
-
-        public bool GameExists(string key)
-        {
-            return _games.ContainsKey(key);
         }
 
         public IGameClient FindClient(Guid id)
@@ -40,13 +28,12 @@ namespace Dominion.GameHost
 
         public string CreateNewGame(IEnumerable<string> playerNames, int numberOfPlayers)
         {
-            var key = _games.Count.ToString();
+            var key = _gameData.Count.ToString();
             var startingConfig = new SimpleStartingConfiguration(numberOfPlayers);
             var game = startingConfig.CreateGame(playerNames);
 
             var host = new LockingGameHost(game);
             host.AcceptMessage(new BeginGameMessage());
-            _games[key] = host;
             _gameData[key] = new GameData { GameKey = key };
 
             foreach (var player in game.Players)

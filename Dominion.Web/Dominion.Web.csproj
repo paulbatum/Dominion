@@ -82,7 +82,7 @@
     <Reference Include="System.Web.Routing" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionFilters\InjectGameAttribute.cs" />
+    <Compile Include="ActionFilters\InjectClientAttribute.cs" />
     <Compile Include="Bootstrap\AutofacConfig.cs" />
     <Compile Include="Controllers\CometController.cs" />
     <Compile Include="Controllers\GameController.cs" />
@@ -116,6 +116,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\jquery-ui-1.8.4.custom.min.js" />
     <Content Include="Scripts\jquery.form.js" />
+    <Content Include="Scripts\jquery.thumbhover.js" />
     <Content Include="Scripts\jquery.layout-1.3.0.rc29.4.js" />
     <Content Include="Scripts\jquery.tmpl.js" />
     <Content Include="Views\Game\Play.aspx" />

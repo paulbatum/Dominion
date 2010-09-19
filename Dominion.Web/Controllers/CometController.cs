@@ -4,35 +4,26 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Dominion.GameHost;
+using Dominion.Web.ActionFilters;
 using Dominion.Web.ViewModels;
 using Microsoft.Web.Mvc;
 using Newtonsoft.Json;
 
 namespace Dominion.Web.Controllers
 {
-    [ControllerSessionState(ControllerSessionState.ReadOnly)]
-    public class CometController : AsyncController
+    [InjectClient]
+    public class CometController : AsyncController, IHasGameClient
     {
-        private readonly MultiGameHost _host;
-
-        public CometController(MultiGameHost host)
-        {
-            _host = host;
-        }
+        public IGameClient Client { get; set; }
 
         [HttpGet]
-        public void GameStateAsync(int id)
+        public void GameStateAsync()
         {
             AsyncManager.OutstandingOperations.Increment();
-            var key = id.ToString();
 
-            var playerId = (Guid) Session["playerId"];
-            
-            var client = _host.FindClient(playerId);
-            
-            client
+            Client
                 .GameStateUpdates
-                .Timeout(TimeSpan.FromSeconds(15), Observable.Return(client.GetGameState()))
+                .Timeout(TimeSpan.FromSeconds(15), Observable.Return(Client.GetGameState()))
                 .Take(1)
                 .Subscribe(gvm =>
                 {
@@ -46,5 +37,10 @@ namespace Dominion.Web.Controllers
             return new GameViewModelResult(gameState, this);
         }
       
+    }
+
+    public interface IHasGameClient
+    {
+        IGameClient Client { get; set; }
     }
 }
