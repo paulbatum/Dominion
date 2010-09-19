@@ -177,6 +177,8 @@ testRunner.When("The game begins");
 testRunner.And("Player1 tells the host to buy Province");
 #line 46
 testRunner.Then("The game should have ended");
+#line 47
+testRunner.And("Player1 should be the winner");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
@@ -186,17 +188,17 @@ testRunner.Then("The game should have ended");
         public virtual void AutomaticProgressionWhenAnEffectIsInProgress()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Automatic progression when an effect is in progress", ((string[])(null)));
-#line 48
-this.ScenarioSetup(scenarioInfo);
 #line 49
-testRunner.Given("A new hosted game with 3 players");
+this.ScenarioSetup(scenarioInfo);
 #line 50
-testRunner.And("Player1 has a Militia in hand instead of a Copper");
+testRunner.Given("A new hosted game with 3 players");
 #line 51
-testRunner.When("The game begins");
+testRunner.And("Player1 has a Militia in hand instead of a Copper");
 #line 52
-testRunner.And("Player1 tells the host to play Militia");
+testRunner.When("The game begins");
 #line 53
+testRunner.And("Player1 tells the host to play Militia");
+#line 54
 testRunner.Then("Player1 should be in the action step");
 #line hidden
             testRunner.CollectScenarioErrors();

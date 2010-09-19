@@ -98,6 +98,20 @@ testRunner.Then(string.Format("There should be {0} Province available to buy", p
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Available provinces for number of players")]
+        public virtual void AvailableProvincesForNumberOfPlayers_1()
+        {
+            this.AvailableProvincesForNumberOfPlayers("1", "12");
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Available provinces for number of players")]
+        public virtual void AvailableProvincesForNumberOfPlayers_2()
+        {
+            this.AvailableProvincesForNumberOfPlayers("2", "12");
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Available provinces for number of players")]
         public virtual void AvailableProvincesForNumberOfPlayers_3()
         {
             this.AvailableProvincesForNumberOfPlayers("3", "12");
@@ -127,14 +141,28 @@ testRunner.Then(string.Format("There should be {0} Province available to buy", p
         public virtual void AvailableCursesForNumberOfPlayers(string playerCount, string curseCount)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Available curses for number of players", ((string[])(null)));
-#line 25
-this.ScenarioSetup(scenarioInfo);
-#line 26
-testRunner.Given(string.Format("A new game with {0} players", playerCount));
 #line 27
+this.ScenarioSetup(scenarioInfo);
+#line 28
+testRunner.Given(string.Format("A new game with {0} players", playerCount));
+#line 29
 testRunner.Then(string.Format("There should be {0} Curse available to buy", curseCount));
 #line hidden
             testRunner.CollectScenarioErrors();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Available curses for number of players")]
+        public virtual void AvailableCursesForNumberOfPlayers_1()
+        {
+            this.AvailableCursesForNumberOfPlayers("1", "10");
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Available curses for number of players")]
+        public virtual void AvailableCursesForNumberOfPlayers_2()
+        {
+            this.AvailableCursesForNumberOfPlayers("2", "10");
         }
         
         [NUnit.Framework.TestAttribute()]

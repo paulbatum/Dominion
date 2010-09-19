@@ -90,6 +90,17 @@ namespace Dominion.Specs.Bindings
                 pile.TopCard.MoveTo(new NullZone());
         }
 
+        [Given(@"There are (\d+) empty piles")]
+        public void GivenThereAreEmptyPiles(int emptyPileCount)
+        {
+            var piles = _game.Bank.Piles.Where(x => x.IsLimited)
+                .Take(emptyPileCount);
+
+            foreach(var pile in piles)
+                pile.MoveAll(new NullZone());
+        }
+
+
         // When
         //
 
@@ -272,6 +283,13 @@ namespace Dominion.Specs.Bindings
             _game.IsComplete.ShouldBeTrue();
         }
 
+
+        [Then(@"The game should not have ended")]
+        public void ThenTheGameShouldNotHaveEnded()
+        {
+            _game.IsComplete.ShouldBeFalse();
+        }
+
         [Then(@"(.*) should have a (.*) on top of the discard pile")]
         public void PlayerShouldHaveCardOnTopOfDiscardPile(string playerName, string cardName)
         {
@@ -380,6 +398,7 @@ namespace Dominion.Specs.Bindings
 
             activity.ShouldBeOfType<WaitingForPlayersActivity>();
         }
+
 
     }
 }

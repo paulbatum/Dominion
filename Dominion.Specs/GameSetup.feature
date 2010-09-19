@@ -17,6 +17,8 @@ Scenario Outline: Available provinces for number of players
 
 	Examples:
 		|player count	|province count	|
+		|1				|12				|
+		|2				|12				|
 		|3				|12				|
 		|4				|12				|
 		|5				|15				|
@@ -28,6 +30,8 @@ Scenario Outline: Available curses for number of players
 
 	Examples:
 		|player count	|curse count	|
+		|1				|10				|
+		|2				|10				|
 		|3				|20				|
 		|4				|30				|
 		|5				|40				|

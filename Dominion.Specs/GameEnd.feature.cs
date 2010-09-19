@@ -77,6 +77,88 @@ testRunner.Then("The game should have ended");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
+        
+        public virtual void GameEndsWhenPilesAreExhausted(string playerCount, string emptyPileCount)
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Game ends when piles are exhausted", ((string[])(null)));
+#line 15
+this.ScenarioSetup(scenarioInfo);
+#line 16
+testRunner.Given(string.Format("A new game with {0} players", playerCount));
+#line 17
+testRunner.And(string.Format("There are {0} empty piles", emptyPileCount));
+#line 18
+testRunner.When("Player1 ends their turn");
+#line 19
+testRunner.Then("The game should have ended");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Game ends when piles are exhausted")]
+        public virtual void GameEndsWhenPilesAreExhausted_1()
+        {
+            this.GameEndsWhenPilesAreExhausted("1", "3");
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Game ends when piles are exhausted")]
+        public virtual void GameEndsWhenPilesAreExhausted_2()
+        {
+            this.GameEndsWhenPilesAreExhausted("2", "3");
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Game ends when piles are exhausted")]
+        public virtual void GameEndsWhenPilesAreExhausted_3()
+        {
+            this.GameEndsWhenPilesAreExhausted("3", "3");
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Game ends when piles are exhausted")]
+        public virtual void GameEndsWhenPilesAreExhausted_4()
+        {
+            this.GameEndsWhenPilesAreExhausted("4", "3");
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Game ends when piles are exhausted")]
+        public virtual void GameEndsWhenPilesAreExhausted_5()
+        {
+            this.GameEndsWhenPilesAreExhausted("5", "4");
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Game ends when piles are exhausted")]
+        public virtual void GameEndsWhenPilesAreExhausted_6()
+        {
+            this.GameEndsWhenPilesAreExhausted("6", "4");
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Game isn\'t over until the last turn ends")]
+        public virtual void GameIsnTOverUntilTheLastTurnEnds()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Game isn\'t over until the last turn ends", ((string[])(null)));
+#line 30
+this.ScenarioSetup(scenarioInfo);
+#line 31
+testRunner.Given("A new game with 3 players");
+#line 32
+testRunner.But("There is only 1 Province left");
+#line 33
+testRunner.And("Player1 has a hand of all Gold");
+#line 34
+testRunner.When("Player1 moves to the buy step");
+#line 35
+testRunner.And("Player1 buys a Province");
+#line 36
+testRunner.Then("The game should not have ended");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
     }
 }
 #endregion

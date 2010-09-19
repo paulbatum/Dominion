@@ -44,6 +44,7 @@ Scenario: Automatic progression at the game end
 	When The game begins
 	And Player1 tells the host to buy Province	
 	Then The game should have ended
+	And Player1 should be the winner
 
 Scenario: Automatic progression when an effect is in progress
 	Given A new hosted game with 3 players		

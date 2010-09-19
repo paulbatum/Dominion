@@ -62,12 +62,7 @@ namespace Dominion.Rules
         public IEnumerable<TurnContext> GameTurns()
         {
             foreach (var player in TurnLoop)
-            {
-                if(IsComplete)
-                {                    
-                    yield break;
-                }                    
-
+            {           
                 _activePlayer = player;
                 yield return player.BeginTurn(this);
             }                
@@ -80,12 +75,9 @@ namespace Dominion.Rules
                 return _gameTurns.Current;
             }
         }
-        
 
-        public bool IsComplete
-        {
-            get { return TooManyEmptyPiles || GameEndingPileDepleted; }
-        }
+
+        public bool IsComplete { get; private set; }
 
         protected bool GameEndingPileDepleted
         {
@@ -97,6 +89,11 @@ namespace Dominion.Rules
             get { return Bank.EmptyPileCount == (_players.Count < 5 ? 3 : 4); }
         }
 
+        private void CheckGameComplete()
+        {
+            IsComplete = TooManyEmptyPiles || GameEndingPileDepleted;
+        }
+
         public IEnumerable<PlayerScorer> Score()
         {
             return _players
@@ -105,9 +102,13 @@ namespace Dominion.Rules
 
         public void EndTurn()
         {
-            CurrentTurn.EndTurn();            
-            if(!_gameTurns.MoveNext())
+            CurrentTurn.EndTurn();      
+            CheckGameComplete();
+
+            if (IsComplete)
                 Log.LogGameEnd(this);
+            else
+                _gameTurns.MoveNext();
         }
 
         public IActivity GetPendingActivity(Player player)
