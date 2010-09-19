@@ -12,6 +12,7 @@
     <%= Html.Script("jquery.tmpl.js")%>
     <%= Html.Script("jquery.form.js")%>    
     <%= Html.Script("jquery.layout-1.3.0.rc29.4.js")%>  
+    <%= Html.Script("jquery.thumbhover.js")%>      
     <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
 </head>
 <body>

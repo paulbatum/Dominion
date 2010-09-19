@@ -44,10 +44,13 @@
             jQuery.ajaxSettings.traditional = true;
 
             createLayout();
+
+            setupHover();
             bindDefaultClickEvents();
+
             loadGame();
-            doComet();            
-            //bindActivity({ count: 3 });
+            doComet();
+            
             bindCommands();
         });
 
@@ -199,6 +202,15 @@
 
             $('#doBuys').button();
             $('#endTurn').button();
+        }
+
+        function setupHover() {
+            $('.cardpile img').thumbPopup({
+                imgSmallFlag: "",
+                imgLargeFlag: "",
+                cursorTopOffset: -50,
+                cursorLeftOffset: 15
+            });
         }
 
         function handleInteractionResponse(response) {

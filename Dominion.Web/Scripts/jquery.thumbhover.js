@@ -33,21 +33,21 @@
             //Load full image in popup
             $("<img />")
 			.bind("load", { thumbImage: this }, function (event) {
-			    //Only display the larger image if the thumbnail is still being hovered
-			    if ($(event.data.thumbImage).data("hovered") == true) {
-			        $(popup).empty().append(this);
-			        updatePopupPosition(event);
-			        $(popup).show();
-			    }
-			    $(event.data.thumbImage).data("cached", true);
+
+			    _this = this;
+			    setTimeout(function () {
+			        //Only display the larger image if the thumbnail is still being hovered
+			        if ($(event.data.thumbImage).data("hovered") == true) {
+			            $(popup).empty().append(_this);
+			            updatePopupPosition(event);
+
+			            $(popup).show();
+			        }
+			    }, 1000);
+
 			})
 			.attr("src", fullImgURL);
 
-            //If no image has been loaded yet then place a loading message
-            if ($(this).data("cached") != true) {
-                $(popup).append($(settings.loadingHtml));
-                $(popup).show();
-            }
 
             updatePopupPosition(event);
         }

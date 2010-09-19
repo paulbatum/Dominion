@@ -17,7 +17,7 @@ body
 
 .cardpile img,
 .card img
-{
+{    
     height: 150px;           
 }   
 
@@ -109,4 +109,9 @@ body
 {
     font-size:smaller !important;    
     float:right;    
+}
+
+#thumbPopup
+{
+    z-index:20;
 }
