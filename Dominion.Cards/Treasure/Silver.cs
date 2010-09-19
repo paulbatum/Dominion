@@ -1,11 +1,14 @@
 ﻿using Dominion.Rules.CardTypes;
+using Dominion.Rules;
 
 namespace Dominion.Cards.Treasure
 {
-    public class Silver : MoneyCard
+    public class Silver : Card, IMoneyCard
     {
         public Silver()
-            : base(2, 3)
+            : base(3)
         { }
+
+        public int Value { get { return 2; } }
     }
 }

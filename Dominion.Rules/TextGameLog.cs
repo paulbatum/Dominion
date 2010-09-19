@@ -10,7 +10,7 @@ namespace Dominion.Rules
         string Contents { get; }
 
         void LogTurn(Player player);
-        void LogPlay(Player player, ActionCard card);
+        void LogPlay(Player player, IActionCard card);
         void LogBuy(Player player, CardPile pile);
         void LogGameEnd(Game game);
         void LogDiscard(Player player, Card card);
@@ -35,7 +35,7 @@ namespace Dominion.Rules
             _builder.AppendLine();
         }
 
-        public void LogPlay(Player player, ActionCard card)
+        public void LogPlay(Player player, IActionCard card)
         {
             _builder.AppendFormat("{0} played a {1}.", player.Name, card.Name);
             _builder.AppendLine();

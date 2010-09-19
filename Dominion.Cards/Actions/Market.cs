@@ -7,14 +7,14 @@ using Dominion.Rules.CardTypes;
 
 namespace Dominion.Cards.Actions
 {
-    public class Market : ActionCard
+    public class Market : Card, IActionCard
     {
         public Market()
             : base(5)
         {
         }
 
-        protected override void Play(TurnContext context)
+        public void Play(TurnContext context)
         {
             context.DrawCards(1);
             context.RemainingActions += 1;

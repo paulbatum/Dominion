@@ -19,7 +19,7 @@ namespace Dominion.GameHost
         public void UpdateGameState(Game game)
         {
             Card card = game.CurrentTurn.ActivePlayer.Hand.Single(c => c.Id == CardId);
-            game.CurrentTurn.Play((ActionCard) card);            
+            game.CurrentTurn.Play((IActionCard) card);            
         }
 
         public void Validate(Game game)

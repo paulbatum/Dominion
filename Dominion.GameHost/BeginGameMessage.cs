@@ -10,7 +10,7 @@ namespace Dominion.GameHost
         public void UpdateGameState(Game game)
         {
             TurnContext tempQualifier = game.CurrentTurn;
-            if (tempQualifier.ActivePlayer.Hand.OfType<ActionCard>().Any() == false || tempQualifier.RemainingActions == 0)
+            if (tempQualifier.ActivePlayer.Hand.OfType<IActionCard>().Any() == false || tempQualifier.RemainingActions == 0)
                 tempQualifier.MoveToBuyStep();
         }
 

@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using Dominion.Rules;
 using Dominion.Rules.CardTypes;
+using Dominion.Cards.Curses;
 
 namespace Dominion.Cards.Actions
 {
-    public class Witch : ActionCard
+    public class Witch : Card, IActionCard
     {
         public Witch()
            : base(5)
@@ -15,7 +16,7 @@ namespace Dominion.Cards.Actions
 
         }
 
-        protected override void Play(TurnContext context)
+        public void Play(TurnContext context)
         {
             context.DrawCards(2);
 
@@ -27,7 +28,7 @@ namespace Dominion.Cards.Actions
                     continue;
                 }
 
-                var cursePile = context.Game.Bank.Piles.SingleOrDefault(x => x.TopCard is CurseCard);
+                var cursePile = context.Game.Bank.Piles.SingleOrDefault(x => x.TopCard is Curse);
 
                 if (cursePile != null)
                 {

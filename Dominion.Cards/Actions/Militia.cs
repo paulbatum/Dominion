@@ -6,13 +6,13 @@ using Dominion.Rules.CardTypes;
 
 namespace Dominion.Cards.Actions
 {
-    public class Militia : ActionCard
+    public class Militia : Card, IActionCard
     {
         public Militia() : base(4)
         {
         }
 
-        protected override void Play(TurnContext context)
+        public void Play(TurnContext context)
         {
             context.MoneyToSpend += 2;
             context.AddEffect(new MilitiaEffect(context));

@@ -7,14 +7,14 @@ using Dominion.Rules.CardTypes;
 
 namespace Dominion.Cards.Actions
 {
-    public class Remodel : ActionCard
+    public class Remodel : Card, IActionCard
     {
         public Remodel()
             : base(4)
         {
         }
 
-        protected override void Play(TurnContext context)
+        public void Play(TurnContext context)
         {
             context.AddEffect(new RemodelEffect(context));
         }

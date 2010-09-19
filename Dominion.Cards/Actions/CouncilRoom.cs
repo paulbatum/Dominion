@@ -7,14 +7,15 @@ using Dominion.Rules.CardTypes;
 
 namespace Dominion.Cards.Actions
 {
-    public class CouncilRoom : ActionCard
+    public class CouncilRoom : Card, IActionCard
     {
         public CouncilRoom()
             : base(5)
         {
+
         }
 
-        protected override void Play(TurnContext context)
+        public void Play(TurnContext context)
         {
             context.DrawCards(4);
             context.Buys += 1;

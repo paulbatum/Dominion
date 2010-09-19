@@ -100,7 +100,7 @@ namespace Dominion.Specs.Bindings
                 throw new InvalidOperationException(string.Format("{0} cannot play a {1} because it is currently {2}'s turn.", playerName, cardName, _game.ActivePlayer.Name));
 
             var card = _game.ActivePlayer.Hand
-                .OfType<ActionCard>()
+                .OfType<IActionCard>()
                 .First(c => c.Name == cardName);
 
             _game.CurrentTurn.Play(card);

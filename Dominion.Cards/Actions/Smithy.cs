@@ -7,11 +7,11 @@ using Dominion.Rules.CardTypes;
 
 namespace Dominion.Cards.Actions
 {
-    public class Smithy : ActionCard
+    public class Smithy : Card, IActionCard
     {
         public Smithy() : base(4) { }
 
-        protected override void Play(TurnContext context)
+        public void Play(TurnContext context)
         {
             context.DrawCards(3);
         }

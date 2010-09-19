@@ -4,15 +4,16 @@ using Dominion.Rules.CardTypes;
 
 namespace Dominion.Cards.Actions
 {
-    public class Moat : ActionCard
+    public class Moat : Card, IActionCard
     {
         public Moat() : base(2)
         {
         }
 
-        protected override void Play(TurnContext context)
+        public void Play(TurnContext context)
         {
             context.DrawCards(2);
         }
+
     }
 }

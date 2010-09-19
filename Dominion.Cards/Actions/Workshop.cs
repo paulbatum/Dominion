@@ -5,13 +5,13 @@ using Dominion.Rules.CardTypes;
 
 namespace Dominion.Cards.Actions
 {
-    public class Workshop : ActionCard
+    public class Workshop : Card, IActionCard
     {
         public Workshop() : base(3)
         {
         }
 
-        protected override void Play(TurnContext context)
+        public void Play(TurnContext context)
         {
             context.AddEffect(new WorkshopEffect(context));
         }

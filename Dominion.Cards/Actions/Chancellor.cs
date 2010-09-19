@@ -4,13 +4,13 @@ using Dominion.Rules.CardTypes;
 
 namespace Dominion.Cards.Actions
 {
-    public class Chancellor : ActionCard
+    public class Chancellor : Card, IActionCard
     {
         public Chancellor() : base(3)
         {
         }
 
-        protected override void Play(TurnContext context)
+        public void Play(TurnContext context)
         {
             context.MoneyToSpend += 2;
             context.AddEffect(new ChancellorEffect(context));
@@ -40,5 +40,6 @@ namespace Dominion.Cards.Actions
                 }
             }
         }
+
     }
 }

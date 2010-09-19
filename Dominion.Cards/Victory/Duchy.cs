@@ -1,11 +1,25 @@
 ﻿using Dominion.Rules.CardTypes;
+using Dominion.Rules;
 
 namespace Dominion.Cards.Victory
 {
-    public class Duchy : VictoryCard
+    public class Duchy : Card, IVictoryCard
     {
         public Duchy()
-            : base(3, 5)
-        { }
+            : base(5)
+        {
+            Value = 3;
+        }
+
+        public int Value
+        {
+            get;
+            private set;
+        }
+
+        public int Score(CardZone allCards)
+        {
+            return Value;
+        }
     }
 }

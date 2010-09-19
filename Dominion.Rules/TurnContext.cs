@@ -36,7 +36,7 @@ namespace Dominion.Rules
             ActivePlayer.DrawCards(numberOfCardsToDraw);
         }
 
-        public bool CanPlay(Card card)
+        public bool CanPlay(ICard card)
         {
             if (CurrentEffect != null)
                 return false;
@@ -44,16 +44,16 @@ namespace Dominion.Rules
             if (InBuyStep)
                 return false;
 
-            var actionCard = card as ActionCard;
-            if (actionCard != null)                
-                return actionCard.CanPlay(this);
+            var actionCard = card as IActionCard;
+            if (actionCard != null)
+                return this.RemainingActions > 0;
 
             return false;
         }
 
-        public void Play(ActionCard card)
+        public void Play(IActionCard card)
         {
-            if(!card.CanPlay(this))
+            if (!CanPlay(card))
                 throw new ArgumentException(string.Format("The card '{0}' cannot be played", card), "card");
 
             RemainingActions--;
@@ -119,7 +119,7 @@ namespace Dominion.Rules
 
             InBuyStep = true;
             RemainingActions = 0;
-            MoneyToSpend = MoneyToSpend + this.ActivePlayer.Hand.OfType<MoneyCard>().Sum(x => x.Value);
+            MoneyToSpend = MoneyToSpend + this.ActivePlayer.Hand.OfType<IMoneyCard>().Sum(x => x.Value);
         }
 
         public void AddEffect(ICardEffect cardEffect)

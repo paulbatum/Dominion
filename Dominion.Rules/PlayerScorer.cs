@@ -30,7 +30,7 @@ namespace Dominion.Rules
         {
             public int CalculateScore()
             {
-                return Cards.Where(x=>x is IScoreCard).Sum(x => (x as IScoreCard).Score(this));
+                return Cards.Where(x=>x is IVictoryCard).Sum(x => (x as IVictoryCard).Score(this));
             }
         }
     }

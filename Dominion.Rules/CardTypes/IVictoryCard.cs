@@ -5,8 +5,7 @@ using System.Text;
 
 namespace Dominion.Rules.CardTypes
 {
-    public interface IScoreCard : ICard
+    public interface IVictoryCard : IScoreCard
     {
-        int Score(CardZone allCards);
     }
 }

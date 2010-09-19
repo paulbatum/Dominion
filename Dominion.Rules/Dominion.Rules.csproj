@@ -68,17 +68,19 @@
     <Compile Include="Activities\YesNoChoiceActivity.cs" />
     <Compile Include="CardBank.cs" />
     <Compile Include="CardEffectBase.cs" />
-    <Compile Include="CardTypes\ActionCard.cs" />
+    <Compile Include="CardTypes\IActionCard.cs" />
     <Compile Include="Card.cs" />
-    <Compile Include="CardTypes\CurseCard.cs" />
-    <Compile Include="CardTypes\ISCoreCard.cs" />
+    <Compile Include="CardTypes\ICurseCard.cs" />
+    <Compile Include="CardTypes\IScoreCard.cs" />
+    <Compile Include="CardTypes\IVictoryCard.cs" />
     <Compile Include="CardZone.cs" />
     <Compile Include="DrawDeck.cs" />
-    <Compile Include="CardTypes\MoneyCard.cs" />
+    <Compile Include="CardTypes\IMoneyCard.cs" />
     <Compile Include="DiscardPile.cs" />
     <Compile Include="EnumerableCardZone.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Activities\SelectCardsFromHandActivity.cs" />
+    <Compile Include="ICard.cs" />
     <Compile Include="PlayArea.cs" />
     <Compile Include="TextGameLog.cs" />
     <Compile Include="PlayerScorer.cs" />
@@ -87,10 +89,9 @@
     <Compile Include="NullZone.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CardTypes\TreasureCard.cs" />
+    <Compile Include="CardTypes\ITreasureCard.cs" />
     <Compile Include="TrashPile.cs" />
     <Compile Include="TurnContext.cs" />
-    <Compile Include="CardTypes\VictoryCard.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

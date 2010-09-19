@@ -4,11 +4,11 @@ using Dominion.Rules.CardTypes;
 
 namespace Dominion.Cards.Actions
 {
-    public class Feast : ActionCard
+    public class Feast : Card, IActionCard
     {
         public Feast() : base(4) { }
 
-        protected override void Play(TurnContext context)
+        public void Play(TurnContext context)
         {
             context.Trash(context.ActivePlayer, this);
             context.AddEffect(new FeastEffect(context));

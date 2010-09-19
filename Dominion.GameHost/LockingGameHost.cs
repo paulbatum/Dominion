@@ -87,7 +87,7 @@ namespace Dominion.GameHost
                 }
                 else
                 {
-                    if(currentTurn.ActivePlayer.Hand.OfType<ActionCard>().Any() == false || currentTurn.RemainingActions == 0)
+                    if(currentTurn.ActivePlayer.Hand.OfType<IActionCard>().Any() == false || currentTurn.RemainingActions == 0)
                     {
                         currentTurn.MoveToBuyStep();
                         continue;

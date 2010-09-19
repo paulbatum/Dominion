@@ -4,7 +4,7 @@ namespace Dominion.Rules
 {
     public delegate void CardZoneChanger(CardZone targetZone);
 
-    public abstract class Card
+    public abstract class Card : Dominion.Rules.ICard
     {
         private CardZone _currentZone;
         private readonly CardZoneChanger _zoneChanger;

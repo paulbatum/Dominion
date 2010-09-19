@@ -3,8 +3,13 @@ using Dominion.Rules.CardTypes;
 
 namespace Dominion.Cards.Curses
 {
-    public class Curse : CurseCard
+    public class Curse : Card, ICurseCard
     {
-        public Curse() : base(0, -1) { }
+        public Curse() : base(-1) { }
+
+        public int Score(CardZone allCards)
+        {
+            return -1;
+        }
     }
 }

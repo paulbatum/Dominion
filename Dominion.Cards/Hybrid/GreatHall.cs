@@ -3,14 +3,14 @@ using Dominion.Rules.CardTypes;
 
 namespace Dominion.Cards.Hybrid
 {
-    public class GreatHall : ActionCard, IScoreCard
+    public class GreatHall : Card, IActionCard, IVictoryCard
     {
         public GreatHall() : base(3)
         {
             Value = 1;
         }
 
-        protected override void Play(TurnContext context)
+        public void Play(TurnContext context)
         {
             context.DrawCards(1);
             context.RemainingActions += 1;
@@ -25,6 +25,11 @@ namespace Dominion.Cards.Hybrid
         public int Score(CardZone allCards)
         {
             return Value;
+        }
+
+        public void PlayFromOtherAction(TurnContext context)
+        {
+            Play(context);
         }
     }
 }

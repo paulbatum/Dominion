@@ -7,13 +7,13 @@ using Dominion.Rules.CardTypes;
 
 namespace Dominion.Cards.Actions
 {
-    public class ThroneRoom : ActionCard
+    public class ThroneRoom : Card, IActionCard
     {
         public ThroneRoom() : base(4)
         {
         }
 
-        protected override void Play(TurnContext context)
+        public void Play(TurnContext context)
         {
             context.AddEffect(new ThroneRoomEffect(context));
         }
@@ -22,7 +22,7 @@ namespace Dominion.Cards.Actions
         {
             public ThroneRoomEffect(TurnContext context)
             {
-                if(context.ActivePlayer.Hand.OfType<ActionCard>().Any())
+                if(context.ActivePlayer.Hand.OfType<IActionCard>().Any())
                     _activities.Add(new ThroneRoomActivity(context));
             }
 
@@ -39,15 +39,15 @@ namespace Dominion.Cards.Actions
 
                 public override void Execute(IEnumerable<Card> cards)
                 {
-                    var actionCard = cards.OfType<ActionCard>().Single();
+                    var actionCard = cards.OfType<IActionCard>().Single();
                     _context.Game.Log.LogMessage("{0} selected {1} to be played twice.", Player.Name, actionCard.Name);
 
                     if (actionCard != null)
                     {
                         actionCard.MoveTo(this.Player.PlayArea);
 
-                        actionCard.PlayFromOtherAction(_context);
-                        actionCard.PlayFromOtherAction(_context);
+                        actionCard.Play(_context);
+                        actionCard.Play(_context);
                     }
                 }
             }
