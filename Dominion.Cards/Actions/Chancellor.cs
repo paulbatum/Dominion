@@ -21,7 +21,8 @@ namespace Dominion.Cards.Actions
         {
             public override void Resolve(TurnContext context)
             {
-                _activities.Add(new ChancellorActivity(context.Game.Log, context.ActivePlayer, "Do you wish to put your deck into your discard pile?"));
+                if(context.ActivePlayer.Deck.CardCount > 0)
+                    _activities.Add(new ChancellorActivity(context.Game.Log, context.ActivePlayer, "Do you wish to put your deck into your discard pile?"));
             }
 
             public class ChancellorActivity : YesNoChoiceActivity
