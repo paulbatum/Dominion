@@ -101,6 +101,37 @@ testRunner.And("Player3 should have 3 cards in hand");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Militia played twice via Throne Room")]
+        public virtual void MilitiaPlayedTwiceViaThroneRoom()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Militia played twice via Throne Room", ((string[])(null)));
+#line 21
+this.ScenarioSetup(scenarioInfo);
+#line 22
+testRunner.Given("A new game with 3 players");
+#line 23
+testRunner.And("Player1 has a Militia in hand instead of a Copper");
+#line 24
+testRunner.And("Player1 has a ThroneRoom in hand instead of a Copper");
+#line 25
+testRunner.When("Player1 plays a ThroneRoom");
+#line 26
+testRunner.When("Player1 selects a Militia to throne room");
+#line 27
+testRunner.And("Player2 selects 2 Copper to discard");
+#line 28
+testRunner.And("Player3 selects 2 Copper to discard");
+#line 29
+testRunner.Then("All actions should be resolved");
+#line 30
+testRunner.And("Player2 should have 3 cards in hand");
+#line 31
+testRunner.And("Player3 should have 3 cards in hand");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
     }
 }
 #endregion

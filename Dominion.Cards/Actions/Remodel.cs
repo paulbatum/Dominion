@@ -16,12 +16,12 @@ namespace Dominion.Cards.Actions
 
         public void Play(TurnContext context)
         {
-            context.AddEffect(new RemodelEffect(context));
+            context.AddEffect(new RemodelEffect());
         }
 
         public class RemodelEffect : CardEffectBase
         {
-            public RemodelEffect(TurnContext context)
+            public override void Resolve(TurnContext context)
             {
                 _activities.Add(new SelectCardToRemodelActivity(context, this));
             }

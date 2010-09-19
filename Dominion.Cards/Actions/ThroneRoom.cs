@@ -15,12 +15,12 @@ namespace Dominion.Cards.Actions
 
         public void Play(TurnContext context)
         {
-            context.AddEffect(new ThroneRoomEffect(context));
+            context.AddEffect(new ThroneRoomEffect());
         }
 
         public class ThroneRoomEffect : CardEffectBase
         {
-            public ThroneRoomEffect(TurnContext context)
+            public override void Resolve(TurnContext context)
             {
                 if(context.ActivePlayer.Hand.OfType<IActionCard>().Any())
                     _activities.Add(new ThroneRoomActivity(context));

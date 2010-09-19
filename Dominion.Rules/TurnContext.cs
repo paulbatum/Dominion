@@ -131,13 +131,20 @@ namespace Dominion.Rules
         {
             get
             {
-                while (_effects.Count > 0 && _effects.Peek().HasFinished)
-                    _effects.Pop();
+                
+                while (_effects.Count > 0)
+                {
+                    var effect = _effects.Peek();
 
-                if (_effects.Count == 0)
-                    return null;
+                    effect.BeginResolve(this);
 
-                return _effects.Peek();
+                    if (effect.HasFinished)
+                        _effects.Pop();
+                    else
+                        return effect;
+                }
+                
+                return null;
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using Dominion.Rules;
+﻿using System;
+using Dominion.Rules;
 using Dominion.Rules.Activities;
 using Dominion.Rules.CardTypes;
 
@@ -18,6 +19,10 @@ namespace Dominion.Cards.Actions
     public class FeastEffect : CardEffectBase
     {
         public FeastEffect(TurnContext context)
+        {
+        }
+
+        public override void Resolve(TurnContext context)
         {
             _activities.Add(new GainACardUpToActivity(context.Game.Log, context.ActivePlayer, 5));
         }

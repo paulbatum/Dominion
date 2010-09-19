@@ -13,14 +13,15 @@ namespace Dominion.Cards.Actions
 
         public void Play(TurnContext context)
         {
-            context.AddEffect(new WorkshopEffect(context));
+            context.AddEffect(new WorkshopEffect());
         }
 
         public class WorkshopEffect : CardEffectBase
         {
-            public WorkshopEffect(TurnContext context)
+            public override void Resolve(TurnContext context)
             {
                 _activities.Add(new GainACardUpToActivity(context.Game.Log, context.ActivePlayer, 4));
+
             }
         }
     }

@@ -1,3 +1,4 @@
+using System;
 using Dominion.Rules;
 using Dominion.Rules.Activities;
 using Dominion.Rules.CardTypes;
@@ -13,12 +14,12 @@ namespace Dominion.Cards.Actions
         public void Play(TurnContext context)
         {
             context.MoneyToSpend += 2;
-            context.AddEffect(new ChancellorEffect(context));
+            context.AddEffect(new ChancellorEffect());
         }
 
         public class ChancellorEffect : CardEffectBase
         {
-            public ChancellorEffect(TurnContext context)
+            public override void Resolve(TurnContext context)
             {
                 _activities.Add(new ChancellorActivity(context.Game.Log, context.ActivePlayer, "Do you wish to put your deck into your discard pile?"));
             }

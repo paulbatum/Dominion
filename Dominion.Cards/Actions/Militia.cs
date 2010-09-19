@@ -15,12 +15,12 @@ namespace Dominion.Cards.Actions
         public void Play(TurnContext context)
         {
             context.MoneyToSpend += 2;
-            context.AddEffect(new MilitiaEffect(context));
+            context.AddEffect(new MilitiaEffect());
         }
 
         private class MilitiaEffect : CardEffectBase
         {
-            public MilitiaEffect(TurnContext context)
+            public override void Resolve(TurnContext context)
             {
                 foreach (var player in context.Opponents)
                 {
@@ -32,13 +32,13 @@ namespace Dominion.Cards.Actions
 
                     var numberToDiscard = player.Hand.CardCount - 3;
 
-                    if(numberToDiscard > 0)
+                    if (numberToDiscard > 0)
                         _activities.Add(new DiscardCardsActivity(context.Game.Log, player, numberToDiscard));
                     else
                     {
                         context.Game.Log.LogMessage("{0} did not have to discard any cards", player.Name);
                     }
-                }                    
+                }             
             }
         }
     }
