@@ -65,7 +65,8 @@ namespace Dominion.GameHost
 
         public void SendChatMessage(string message)
         {
-            _host.SendChatMessage(message);
+            if(!string.IsNullOrEmpty(message))
+                _host.SendChatMessage(string.Format("{0}: {1}", this.PlayerName,  message));
         }
     }
 

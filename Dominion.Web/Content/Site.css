@@ -56,16 +56,11 @@ body
     background-color:Green;                 
 }
 
-#display, #playArea, #bank, #bottom, #prompt, #log
+#display, #playArea, #bank, #bottom, #prompt, #log, #chatLog
 {
     border-style:double;
     border-width:3px;
     border-color:Black;
-}
-
-#log
-{
-    font-size:small;
 }
 
 #doBuys, #endTurn
@@ -126,4 +121,10 @@ body
     width:500px;
     background-color:Silver;
     color:Black;   
+}
+
+.log
+{
+    font-size:small;
+    overflow-y:scroll !important;
 }

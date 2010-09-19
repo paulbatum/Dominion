@@ -50,7 +50,18 @@
 
 
             createLayout();
+            setupChat();
+            setupHover();
+            bindDefaultClickEvents();
 
+            loadGame();
+            doComet('gamestateloop', updateGameState);
+            doComet('chatloop', updateChat);
+
+            bindCommands();
+        });
+
+        function setupChat() {
             $('#chat').hide();
 
             $(document).bind('keydown', 'return', function () {
@@ -62,19 +73,9 @@
                 event.stopPropagation();
                 actions.chat($('#chatBox').val());
                 $('#chat').hide();
-                $('#chatBox').text('');
+                $('#chatBox').val('');
             });
-
-
-            setupHover();
-            bindDefaultClickEvents();
-
-            loadGame();
-            doComet();
-            doChatComet();
-
-            bindCommands();
-        });
+        }
 
         function bindActivity(activity) {
             controller.HandClick = function (event) { };
@@ -147,27 +148,23 @@
             controller.BankClick = actions.buy;
         }
 
-        function doComet() {            
+        function doComet(url, success) {
             $.ajax({
-                url: 'gamestateloop',
-                complete: doComet,
-                success: updateGameState,
-                error: loadGame,
+                url: url,
+                success: function (data) { $.ajax(this); success(data); },
+                timeout: 30000,
+                error: function () { alert("Communication with the server has failed. Refresh the page."); },
                 cache: false
             });
-        }
-
-        function doChatComet() {
-            $.ajax({
-                url: 'chatloop',
-                complete: doChatComet,
-                success: updateChat,                
-                cache: false
-            });
-        }
+        }        
 
         function updateChat(data) {
-            alert(data.message);
+            if (data.message != '') {
+                $('#chatLog')
+                    .append(data.message)
+                    .append('<br/>')
+                    .animate({ scrollTop: $('#chatLog').attr("scrollHeight") - $('#chatLog').height() }, 1000);
+            }
         }
 
         function createLayout() {
@@ -196,10 +193,10 @@
                     size:'20%'
                 },     
                 center: {
-                    size:'60%'
+                    size:'70%'
                 }, 
                 west: {
-                    size:'20%'            
+                    size:'10%'            
                 }                         
             });
 
@@ -208,7 +205,11 @@
 
                 south: {
                     initClosed: true
+                },
+                east: {
+                    size: '30%'
                 }
+                
             });
 
             $('#bottom').layout({
@@ -290,7 +291,7 @@
     <script id="statusTemplate" type="text/html">
         <table>
             <tr>
-                <td>Actions remaining: </td>
+                <td>Actions: </td>
                 <td>${RemainingActions}</td>
             </tr>
             <tr>
@@ -320,13 +321,14 @@
         </div>        
         <div id="middle" class="ui-layout-center">
             <div id="playArea" class="ui-layout-center container"></div>
+            <div id="chatLog" class="ui-layout-east container log"></div>
             <div id="prompt" class="ui-layout-south container">
                 <div id="message"></div>
                 <input id="noChoice" type="submit" class="promptButton" value="No" />
                 <input id="yesChoice" type="submit" class="promptButton" value="Yes" />                
             </div>
         </div>
-        <div id="log" class="ui-layout-east container" style="overflow-y:scroll"></div>
+        <div id="log" class="ui-layout-east container log"></div>
     </div>        
     <div id="bottom" class="ui-layout-south">        
         <div id="deck" class="ui-layout-west"></div>
