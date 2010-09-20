@@ -35,6 +35,6 @@ namespace Dominion.Specs.Bindings
             playAreaCardNames.ShouldStartWith(sequence.Replace(" ",""));
         }
 
-
+        
     }
 }

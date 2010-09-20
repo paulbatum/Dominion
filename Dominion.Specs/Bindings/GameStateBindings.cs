@@ -159,17 +159,17 @@ namespace Dominion.Specs.Bindings
         {
             var player = _game.Players.Single(p => p.Name == playerName);
             var cards = player.Hand.Where(c => c.Name == selectedCard).Take(numberOfCards);
-            var activity = _game.GetPendingActivity(player) as SelectCardsFromHandActivity;
+            var activity = (SelectCardsFromHandActivity) _game.GetPendingActivity(player);
 
             activity.SelectCards(cards);
         }
 
         [When(@"(.*) selects a (.*) to .*")]
-        public void WhenPlayerSelectACard(string playerName, string cardToDiscard)
+        public void WhenPlayerSelectACard(string playerName, string selectedCard)
         {
             var player = _game.Players.Single(p => p.Name == playerName);
-            var cards = player.Hand.Where(c => c.Name == cardToDiscard).Take(1);
-            var activity = _game.GetPendingActivity(player) as SelectCardsFromHandActivity;
+            var cards = player.Hand.Where(c => c.Name == selectedCard).Take(1);
+            var activity = (SelectCardsFromHandActivity) _game.GetPendingActivity(player);
 
             activity.SelectCards(cards);
         }
@@ -178,7 +178,7 @@ namespace Dominion.Specs.Bindings
         public void WhenPlayerChooses(string playerName, string choice)
         {            
             var player = _game.Players.Single(p => p.Name == playerName);            
-            var activity = _game.GetPendingActivity(player) as YesNoChoiceActivity;
+            var activity = (YesNoChoiceActivity) _game.GetPendingActivity(player);
 
             activity.MakeChoice(choice == "yes");
         }
@@ -188,10 +188,21 @@ namespace Dominion.Specs.Bindings
         {
             var player = _game.Players.Single(p => p.Name == playerName);
             var pile = _game.Bank.Piles.First(p => p.Name == cardName);
-            var activity = _game.GetPendingActivity(player) as GainACardActivity;
+            var activity = (GainACardActivity) _game.GetPendingActivity(player);
 
             activity.SelectPileToGainFrom(pile);
         }
+
+        [When(@"(.*) reveals (.*)")]
+        public void WhenPlayerRevealsCard(string playerName, string cardName)
+        {
+            var player = _game.Players.Single(p => p.Name == playerName);
+            var activity = (SelectReactionActivity)_game.GetPendingActivity(player);
+            var cards = player.Hand.Where(c => c.Name == cardName).Take(1);
+
+            activity.SelectCards(cards);
+        }
+
 
 
         // Then
@@ -360,7 +371,7 @@ namespace Dominion.Specs.Bindings
         [Then(@"All actions should be resolved")]
         public void ThenAllActionsShouldBeResolved()
         {
-            _game.CurrentTurn.CurrentEffect.ShouldBeNull();
+            _game.CurrentTurn.GetCurrentEffect().ShouldBeNull();
         }
 
         [Then(@"(.*) should have a deck of (\d+) card[s]?")]
@@ -405,6 +416,15 @@ namespace Dominion.Specs.Bindings
             var activity = _game.GetPendingActivity(player);
 
             activity.ShouldBeOfType<WaitingForPlayersActivity>();
+        }
+
+        [Then(@"(.*) may reveal a reaction")]
+        public void ThenPlayerMayRevealAReaction(string playerName)
+        {
+            var player = _game.Players.Single(p => p.Name == playerName);
+            var activity = _game.GetPendingActivity(player);
+
+            activity.ShouldBeOfType<SelectReactionActivity>();
         }
 
 

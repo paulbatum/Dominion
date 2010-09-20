@@ -28,6 +28,7 @@
 
     public enum RestrictionType
     {
-        ActionCard
+        ActionCard,
+        ReactionCard
     }
 }

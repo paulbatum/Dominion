@@ -7,7 +7,7 @@
 
     public interface IReactionCard : ICard
     {
-        
+        void React(AttackEffect attackEffect, Player player, IGameLog log);
     }
 
     public interface IAttackCard : ICard

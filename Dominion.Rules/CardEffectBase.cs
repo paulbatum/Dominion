@@ -39,7 +39,7 @@ namespace Dominion.Rules
             return null;
         }
 
-        public void BeginResolve(TurnContext currentTurn)
+        public virtual void BeginResolve(TurnContext currentTurn)
         {
             if (!_isResolved)
             {

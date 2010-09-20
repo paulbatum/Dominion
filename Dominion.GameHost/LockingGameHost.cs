@@ -88,7 +88,7 @@ namespace Dominion.GameHost
 
                 TurnContext currentTurn = _game.CurrentTurn;
 
-                if (currentTurn.CurrentEffect != null)
+                if (currentTurn.GetCurrentEffect() != null)
                     break;
 
                 if (currentTurn.InBuyStep)

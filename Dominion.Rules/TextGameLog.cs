@@ -15,8 +15,7 @@ namespace Dominion.Rules
         void LogGameEnd(Game game);
         void LogDiscard(Player player, Card card);
         void LogMessage(string message, params object[] values);
-        void LogGain(Player player, Card card);
-        void LogMoat(Player player);
+        void LogGain(Player player, Card card);        
         void LogTrash(Player player, Card card);
     }
 
@@ -89,12 +88,6 @@ namespace Dominion.Rules
             _builder.AppendFormat("{0} gained a {1}", player.Name, card.Name);
             _builder.AppendLine();
 
-        }
-
-        public void LogMoat(Player player)
-        {
-            _builder.AppendFormat("{0} is protected due to a moat in hand.", player.Name);
-            _builder.AppendLine();
         }
 
         public void LogTrash(Player player, Card card)

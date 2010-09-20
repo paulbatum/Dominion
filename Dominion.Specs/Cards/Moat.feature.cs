@@ -72,10 +72,10 @@ testRunner.Then("Player1 should have 6 cards in hand");
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Moat protects from attacks")]
-        public virtual void MoatProtectsFromAttacks()
+        [NUnit.Framework.DescriptionAttribute("Moat is a reaction")]
+        public virtual void MoatIsAReaction()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Moat protects from attacks", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Moat is a reaction", ((string[])(null)));
 #line 9
 this.ScenarioSetup(scenarioInfo);
 #line 10
@@ -87,8 +87,31 @@ testRunner.And("Player2 has a Moat in hand instead of a Copper");
 #line 13
 testRunner.When("Player1 plays a Militia");
 #line 14
+testRunner.Then("Player2 may reveal a reaction");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Moat protects from attacks")]
+        public virtual void MoatProtectsFromAttacks()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Moat protects from attacks", ((string[])(null)));
+#line 16
+this.ScenarioSetup(scenarioInfo);
+#line 17
+testRunner.Given("A new game with 3 players");
+#line 18
+testRunner.And("Player1 has a Militia in hand instead of a Copper");
+#line 19
+testRunner.And("Player2 has a Moat in hand instead of a Copper");
+#line 20
+testRunner.When("Player1 plays a Militia");
+#line 21
+testRunner.When("Player2 reveals Moat");
+#line 22
 testRunner.Then("Player2 must wait");
-#line 15
+#line 23
 testRunner.And("Player3 must select 2 cards to discard");
 #line hidden
             testRunner.CollectScenarioErrors();

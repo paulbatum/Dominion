@@ -1,3 +1,4 @@
+using Dominion.Cards.Hybrid;
 using Dominion.Cards.Victory;
 using Dominion.Rules;
 using Dominion.Cards.Actions;
@@ -12,7 +13,7 @@ namespace Dominion.GameHost
         public override void InitializeBank(Dominion.Rules.CardBank bank)
         {            
             bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Moat>(10));
-            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Village>(10));
+            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<GreatHall>(10));
             bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Workshop>(10));
             bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Market>(10));
             bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Witch>(10));

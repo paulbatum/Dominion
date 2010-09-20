@@ -12,16 +12,12 @@ namespace Dominion.Cards.Actions
         public void Play(TurnContext context)
         {
             context.Trash(context.ActivePlayer, this);
-            context.AddEffect(new FeastEffect(context));
+            context.AddEffect(new FeastEffect());
         }
     }
 
     public class FeastEffect : CardEffectBase
     {
-        public FeastEffect(TurnContext context)
-        {
-        }
-
         public override void Resolve(TurnContext context)
         {
             _activities.Add(new GainACardUpToActivity(context.Game.Log, context.ActivePlayer, 5));

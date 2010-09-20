@@ -117,8 +117,9 @@ namespace Dominion.Rules
 
         public IActivity GetPendingActivity(Player player)
         {
-            if (CurrentTurn.CurrentEffect != null)
-                return CurrentTurn.CurrentEffect.GetActivity(player);
+            var currentEffect = CurrentTurn.GetCurrentEffect();
+            if (currentEffect != null)
+                return currentEffect.GetActivity(player);
 
             if(player != ActivePlayer)
                 return new WaitingForPlayersActivity(player);

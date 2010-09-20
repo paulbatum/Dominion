@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Dominion.Rules;
@@ -6,7 +7,7 @@ using Dominion.Rules.CardTypes;
 
 namespace Dominion.Cards.Actions
 {
-    public class Militia : Card, IActionCard, IAttackCard
+    public class Militia : Card, IActionCard
     {
         public Militia() : base(4)
         {
@@ -15,30 +16,21 @@ namespace Dominion.Cards.Actions
         public void Play(TurnContext context)
         {
             context.MoneyToSpend += 2;
-            context.AddEffect(new MilitiaEffect());
+            context.AddEffect(new MilitiaAttack());
         }
 
-        private class MilitiaEffect : CardEffectBase
+        private class MilitiaAttack : AttackEffect
         {
-            public override void Resolve(TurnContext context)
+            public override void Attack(Player player, TurnContext context)
             {
-                foreach (var player in context.Opponents)
+                var numberToDiscard = player.Hand.CardCount - 3;
+
+                if (numberToDiscard > 0)
+                    _activities.Add(new DiscardCardsActivity(context.Game.Log, player, numberToDiscard));
+                else
                 {
-                    if (player.Hand.OfType<Moat>().Any())
-                    {
-                        context.Game.Log.LogMoat(player);
-                        continue;
-                    }
-
-                    var numberToDiscard = player.Hand.CardCount - 3;
-
-                    if (numberToDiscard > 0)
-                        _activities.Add(new DiscardCardsActivity(context.Game.Log, player, numberToDiscard));
-                    else
-                    {
-                        context.Game.Log.LogMessage("{0} did not have to discard any cards", player.Name);
-                    }
-                }             
+                    context.Game.Log.LogMessage("{0} did not have to discard any cards", player.Name);
+                }
             }
         }
     }

@@ -38,7 +38,7 @@ namespace Dominion.Rules
 
         public bool CanPlay(ICard card)
         {
-            if (CurrentEffect != null)
+            if (GetCurrentEffect() != null)
                 return false;
 
             if (InBuyStep)
@@ -65,27 +65,34 @@ namespace Dominion.Rules
             this.Game.Log.LogPlay(this.ActivePlayer, card);
             card.MoveTo(ActivePlayer.PlayArea);
             card.Play(this);
+            ResolvePendingEffects();
+        }
+
+        // Side effects FTW.
+        private void ResolvePendingEffects()
+        {
+            GetCurrentEffect();
         }
 
         public bool CanBuy(CardPile pile)
         {
-            if (CurrentEffect != null)
+            if (GetCurrentEffect() != null)
                 return false;
 
             if (!InBuyStep)
                 return false;
-                //throw new InvalidOperationException("Cannot buy cards until you are in buy step");
+            //throw new InvalidOperationException("Cannot buy cards until you are in buy step");
 
             if (Buys < 1)
                 return false;
-                //throw new ArgumentException(string.Format("Cannot buy the card '{0}' - no more buys.", cardToBuy));
+            //throw new ArgumentException(string.Format("Cannot buy the card '{0}' - no more buys.", cardToBuy));
 
             if (pile.IsEmpty)
                 return false;
 
             if (MoneyToSpend < pile.TopCard.Cost)
                 return false;
-                //throw new ArgumentException(string.Format("Cannot buy the card '{0}', you only have {1} to spend.", cardToBuy, MoneyToSpend));
+            //throw new ArgumentException(string.Format("Cannot buy the card '{0}', you only have {1} to spend.", cardToBuy, MoneyToSpend));
 
             return true;
         }
@@ -97,7 +104,7 @@ namespace Dominion.Rules
 
         public void Buy(CardPile pile)
         {
-            if(!CanBuy(pile))
+            if (!CanBuy(pile))
                 throw new InvalidOperationException("Cannot buy card.");
 
             var cardToBuy = pile.TopCard;
@@ -105,26 +112,26 @@ namespace Dominion.Rules
             Buys--;
             MoneyToSpend -= cardToBuy.Cost;
             this.Game.Log.LogBuy(this.ActivePlayer, pile);
-            
+
             cardToBuy.MoveTo(this.ActivePlayer.Discards);
         }
 
         internal void EndTurn()
         {
-            if (CurrentEffect != null)
+            if (GetCurrentEffect() != null)
                 throw new InvalidOperationException("Cannot end the turn - there is a current effect.");
 
             ActivePlayer.PlayArea.MoveAll(ActivePlayer.Discards);
             ActivePlayer.Hand.MoveAll(ActivePlayer.Discards);
-            DrawCards(5);            
+            DrawCards(5);
         }
 
         public void MoveToBuyStep()
         {
-            if (CurrentEffect != null)
+            if (GetCurrentEffect() != null)
                 throw new InvalidOperationException("Cannot enter the buy step - there is a current effect.");
 
-            if(InBuyStep)
+            if (InBuyStep)
                 throw new InvalidOperationException("Cannot enter the buy step - already in buy step.");
 
             InBuyStep = true;
@@ -137,25 +144,22 @@ namespace Dominion.Rules
             _effects.Push(cardEffect);
         }
 
-        public ICardEffect CurrentEffect
+        public ICardEffect GetCurrentEffect()
         {
-            get
+
+            while (_effects.Count > 0)
             {
-                
-                while (_effects.Count > 0)
-                {
-                    var effect = _effects.Peek();
+                var effect = _effects.Peek();
 
-                    effect.BeginResolve(this);
+                effect.BeginResolve(this);
 
-                    if (effect.HasFinished)
-                        _effects.Pop();
-                    else
-                        return effect;
-                }
-                
-                return null;
+                if (effect.HasFinished)
+                    _effects.Pop();
+                else
+                    return effect;
             }
+
+            return null;
         }
 
         public void Trash(Player player, Card card)

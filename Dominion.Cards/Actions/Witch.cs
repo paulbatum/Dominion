@@ -19,15 +19,13 @@ namespace Dominion.Cards.Actions
         public void Play(TurnContext context)
         {
             context.DrawCards(2);
+            context.AddEffect(new WitchAttack());            
+        }
 
-            foreach (var player in context.Opponents)
+        private class WitchAttack : AttackEffect
+        {
+            public override void Attack(Player player, TurnContext context)
             {
-                if (player.Hand.OfType<Moat>().Any())
-                {
-                    context.Game.Log.LogMoat(player);
-                    continue;
-                }
-
                 var cursePile = context.Game.Bank.Piles.SingleOrDefault(x => x.TopCard is Curse);
 
                 if (cursePile != null)

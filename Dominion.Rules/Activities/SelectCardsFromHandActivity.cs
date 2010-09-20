@@ -16,7 +16,7 @@ namespace Dominion.Rules.Activities
         public int Count { get; private set; }
         public IList<RestrictionType> Restrictions { get; private set; }
 
-        public void SelectCards(IEnumerable<Card> cards)
+        public virtual void SelectCards(IEnumerable<Card> cards)
         {
             if (cards.Count() != this.Count)
                 throw new InvalidOperationException(

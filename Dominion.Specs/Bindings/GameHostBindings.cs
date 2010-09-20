@@ -126,7 +126,7 @@ namespace Dominion.Specs.Bindings
         }
 
         [Then(@"(.*)'s view includes nothing in the bank that can be bought")]
-        public void ThenPlayer1SViewIncludesNothingInTheBankThatCanBeBought(string playerName)
+        public void ThenPlayersViewIncludesNothingInTheBankThatCanBeBought(string playerName)
         {
             var client = _clients.Single(c => c.PlayerName == playerName);
             var gameState = _gameHost.GetGameState(client);
@@ -152,6 +152,18 @@ namespace Dominion.Specs.Bindings
             gameState.Hand.Single(c => c.Name == cardName)
                 .CanPlay.ShouldBeTrue();            
         }
+
+        [Then(@"(.*)'s view of the play area should start with this sequence of cards: (.*)")]
+        public void ThenPlayerViewOfThePlayAreaShouldStartWithThisSequenceOfCards(string playerName, string sequence)
+        {
+            var client = _clients.Single(c => c.PlayerName == playerName);
+            var gameState = _gameHost.GetGameState(client);
+            
+            string playAreaCardNames = string.Join(",", gameState.InPlay.Select(c => c.Name).ToArray());
+
+            playAreaCardNames.ShouldStartWith(sequence.Replace(" ", ""));
+        }
+
 
 
 
