@@ -197,6 +197,32 @@ testRunner.Then("Player1\'s view includes nothing in hand that can be played");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("View deck at the game end")]
+        public virtual void ViewDeckAtTheGameEnd()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("View deck at the game end", ((string[])(null)));
+#line 54
+this.ScenarioSetup(scenarioInfo);
+#line 55
+testRunner.Given("A new hosted game with 3 players");
+#line 56
+testRunner.But("There is only 1 Province left");
+#line 57
+testRunner.And("Player1 has a hand of all Gold");
+#line 58
+testRunner.When("The game begins");
+#line 59
+testRunner.And("Player1 tells the host to buy Province");
+#line 60
+testRunner.Then("Player1\'s view of the play area should start with this sequence of cards: Provinc" +
+                    "e");
+#line 61
+testRunner.Then("Player2\'s view of the play area should start with this sequence of cards: Estate");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
     }
 }
 #endregion

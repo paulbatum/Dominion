@@ -25,8 +25,16 @@ namespace Dominion.GameHost
             Hand = player.Hand
                 .Select(c => new CardViewModel(c, game.CurrentTurn, player)).ToArray();
 
-            InPlay = game.ActivePlayer.PlayArea
-                .Select(c => new CardViewModel(c)).ToArray();
+            if (game.IsComplete)
+            {
+                InPlay = player.PlayArea
+                    .Select(c => new CardViewModel(c)).ToArray();
+            }
+            else
+            {
+                InPlay = game.ActivePlayer.PlayArea
+                    .Select(c => new CardViewModel(c)).ToArray();
+            }
 
             Status = new TurnContextViewModel(game.CurrentTurn, player);
 

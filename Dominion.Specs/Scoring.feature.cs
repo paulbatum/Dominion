@@ -117,6 +117,9 @@ testRunner.When("The game is scored");
 #line 27
 testRunner.Then("Player1\'s play area should start with this sequence of cards: Province, Estate, E" +
                     "state, Estate, GreatHall, Curse");
+#line 28
+testRunner.Then("Player2\'s play area should start with this sequence of cards: Estate, Estate, Est" +
+                    "ate");
 #line hidden
             testRunner.CollectScenarioErrors();
         }

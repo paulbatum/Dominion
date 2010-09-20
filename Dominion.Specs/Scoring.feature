@@ -25,3 +25,4 @@ Scenario: Show sorted deck in play area once game is scored
 	And Player1 has a Province in the discard pile
 	When The game is scored
 	Then Player1's play area should start with this sequence of cards: Province, Estate, Estate, Estate, GreatHall, Curse
+	Then Player2's play area should start with this sequence of cards: Estate, Estate, Estate
