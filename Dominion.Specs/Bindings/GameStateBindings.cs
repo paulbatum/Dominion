@@ -78,6 +78,20 @@ namespace Dominion.Specs.Bindings
                 card.MoveTo(player.Hand);
         }
 
+        [Given(@"(.*) has a (.*) in the discard pile")]
+        public void GivenPlayerHasACardInTheDiscardPile(string playerName, string cardName)
+        {
+            var player = _game.Players.Single(p => p.Name == playerName);
+            CardFactory.CreateCard(cardName).MoveTo(player.Discards);
+        }
+
+        [Given(@"(.*) has a (.*) in play")]
+        public void GivenPlayerHasACardInPlay(string playerName, string cardName)
+        {
+            var player = _game.Players.Single(p => p.Name == playerName);
+            CardFactory.CreateCard(cardName).MoveTo(player.PlayArea);
+        }
+
         [Given(@"There is only (\d+) (.*) left")]
         public void GivenThereIsOnlyLeft(int cardCount, string cardName)
         {
@@ -178,6 +192,7 @@ namespace Dominion.Specs.Bindings
 
             activity.SelectPileToGainFrom(pile);
         }
+
 
         // Then
         // 
@@ -332,13 +347,6 @@ namespace Dominion.Specs.Bindings
         {
             _game.Log.Contents.ShouldContain(playerName + " is the winner");
         }        
-
-        [Then(@"(.*) should have (\d+) victory point[s]?")]
-        public void ThenPlayerShouldHaveVictoryPoints(string playerName, int victoryPoints)
-        {
-            var player = _game.Players.Single(p => p.Name == playerName);
-            player.CreateScorer().Total.ShouldEqual(victoryPoints);
-        }
 
         [Then(@"(.*) must select (\d+) card[s]? to .*")]
         public void ThenPlayerMustSelectCards(string playerName, int numberOfCards)

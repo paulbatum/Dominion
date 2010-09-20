@@ -68,6 +68,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bindings\ScoringBindings.cs" />
     <Compile Include="Cards\Chancellor.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -137,6 +138,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GameLog.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Scoring.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Scoring.feature</DependentUpon>
     </Compile>
     <Compile Include="Hosted\AutomaticProgression.feature.cs">
       <AutoGen>True</AutoGen>
@@ -240,6 +246,10 @@
     <None Include="GameLog.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>GameLog.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Scoring.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Scoring.feature.cs</LastGenOutput>
     </None>
     <None Include="Hosted\AutomaticProgression.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

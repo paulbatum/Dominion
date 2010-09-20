@@ -40,7 +40,7 @@ namespace Dominion.Rules
                 c.MoveTo(targetZone);
         }
 
-        protected IEnumerable<Card> Cards
+        protected IList<Card> Cards
         {
             get { return _cards; }
         }
@@ -48,6 +48,11 @@ namespace Dominion.Rules
         protected void RandomizeOrder()
         {
             _cards = _cards.OrderBy(_ => _random.NextDouble()).ToList();
+        }
+
+        protected void Sort(Comparison<Card> comparison)
+        {
+            _cards.Sort(comparison);
         }
 
         protected virtual void AddCard(Card card)

@@ -33,12 +33,6 @@ namespace Dominion.Rules
             return context;
         }
 
-        public PlayerScorer CreateScorer()
-        {
-            var scorer = new PlayerScorer(this);
-            return scorer;
-        }
-
         public void DrawCards(int numberOfCards)
         {
             var actualDrawCount = Math.Min(Deck.CardCount + Discards.CardCount,

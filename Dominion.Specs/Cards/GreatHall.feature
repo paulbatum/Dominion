@@ -5,6 +5,7 @@ Background:
 
 Scenario: GreatHallInDeck
 	And Player1 has a GreatHall in hand instead of a Copper
+	When The game is scored
 	Then Player1 should have 4 victory points
 
 Scenario: PlayGreatHall

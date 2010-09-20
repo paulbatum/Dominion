@@ -94,10 +94,14 @@ namespace Dominion.Rules
             IsComplete = TooManyEmptyPiles || GameEndingPileDepleted;
         }
 
-        public IEnumerable<PlayerScorer> Score()
+        public GameScores Score()
         {
-            return _players
-                .Select(p => new PlayerScorer(p));
+            var scores = new GameScores(this);
+
+            foreach(var player in Players)
+                scores.Score(player);                
+
+            return scores;
         }
 
         public void EndTurn()

@@ -49,23 +49,24 @@ namespace Dominion.Rules
 
         public void LogGameEnd(Game game)
         {
-            var scores = game.Score().ToList();
+            GameScores scores = game.Score();
 
             _builder
                 .AppendLine("The game has ended!")
                 .AppendLine()
-                .AppendLine("----- SCORES -----");                
+                .AppendLine("----- SCORES -----");
 
-            foreach (var score in scores)
+            foreach (var item in scores)
                 _builder
-                    .AppendFormat("{0}: {1}", score.PlayerName, score.Total)
+                    .AppendFormat("{0}: {1}", item.Key.Name, item.Value)
                     .AppendLine();
 
-            _builder.AppendLine("------------------");
-            var winner = scores.Last(score => score.Total == scores.Max(x => x.Total));
+            _builder.AppendLine();            
+
+            var winner = scores.Winner;                                
 
             _builder.AppendLine();
-            _builder.AppendLine(winner.PlayerName + " is the winner!");
+            _builder.AppendLine(winner.Name + " is the winner!");
 
 
         }
