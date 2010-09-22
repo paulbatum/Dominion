@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Dominion.Rules
 {
-    public class DiscardPile : CardZone
+    public class DiscardPile : EnumerableCardZone
     {
         public Card TopCard
         {

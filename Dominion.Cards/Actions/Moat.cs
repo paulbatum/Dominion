@@ -15,10 +15,10 @@ namespace Dominion.Cards.Actions
             context.DrawCards(2);
         }
 
-        public void React(AttackEffect attackEffect, Player player, IGameLog log)
+        public void React(AttackEffect attackEffect, Player player, TurnContext currentTurn)
         {
             attackEffect.Nullify(player);
-            log.LogMessage("{0} is protected due to a moat in hand.", player.Name);
+            currentTurn.Game.Log.LogMessage("{0} reveals a moat and nullifies the attack.", player.Name);
         }
     }
 }

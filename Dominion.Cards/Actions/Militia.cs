@@ -29,7 +29,7 @@ namespace Dominion.Cards.Actions
                     _activities.Add(new DiscardCardsActivity(context.Game.Log, player, numberToDiscard));
                 else
                 {
-                    context.Game.Log.LogMessage("{0} did not have to discard any cards", player.Name);
+                    context.Game.Log.LogMessage("{0} did not have to discard any cards.", player.Name);
                 }
             }
         }

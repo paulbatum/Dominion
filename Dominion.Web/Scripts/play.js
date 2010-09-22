@@ -56,6 +56,8 @@
 
         var version = 0;
 
+        var middleLayout;
+
         $(document).ready(function () {
             jQuery.ajaxSettings.traditional = true;
 
@@ -138,12 +140,12 @@
 
             if (data.PendingActivity) {
                 bindActivity(data.PendingActivity)
-                $('#prompt').show()
+                middleLayout.open('south');  
                 $('#message').text(data.PendingActivity.Message);
             }
             else {
                 bindDefaultClickEvents();
-                $('#prompt').hide();
+                middleLayout.close('south');
             }
 
             $('#playArea')
@@ -221,11 +223,11 @@
                 }                         
             });
 
-            $('#middle').layout({
+            middleLayout = $('#middle').layout({
                 defaults: defaults,
 
                 south: {
-                    initClosed: true
+                    size: '30%' 
                 },
                 east: {
                     size: '30%'                    

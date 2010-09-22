@@ -87,6 +87,7 @@ body
 #prompt
 {
     background: white;    
+    overflow: hidden;
 }
 
 .selectedCard

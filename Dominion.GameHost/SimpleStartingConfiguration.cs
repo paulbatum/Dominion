@@ -16,10 +16,10 @@ namespace Dominion.GameHost
             bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<GreatHall>(10));
             bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Workshop>(10));
             bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Market>(10));
-            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Witch>(10));
-            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<CouncilRoom>(10));
+            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Mountebank>(10));
+            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<CountingHouse>(10));
             bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Militia>(10));
-            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Chancellor>(10));
+            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Village>(10));
             bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<ThroneRoom>(10));
             bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Remodel>(10));
             base.InitializeBank(bank);

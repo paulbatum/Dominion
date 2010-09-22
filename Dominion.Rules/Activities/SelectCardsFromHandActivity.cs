@@ -29,5 +29,4 @@ namespace Dominion.Rules.Activities
 
         public abstract void Execute(IEnumerable<Card> cards);
     }
-
 }
