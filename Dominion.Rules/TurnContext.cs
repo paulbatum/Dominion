@@ -162,7 +162,7 @@ namespace Dominion.Rules
             return null;
         }
 
-        public void Trash(Player player, Card card)
+        public void Trash(Player player, ICard card)
         {
             this.Game.Log.LogTrash(player, card);
             card.MoveTo(this.Game.Trash);

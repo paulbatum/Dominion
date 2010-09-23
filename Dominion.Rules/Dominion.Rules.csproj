@@ -62,10 +62,13 @@
   <ItemGroup>
     <Compile Include="Activities\ActivityBase.cs" />
     <Compile Include="Activities\DiscardCardsActivity.cs" />
+    <Compile Include="Activities\ExtensionMethods.cs" />
     <Compile Include="Activities\GainACardActivity.cs" />
     <Compile Include="Activities\GainACardUpToActivity.cs" />
     <Compile Include="Activities\IActivity.cs" />
     <Compile Include="Activities\SelectCardsToPutBackOnDeckActivity.cs" />
+    <Compile Include="Activities\IRestrictedActivity.cs" />
+    <Compile Include="Activities\SelectCardToActionActivity.cs" />
     <Compile Include="Activities\WaitingForPlayersActivity.cs" />
     <Compile Include="Activities\YesNoChoiceActivity.cs" />
     <Compile Include="AttackEffect.cs" />

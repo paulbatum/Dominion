@@ -85,6 +85,12 @@ namespace Dominion.Specs.Bindings
             CardFactory.CreateCard(cardName).MoveTo(player.Discards);
         }
 
+        [Given(@"There is a (.*) in the trash pile")]
+        public void GivenCardInTheTrashPile(string cardName)
+        {
+            CardFactory.CreateCard(cardName).MoveTo(_game.Trash);
+        }
+
         [Given(@"(.*) has a (.*) in play")]
         public void GivenPlayerHasACardInPlay(string playerName, string cardName)
         {
@@ -191,6 +197,23 @@ namespace Dominion.Specs.Bindings
             var activity = (GainACardActivity) _game.GetPendingActivity(player);
 
             activity.SelectPileToGainFrom(pile);
+        }
+
+        [When(@"(.*) attempts to gain a (.*)")]
+        public void WhenPlayerAttemptsToGainACard(string playerName, string cardName)
+        {
+            var player = _game.Players.Single(p => p.Name == playerName);
+            var pile = _game.Bank.Piles.First(p => p.Name == cardName);
+            var activity = (GainACardActivity) _game.GetPendingActivity(player);
+
+            try
+            {
+                activity.SelectPileToGainFrom(pile);
+            }
+            catch (Exception)
+            {
+                //this may fail
+            }
         }
 
         [When(@"(.*) reveals (.*)")]
@@ -398,6 +421,21 @@ namespace Dominion.Specs.Bindings
 
             activity.Count.ShouldEqual(cardCount);
             activity.Restrictions.Single().ShouldEqual(RestrictionType.ActionCard);
+        }
+
+        [Then(@"(.*) must select (\d+) treasure (\(only\) )?card[s]? to .*")]
+        public void ThenPlayerMustSelectTreasureCard(string playerName, int cardCount, string only)
+        {
+            bool onlyTreasureIsAllowed = !string.IsNullOrEmpty(only);
+
+            var player = _game.Players.Single(p => p.Name == playerName);
+            var activity = _game.GetPendingActivity(player) as SelectCardsFromHandActivity;
+
+            activity.Count.ShouldEqual(cardCount);
+            activity.Restrictions.ShouldContain(RestrictionType.TreasureCard);
+
+            if (onlyTreasureIsAllowed)
+                activity.Restrictions.Count.ShouldEqual(1);
         }
 
         [Then(@"(.*) must gain a card of cost (\d+) or less")]

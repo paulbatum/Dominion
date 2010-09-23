@@ -64,8 +64,11 @@
     <Compile Include="Actions\CouncilRoom.cs" />
     <Compile Include="Actions\CountingHouse.cs" />
     <Compile Include="Actions\Feast.cs" />
+    <Compile Include="Actions\Festival.cs" />
+    <Compile Include="Actions\Laboratory.cs" />
     <Compile Include="Actions\Market.cs" />
     <Compile Include="Actions\Militia.cs" />
+    <Compile Include="Actions\Mine.cs" />
     <Compile Include="Actions\Moat.cs" />
     <Compile Include="Actions\Mountebank.cs" />
     <Compile Include="Actions\Remodel.cs" />

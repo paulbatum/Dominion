@@ -22,7 +22,7 @@ namespace Dominion.Rules
         public bool HasFinished
         {
             get
-            {                
+            {
                 return _isResolved && _activities.All(a => a.IsSatisfied);
             }
         }

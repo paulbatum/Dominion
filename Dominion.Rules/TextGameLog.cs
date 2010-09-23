@@ -16,7 +16,7 @@ namespace Dominion.Rules
         void LogDiscard(Player player, Card card);
         void LogMessage(string message, params object[] values);
         void LogGain(Player player, Card card);        
-        void LogTrash(Player player, Card card);
+        void LogTrash(Player player, ICard card);
     }
 
     public class TextGameLog : IGameLog
@@ -90,7 +90,7 @@ namespace Dominion.Rules
 
         }
 
-        public void LogTrash(Player player, Card card)
+        public void LogTrash(Player player, ICard card)
         {
             _builder.AppendFormat("{0} trashed a {1}.", player.Name, card.Name);
             _builder.AppendLine();

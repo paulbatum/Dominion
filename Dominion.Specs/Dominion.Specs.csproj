@@ -84,6 +84,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Feast.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\Festival.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Festival.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\Gardens.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -94,6 +99,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GreatHall.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\Laboratory.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Laboratory.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\Market.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -103,6 +113,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Militia.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Cards\Mine.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Mine.feature</DependentUpon>
     </Compile>
     <Compile Include="Cards\Moat.feature.cs">
       <AutoGen>True</AutoGen>
@@ -203,6 +218,10 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Feast.feature.cs</LastGenOutput>
     </None>
+    <None Include="Cards\Festival.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Festival.feature.cs</LastGenOutput>
+    </None>
     <None Include="Cards\Gardens.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Gardens.feature.cs</LastGenOutput>
@@ -211,6 +230,10 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>GreatHall.feature.cs</LastGenOutput>
     </None>
+    <None Include="Cards\Laboratory.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Laboratory.feature.cs</LastGenOutput>
+    </None>
     <None Include="Cards\Market.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Market.feature.cs</LastGenOutput>
@@ -218,6 +241,10 @@
     <None Include="Cards\Militia.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Militia.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\Mine.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Mine.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\Moat.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

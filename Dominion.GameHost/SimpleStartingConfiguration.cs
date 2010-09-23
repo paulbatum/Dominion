@@ -14,7 +14,7 @@ namespace Dominion.GameHost
         {            
             bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Moat>(10));
             bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<GreatHall>(10));
-            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Workshop>(10));
+            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Mine>(10));
             bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Market>(10));
             bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Mountebank>(10));
             bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<CountingHouse>(10));

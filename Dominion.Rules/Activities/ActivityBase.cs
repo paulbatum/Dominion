@@ -1,4 +1,10 @@
-﻿namespace Dominion.Rules.Activities
+﻿using System;
+using System.Collections;
+using System.Linq;
+using Dominion.Rules.CardTypes;
+using System.Collections.Generic;
+
+namespace Dominion.Rules.Activities
 {
     public abstract class ActivityBase : IActivity
     {
@@ -29,6 +35,7 @@
     public enum RestrictionType
     {
         ActionCard,
-        ReactionCard
+        ReactionCard,
+        TreasureCard
     }
 }
