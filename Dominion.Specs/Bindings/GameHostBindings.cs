@@ -159,27 +159,10 @@ namespace Dominion.Specs.Bindings
             var client = _clients.Single(c => c.PlayerName == playerName);
             var gameState = _gameHost.GetGameState(client);
             
-            string playAreaCardNames = string.Join(",", gameState.InPlay.Select(c => c.Name).ToArray());
-
-            playAreaCardNames.ShouldStartWith(sequence.Replace(" ", ""));
+            string playAreaCardNames = string.Join(", ", gameState.InPlay.Select(c => c.Name).ToArray());
+            playAreaCardNames.ShouldStartWith(sequence);
         }
 
 
-
-
-
-
-
-        
-        // Should I use this binding in the automatic progression spec?
-
-        //[Then(@"The host should indicate that (.*) is in the buy step")]
-        //public void ThenPlayerShouldBeInTheBuyStep(string playerName)
-        //{
-        //    var client = _clients.Single(c => c.PlayerName == playerName);
-        //    var gameState = _gameHost.GetGameState(client);
-        //    gameState.Status.IsActive.ShouldBeTrue();
-        //    gameState.Status.InBuyStep.ShouldBeTrue();
-        //}
     }
 }

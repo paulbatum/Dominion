@@ -40,10 +40,10 @@ Scenario: Player uses Secret Chamber's reaction effect and cards are put on top
 	Given A new game with 3 players	
 	And Player1 has a Militia in hand instead of a Copper
 	And Player2 has a hand of SecretChamber, Copper, Copper, Copper, Estate
-	And Player2 has a deck of Estate, Estate, Copper, Cooper, Copper
+	And Player2 has a deck of Estate, Estate, Copper, Copper, Copper
 	When Player1 plays a Militia
 	When Player2 reveals SecretChamber
 	When Player2 selects a SecretChamber to go on top
 	When Player2 selects a Copper to go on top 
 	Then Player2 should have a hand of Copper, Copper, Estate, Estate, Estate
-	And Player2 should have a deck of Copper, SecretChamber, Copper, Copper, Copper
+	And Player2 should have a deck of: Copper, SecretChamber, Copper, Copper, Copper

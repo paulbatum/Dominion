@@ -31,7 +31,7 @@ namespace Dominion.Rules
                     Shuffle();
                 }
 
-                return this.Cards.First();
+                return this.Cards.FirstOrDefault();
             }
         }
 

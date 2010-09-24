@@ -173,7 +173,7 @@ testRunner.And("Player1 has a Militia in hand instead of a Copper");
 #line 42
 testRunner.And("Player2 has a hand of SecretChamber, Copper, Copper, Copper, Estate");
 #line 43
-testRunner.And("Player2 has a deck of Estate, Estate, Copper, Cooper, Copper");
+testRunner.And("Player2 has a deck of Estate, Estate, Copper, Copper, Copper");
 #line 44
 testRunner.When("Player1 plays a Militia");
 #line 45
@@ -185,7 +185,7 @@ testRunner.When("Player2 selects a Copper to go on top");
 #line 48
 testRunner.Then("Player2 should have a hand of Copper, Copper, Estate, Estate, Estate");
 #line 49
-testRunner.And("Player2 should have a deck of Copper, SecretChamber, Copper, Copper, Copper");
+testRunner.And("Player2 should have a deck of: Copper, SecretChamber, Copper, Copper, Copper");
 #line hidden
             testRunner.CollectScenarioErrors();
         }

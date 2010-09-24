@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Dominion.Rules
 {
@@ -13,6 +14,11 @@ namespace Dominion.Rules
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        public override string ToString()
+        {
+            return string.Join(", ", this.Select(c => c.Name).ToArray());
         }
     }
 }

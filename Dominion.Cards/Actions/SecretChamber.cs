@@ -38,37 +38,39 @@ namespace Dominion.Cards.Actions
 
         public void Play(TurnContext context)
         {
-            //context.AddEffect(new SecretChamberActionEffect(context));
+            context.AddEffect(new SecretChamberActionEffect(context));
         }
 
-        //public class SecretChamberActionEffect : CardEffectBase
-        //{
-        //    public SecretChamberActionEffect(TurnContext context)
-        //    {
+        public class SecretChamberActionEffect : CardEffectBase
+        {
+            public SecretChamberActionEffect(TurnContext context)
+            {
 
-        //    }
+            }
 
-        //    public override void Resolve(TurnContext context)
-        //    {
-        //        _activities.Add(new SecretChamberDiscardActivity(context));
-        //    }
+            public override void Resolve(TurnContext context)
+            {
+                _activities.Add(new SecretChamberDiscardActivity(context));
+            }
 
-        //    public class SecretChamberDiscardActivity : SelectCardsFromHandActivity
-        //    {
-        //        public SecretChamberDiscardActivity(IGameLog log, Player player, int numberToDiscard)
-        //            : base(log, player, string.Format("Select any number of cards to discard", numberToDiscard), ActivityType.SelectFixedNumberOfCards, numberToDiscard)
-        //        { }
+            public class SecretChamberDiscardActivity : ActivityBase
+            {
+                public SecretChamberDiscardActivity(TurnContext currentTurn)
+                    : base(currentTurn.Game.Log, currentTurn.ActivePlayer, "Select any number of cards to discard", ActivityType.SelectAnyNumberOfCards)
+                { }
 
-        //        public override void Execute(IEnumerable<Card> cards)
-        //        {
-        //            foreach (var card in cards.ToList())
-        //            {
-        //                Log.LogDiscard(Player, card);
-        //                card.MoveTo(Player.Discards);
-        //            }
-        //        }
-        //    }
-        //}
+                
+
+                //public override void Execute(IEnumerable<Card> cards)
+                //{
+                //    foreach (var card in cards.ToList())
+                //    {
+                //        Log.LogDiscard(Player, card);
+                //        card.MoveTo(Player.Discards);
+                //    }
+                //}
+            }
+        }
     }
 
 

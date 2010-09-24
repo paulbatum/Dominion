@@ -120,6 +120,24 @@ namespace Dominion.Specs.Bindings
                 pile.MoveAll(new NullZone());
         }
 
+        [Given(@"(.*) has a deck of (.*)")]
+        public void GivenPlayerHasADeckOf(string playerName, string cardNames)
+        {
+            var player = _game.Players.Single(p => p.Name == playerName);
+
+            var cards = cardNames.Split(',')
+                .Select(s => s.Trim())
+                .Select(CardFactory.CreateCard)
+                .ToList();
+
+            while(player.Deck.TopCard != null)
+                player.Deck.TopCard.MoveTo(new NullZone());
+
+            foreach(Card c in cards)
+                c.MoveTo(player.Deck);
+        }
+
+
 
         // When
         //
@@ -226,6 +244,13 @@ namespace Dominion.Specs.Bindings
             activity.SelectCards(cards);
         }
 
+        [When(@"(.*) selects nothing to discard")]
+        public void WhenPlayerSelectsNothingToDiscard(string playerName)
+        {
+            var player = _game.Players.Single(p => p.Name == playerName);
+
+            ScenarioContext.Current.Pending();
+        }
 
 
         // Then
@@ -464,6 +489,30 @@ namespace Dominion.Specs.Bindings
 
             activity.ShouldBeOfType<SelectReactionActivity>();
         }
+
+        [Then(@"(.*) must select any number of cards from their hand")]
+        public void ThenPlayerMustSelectAnyNumberOfCardsFromTheirHand()
+        {
+            ScenarioContext.Current.Pending();
+        }
+
+        [Then(@"(.*) should have a hand of (.*)")]
+        public void ThenPlayerShouldHaveAHandOfExactly(string playerName, string cardNames)
+        {
+            var player = _game.Players.Single(p => p.Name == playerName);
+            player.Hand.ToString().ShouldEqual(cardNames);            
+        }
+
+        [Then(@"(.*) should have a deck of: (.*)")]
+        public void ThenPlayerShouldHaveADeckOf(string playerName, string cardNames)
+        {
+            var player = _game.Players.Single(p => p.Name == playerName);
+            var deckContents = string.Join(", ", player.Deck.Contents.Select(c => c.Name).ToArray());
+
+            deckContents.ShouldEqual(cardNames);
+        }
+
+
 
 
     }
