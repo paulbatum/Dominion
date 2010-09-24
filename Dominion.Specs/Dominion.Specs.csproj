@@ -129,6 +129,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Remodel.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\SecretChamber.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SecretChamber.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\ThroneRoom.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -253,6 +258,10 @@
     <None Include="Cards\Remodel.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Remodel.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\SecretChamber.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>SecretChamber.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\ThroneRoom.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

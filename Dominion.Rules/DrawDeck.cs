@@ -45,5 +45,12 @@ namespace Dominion.Rules
             get { return this.Cards; }
         }
 
+        public void MoveToTop(Card card)
+        {
+            card.MoveTo(this);
+            this.Cards.Remove(card);
+            this.Cards.Insert(0, card);
+        }
+
     }
 }

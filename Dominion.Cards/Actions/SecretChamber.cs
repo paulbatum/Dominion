@@ -31,7 +31,8 @@ namespace Dominion.Cards.Actions
             public override void Resolve(TurnContext context)
             {
                 _player.DrawCards(2);
-                _activities.Add(new SelectCardsToPutBackOnDeckActivity(_player, context, 2));
+                _activities.Add(new SelectCardToPutBackOnDeckActivity(_player, context, "Select the first card to put on top of the deck."));
+                _activities.Add(new SelectCardToPutBackOnDeckActivity(_player, context, "Select the second card to put on top of the deck."));
             }
         }
 
