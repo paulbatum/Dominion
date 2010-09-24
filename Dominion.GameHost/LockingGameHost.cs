@@ -59,7 +59,9 @@ namespace Dominion.GameHost
                 message.UpdateGameState(_game);
                 _game.IncrementVersion();
 
+                AutomaticallyReact();
                 AutomaticallyProgress();
+                
             }
             finally
             {
@@ -77,6 +79,26 @@ namespace Dominion.GameHost
         public void SendChatMessage(string message)
         {
             _chatSubject.OnNext(message);
+        }
+
+
+        private void AutomaticallyReact()
+        {
+            foreach(var player in _game.Players)
+            {
+                var activity = _game.GetPendingActivity(player);
+                
+                if(activity is SelectReactionActivity)                    
+                {
+                    var reactions = player.Hand.OfType<IReactionCard>();
+
+                    if(reactions.Select(c => c.Name).Distinct().Count() == 1)
+                    {
+                        ((SelectReactionActivity) activity).SelectCards(reactions.Cast<Card>().Take(1));
+                    }
+                    
+                }
+            }
         }
 
         private void AutomaticallyProgress()
