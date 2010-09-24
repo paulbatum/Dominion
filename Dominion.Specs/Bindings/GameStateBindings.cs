@@ -183,7 +183,7 @@ namespace Dominion.Specs.Bindings
         {
             var player = _game.Players.Single(p => p.Name == playerName);
             var cards = player.Hand.Where(c => c.Name == selectedCard).Take(numberOfCards);
-            var activity = (SelectCardsFromHandActivity) _game.GetPendingActivity(player);
+            var activity = (ISelectCardsActivity) _game.GetPendingActivity(player);
 
             activity.SelectCards(cards);
         }
@@ -193,7 +193,7 @@ namespace Dominion.Specs.Bindings
         {
             var player = _game.Players.Single(p => p.Name == playerName);
             var cards = player.Hand.Where(c => c.Name == selectedCard).Take(1);
-            var activity = (SelectCardsFromHandActivity) _game.GetPendingActivity(player);
+            var activity = (ISelectCardsActivity) _game.GetPendingActivity(player);
 
             activity.SelectCards(cards);
         }
@@ -249,7 +249,8 @@ namespace Dominion.Specs.Bindings
         {
             var player = _game.Players.Single(p => p.Name == playerName);
 
-            ScenarioContext.Current.Pending();
+            var activity = (ISelectCardsActivity) _game.GetPendingActivity(player);
+            activity.SelectCards(Enumerable.Empty<Card>());
         }
 
 
@@ -411,7 +412,7 @@ namespace Dominion.Specs.Bindings
         public void ThenPlayerMustSelectCards(string playerName, int numberOfCards)
         {
             var player = _game.Players.Single(p => p.Name == playerName);
-            var activity = _game.GetPendingActivity(player) as SelectCardsFromHandActivity;
+            var activity = (SelectCardsFromHandActivity) _game.GetPendingActivity(player);
 
             activity.Count.ShouldEqual(numberOfCards);
         }
@@ -491,9 +492,12 @@ namespace Dominion.Specs.Bindings
         }
 
         [Then(@"(.*) must select any number of cards from their hand")]
-        public void ThenPlayerMustSelectAnyNumberOfCardsFromTheirHand()
+        public void ThenPlayerMustSelectAnyNumberOfCardsFromTheirHand(string playerName)
         {
-            ScenarioContext.Current.Pending();
+            var player = _game.Players.Single(p => p.Name == playerName);
+            var activity = (ISelectCardsActivity) _game.GetPendingActivity(player);
+
+            activity.Type.ShouldEqual(ActivityType.SelectAnyNumberOfCards);
         }
 
         [Then(@"(.*) should have a hand of (.*)")]

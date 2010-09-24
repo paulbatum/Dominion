@@ -70,6 +70,7 @@
                 <div id="message"></div>
                 <input id="noChoice" type="submit" class="promptButton" value="No" />
                 <input id="yesChoice" type="submit" class="promptButton" value="Yes" />                
+                <input id="doneChoice" type="submit" class="promptButton" value="Done" />      
             </div>
         </div>
         <div id="log" class="ui-layout-east container log"></div>

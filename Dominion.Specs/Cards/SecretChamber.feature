@@ -12,6 +12,7 @@ Scenario: Player discards one card to Secret Chamber
 	When Player1 plays a SecretChamber
 	And  Player1 selects a Copper to discard
 	Then Player1 should have 1 to spend	
+	And Player1 should have a Copper on top of the discard pile
 
 Scenario: Player discards nothing to Secret Chamber
 	Given A new game with 3 players	
@@ -34,7 +35,9 @@ Scenario: Player uses Secret Chamber's reaction effect and is prompted to select
 	And Player2 has a SecretChamber in hand instead of a Copper
 	When Player1 plays a Militia
 	When Player2 reveals SecretChamber
-	Then Player2 must select 2 cards to put on top of the deck
+	Then Player2 must select 1 card to put on top of the deck
+	When Player2 selects a Copper to go on top 
+	Then Player2 must select 1 card to put on top of the deck (again)
 
 Scenario: Player uses Secret Chamber's reaction effect and cards are put on top
 	Given A new game with 3 players	

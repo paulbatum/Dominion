@@ -88,6 +88,8 @@ testRunner.When("Player1 plays a SecretChamber");
 testRunner.And("Player1 selects a Copper to discard");
 #line 14
 testRunner.Then("Player1 should have 1 to spend");
+#line 15
+testRunner.And("Player1 should have a Copper on top of the discard pile");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
@@ -97,19 +99,19 @@ testRunner.Then("Player1 should have 1 to spend");
         public virtual void PlayerDiscardsNothingToSecretChamber()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Player discards nothing to Secret Chamber", ((string[])(null)));
-#line 16
-this.ScenarioSetup(scenarioInfo);
 #line 17
-testRunner.Given("A new game with 3 players");
+this.ScenarioSetup(scenarioInfo);
 #line 18
-testRunner.And("Player1 has a SecretChamber in hand instead of a Copper");
+testRunner.Given("A new game with 3 players");
 #line 19
-testRunner.When("Player1 plays a SecretChamber");
+testRunner.And("Player1 has a SecretChamber in hand instead of a Copper");
 #line 20
-testRunner.And("Player1 selects nothing to discard");
+testRunner.When("Player1 plays a SecretChamber");
 #line 21
-testRunner.Then("Player1 should have 0 to spend");
+testRunner.And("Player1 selects nothing to discard");
 #line 22
+testRunner.Then("Player1 should have 0 to spend");
+#line 23
 testRunner.And("All actions should be resolved");
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -120,17 +122,17 @@ testRunner.And("All actions should be resolved");
         public virtual void SecretChamberIsAReaction()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Secret Chamber is a reaction", ((string[])(null)));
-#line 24
-this.ScenarioSetup(scenarioInfo);
 #line 25
-testRunner.Given("A new game with 3 players");
+this.ScenarioSetup(scenarioInfo);
 #line 26
-testRunner.And("Player1 has a Militia in hand instead of a Copper");
+testRunner.Given("A new game with 3 players");
 #line 27
-testRunner.And("Player2 has a SecretChamber in hand instead of a Copper");
+testRunner.And("Player1 has a Militia in hand instead of a Copper");
 #line 28
-testRunner.When("Player1 plays a Militia");
+testRunner.And("Player2 has a SecretChamber in hand instead of a Copper");
 #line 29
+testRunner.When("Player1 plays a Militia");
+#line 30
 testRunner.Then("Player2 may reveal a reaction");
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -141,20 +143,24 @@ testRunner.Then("Player2 may reveal a reaction");
         public virtual void PlayerUsesSecretChamberSReactionEffectAndIsPromptedToSelectCards()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Player uses Secret Chamber\'s reaction effect and is prompted to select cards", ((string[])(null)));
-#line 31
-this.ScenarioSetup(scenarioInfo);
 #line 32
-testRunner.Given("A new game with 3 players");
+this.ScenarioSetup(scenarioInfo);
 #line 33
-testRunner.And("Player1 has a Militia in hand instead of a Copper");
+testRunner.Given("A new game with 3 players");
 #line 34
-testRunner.And("Player2 has a SecretChamber in hand instead of a Copper");
+testRunner.And("Player1 has a Militia in hand instead of a Copper");
 #line 35
-testRunner.When("Player1 plays a Militia");
+testRunner.And("Player2 has a SecretChamber in hand instead of a Copper");
 #line 36
-testRunner.When("Player2 reveals SecretChamber");
+testRunner.When("Player1 plays a Militia");
 #line 37
-testRunner.Then("Player2 must select 2 cards to put on top of the deck");
+testRunner.When("Player2 reveals SecretChamber");
+#line 38
+testRunner.Then("Player2 must select 1 card to put on top of the deck");
+#line 39
+testRunner.When("Player2 selects a Copper to go on top");
+#line 40
+testRunner.Then("Player2 must select 1 card to put on top of the deck (again)");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
@@ -164,27 +170,27 @@ testRunner.Then("Player2 must select 2 cards to put on top of the deck");
         public virtual void PlayerUsesSecretChamberSReactionEffectAndCardsArePutOnTop()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Player uses Secret Chamber\'s reaction effect and cards are put on top", ((string[])(null)));
-#line 39
-this.ScenarioSetup(scenarioInfo);
-#line 40
-testRunner.Given("A new game with 3 players");
-#line 41
-testRunner.And("Player1 has a Militia in hand instead of a Copper");
 #line 42
-testRunner.And("Player2 has a hand of SecretChamber, Copper, Copper, Copper, Estate");
+this.ScenarioSetup(scenarioInfo);
 #line 43
-testRunner.And("Player2 has a deck of Estate, Estate, Copper, Copper, Copper");
+testRunner.Given("A new game with 3 players");
 #line 44
-testRunner.When("Player1 plays a Militia");
+testRunner.And("Player1 has a Militia in hand instead of a Copper");
 #line 45
-testRunner.When("Player2 reveals SecretChamber");
+testRunner.And("Player2 has a hand of SecretChamber, Copper, Copper, Copper, Estate");
 #line 46
-testRunner.When("Player2 selects a SecretChamber to go on top");
+testRunner.And("Player2 has a deck of Estate, Estate, Copper, Copper, Copper");
 #line 47
-testRunner.When("Player2 selects a Copper to go on top");
+testRunner.When("Player1 plays a Militia");
 #line 48
-testRunner.Then("Player2 should have a hand of Copper, Copper, Estate, Estate, Estate");
+testRunner.When("Player2 reveals SecretChamber");
 #line 49
+testRunner.When("Player2 selects a SecretChamber to go on top");
+#line 50
+testRunner.When("Player2 selects a Copper to go on top");
+#line 51
+testRunner.Then("Player2 should have a hand of Copper, Copper, Estate, Estate, Estate");
+#line 52
 testRunner.And("Player2 should have a deck of: Copper, SecretChamber, Copper, Copper, Copper");
 #line hidden
             testRunner.CollectScenarioErrors();

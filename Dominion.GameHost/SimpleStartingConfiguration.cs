@@ -12,8 +12,8 @@ namespace Dominion.GameHost
 
         public override void InitializeBank(Dominion.Rules.CardBank bank)
         {            
+            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<SecretChamber>(10));
             bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Moat>(10));
-            bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<GreatHall>(10));
             bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Mine>(10));
             bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Market>(10));
             bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards<Mountebank>(10));

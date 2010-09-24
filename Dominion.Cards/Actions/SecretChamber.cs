@@ -53,22 +53,25 @@ namespace Dominion.Cards.Actions
                 _activities.Add(new SecretChamberDiscardActivity(context));
             }
 
-            public class SecretChamberDiscardActivity : ActivityBase
+            public class SecretChamberDiscardActivity : SelectAnyNumberOfCardsFromHandActivity
             {
+                private readonly TurnContext _currentTurn;
+
                 public SecretChamberDiscardActivity(TurnContext currentTurn)
-                    : base(currentTurn.Game.Log, currentTurn.ActivePlayer, "Select any number of cards to discard", ActivityType.SelectAnyNumberOfCards)
-                { }
+                    : base(currentTurn.Game.Log, currentTurn.ActivePlayer, "Select any number of cards to discard")
+                {
+                    _currentTurn = currentTurn;
+                }
 
-                
-
-                //public override void Execute(IEnumerable<Card> cards)
-                //{
-                //    foreach (var card in cards.ToList())
-                //    {
-                //        Log.LogDiscard(Player, card);
-                //        card.MoveTo(Player.Discards);
-                //    }
-                //}
+                public override void Execute(IEnumerable<Card> cards)
+                {
+                    foreach (var card in cards.ToList())
+                    {
+                        Log.LogDiscard(Player, card);
+                        card.MoveTo(Player.Discards);
+                        _currentTurn.MoneyToSpend++;
+                    }
+                }
             }
         }
     }

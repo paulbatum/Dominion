@@ -38,6 +38,17 @@
             $.post('SelectCards', { ids: ids }, handleInteractionResponse);
         }
     },
+    submitCardSelection: function () {
+        var ids = $('#hand .selectedCard')
+                            .get()
+                            .map($.tmplItem)
+                            .map(function (tmpl) { return tmpl.data.Id });
+
+        $.post('SelectCards', { ids: ids }, handleInteractionResponse);
+    },
+    toggleCardSelection: function (event, activity) {
+        $(event.target).toggleClass('selectedCard');
+    },
     makeYesNoChoice: function (choice) {
         $.post('MakeYesNoChoice', { choice: choice }, handleInteractionResponse);
     },
@@ -93,6 +104,7 @@
         function bindActivity(activity) {
             controller.HandClick = function (event) { };
             controller.BankClick = function (event) { };
+            controller.DoneClick = function (event) { };
 
             if (activity.Type == "SelectFixedNumberOfCards") {
                 controller.HandClick = function (event) { actions.selectFixedNumberOfCards(event, activity); };
@@ -105,6 +117,15 @@
             else {
                 $('#yesChoice').hide();
                 $('#noChoice').hide();
+            }
+
+            if (activity.Type == "SelectAnyNumberOfCards") {
+                controller.HandClick = function (event) { actions.toggleCardSelection(event, activity); };
+                controller.DoneClick = actions.submitCardSelection;
+                $('#doneChoice').show();
+            }
+            else {
+                $('#doneChoice').hide();
             }
 
             if (activity.Type == "SelectPile") {
@@ -259,6 +280,10 @@
 
             $('#noChoice')
                     .click(function () { actions.makeYesNoChoice(false); })
+                    .button();
+
+            $('#doneChoice')
+                    .click(function () { controller.DoneClick(); })
                     .button();
 
             $('form').ajaxForm(handleInteractionResponse);

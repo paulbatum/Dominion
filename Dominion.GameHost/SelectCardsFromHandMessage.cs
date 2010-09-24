@@ -10,7 +10,7 @@ namespace Dominion.GameHost
         public SelectCardsFromHandMessage(Guid playerId, Guid[] cardIds)
         {
             PlayerId = playerId;
-            CardIds = cardIds;
+            CardIds = cardIds ?? new Guid[]{};
         }
 
         public Guid PlayerId { get; private set; }
@@ -19,7 +19,7 @@ namespace Dominion.GameHost
         public void UpdateGameState(Game game)
         {
             var player = game.Players.Single(p => p.Id == PlayerId);
-            var activity = game.GetPendingActivity(player) as SelectCardsFromHandActivity;
+            var activity = game.GetPendingActivity(player) as ISelectCardsActivity;
 
             if (activity == null)
                 throw new InvalidOperationException("There must be a corresponding activity");
