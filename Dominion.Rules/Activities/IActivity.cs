@@ -1,4 +1,5 @@
-﻿namespace Dominion.Rules.Activities
+﻿using System;
+namespace Dominion.Rules.Activities
 {
     public interface IActivity
     {
@@ -6,5 +7,6 @@
         bool IsSatisfied { get; }
         Player Player { get; }
         ActivityType Type { get; }
+        Guid Id { get; }
     }
 }

@@ -12,6 +12,7 @@ namespace Dominion.Rules.Activities
         public Player Player { get; private set; }
         public string Message { get; private set; }
         public ActivityType Type { get; private set; }
+        public Guid Id { get; private set; }
 
         public bool IsSatisfied { get; protected set; }
         
@@ -21,6 +22,7 @@ namespace Dominion.Rules.Activities
             Player = player;
             Message = message;
             Type = type;
+            Id = Guid.NewGuid();
         }
     }
 

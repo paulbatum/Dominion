@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{5E970BE2-F7EB-4075-AF5C-39A800F0786D}</ProjectGuid>
+    <ProjectGuid>{0DDDE57C-2EA0-4AD8-8F3F-7994B2439DE1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Dominion.GameHost</RootNamespace>
-    <AssemblyName>Dominion.GameHost</AssemblyName>
+    <RootNamespace>Dominion.Rules</RootNamespace>
+    <AssemblyName>Dominion.Rules</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
@@ -56,50 +56,53 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.CoreEx, Version=1.0.2677.104, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Binaries\Rx\System.CoreEx.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Observable, Version=1.0.0.102, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Binaries\Rx\System.Observable.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive, Version=1.0.2677.104, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Binaries\Rx\System.Reactive.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AI\BaseAIClient.cs" />
-    <Compile Include="AI\BigMoneyAI.cs" />
-    <Compile Include="BeginGameMessage.cs" />
-    <Compile Include="BuyCardMessage.cs" />
-    <Compile Include="CardBuilderExtensions.cs" />
-    <Compile Include="CardFactory.cs" />
-    <Compile Include="ChooseAPileMessage.cs" />
-    <Compile Include="EndTurnMessage.cs" />
-    <Compile Include="GameClient.cs" />
-    <Compile Include="GameViewModel.cs" />
-    <Compile Include="IGameActionMessage.cs" />
-    <Compile Include="LockingGameHost.cs" />
-    <Compile Include="MoveToBuyStepMessage.cs" />
-    <Compile Include="MultiGameHost.cs" />
-    <Compile Include="PlayCardMessage.cs" />
-    <Compile Include="SelectCardsFromHandMessage.cs" />
-    <Compile Include="SimpleStartingConfiguration.cs" />
+    <Compile Include="Activities\ActivityBase.cs" />
+    <Compile Include="Activities\DiscardCardsActivity.cs" />
+    <Compile Include="Activities\ExtensionMethods.cs" />
+    <Compile Include="Activities\GainACardActivity.cs" />
+    <Compile Include="Activities\GainACardUpToActivity.cs" />
+    <Compile Include="Activities\IActivity.cs" />
+<<<<<<< HEAD
+    <Compile Include="Activities\SelectCardsToPutBackOnDeckActivity.cs" />
+=======
+    <Compile Include="Activities\IRestrictedActivity.cs" />
+    <Compile Include="Activities\SelectCardToActionActivity.cs" />
+>>>>>>> Added cards Festival, Laboratory, and Mine.
+    <Compile Include="Activities\WaitingForPlayersActivity.cs" />
+    <Compile Include="Activities\YesNoChoiceActivity.cs" />
+    <Compile Include="AttackEffect.cs" />
+    <Compile Include="CardBank.cs" />
+    <Compile Include="CardEffectBase.cs" />
+    <Compile Include="CardTypes\IActionCard.cs" />
+    <Compile Include="Card.cs" />
+    <Compile Include="CardTypes\ICurseCard.cs" />
+    <Compile Include="CardTypes\IScoreCard.cs" />
+    <Compile Include="CardTypes\IVictoryCard.cs" />
+    <Compile Include="CardZone.cs" />
+    <Compile Include="DrawDeck.cs" />
+    <Compile Include="CardTypes\IMoneyCard.cs" />
+    <Compile Include="DiscardPile.cs" />
+    <Compile Include="EnumerableCardZone.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="Activities\SelectCardsFromHandActivity.cs" />
+    <Compile Include="GameScores.cs" />
+    <Compile Include="ICard.cs" />
+    <Compile Include="PlayArea.cs" />
+    <Compile Include="ReactionEffect.cs" />
+    <Compile Include="SelectReactionActivity.cs" />
+    <Compile Include="TextGameLog.cs" />
+    <Compile Include="Hand.cs" />
+    <Compile Include="MyExtensions.cs" />
+    <Compile Include="NullZone.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StartingConfiguration.cs" />
-    <Compile Include="YesNoChoiceMessage.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Dominion.Cards\Dominion.Cards.csproj">
-      <Project>{EBFD38DB-CE38-4560-A786-67C5CD55EA9A}</Project>
-      <Name>Dominion.Cards</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Dominion.Rules\Dominion.Rules.csproj">
-      <Project>{0DDDE57C-2EA0-4AD8-8F3F-7994B2439DE1}</Project>
-      <Name>Dominion.Rules</Name>
-    </ProjectReference>
+    <Compile Include="CardTypes\ITreasureCard.cs" />
+    <Compile Include="TrashPile.cs" />
+    <Compile Include="TurnContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

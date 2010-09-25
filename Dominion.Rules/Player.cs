@@ -39,5 +39,10 @@ namespace Dominion.Rules
                                numberOfCards);
             Deck.MoveCards(Hand, actualDrawCount);
         }
+
+        public void Rename(string newName)
+        {
+            Name = newName;
+        }
     }
 }

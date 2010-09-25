@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Dominion.GameHost
 {
@@ -27,9 +28,9 @@ namespace Dominion.GameHost
         public string PlayerName { get; private set; }
 
         private IGameHost _host;
-        private readonly Subject<GameViewModel> _subject = new Subject<GameViewModel>();        
+        protected readonly Subject<GameViewModel> _subject = new Subject<GameViewModel>();        
 
-        public void RaiseGameStateUpdated()
+        public virtual void RaiseGameStateUpdated()
         {
             var state = GetGameState();
             _subject.OnNext(state);
