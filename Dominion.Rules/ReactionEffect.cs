@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Dominion.Rules.Activities;
 using Dominion.Rules.CardTypes;
 
 namespace Dominion.Rules

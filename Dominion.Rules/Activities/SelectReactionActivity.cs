@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Dominion.Rules.Activities;
 using Dominion.Rules.CardTypes;
 
-namespace Dominion.Rules
+namespace Dominion.Rules.Activities
 {
     public class SelectReactionActivity : SelectCardsFromHandActivity
     {

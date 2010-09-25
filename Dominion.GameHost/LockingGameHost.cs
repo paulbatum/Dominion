@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Dominion.Rules;
+using Dominion.Rules.Activities;
 using Dominion.Rules.CardTypes;
 
 namespace Dominion.GameHost

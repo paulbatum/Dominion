@@ -90,7 +90,7 @@
     <Compile Include="ICard.cs" />
     <Compile Include="PlayArea.cs" />
     <Compile Include="ReactionEffect.cs" />
-    <Compile Include="SelectReactionActivity.cs" />
+    <Compile Include="Activities\SelectReactionActivity.cs" />
     <Compile Include="TextGameLog.cs" />
     <Compile Include="Hand.cs" />
     <Compile Include="MyExtensions.cs" />
