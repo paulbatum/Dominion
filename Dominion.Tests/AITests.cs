@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace Dominion.Tests
 {
-    [TestFixture]
+    [TestFixture, Explicit]
     public class AITests
     {
         [Test]

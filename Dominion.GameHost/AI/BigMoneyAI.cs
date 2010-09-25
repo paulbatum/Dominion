@@ -11,7 +11,8 @@ namespace Dominion.GameHost.AI
         protected override void DiscardCards(int count, GameViewModel currentState)
         {
             var discardPreference = new List<string> { "Estate", "Duchy", "Province", "Curse", "Copper", "Silver", "Gold" };
-            var orderedHand = currentState.Hand.OrderBy(c => discardPreference.IndexOf(c.Name)).ToList();
+            var orderedHand = currentState.Hand                
+                .OrderBy(c => discardPreference.IndexOf(c.Name)).ToList();
             var cardIdsToDiscard = orderedHand.Take(count).Select(c => c.Id).ToArray();
             var discardAction = new SelectCardsFromHandMessage(_client.PlayerId, cardIdsToDiscard.ToArray());
             _client.AcceptMessage(discardAction);
@@ -44,26 +45,5 @@ namespace Dominion.GameHost.AI
             return new BuyCardMessage(_client.PlayerId, pile.Id);
         }
 
-    }
-
-    public class MilitiaAI : BigMoneyAI
-    {
-        protected override IList<string> GetPriorities(GameViewModel state)
-        {
-            var priorites = base.GetPriorities(state);
-            priorites.Insert(priorites.IndexOf("Silver"), "Militia");
-
-            return priorites;
-        }
-
-        protected override IGameActionMessage DoTurn(GameViewModel state)
-        {
-            var militia = state.Hand.FirstOrDefault(c => c.Name == "Militia");
-            
-            if (state.Status.InBuyStep || militia == null)
-                return base.DoTurn(state);
-            else
-                return new PlayCardMessage(_client.PlayerId, militia.Id);
-        }
     }
 }

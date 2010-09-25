@@ -9,30 +9,40 @@ namespace Dominion.GameHost.AI
 {
     public abstract class BaseAIClient
     {
+        private long _lastGameStateVersionHandled;
         private Guid _lastActivityHandled = Guid.Empty;
         protected IGameClient _client;
+        private object _gate = new object();
 
         public void Attach(IGameClient client)
-        {
+        {            
             _client = client;
             client.GameStateUpdates.ObserveOn(Scheduler.NewThread)
-                .Delay(TimeSpan.FromMilliseconds(200))
+                .Delay(TimeSpan.FromMilliseconds(new Random(client.GetHashCode()).Next(500, 1500)))
                 .Subscribe(Respond);
         }
 
         protected virtual void Respond(GameViewModel state)
         {
-            var activity = state.PendingActivity;
+            lock (_gate)
+            {
+                //This is to avoid double-handling events
+                if (_lastGameStateVersionHandled >= state.Version)
+                    return;
+                _lastGameStateVersionHandled = state.Version;
 
-            if (activity != null && _lastActivityHandled != activity.Id)
-            {
-                _lastActivityHandled = activity.Id;
-                HandleActivity(activity, state);
-            }
-            else if (activity == null && state.Status.IsActive)
-            {
-                var message = DoTurn(state);
-                _client.AcceptMessage(message);
+                var activity = state.PendingActivity;
+
+                if (activity != null && _lastActivityHandled != activity.Id)
+                {
+                    _lastActivityHandled = activity.Id;
+                    HandleActivity(activity, state);
+                }
+                else if (activity == null && state.Status.IsActive)
+                {
+                    var message = DoTurn(state);
+                    _client.AcceptMessage(message);
+                }
             }
         }
 
