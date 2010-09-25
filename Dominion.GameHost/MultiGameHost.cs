@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Dominion.Rules;
+using Dominion.GameHost.AI;
+using System.Reflection;
 
 namespace Dominion.GameHost
 {
@@ -36,15 +38,52 @@ namespace Dominion.GameHost
             host.AcceptMessage(new BeginGameMessage());
             _gameData[key] = new GameData { GameKey = key };
 
+            int aiPlayerCount = 0;
             foreach (var player in game.Players)
             {
-                var client = new GameClient(player.Id, player.Name);
+                IGameClient client;
+                if (AIClientConstructors.ContainsKey(player.Name))
+                {
+                    string newName = string.Format("{0} (Comp {1})", player.Name, ++aiPlayerCount);
+                    client = AIClientConstructors[player.Name](player.Id, newName);
+                    player.Rename(newName);
+                }
+                else
+                {
+                    client = new GameClient(player.Id, player.Name);
+                }
+
                 host.RegisterGameClient(client, player);
                 _clients[player.Id] = client;
                 _gameData[key].Slots[player.Id] = player.Name;
             }
 
             return key;
+        }
+
+        private IDictionary<string, Func<Guid, string, IGameClient>> mAIClientConstructors;
+        private IDictionary<string, Func<Guid, string, IGameClient>> AIClientConstructors
+        {
+            get
+            {
+                if (mAIClientConstructors == null)
+                {
+                    mAIClientConstructors = new Dictionary<string, Func<Guid, string, IGameClient>>();
+
+                    var aiTypeList = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.IsSubclassOf(typeof(BaseAIClient)));
+                    var expectedConstructorArguments = new Type[] { typeof(Guid), typeof(string) };
+                    foreach (var aiType in aiTypeList)
+                    {
+                        var constructor = aiType.GetConstructor(expectedConstructorArguments);
+                        Func<Guid, string, IGameClient> constructorCall = (id, name) =>
+                            {
+                                return (IGameClient)constructor.Invoke(new object[] { id, name });
+                            };
+                        mAIClientConstructors.Add(aiType.Name, constructorCall);
+                    }
+                }
+                return mAIClientConstructors;
+            }
         }
     }
 

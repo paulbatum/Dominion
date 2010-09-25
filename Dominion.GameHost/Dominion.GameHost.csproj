@@ -70,6 +70,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AI\BaseAIClient.cs" />
+    <Compile Include="AI\BigMoneyAI.cs" />
     <Compile Include="BeginGameMessage.cs" />
     <Compile Include="BuyCardMessage.cs" />
     <Compile Include="CardBuilderExtensions.cs" />

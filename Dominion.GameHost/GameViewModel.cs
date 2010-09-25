@@ -61,6 +61,7 @@ namespace Dominion.GameHost
             Properties = new Dictionary<string, object>();
             Type = activity.Type.ToString();
             Message = activity.Message;
+            Id = activity.Id;
 
             if(activity is SelectCardsFromHandActivity)
             {
@@ -77,6 +78,7 @@ namespace Dominion.GameHost
 
         public string Type { get; set; }
         public string Message { get; set; }
+        public Guid Id { get; set; }
         public IDictionary<string, object> Properties { get; set; }
     }
 
