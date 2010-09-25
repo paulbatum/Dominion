@@ -86,7 +86,9 @@ namespace Dominion.GameHost
     {
         public TurnContextViewModel(TurnContext currentTurn, Player player)
         {
-            if(currentTurn.ActivePlayer == player)
+            GameIsComplete = currentTurn.Game.IsComplete;
+            
+            if(currentTurn.ActivePlayer == player && !GameIsComplete)
             {
                 BuyCount = currentTurn.Buys;
                 RemainingActions = currentTurn.RemainingActions;
@@ -103,6 +105,7 @@ namespace Dominion.GameHost
             
         }
 
+        public bool GameIsComplete { get; set; }
         public bool IsActive { get; set; }
         public bool InBuyStep { get; set; }
         public int MoneyToSpend { get; set; }

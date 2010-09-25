@@ -63,6 +63,7 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AITests.cs" />
     <Compile Include="CardMovementTests.cs" />
     <Compile Include="DeckTests.cs" />
     <Compile Include="HelperExtensions.cs" />

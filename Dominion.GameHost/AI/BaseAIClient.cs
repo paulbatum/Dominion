@@ -1,45 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Concurrency;
 using System.Linq;
 using System.Text;
 using System.Threading;
 
 namespace Dominion.GameHost.AI
 {
-    public abstract class BaseAIClient : GameClient
+    public abstract class BaseAIClient
     {
-        public BaseAIClient(Guid playerId, string playerName)
-            : base (playerId, playerName)
+        private Guid _lastActivityHandled = Guid.Empty;
+        protected IGameClient _client;
+
+        public void Attach(IGameClient client)
         {
+            _client = client;
+            client.GameStateUpdates.ObserveOn(Scheduler.NewThread)
+                .Delay(TimeSpan.FromMilliseconds(200))
+                .Subscribe(Respond);
         }
 
-        private long mLastGameStateVersionHandled = -1;
-
-        public override void RaiseGameStateUpdated()
+        protected virtual void Respond(GameViewModel state)
         {
-            var state = GetGameState();
-            _subject.OnNext(state);
-
-            //This is to avoid double-handling events/activites
-            if (mLastGameStateVersionHandled >= state.Version)
-                return;
-            mLastGameStateVersionHandled = state.Version;
-
-            //Yep, this is really lame. 
-            //Without this, AI actions don't show up for the human players until CometController.GameStateAsync() 
-            //times out and sends them the latest.
-            //It's guessed that this happens because the AI does all its actions before the human player 
-            //has re-called GameStateAsync, and it doesn't report things that happen in-between long polls.
-            Thread.Sleep(200);
-
             var activity = state.PendingActivity;
-            if (activity != null)
+
+            if (activity != null && _lastActivityHandled != activity.Id)
+            {
+                _lastActivityHandled = activity.Id;
                 HandleActivity(activity, state);
+            }
+            else if (activity == null && state.Status.IsActive)
+            {
+                var message = DoTurn(state);
+                _client.AcceptMessage(message);
+            }
+        }
 
-            if (state.Status.IsActive)
-                DoTurn(state);
-
-            _subject.OnNext(GetGameState());
+        protected IList<CardPileViewModel> GetValidBuys(GameViewModel state)
+        {
+            return (from pile in state.Bank
+                    where (!pile.IsLimited) || pile.Count > 0
+                    where state.Status.MoneyToSpend >= pile.Cost
+                    select pile).ToList();
         }
 
         protected virtual void HandleActivity(ActivityModel activity, GameViewModel state)
@@ -57,6 +59,6 @@ namespace Dominion.GameHost.AI
 
         protected abstract void DiscardCards(int count, GameViewModel currentState);
 
-        protected abstract void DoTurn(GameViewModel currentState);
+        protected abstract IGameActionMessage DoTurn(GameViewModel currentState);
     }
 }

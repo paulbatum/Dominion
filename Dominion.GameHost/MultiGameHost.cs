@@ -11,11 +11,14 @@ namespace Dominion.GameHost
     {
         private readonly IDictionary<Guid, IGameClient> _clients;
         private readonly IDictionary<string, GameData> _gameData;
-
+        private readonly IList<Type> _aiTypeList;
+        
         public MultiGameHost()
         {
             _clients = new Dictionary<Guid, IGameClient>();
             _gameData = new Dictionary<string, GameData>();
+            _aiTypeList =
+                Assembly.GetExecutingAssembly().GetTypes().Where(t => t.IsSubclassOf(typeof (BaseAIClient))).ToList();
         }
 
         public IGameClient FindClient(Guid id)
@@ -34,23 +37,20 @@ namespace Dominion.GameHost
             var startingConfig = new SimpleStartingConfiguration(numberOfPlayers);
             var game = startingConfig.CreateGame(playerNames);
 
-            var host = new LockingGameHost(game);
-            host.AcceptMessage(new BeginGameMessage());
+            var host = new LockingGameHost(game);            
             _gameData[key] = new GameData { GameKey = key };
 
             int aiPlayerCount = 0;
             foreach (var player in game.Players)
             {
-                IGameClient client;
-                if (AIClientConstructors.ContainsKey(player.Name))
-                {
+                IGameClient client = new GameClient(player.Id, player.Name);
+
+                if (_aiTypeList.Select(x => x.Name).Contains(player.Name))
+                {                    
+                    var ai = (BaseAIClient) Activator.CreateInstance(_aiTypeList.Single(x => x.Name == player.Name));
+                    ai.Attach(client);
                     string newName = string.Format("{0} (Comp {1})", player.Name, ++aiPlayerCount);
-                    client = AIClientConstructors[player.Name](player.Id, newName);
                     player.Rename(newName);
-                }
-                else
-                {
-                    client = new GameClient(player.Id, player.Name);
                 }
 
                 host.RegisterGameClient(client, player);
@@ -58,33 +58,10 @@ namespace Dominion.GameHost
                 _gameData[key].Slots[player.Id] = player.Name;
             }
 
+            host.AcceptMessage(new BeginGameMessage());
+
             return key;
-        }
-
-        private IDictionary<string, Func<Guid, string, IGameClient>> mAIClientConstructors;
-        private IDictionary<string, Func<Guid, string, IGameClient>> AIClientConstructors
-        {
-            get
-            {
-                if (mAIClientConstructors == null)
-                {
-                    mAIClientConstructors = new Dictionary<string, Func<Guid, string, IGameClient>>();
-
-                    var aiTypeList = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.IsSubclassOf(typeof(BaseAIClient)));
-                    var expectedConstructorArguments = new Type[] { typeof(Guid), typeof(string) };
-                    foreach (var aiType in aiTypeList)
-                    {
-                        var constructor = aiType.GetConstructor(expectedConstructorArguments);
-                        Func<Guid, string, IGameClient> constructorCall = (id, name) =>
-                            {
-                                return (IGameClient)constructor.Invoke(new object[] { id, name });
-                            };
-                        mAIClientConstructors.Add(aiType.Name, constructorCall);
-                    }
-                }
-                return mAIClientConstructors;
-            }
-        }
+        }    
     }
 
     public class GameData
