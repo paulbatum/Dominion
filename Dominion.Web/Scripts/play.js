@@ -161,8 +161,7 @@
 
             if (data.PendingActivity) {
                 bindActivity(data.PendingActivity)
-                middleLayout.open('south');  
-                $('#message').text(data.PendingActivity.Message);
+                renderPendingActivity(data.PendingActivity);
             }
             else {
                 bindDefaultClickEvents();
@@ -175,6 +174,16 @@
             $('#log')
                 .html(data.Log)                
                 .animate({ scrollTop: $('#log').attr("scrollHeight") - $('#log').height() }, 1000);
+        }
+
+        function renderPendingActivity(pendingActivity) {
+            middleLayout.open('south');
+            $('#message').text(pendingActivity.Message);
+
+            if (pendingActivity.Type == "WaitingForOtherPlayers")
+                $('#alertBox').hide();
+            else
+                $('#alertBox').show();
         }
 
         function bindDefaultClickEvents() {

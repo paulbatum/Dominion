@@ -68,6 +68,7 @@
             <div id="chatLog" class="ui-layout-east container log"></div>
             <div id="prompt" class="ui-layout-south container">
                 <div id="message"></div>
+                <div id="alertBox"></div>
                 <input id="noChoice" type="submit" class="promptButton" value="No" />
                 <input id="yesChoice" type="submit" class="promptButton" value="Yes" />                
                 <input id="doneChoice" type="submit" class="promptButton" value="Done" />      

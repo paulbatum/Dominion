@@ -101,6 +101,14 @@ body
     text-align:center;
 }
 
+#alertBox
+{
+    float:right;
+    width:500px;
+    height:50px;
+    background-color:#FF2222;
+}
+
 .promptButton
 {
     font-size:smaller !important;    
