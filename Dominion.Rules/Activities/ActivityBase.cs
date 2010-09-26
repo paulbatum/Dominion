@@ -15,7 +15,12 @@ namespace Dominion.Rules.Activities
         public Guid Id { get; private set; }
 
         public bool IsSatisfied { get; protected set; }
-        
+
+        public virtual void WriteProperties(IDictionary<string, object> bag)
+        {
+            
+        }
+
         protected ActivityBase(IGameLog log, Player player, string message, ActivityType type)
         {
             Log = log;

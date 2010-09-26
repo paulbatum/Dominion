@@ -10,6 +10,30 @@ namespace Dominion.Rules.Activities
         ActivityType Type { get; }
     }
 
+    public interface ISelectionSpecification
+    {
+        bool IsMatch(IEnumerable<Card> cards);
+    }
+
+    public class NewSelectCardsFromHandActivity : ActivityBase, ISelectCardsActivity
+    {
+        protected NewSelectCardsFromHandActivity(IGameLog log, Player player, string message, ActivityType type) 
+            : base(log, player, message, type)
+        {
+        }
+
+        public ISelectionSpecification Specification { get; set; }
+        public Action<IEnumerable<Card>> AfterCardsSelected { get; set; }
+
+        public void SelectCards(IEnumerable<Card> cards)
+        {
+            if(!Specification.IsMatch(cards))
+                throw new ArgumentException("Selected cards do not match specification!", "cards");
+
+            AfterCardsSelected(cards);
+        }
+    }
+
     public abstract class SelectCardsFromHandActivity : ActivityBase, IRestrictedActivity, ISelectCardsActivity
     {
         protected SelectCardsFromHandActivity(IGameLog log, Player player, string message, ActivityType type, int count) 
@@ -35,6 +59,12 @@ namespace Dominion.Rules.Activities
         }
 
         public abstract void Execute(IEnumerable<Card> cards);
+
+        public override void WriteProperties(IDictionary<string, object> bag)
+        {
+            base.WriteProperties(bag);
+            bag["NumberOfCardsToSelect"] = Count;
+        }
     }
 
     public abstract class SelectAnyNumberOfCardsFromHandActivity : ActivityBase, IRestrictedActivity, ISelectCardsActivity

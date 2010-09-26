@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Dominion.Rules.Activities
 {
@@ -18,6 +19,12 @@ namespace Dominion.Rules.Activities
                 throw new ArgumentException("Pile cost exceeds limit.", "pile");
 
             base.SelectPileToGainFrom(pile);
+        }
+
+        public override void WriteProperties(IDictionary<string, object> bag)
+        {
+            base.WriteProperties(bag);
+            bag["UpToCost"] = UpToCost;
         }
     }
 }
