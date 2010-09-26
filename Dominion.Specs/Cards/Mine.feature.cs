@@ -94,7 +94,7 @@ testRunner.And("Player1 selects a Silver to mine");
 #line 15
 testRunner.And("Player1 attempts to gain a Gold");
 #line 16
-testRunner.Then("Player1 should have a Gold on top of the discard pile");
+testRunner.Then("Player1 should have a hand of Copper, Estate, Estate, Gold");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
@@ -111,7 +111,7 @@ testRunner.And("Player1 selects a Copper to mine");
 #line 20
 testRunner.And("Player1 attempts to gain a Gold");
 #line 21
-testRunner.Then("Player1 should have a Copper on top of the discard pile");
+testRunner.Then("Player1 should have a hand of Silver, Estate, Estate");
 #line hidden
             testRunner.CollectScenarioErrors();
         }

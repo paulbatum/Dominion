@@ -39,6 +39,7 @@ namespace Dominion.Cards.Actions
             {
                 var activity = new GainACardUpToActivity(log, player, upToCost);
                 activity.Restrictions.Add(RestrictionType.TreasureCard);
+                activity.GetDestinationPile = p => p.Hand;
 
                 _activities.Add(activity);
             }

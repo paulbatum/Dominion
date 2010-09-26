@@ -13,12 +13,12 @@ Scenario: Player must only choose a treasure card to mine
 Scenario: Player must choose a treasure card to gain
 	And Player1 selects a Silver to mine
 	And Player1 attempts to gain a Gold
-	Then Player1 should have a Gold on top of the discard pile
+	Then Player1 should have a hand of Copper, Estate, Estate, Gold
 	
 Scenario: Player cannot buy too much
 	And Player1 selects a Copper to mine
 	And Player1 attempts to gain a Gold
-	Then Player1 should have a Copper on top of the discard pile
+	Then Player1 should have a hand of Silver, Estate, Estate
 	
 Scenario: Mined card is trashed
 	And Player1 selects a Copper to mine

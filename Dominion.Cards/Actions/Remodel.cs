@@ -23,33 +23,17 @@ namespace Dominion.Cards.Actions
         {
             public override void Resolve(TurnContext context)
             {
-                _activities.Add(new SelectCardToRemodelActivity(context, this));
-            }
-
-            public void AddGainActivity(IGameLog log, Player player, int upToCost)
-            {
-                _activities.Add(new GainACardUpToActivity(log, player, upToCost));
-            }
-
-            public class SelectCardToRemodelActivity : SelectCardsFromHandActivity
-            {
-                private readonly TurnContext _context;
-                private readonly RemodelEffect _remodelEffect;
-
-                public SelectCardToRemodelActivity(TurnContext context, RemodelEffect remodelEffect) 
-                    : base(context.Game.Log, context.ActivePlayer, "Select a card to remodel", ActivityType.SelectFixedNumberOfCards, 1)
+                var remodelActivity = new SelectCardToActionActivity(context, "Select a card to remodel");
+                remodelActivity.AfterCardsSelected = cardList =>
                 {
-                    _context = context;
-                    _remodelEffect = remodelEffect;
-                }
+                    var player = context.ActivePlayer;
+                    var cardToRemodel = cardList.Single();
+                    context.Trash(player, cardToRemodel);
 
-                public override void Execute(IEnumerable<Card> cards)
-                {
-                    var cardToRemodel = cards.Single();
-
-                    _context.Trash(this.Player, cardToRemodel);
-                    _remodelEffect.AddGainActivity(this.Log, this.Player, cardToRemodel.Cost + 2);
-                }
+                    var gainActivity = new GainACardUpToActivity(context.Game.Log, player, cardToRemodel.Cost + 2);
+                    _activities.Add(gainActivity);
+                };
+                _activities.Add(remodelActivity);
             }
         }
     }

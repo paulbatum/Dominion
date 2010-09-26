@@ -127,7 +127,9 @@ namespace Dominion.Specs.Bindings
 
             var cards = cardNames.Split(',')
                 .Select(s => s.Trim())
-                .Select(CardFactory.CreateCard)
+                //VS2008 says the type args can't be determined with just 
+                //.Select(CardFactory.CreateCard)
+                .Select(c => CardFactory.CreateCard(c))
                 .ToList();
 
             while(player.Deck.TopCard != null)

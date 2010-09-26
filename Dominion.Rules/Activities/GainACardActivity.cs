@@ -11,6 +11,7 @@ namespace Dominion.Rules.Activities
             : base(log, player, message, type)
         {
             Restrictions = new List<RestrictionType>();
+            GetDestinationPile = p => p.Discards;
         }
 
         /// <summary>
@@ -23,9 +24,12 @@ namespace Dominion.Rules.Activities
             var card = pile.TopCard;
             this.EnsureCardIsAllowed(card);
 
-            card.MoveTo(Player.Discards);
+            var destination = GetDestinationPile(Player);
+            card.MoveTo(destination);
             Log.LogGain(Player, card);
             IsSatisfied = true;
         }
+
+        public Func<Player, CardZone> GetDestinationPile { get; set; }
     }
 }
