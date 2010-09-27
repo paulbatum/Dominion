@@ -124,6 +124,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Moat.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\Nobles.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Nobles.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\Remodel.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -259,6 +264,10 @@
     <None Include="Cards\Moat.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Moat.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\Nobles.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Nobles.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\Remodel.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

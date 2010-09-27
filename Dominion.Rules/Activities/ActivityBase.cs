@@ -29,10 +29,10 @@ namespace Dominion.Rules.Activities
     public enum ActivityType
     {
         SelectFixedNumberOfCards,
-        MakeYesNoChoice,
         WaitingForOtherPlayers,
         SelectPile,
-        SelectAnyNumberOfCards
+        SelectAnyNumberOfCards,
+        MakeChoice
     }
 
     public enum RestrictionType

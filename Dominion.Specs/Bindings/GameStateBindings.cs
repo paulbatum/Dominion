@@ -203,10 +203,10 @@ namespace Dominion.Specs.Bindings
         [When(@"(.*) chooses (.*)")]
         public void WhenPlayerChooses(string playerName, string choice)
         {            
-            var player = _game.Players.Single(p => p.Name == playerName);            
-            var activity = (YesNoChoiceActivity) _game.GetPendingActivity(player);
-
-            activity.MakeChoice(choice == "yes");
+            var player = _game.Players.Single(p => p.Name == playerName);
+            var pendingActivity = _game.GetPendingActivity(player);
+            var activity = (ChoiceActivity)pendingActivity;
+            activity.MakeChoice(choice);
         }
 
         [When(@"(.*) gains a (.*)")]
@@ -432,13 +432,22 @@ namespace Dominion.Specs.Bindings
             player.Deck.CardCount.ShouldEqual(cardCount);
         }
 
-        [Then(@"(.*) must choose yes or no")]
-        public void ThenPlayerMustChooseYesOrNo(string playerName)
+        //It'd be great if there was a way to regex a list into the arguments of this method
+        [Then(@"(.*) must choose from (.*), (.*)")]
+        public void ThenPlayerMustChooseFromOptions(string playerName, string option1, string option2)
         {
             var player = _game.Players.Single(p => p.Name == playerName);
-            var activity = _game.GetPendingActivity(player);
+            var activity = _game.GetPendingActivity(player) as ChoiceActivity;
 
-            activity.ShouldBeOfType<YesNoChoiceActivity>();
+            EnsureChoicesMatch(activity.AllowedOptions, option1, option2);
+        }
+
+        private void EnsureChoicesMatch(IEnumerable<Choice> actualOptions, params string[] expectedOptions)
+        {
+            var actualStringOptions = actualOptions.Select(o => o.ToString());
+            actualStringOptions.ShouldHaveCount(expectedOptions.Count());
+            foreach (var expected in expectedOptions)
+                actualStringOptions.ShouldContain(expected);
         }
 
         [Then(@"(.*) must select (\d+) action card[s]?")]

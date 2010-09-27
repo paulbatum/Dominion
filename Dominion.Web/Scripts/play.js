@@ -1,5 +1,5 @@
 ﻿var actions = {
-    buy: function (event) {
+    buy: function(event) {
         var data = $.tmplItem(event.target).data;
         if (data.CanBuy) {
             $.post('BuyCard', { id: data.Id }, handleInteractionResponse);
@@ -9,7 +9,7 @@
             showError('Error: Cannot buy.');
         }
     },
-    play: function (event) {
+    play: function(event) {
         var data = $.tmplItem(event.target).data;
         if (data.CanPlay) {
             $.post('PlayCard', { id: data.Id }, handleInteractionResponse);
@@ -19,7 +19,7 @@
             showError('Error: Cannot play.');
         }
     },
-    selectFixedNumberOfCards: function (event, activity) {
+    selectFixedNumberOfCards: function(event, activity) {
         var ids = [];
 
         if (activity.Properties.NumberOfCardsToSelect > 1) {
@@ -28,7 +28,7 @@
             ids = $('#hand .selectedCard')
                             .get()
                             .map($.tmplItem)
-                            .map(function (tmpl) { return tmpl.data.Id });
+                            .map(function(tmpl) { return tmpl.data.Id });
         }
         else {
             ids.push($.tmplItem(event.target).data.Id);
@@ -38,25 +38,25 @@
             $.post('SelectCards', { ids: ids }, handleInteractionResponse);
         }
     },
-    submitCardSelection: function () {
+    submitCardSelection: function() {
         var ids = $('#hand .selectedCard')
                             .get()
                             .map($.tmplItem)
-                            .map(function (tmpl) { return tmpl.data.Id });
+                            .map(function(tmpl) { return tmpl.data.Id });
 
         $.post('SelectCards', { ids: ids }, handleInteractionResponse);
     },
-    toggleCardSelection: function (event, activity) {
+    toggleCardSelection: function(event, activity) {
         $(event.target).toggleClass('selectedCard');
     },
-    makeYesNoChoice: function (choice) {
-        $.post('MakeYesNoChoice', { choice: choice }, handleInteractionResponse);
+    makeChoice: function(choice) {
+        $.post('MakeChoice', { choice: choice }, handleInteractionResponse);
     },
-    selectPile: function (event, activity) {
+    selectPile: function(event, activity) {
         var data = $.tmplItem(event.target).data;
         $.post('SelectPile', { id: data.Id }, handleInteractionResponse);
     },
-    chat: function (text) {
+    chat: function(text) {
         if (text != "") {
             $.post('Chat', { message: text }, handleInteractionResponse);
         }
@@ -110,13 +110,18 @@
                 controller.HandClick = function (event) { actions.selectFixedNumberOfCards(event, activity); };
             }
 
-            if (activity.Type == "MakeYesNoChoice") {
-                $('#yesChoice').show();
-                $('#noChoice').show();
-            }
-            else {
-                $('#yesChoice').hide();
-                $('#noChoice').hide();
+//This should be generalised to add/remove choice elements from the DOM
+            $('#choiceDrawCards').hide();
+            $('#choiceGainActions').hide();
+            $('#choiceYes').hide();
+            $('#choiceNo').hide();
+
+            if (activity.Type == "MakeChoice") {
+                for (var iOption in activity.AllowedOptions) {
+                    var optionName = activity.AllowedOptions[iOption];
+                    var elementName = '#choice' + optionName;
+                    $(elementName).show();
+                }
             }
 
             if (activity.Type == "SelectAnyNumberOfCards") {
@@ -293,6 +298,22 @@
 
             $('#doneChoice')
                     .click(function () { controller.DoneClick(); })
+                    .button();
+
+            $('#choiceDrawCards')
+                    .click(function () { actions.makeChoice('DrawCards'); })
+                    .button();
+
+            $('#choiceGainActions')
+                    .click(function () { actions.makeChoice('GainActions'); })
+                    .button();
+
+            $('#choiceYes')
+                    .click(function () { actions.makeChoice('Yes'); })
+                    .button();
+
+            $('#choiceNo')
+                    .click(function () { actions.makeChoice('No'); })
                     .button();
 
             $('form').ajaxForm(handleInteractionResponse);

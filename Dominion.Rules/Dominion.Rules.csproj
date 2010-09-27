@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activities\ActivityBase.cs" />
+    <Compile Include="Activities\ChoiceActivity.cs" />
     <Compile Include="Activities\DiscardCardsActivity.cs" />
     <Compile Include="Activities\ExtensionMethods.cs" />
     <Compile Include="Activities\GainACardActivity.cs" />
@@ -70,7 +71,6 @@
     <Compile Include="Activities\SelectCardToActionActivity.cs" />
     <Compile Include="Activities\SelectCardToPutBackOnDeckActivity.cs" />
     <Compile Include="Activities\WaitingForPlayersActivity.cs" />
-    <Compile Include="Activities\YesNoChoiceActivity.cs" />
     <Compile Include="AttackEffect.cs" />
     <Compile Include="CardBank.cs" />
     <Compile Include="CardEffectBase.cs" />

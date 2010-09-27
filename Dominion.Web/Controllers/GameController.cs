@@ -80,9 +80,9 @@ namespace Dominion.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult MakeYesNoChoice(bool choice)
+        public ActionResult MakeChoice(string choice)
         {
-            var message = new YesNoChoiceMessage(Client.PlayerId, choice);
+            var message = new ChoiceMessage(Client.PlayerId, choice);
             Client.AcceptMessage(message);
             return new EmptyResult();
         }

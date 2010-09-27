@@ -9,15 +9,15 @@ Scenario: Chancellor is +2 money
 	Then Player1 should have 2 to spend	
 
 Scenario: Player must choose whether to use Chancellor's effect
-	Then Player1 must choose yes or no
+	Then Player1 must choose from Yes, No
 
 Scenario: Player uses Chancellor's effect
-	When Player1 chooses yes
+	When Player1 chooses Yes
 	Then Player1 should have a deck of 0 cards
 	And Player1 should have 5 cards in the discard pile
 
 Scenario: Player does not use Chancellor's effect
-	When Player1 chooses no
+	When Player1 chooses No
 	Then Player1 should have a deck of 5 cards
 	And Player1 should have 0 cards in the discard pile	
 	

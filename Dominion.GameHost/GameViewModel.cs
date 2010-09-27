@@ -73,13 +73,18 @@ namespace Dominion.GameHost
                 var gainActivity = (GainACardUpToActivity) activity;
                 Properties["UpToCost"] = gainActivity.UpToCost;
             }
-                
+            else if (activity is ChoiceActivity)
+            {
+                var choiceActivity = (ChoiceActivity)activity;
+                AllowedOptions = choiceActivity.AllowedOptions.Select(o => o.ToString()).ToList();
+            }
         }
 
         public string Type { get; set; }
         public string Message { get; set; }
         public Guid Id { get; set; }
         public IDictionary<string, object> Properties { get; set; }
+        public IList<string> AllowedOptions { get; set; }
     }
 
     public class TurnContextViewModel

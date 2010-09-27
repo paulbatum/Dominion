@@ -17,20 +17,20 @@ namespace Dominion.Specs.Cards
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.3.5.2")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Chancellor")]
-    public partial class ChancellorFeature
+    [NUnit.Framework.DescriptionAttribute("Nobles")]
+    public partial class NoblesFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "Chancellor.feature"
+#line 1 "Nobles.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Chancellor", "", ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Nobles", "", ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -59,68 +59,74 @@ namespace Dominion.Specs.Cards
 #line 4
 testRunner.Given("A new game with 3 players");
 #line 5
-testRunner.And("Player1 has a Chancellor in hand instead of a Copper");
+testRunner.And("Player1 has a hand of Nobles, Copper, Silver, Estate, Estate");
 #line 6
-testRunner.When("Player1 plays a Chancellor");
+testRunner.When("Player1 plays a Nobles");
 #line hidden
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Chancellor is +2 money")]
-        public virtual void ChancellorIs2Money()
+        [NUnit.Framework.DescriptionAttribute("Player must choose between cards or actions")]
+        public virtual void PlayerMustChooseBetweenCardsOrActions()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Chancellor is +2 money", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Player must choose between cards or actions", ((string[])(null)));
 #line 8
 this.ScenarioSetup(scenarioInfo);
 #line 9
-testRunner.Then("Player1 should have 2 to spend");
+testRunner.Then("Player1 must choose from DrawCards, GainActions");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Player must choose whether to use Chancellor\'s effect")]
-        public virtual void PlayerMustChooseWhetherToUseChancellorSEffect()
+        [NUnit.Framework.DescriptionAttribute("Player gets 3 Cards for DrawCards")]
+        public virtual void PlayerGets3CardsForDrawCards()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Player must choose whether to use Chancellor\'s effect", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Player gets 3 Cards for DrawCards", ((string[])(null)));
 #line 11
 this.ScenarioSetup(scenarioInfo);
 #line 12
-testRunner.Then("Player1 must choose from Yes, No");
-#line hidden
-            testRunner.CollectScenarioErrors();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Player uses Chancellor\'s effect")]
-        public virtual void PlayerUsesChancellorSEffect()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Player uses Chancellor\'s effect", ((string[])(null)));
+testRunner.And("Player1 chooses DrawCards");
+#line 13
+testRunner.Then("Player1 should have 7 cards in hand");
 #line 14
-this.ScenarioSetup(scenarioInfo);
-#line 15
-testRunner.When("Player1 chooses Yes");
-#line 16
-testRunner.Then("Player1 should have a deck of 0 cards");
-#line 17
-testRunner.And("Player1 should have 5 cards in the discard pile");
+testRunner.And("Player1 should have 0 actions remaining");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Player does not use Chancellor\'s effect")]
-        public virtual void PlayerDoesNotUseChancellorSEffect()
+        [NUnit.Framework.DescriptionAttribute("Player gets 2 Actions for GainActions")]
+        public virtual void PlayerGets2ActionsForGainActions()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Player does not use Chancellor\'s effect", ((string[])(null)));
-#line 19
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Player gets 2 Actions for GainActions", ((string[])(null)));
+#line 16
 this.ScenarioSetup(scenarioInfo);
-#line 20
-testRunner.When("Player1 chooses No");
+#line 17
+testRunner.And("Player1 chooses GainActions");
+#line 18
+testRunner.Then("Player1 should have 2 actions remaining");
+#line 19
+testRunner.And("Player1 should have 4 cards in hand");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Is Worth 2 Victory Points")]
+        public virtual void IsWorth2VictoryPoints()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Is Worth 2 Victory Points", ((string[])(null)));
 #line 21
-testRunner.Then("Player1 should have a deck of 5 cards");
+this.ScenarioSetup(scenarioInfo);
 #line 22
-testRunner.And("Player1 should have 0 cards in the discard pile");
+testRunner.Given("A new game with 3 players");
+#line 23
+testRunner.And("Player1 has a hand of Nobles, Copper, Copper, Estate, Estate");
+#line 24
+testRunner.When("The game is scored");
+#line 25
+testRunner.Then("Player1 should have 5 victory points");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
