@@ -32,13 +32,6 @@ namespace Dominion.Web.Controllers
             return View();
         }
 
-        [HttpGet]
-        public ActionResult GameData(string playerId)
-        {
-            var model = Client.GetGameState();
-            return new GameViewModelResult(model, this);
-        }
-
         [HttpPost]
         public ActionResult PlayCard(Guid id)
         {

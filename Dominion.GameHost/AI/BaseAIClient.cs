@@ -18,7 +18,7 @@ namespace Dominion.GameHost.AI
         {            
             _client = client;
             client.GameStateUpdates.ObserveOn(Scheduler.NewThread)
-                .Delay(TimeSpan.FromMilliseconds(new Random(client.GetHashCode()).Next(500, 1500)))
+                //.Delay(TimeSpan.FromMilliseconds(new Random(client.GetHashCode()).Next(500, 1500)))
                 .Subscribe(Respond);
         }
 

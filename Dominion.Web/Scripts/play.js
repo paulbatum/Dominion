@@ -77,15 +77,13 @@
         $(document).ready(function () {
             jQuery.ajaxSettings.traditional = true;
 
-
             createLayout();
             setupChat();
             setupHover();
             bindDefaultClickEvents();
-
-            loadGame();
-            doComet('gamestateloop', updateGameState);
-            doComet('chatloop', updateChat);
+        
+            doChatComet();
+            doGameComet();
 
             bindCommands();
         });
@@ -144,22 +142,7 @@
 
         }
 
-        function loadGame() {            
-            $.ajax({
-                url: 'GameData',
-                dataType: 'json',
-                data: {},
-                success: updateGameState,
-                async: false
-            });
-        }
-
         function updateGameState(data) {
-
-            if (version == data.Version)
-                return;
-            else
-                version = data.Version;
 
             updateSection('#bank', data.Bank, '#cardpileTemplate');
             updateSection('#hand', data.Hand, '#cardTemplate');
@@ -201,10 +184,25 @@
             controller.BankClick = actions.buy;
         }
 
-        function doComet(url, success) {
+        function doChatComet() {
             $.ajax({
-                url: url,
-                success: function (data) { $.ajax(this); success(data); },
+                url: 'chatloop',
+                success: function (data) { $.ajax(this); updateChat(data); },
+                timeout: 30000,
+                error: function () { alert("Communication with the server has failed. Refresh the page."); },
+                cache: false
+            });
+        }
+
+        function doGameComet() {            
+            $.ajax({
+                url: 'gamestateloop',
+                data: { mostRecentVersion: version },
+                success: function (gameState) {
+                    version = gameState.Version;
+                    doGameComet();
+                    updateGameState(gameState);
+                },
                 timeout: 30000,
                 error: function () { alert("Communication with the server has failed. Refresh the page."); },
                 cache: false
