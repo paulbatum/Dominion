@@ -93,6 +93,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\GameViewModel.cs" />
+    <Compile Include="ViewModels\NewGameViewModel.cs" />
     <Compile Include="ViewModels\PlayerActionResultViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

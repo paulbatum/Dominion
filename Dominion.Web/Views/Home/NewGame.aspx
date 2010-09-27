@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" Inherits="System.Web.Mvc.ViewPage" MasterPageFile="~/Views/Shared/site.Master" %>
+<%@ Page Title="" Language="C#" Inherits="System.Web.Mvc.ViewPage<Dominion.Web.ViewModels.NewGameViewModel>" MasterPageFile="~/Views/Shared/site.Master" %>
 <%@ Import Namespace="Dominion.Web.Controllers" %>
 <asp:Content runat="server" ID="Content" ContentPlaceHolderID="TitleContent"></asp:Content>
 <asp:Content runat="server" ID="Content1" ContentPlaceHolderID="HeadContent">
@@ -41,10 +41,10 @@
             ) %>
         Player names: <%= Html.TextBox("Names", "", new { style="width:250px"}) %>
         <br />
-        <% foreach (var card in HomeController.CardsForPurchase.OrderBy(c => c.Key))
+        <% foreach (var cardName in Model.CardsToChooseFrom.OrderBy(c => c))
            {%>
-           <input type="checkbox" name="selectedCards" class="someCard" value="<%=card.Key%>" onclick="checkIfSubmitAllowed()" />
-           <%= card.Key %>
+           <input type="checkbox" name="chosenCards" class="someCard" value="<%=cardName%>" onclick="checkIfSubmitAllowed()" <%= Model.ChosenCards.Contains(cardName) ? "checked=checked" : "" %> />
+           <%= cardName%>
            <br />
         <% } %>
         <%= Html.SubmitButton("submitbutton", "New Game") %>

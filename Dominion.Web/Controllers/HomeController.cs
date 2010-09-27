@@ -11,6 +11,7 @@ using Dominion.Rules;
 using Dominion.Cards.Treasure;
 using Dominion.Cards.Victory;
 using Dominion.Cards.Curses;
+using Dominion.Web.ViewModels;
 
 namespace Dominion.Web.Controllers
 {
@@ -31,17 +32,21 @@ namespace Dominion.Web.Controllers
         [HttpGet]
         public ActionResult NewGame()
         {
-            return View();            
+            var model = new NewGameViewModel();
+            model.CardsToChooseFrom = CardFactory.OptionalCardsForBank.OrderBy(c => c).ToList();
+            model.ChosenCards = model.CardsToChooseFrom.Take(10).ToList();
+
+            return View(model);
         }
         
         [HttpPost]
-        public ActionResult NewGame(string names, int numberOfPlayers, string[] selectedCards)
+        public ActionResult NewGame(NewGameViewModel model)
         {
-            var namesArray = names
+            var namesArray = model.Names
                 .Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries)
                 .Select(n => n.Trim());
 
-            string gameKey = _host.CreateNewGame(namesArray, numberOfPlayers, selectedCards);
+            string gameKey = _host.CreateNewGame(namesArray, model.NumberOfPlayers, model.ChosenCards);
             return this.RedirectToAction(x => x.ViewPlayers(gameKey));
         }        
 
@@ -56,30 +61,6 @@ namespace Dominion.Web.Controllers
         public ActionResult JoinGame(Guid id)
         {            
             return RedirectToAction("Play", "Game", new { id });
-        }
-
-        public static IDictionary<string, Type> CardsForPurchase
-        {
-            get
-            {
-                var allCards = Assembly.GetAssembly(typeof(Festival))
-                    .GetTypes()
-                    .Where(t => t.IsSubclassOf(typeof(Card)));
-
-                var cardsToExclude = new Type[]{
-                    typeof(Copper),
-                    typeof(Silver),
-                    typeof(Gold),
-                    typeof(Estate),
-                    typeof(Duchy),
-                    typeof(Province),
-                    typeof(Curse),
-                };
-
-                return allCards
-                    .Except(cardsToExclude)
-                    .ToDictionary(c => c.Name, c => c);
-            }
         }
     }
 }

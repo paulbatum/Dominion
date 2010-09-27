@@ -10,7 +10,7 @@ namespace Dominion.GameHost
 {
     public class ChosenStartingConfiguration : StartingConfiguration
     {
-        IList<Type> mChosenCardTypes;
+        IList<string> mChosenCards;
 
         public ChosenStartingConfiguration(int numberOfPlayers, IEnumerable<string> chosenCards)
             : base(numberOfPlayers)
@@ -25,13 +25,13 @@ namespace Dominion.GameHost
                 .GetTypes()
                 .Where(t => t.IsSubclassOf(typeof(Card)));
 
-            mChosenCardTypes = chosenCards.Select(str => allCards.Single(c => c.Name == str)).ToList();
+            mChosenCards = chosenCards.ToList();
         }
 
         public override void InitializeBank(CardBank bank)
         {
-            foreach (var cardType in mChosenCardTypes)
-                bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards(cardType, 10));
+            foreach (var card in mChosenCards)
+                bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards(card, 10));
 
             base.InitializeBank(bank);
         }

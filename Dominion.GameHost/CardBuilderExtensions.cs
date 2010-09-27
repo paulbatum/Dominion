@@ -12,12 +12,9 @@ namespace Dominion.GameHost
             return targetPile;
         }
 
-        public static CardPile WithNewCards(this CardPile targetPile, Type cardType, int count)
+        public static CardPile WithNewCards(this CardPile targetPile, string cardName, int count)
         {
-            count.Times(() => {
-                var newCard = (Card)Activator.CreateInstance(cardType);
-                newCard.MoveTo(targetPile);
-            });
+            count.Times(() => CardFactory.CreateCard(cardName).MoveTo(targetPile));
             return targetPile;
         }
 
