@@ -75,6 +75,16 @@ namespace Dominion.Specs.Bindings
             _gameHost.AcceptMessage(message);
         }
 
+        [When(@"(.*) tells the host to reveal (.*)")]
+        [When(@"(.*) tells the host to put (.*) on top")]
+        public void WhenPlayerTellsTheHostToReveal(string playerName, string cardName)
+        {
+            var client = _clients.Single(c => c.PlayerName == playerName);
+            var gameState = _gameHost.GetGameState(client);
+            var cardId = gameState.Hand.First(p => p.Name == cardName).Id;
+            var message = new SelectCardsFromHandMessage(client.PlayerId, new[] { cardId });
+            _gameHost.AcceptMessage(message);
+        }
 
         [Then(@"All players should recieve (\d+) game state update[s]?")]
         public void ThenAllPlayersShouldRecieveAGameStateUpdate(int updateCount)

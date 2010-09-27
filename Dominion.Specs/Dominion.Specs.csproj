@@ -169,6 +169,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AutomaticReaction.feature</DependentUpon>
     </Compile>
+    <Compile Include="Hosted\Reactions.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reactions.feature</DependentUpon>
+    </Compile>
     <Compile Include="Scoring.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -300,6 +305,10 @@
     <None Include="Hosted\AutomaticReaction.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AutomaticReaction.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Hosted\Reactions.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Reactions.feature.cs</LastGenOutput>
     </None>
     <None Include="Scoring.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

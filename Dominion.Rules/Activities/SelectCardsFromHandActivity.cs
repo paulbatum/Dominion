@@ -21,11 +21,15 @@ namespace Dominion.Rules.Activities
         public ISelectionSpecification Specification { get; private set; }
         public Action<IEnumerable<Card>> AfterCardsSelected { get; set; }
 
-        public void SelectCards(IEnumerable<Card> cards)
+        protected void CheckCards(IEnumerable<Card> cards)
         {
-            if(!Specification.IsMatch(cards))
+            if (!Specification.IsMatch(cards))
                 throw new ArgumentException("Selected cards do not match specification!", "cards");
+        }
 
+        public virtual void SelectCards(IEnumerable<Card> cards)
+        {
+            CheckCards(cards);
             AfterCardsSelected(cards);
             IsSatisfied = true;
         }

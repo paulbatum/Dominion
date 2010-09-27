@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Dominion.Cards.Actions;
 using Dominion.Rules;
 using Dominion.Rules.Activities;
 using Dominion.Rules.CardTypes;
@@ -92,10 +93,21 @@ namespace Dominion.GameHost
                 if(activity is SelectReactionActivity)                    
                 {
                     var reactions = player.Hand.OfType<IReactionCard>();
-
-                    if(reactions.Select(c => c.Name).Distinct().Count() == 1)
+                    
+                    if(reactions.Select(r => r.Name).Distinct().Count() == 1)
                     {
-                        ((SelectReactionActivity) activity).SelectCards(reactions.Cast<Card>().Take(1));
+                        // All the reaction cards are of the same type.
+                        var reaction = reactions.First();                       
+                        
+                        if(!reaction.ContinueReactingIfOnlyReaction)
+                        {
+                            // It doesn't make sense for the reaction window to stay open after playing this
+                            // reaction, so its safe to play it and then close the window.
+
+                            var reactionActivity = ((SelectReactionActivity)activity);
+                            reactionActivity.SelectReaction(reaction);                                                                      
+                            reactionActivity.SelectReaction(null); 
+                        }                                            
                     }
                     
                 }

@@ -248,6 +248,7 @@ namespace Dominion.Specs.Bindings
         }
 
         [When(@"(.*) selects nothing to discard")]
+        [When(@"(.*) is done with reactions")]
         public void WhenPlayerSelectsNothingToDiscard(string playerName)
         {
             var player = _game.Players.Single(p => p.Name == playerName);
@@ -255,6 +256,10 @@ namespace Dominion.Specs.Bindings
             var activity = (ISelectCardsActivity) _game.GetPendingActivity(player);
             activity.SelectCards(Enumerable.Empty<Card>());
         }
+
+
+       
+
 
 
         // Then

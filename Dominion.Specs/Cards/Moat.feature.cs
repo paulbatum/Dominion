@@ -110,8 +110,10 @@ testRunner.When("Player1 plays a Militia");
 #line 21
 testRunner.When("Player2 reveals Moat");
 #line 22
-testRunner.Then("Player2 must wait");
+testRunner.And("Player2 is done with reactions");
 #line 23
+testRunner.Then("Player2 must wait");
+#line 24
 testRunner.And("Player3 must select 2 cards to discard");
 #line hidden
             testRunner.CollectScenarioErrors();

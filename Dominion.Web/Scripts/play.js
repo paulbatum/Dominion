@@ -127,7 +127,7 @@
                 }
             }
 
-            if (activity.Type == "SelectAnyNumberOfCards" || activity.Type == "SelectUpToNumberOfCards") {
+            if (activity.Type == "SelectUpToNumberOfCards") {
                 controller.HandClick = function (event) { actions.toggleCardSelection(event, activity); };
                 controller.DoneClick = function (event) { actions.submitCardSelection(event, activity); };
                 $('#doneChoice').show();

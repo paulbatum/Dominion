@@ -20,5 +20,10 @@ namespace Dominion.Cards.Actions
             attackEffect.Nullify(player);
             currentTurn.Game.Log.LogMessage("{0} reveals a moat and nullifies the attack.", player.Name);
         }
+
+        public bool ContinueReactingIfOnlyReaction
+        {
+            get { return false; }
+        }
     }
 }

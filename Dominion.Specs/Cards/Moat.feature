@@ -19,5 +19,6 @@ Scenario: Moat protects from attacks
 	And Player2 has a Moat in hand instead of a Copper
 	When Player1 plays a Militia
 	When Player2 reveals Moat
+	And  Player2 is done with reactions
 	Then Player2 must wait
 	And Player3 must select 2 cards to discard

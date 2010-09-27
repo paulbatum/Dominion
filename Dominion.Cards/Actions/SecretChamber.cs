@@ -19,6 +19,11 @@ namespace Dominion.Cards.Actions
             currentTurn.AddEffect(new SecretChamberReactionEffect(player));
         }
 
+        public bool ContinueReactingIfOnlyReaction
+        {
+            get { return true; }
+        }
+
         public class SecretChamberReactionEffect : CardEffectBase
         {
             private readonly Player _player;
