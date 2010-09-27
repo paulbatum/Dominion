@@ -92,7 +92,13 @@ namespace Dominion.GameHost
                 
                 if(activity is SelectReactionActivity)                    
                 {
+                    var reactionActivity = ((SelectReactionActivity)activity);
                     var reactions = player.Hand.OfType<IReactionCard>();
+
+                    // This could happen if a player uses a secret chamber and hides it, leaving no reactions in hand.
+                    // An argument could be made for checking this in the SelectReactionActivity somehow. It seemed easier to do it here.
+                    if(reactions.Count() == 0)
+                        reactionActivity.CloseWindow(); 
                     
                     if(reactions.Select(r => r.Name).Distinct().Count() == 1)
                     {
@@ -103,10 +109,8 @@ namespace Dominion.GameHost
                         {
                             // It doesn't make sense for the reaction window to stay open after playing this
                             // reaction, so its safe to play it and then close the window.
-
-                            var reactionActivity = ((SelectReactionActivity)activity);
                             reactionActivity.SelectReaction(reaction);                                                                      
-                            reactionActivity.SelectReaction(null); 
+                            reactionActivity.CloseWindow(); 
                         }                                            
                     }
                     

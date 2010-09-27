@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Dominion.Rules.CardTypes;
 
@@ -33,6 +34,10 @@ namespace Dominion.Rules.Activities
             SelectReaction(reaction);  
         }
 
-        
+
+        public void CloseWindow()
+        {
+            SelectReaction(null);
+        }
     }
 }

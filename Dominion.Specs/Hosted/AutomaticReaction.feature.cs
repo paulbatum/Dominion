@@ -119,6 +119,35 @@ testRunner.Then("Player2 may reveal a reaction");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Automatically pass if a Player uses Secret Chamber and puts it on top, leaving no" +
+            " other reactions")]
+        public virtual void AutomaticallyPassIfAPlayerUsesSecretChamberAndPutsItOnTopLeavingNoOtherReactions()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Automatically pass if a Player uses Secret Chamber and puts it on top, leaving no" +
+                    " other reactions", ((string[])(null)));
+#line 29
+this.ScenarioSetup(scenarioInfo);
+#line 30
+testRunner.Given("A new hosted game with 3 players");
+#line 31
+testRunner.And("Player1 has a Militia in hand instead of a Copper");
+#line 32
+testRunner.And("Player2 has a hand of SecretChamber, Copper, Copper, Copper, Estate");
+#line 33
+testRunner.When("Player1 tells the host to play Militia");
+#line 34
+testRunner.And("Player2 tells the host to reveal SecretChamber");
+#line 35
+testRunner.And("Player2 tells the host to put SecretChamber on top");
+#line 36
+testRunner.And("Player2 tells the host to put Copper on top");
+#line 37
+testRunner.Then("Player2 must select 2 cards to discard");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
     }
 }
 #endregion

@@ -18,3 +18,4 @@ Scenario: Player uses Secret Chamber, draws a Moat, uses Moat, uses Secret Chamb
 	And Player2 tells the host to put Moat on top	
 	Then Player2 should have a hand of Copper, Estate, Estate, Copper, Copper
 	And Player2 should have a deck of: Moat, SecretChamber, Estate, Copper, Copper
+
