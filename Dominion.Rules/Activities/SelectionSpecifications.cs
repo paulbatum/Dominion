@@ -25,14 +25,6 @@ namespace Dominion.Rules.Activities
             };
         }
 
-        public static ISelectionSpecification SelectAnyNumberOfCards()
-        {
-            return new SelectionSpecification
-            {                
-                ActivityType = ActivityType.SelectAnyNumberOfCards
-            };
-        }
-
         public static ISelectionSpecification SelectUpToXCards(int upTo)
         {
             return new SelectionSpecification

@@ -36,7 +36,6 @@ namespace Dominion.Rules.Activities
         SelectFixedNumberOfCards,
         WaitingForOtherPlayers,
         SelectPile,
-        SelectAnyNumberOfCards,
         MakeChoice,
         SelectUpToNumberOfCards
     }
