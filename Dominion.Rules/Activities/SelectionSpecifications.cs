@@ -33,6 +33,16 @@ namespace Dominion.Rules.Activities
             };
         }
 
+        public static ISelectionSpecification SelectUpToXCards(int upTo)
+        {
+            return new SelectionSpecification
+            {
+                MatchFunction = cards => cards.Count() <= upTo,
+                ActivityType = ActivityType.SelectUpToNumberOfCards,
+                Count = upTo
+            };
+        }
+
         private class SelectionSpecification : ISelectionSpecification
         {            
             public Func<IEnumerable<Card>, bool> MatchFunction { get; set; }

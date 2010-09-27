@@ -66,7 +66,7 @@ testRunner.And("Player1 has a SecretChamber in hand instead of a Copper");
 #line 6
 testRunner.When("Player1 plays a SecretChamber");
 #line 7
-testRunner.Then("Player1 must select any number of cards from their hand");
+testRunner.Then("Player1 may select up to 4 cards from their hand");
 #line hidden
             testRunner.CollectScenarioErrors();
         }

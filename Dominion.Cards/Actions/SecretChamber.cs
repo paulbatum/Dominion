@@ -48,7 +48,7 @@ namespace Dominion.Cards.Actions
                 var activity = new NewSelectCardsFromHandActivity(
                     context.Game.Log, context.ActivePlayer,
                     "Select any number of cards to discard, you will gain $1 per card",
-                    SelectionSpecifications.SelectAnyNumberOfCards());
+                    SelectionSpecifications.SelectUpToXCards(context.ActivePlayer.Hand.CardCount));
 
                 activity.AfterCardsSelected = cards =>
                 {

@@ -499,13 +499,14 @@ namespace Dominion.Specs.Bindings
             activity.ShouldBeOfType<SelectReactionActivity>();
         }
 
-        [Then(@"(.*) must select any number of cards from their hand")]
-        public void ThenPlayerMustSelectAnyNumberOfCardsFromTheirHand(string playerName)
+        [Then(@"(.*) may select up to (\d+) cards from their hand")]
+        public void ThenPlayerMustSelectAnyNumberOfCardsFromTheirHand(string playerName, int cardCount)
         {
             var player = _game.Players.Single(p => p.Name == playerName);
             var activity = (ISelectCardsActivity) _game.GetPendingActivity(player);
 
-            activity.Type.ShouldEqual(ActivityType.SelectAnyNumberOfCards);
+            activity.Properties["NumberOfCardsToSelect"].ShouldEqual(cardCount);
+            activity.Type.ShouldEqual(ActivityType.SelectUpToNumberOfCards);
         }
 
         [Then(@"(.*) should have a hand of (.*)")]

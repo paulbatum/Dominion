@@ -4,7 +4,7 @@ Scenario: Player must select a number of cards to discard
 	Given A new game with 3 players	
 	And Player1 has a SecretChamber in hand instead of a Copper
 	When Player1 plays a SecretChamber
-	Then Player1 must select any number of cards from their hand
+	Then Player1 may select up to 4 cards from their hand
 
 Scenario: Player discards one card to Secret Chamber
 	Given A new game with 3 players	

@@ -37,7 +37,8 @@ namespace Dominion.Rules.Activities
         WaitingForOtherPlayers,
         SelectPile,
         SelectAnyNumberOfCards,
-        MakeChoice
+        MakeChoice,
+        SelectUpToNumberOfCards
     }
 
     public enum RestrictionType

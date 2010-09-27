@@ -1,5 +1,5 @@
 ﻿var actions = {
-    buy: function(event) {
+    buy: function (event) {
         var data = $.tmplItem(event.target).data;
         if (data.CanBuy) {
             $.post('BuyCard', { id: data.Id }, handleInteractionResponse);
@@ -9,7 +9,7 @@
             showError('Error: Cannot buy.');
         }
     },
-    play: function(event) {
+    play: function (event) {
         var data = $.tmplItem(event.target).data;
         if (data.CanPlay) {
             $.post('PlayCard', { id: data.Id }, handleInteractionResponse);
@@ -19,7 +19,7 @@
             showError('Error: Cannot play.');
         }
     },
-    selectFixedNumberOfCards: function(event, activity) {
+    selectFixedNumberOfCards: function (event, activity) {
         var ids = [];
 
         if (activity.Properties.NumberOfCardsToSelect > 1) {
@@ -28,7 +28,7 @@
             ids = $('#hand .selectedCard')
                             .get()
                             .map($.tmplItem)
-                            .map(function(tmpl) { return tmpl.data.Id });
+                            .map(function (tmpl) { return tmpl.data.Id });
         }
         else {
             ids.push($.tmplItem(event.target).data.Id);
@@ -38,25 +38,30 @@
             $.post('SelectCards', { ids: ids }, handleInteractionResponse);
         }
     },
-    submitCardSelection: function() {
+    submitCardSelection: function (event, activity) {
         var ids = $('#hand .selectedCard')
                             .get()
                             .map($.tmplItem)
-                            .map(function(tmpl) { return tmpl.data.Id });
+                            .map(function (tmpl) { return tmpl.data.Id });
 
-        $.post('SelectCards', { ids: ids }, handleInteractionResponse);
+        if (activity.Type == "SelectUpToNumberOfCards" && ids.length > activity.Properties.NumberOfCardsToSelect) {
+            showError('Error: Cannot select more than ' + activity.Properties.NumberOfCardsToSelect + ' cards.');
+        }
+        else {
+            $.post('SelectCards', { ids: ids }, handleInteractionResponse);
+        }
     },
-    toggleCardSelection: function(event, activity) {
+    toggleCardSelection: function (event, activity) {
         $(event.target).toggleClass('selectedCard');
     },
-    makeChoice: function(choice) {
+    makeChoice: function (choice) {
         $.post('MakeChoice', { choice: choice }, handleInteractionResponse);
     },
-    selectPile: function(event, activity) {
+    selectPile: function (event, activity) {
         var data = $.tmplItem(event.target).data;
         $.post('SelectPile', { id: data.Id }, handleInteractionResponse);
     },
-    chat: function(text) {
+    chat: function (text) {
         if (text != "") {
             $.post('Chat', { message: text }, handleInteractionResponse);
         }
@@ -124,9 +129,9 @@
                 }
             }
 
-            if (activity.Type == "SelectAnyNumberOfCards") {
+            if (activity.Type == "SelectAnyNumberOfCards" || activity.Type == "SelectUpToNumberOfCards") {
                 controller.HandClick = function (event) { actions.toggleCardSelection(event, activity); };
-                controller.DoneClick = actions.submitCardSelection;
+                controller.DoneClick = function (event) { actions.submitCardSelection(event, activity); };
                 $('#doneChoice').show();
             }
             else {
