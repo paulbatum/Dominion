@@ -32,6 +32,16 @@ namespace Dominion.Rules.Activities
         }
 
         public Action<Choice> ActOnChoice { get; set; }
+
+        public override IDictionary<string, object> Properties
+        {
+            get
+            {
+                var properties = base.Properties;
+                properties["AllowedOptions"] = AllowedOptions.Select(o => o.ToString()).ToList();
+                return properties;
+            }
+        }
     }
 
     public enum Choice

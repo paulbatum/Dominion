@@ -7,6 +7,7 @@ using Dominion.GameHost;
 using Dominion.Rules;
 using Dominion.Rules.Activities;
 using Dominion.Rules.CardTypes;
+using NUnit.Framework;
 using TechTalk.SpecFlow;
 
 namespace Dominion.Specs.Bindings
@@ -432,22 +433,18 @@ namespace Dominion.Specs.Bindings
             player.Deck.CardCount.ShouldEqual(cardCount);
         }
 
-        //It'd be great if there was a way to regex a list into the arguments of this method
-        [Then(@"(.*) must choose from (.*), (.*)")]
-        public void ThenPlayerMustChooseFromOptions(string playerName, string option1, string option2)
+        
+        [Then(@"(.*) must choose from (.*)")]
+        public void ThenPlayerMustChooseFromOptions(string playerName, string options)
         {
             var player = _game.Players.Single(p => p.Name == playerName);
-            var activity = _game.GetPendingActivity(player) as ChoiceActivity;
+            var activity = _game.GetPendingActivity(player);
 
-            EnsureChoicesMatch(activity.AllowedOptions, option1, option2);
-        }
+            activity.ShouldBeOfType<ChoiceActivity>();
 
-        private void EnsureChoicesMatch(IEnumerable<Choice> actualOptions, params string[] expectedOptions)
-        {
-            var actualStringOptions = actualOptions.Select(o => o.ToString());
-            actualStringOptions.ShouldHaveCount(expectedOptions.Count());
-            foreach (var expected in expectedOptions)
-                actualStringOptions.ShouldContain(expected);
+            CollectionAssert.AreEquivalent(
+                options.Split(',').Select(x => x.Trim()), 
+                (IEnumerable<string>) activity.Properties["AllowedOptions"]);
         }
 
         [Then(@"(.*) must select (\d+) action card[s]?")]

@@ -117,8 +117,8 @@
             $('#choiceNo').hide();
 
             if (activity.Type == "MakeChoice") {
-                for (var iOption in activity.AllowedOptions) {
-                    var optionName = activity.AllowedOptions[iOption];
+                for (var iOption in activity.Properties["AllowedOptions"]) {
+                    var optionName = activity.Properties["AllowedOptions"][iOption];
                     var elementName = '#choice' + optionName;
                     $(elementName).show();
                 }

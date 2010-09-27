@@ -20,6 +20,6 @@ Scenario: Player gets 2 Actions for GainActions
 	
 Scenario: Is Worth 2 Victory Points
 	Given A new game with 3 players	
-	And Player1 has a hand of Nobles, Copper, Copper, Estate, Estate
+	And Player1 has a Nobles in hand instead of a Copper
 	When The game is scored
 	Then Player1 should have 5 victory points
