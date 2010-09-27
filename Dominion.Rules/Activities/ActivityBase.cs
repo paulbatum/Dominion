@@ -16,9 +16,9 @@ namespace Dominion.Rules.Activities
 
         public bool IsSatisfied { get; protected set; }
 
-        public virtual void WriteProperties(IDictionary<string, object> bag)
+        public virtual IDictionary<string, object> Properties
         {
-            
+            get { return new Dictionary<string, object>();}
         }
 
         protected ActivityBase(IGameLog log, Player player, string message, ActivityType type)
@@ -46,4 +46,7 @@ namespace Dominion.Rules.Activities
         ReactionCard,
         TreasureCard
     }
+
+
+    
 }

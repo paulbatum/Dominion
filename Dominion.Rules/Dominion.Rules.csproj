@@ -70,6 +70,7 @@
     <Compile Include="Activities\IRestrictedActivity.cs" />
     <Compile Include="Activities\SelectCardToActionActivity.cs" />
     <Compile Include="Activities\SelectCardToPutBackOnDeckActivity.cs" />
+    <Compile Include="Activities\SelectionSpecifications.cs" />
     <Compile Include="Activities\WaitingForPlayersActivity.cs" />
     <Compile Include="AttackEffect.cs" />
     <Compile Include="CardBank.cs" />

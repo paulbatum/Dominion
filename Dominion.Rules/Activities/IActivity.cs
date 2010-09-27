@@ -10,6 +10,6 @@ namespace Dominion.Rules.Activities
         Player Player { get; }
         ActivityType Type { get; }
         Guid Id { get; }
-        void WriteProperties(IDictionary<string, object> bag);
+        IDictionary<string, object> Properties { get; }
     }
 }

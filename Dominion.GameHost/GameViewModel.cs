@@ -58,13 +58,10 @@ namespace Dominion.GameHost
     {
         public ActivityModel(IActivity activity)
         {
-            Properties = new Dictionary<string, object>();
+            Properties = activity.Properties;
             Type = activity.Type.ToString();
             Message = activity.Message;
             Id = activity.Id;
-
-            activity.WriteProperties(Properties);
-            
             
         }
 

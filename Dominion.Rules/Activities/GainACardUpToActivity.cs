@@ -21,10 +21,14 @@ namespace Dominion.Rules.Activities
             base.SelectPileToGainFrom(pile);
         }
 
-        public override void WriteProperties(IDictionary<string, object> bag)
+        public override IDictionary<string, object> Properties
         {
-            base.WriteProperties(bag);
-            bag["UpToCost"] = UpToCost;
+            get
+            {
+                var properties = base.Properties;
+                properties["UpToCost"] = UpToCost;
+                return properties;
+            }
         }
     }
 }

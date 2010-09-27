@@ -454,10 +454,10 @@ namespace Dominion.Specs.Bindings
         public void ThenPlayerMustSelectActionCard(string playerName, int cardCount)
         {
             var player = _game.Players.Single(p => p.Name == playerName);
-            var activity = _game.GetPendingActivity(player) as SelectCardsFromHandActivity;
+            var activity = (ISelectCardsActivity) _game.GetPendingActivity(player);
 
-            activity.Count.ShouldEqual(cardCount);
-            activity.Restrictions.Single().ShouldEqual(RestrictionType.ActionCard);
+            activity.Properties["NumberOfCardsToSelect"].ShouldEqual(cardCount);
+            activity.Properties["CardsMustBeOfType"].ShouldEqual(typeof (IActionCard).Name);
         }
 
         [Then(@"(.*) must select (\d+) treasure (\(only\) )?card[s]? to .*")]

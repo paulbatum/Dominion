@@ -38,40 +38,25 @@ namespace Dominion.Cards.Actions
 
         public void Play(TurnContext context)
         {
-            context.AddEffect(new SecretChamberActionEffect(context));
+            context.AddEffect(new SecretChamberActionEffect());
         }
 
         public class SecretChamberActionEffect : CardEffectBase
         {
-            public SecretChamberActionEffect(TurnContext context)
-            {
-
-            }
-
             public override void Resolve(TurnContext context)
             {
-                _activities.Add(new SecretChamberDiscardActivity(context));
-            }
+                var activity = new NewSelectCardsFromHandActivity(
+                    context.Game.Log, context.ActivePlayer,
+                    "Select any number of cards to discard, you will gain $1 per card",
+                    SelectionSpecifications.SelectAnyNumberOfCards());
 
-            public class SecretChamberDiscardActivity : SelectAnyNumberOfCardsFromHandActivity
-            {
-                private readonly TurnContext _currentTurn;
-
-                public SecretChamberDiscardActivity(TurnContext currentTurn)
-                    : base(currentTurn.Game.Log, currentTurn.ActivePlayer, "Select any number of cards to discard")
+                activity.AfterCardsSelected = cards =>
                 {
-                    _currentTurn = currentTurn;
-                }
-
-                public override void Execute(IEnumerable<Card> cards)
-                {
-                    foreach (var card in cards.ToList())
-                    {
-                        Log.LogDiscard(Player, card);
-                        card.MoveTo(Player.Discards);
-                        _currentTurn.MoneyToSpend++;
-                    }
-                }
+                    context.DiscardCards(activity.Player, cards);
+                    context.MoneyToSpend += cards.Count();                    
+                };
+                
+                _activities.Add(activity);
             }
         }
     }

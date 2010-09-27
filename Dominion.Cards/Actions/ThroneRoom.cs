@@ -18,39 +18,37 @@ namespace Dominion.Cards.Actions
             context.AddEffect(new ThroneRoomEffect());
         }
 
-        public class ThroneRoomEffect : CardEffectBase
+        private class ThroneRoomEffect : CardEffectBase
         {
             public override void Resolve(TurnContext context)
             {
-                if(context.ActivePlayer.Hand.OfType<IActionCard>().Any())
-                    _activities.Add(new ThroneRoomActivity(context));
-            }
+                var player = context.ActivePlayer;
+                var log = context.Game.Log;
 
-            public class ThroneRoomActivity : SelectCardsFromHandActivity
-            {
-                private readonly TurnContext _context;
-
-                public ThroneRoomActivity(TurnContext context)
-                    : base(context.Game.Log, context.ActivePlayer, "Select an action to play twice", ActivityType.SelectFixedNumberOfCards, 1)
+                if (player.Hand.OfType<IActionCard>().Any())
                 {
-                    _context = context;
-                    Restrictions.Add(RestrictionType.ActionCard);
-                }
+                    var activity = new NewSelectCardsFromHandActivity(
+                        log, player,
+                        "Select an action to play twice",
+                        SelectionSpecifications.SelectExactlyXCards(1));
 
-                public override void Execute(IEnumerable<Card> cards)
-                {
-                    var actionCard = cards.OfType<IActionCard>().Single();
-                    _context.Game.Log.LogMessage("{0} selected {1} to be played twice.", Player.Name, actionCard.Name);
-
-                    if (actionCard != null)
+                    activity.Specification.CardTypeRestriction = typeof (IActionCard);
+                    activity.AfterCardsSelected = cards =>
                     {
-                        actionCard.MoveTo(this.Player.PlayArea);
+                        var actionCard = cards.OfType<IActionCard>().Single();
+                        log.LogMessage("{0} selected {1} to be played twice.", player.Name, actionCard.Name);
 
-                        actionCard.Play(_context);
-                        actionCard.Play(_context);
-                    }
+                        actionCard.MoveTo(player.PlayArea);
+
+                        actionCard.Play(context);
+                        actionCard.Play(context);
+                    };
+
+                    _activities.Add(activity);
                 }
+                    
             }
+            
         }
     }
 }

@@ -1,28 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Dominion.Rules.CardTypes;
 
 namespace Dominion.Rules.Activities
 {
-    public interface ISelectCardsActivity
-    {
-        void SelectCards(IEnumerable<Card> cards);
-        ActivityType Type { get; }
-    }
-
-    public interface ISelectionSpecification
-    {
-        bool IsMatch(IEnumerable<Card> cards);
+    public interface ISelectCardsActivity : IActivity
+    {        
+        void SelectCards(IEnumerable<Card> cards);                
     }
 
     public class NewSelectCardsFromHandActivity : ActivityBase, ISelectCardsActivity
     {
-        protected NewSelectCardsFromHandActivity(IGameLog log, Player player, string message, ActivityType type) 
-            : base(log, player, message, type)
+        public NewSelectCardsFromHandActivity(IGameLog log, Player player, string message, ISelectionSpecification specification) 
+            : base(log, player, message, specification.ActivityType)
         {
+            Specification = specification;
         }
 
-        public ISelectionSpecification Specification { get; set; }
+        public ISelectionSpecification Specification { get; private set; }
         public Action<IEnumerable<Card>> AfterCardsSelected { get; set; }
 
         public void SelectCards(IEnumerable<Card> cards)
@@ -31,6 +27,17 @@ namespace Dominion.Rules.Activities
                 throw new ArgumentException("Selected cards do not match specification!", "cards");
 
             AfterCardsSelected(cards);
+            IsSatisfied = true;
+        }
+
+        public override IDictionary<string, object> Properties
+        {
+            get
+            {
+                var properties = base.Properties;
+                Specification.WriteProperties(properties);
+                return properties;
+            }
         }
     }
 
@@ -60,10 +67,14 @@ namespace Dominion.Rules.Activities
 
         public abstract void Execute(IEnumerable<Card> cards);
 
-        public override void WriteProperties(IDictionary<string, object> bag)
+        public override IDictionary<string, object> Properties
         {
-            base.WriteProperties(bag);
-            bag["NumberOfCardsToSelect"] = Count;
+            get
+            {
+                var properties = base.Properties;                
+                properties["NumberOfCardsToSelect"] = Count;
+                return properties;
+            }
         }
     }
 
