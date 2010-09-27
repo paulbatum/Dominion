@@ -101,8 +101,6 @@ namespace Dominion.Web.Controllers
             Client.SendChatMessage(message);
             return new EmptyResult();
         }
-
-        
     }
 
     public class GameViewModelResult : JsonNetResult

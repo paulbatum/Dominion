@@ -81,6 +81,7 @@
     <Compile Include="CardFactory.cs" />
     <Compile Include="ChoiceMessage.cs" />
     <Compile Include="ChooseAPileMessage.cs" />
+    <Compile Include="ChosenStartingConfiguration.cs" />
     <Compile Include="EndTurnMessage.cs" />
     <Compile Include="GameClient.cs" />
     <Compile Include="GameViewModel.cs" />

@@ -8,6 +8,7 @@
             .change( function(event) {
                 populateNames(event.target.value);
             });
+        $('#submitbutton').attr('disabled', true);
     });
 
     function populateNames(numberOfPlayers) {
@@ -16,6 +17,19 @@
             names += ", Player" + i
         $('#Names')
             .val(names);
+    }
+
+    function checkIfSubmitAllowed() {
+        //currently only checking that there are 10 cards picked.
+        //should update this to check the player count and names.
+        var allCardCheckboxes = $(".someCard");
+        var selectedCount = 0;
+        for (var iCheckbox = 0; iCheckbox < allCardCheckboxes.length; iCheckbox++) {
+            var checkBox = allCardCheckboxes[iCheckbox];
+            if (checkBox.checked)
+                selectedCount++;
+        }
+        $("#submitbutton").attr("disabled", selectedCount != 10);
     }
 </script>
 </asp:Content>
@@ -26,6 +40,13 @@
             "Number of Players"                    
             ) %>
         Player names: <%= Html.TextBox("Names", "", new { style="width:250px"}) %>
+        <br />
+        <% foreach (var card in HomeController.CardsForPurchase.OrderBy(c => c.Key))
+           {%>
+           <input type="checkbox" name="selectedCards" class="someCard" value="<%=card.Key%>" onclick="checkIfSubmitAllowed()" />
+           <%= card.Key %>
+           <br />
+        <% } %>
         <%= Html.SubmitButton("submitbutton", "New Game") %>
     </form>
 </asp:Content>

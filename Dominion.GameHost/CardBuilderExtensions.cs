@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Dominion.Rules;
+using System;
 
 namespace Dominion.GameHost
 {
@@ -8,6 +9,15 @@ namespace Dominion.GameHost
         public static CardPile WithNewCards<T>(this CardPile targetPile, int count) where T : Card, new()
         {
             count.Times(() => new T().MoveTo(targetPile));
+            return targetPile;
+        }
+
+        public static CardPile WithNewCards(this CardPile targetPile, Type cardType, int count)
+        {
+            count.Times(() => {
+                var newCard = (Card)Activator.CreateInstance(cardType);
+                newCard.MoveTo(targetPile);
+            });
             return targetPile;
         }
 
