@@ -186,9 +186,9 @@
             $('#message').text(pendingActivity.Message);
 
             if (pendingActivity.Type == "WaitingForOtherPlayers")
-                $('#alertBox').hide();
+                $('#prompt').addClass('waitingForOthers');
             else
-                $('#alertBox').show();
+                $('#prompt').removeClass('waitingForOthers');
         }
 
         function bindDefaultClickEvents() {

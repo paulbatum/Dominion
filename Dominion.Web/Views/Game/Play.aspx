@@ -68,7 +68,6 @@
             <div id="chatLog" class="ui-layout-east container log"></div>
             <div id="prompt" class="ui-layout-south container">
                 <div id="message"></div>
-                <div id="alertBox"></div>
                 <input id="doneChoice" type="submit" class="promptButton" value="Done" />
                 <input id="choiceDrawCards" type="submit" class="promptButton" value="Draw Cards" />
                 <input id="choiceGainActions" type="submit" class="promptButton" value="Gain Actions" />

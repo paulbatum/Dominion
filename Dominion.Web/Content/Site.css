@@ -101,12 +101,9 @@ body
     text-align:center;
 }
 
-#alertBox
+#middle #prompt.waitingForOthers
 {
-    float:right;
-    width:500px;
-    height:50px;
-    background-color:#FF2222;
+    background-color:Gray;
 }
 
 .promptButton
