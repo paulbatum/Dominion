@@ -43,7 +43,7 @@ namespace Dominion.Web.Controllers
         public ActionResult NewGame(NewGameViewModel model)
         {
             var namesArray = model.Names
-                .Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries)
+                .Split(new[] {',', '.'}, StringSplitOptions.RemoveEmptyEntries)
                 .Select(n => n.Trim());
 
             string gameKey = _host.CreateNewGame(namesArray, model.NumberOfPlayers, model.ChosenCards);
