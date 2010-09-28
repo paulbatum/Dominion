@@ -23,16 +23,19 @@ namespace Dominion.Cards.Actions
         {
             public override void Resolve(TurnContext context)
             {
-                var remodelActivity = new SelectCardToActionActivity(context, "Select a card to remodel");
+                var remodelActivity = new SelectCardsFromHandActivity(context, "Select a card to remodel", 
+                    SelectionSpecifications.SelectExactlyXCards(1));
+
                 remodelActivity.AfterCardsSelected = cardList =>
                 {
                     var player = context.ActivePlayer;
                     var cardToRemodel = cardList.Single();
                     context.Trash(player, cardToRemodel);
 
-                    var gainActivity = new GainACardUpToActivity(context.Game.Log, player, cardToRemodel.Cost + 2);
+                    var gainActivity = Activities.GainACardCostingUpToX(context.Game.Log, player, cardToRemodel.Cost + 2);
                     _activities.Add(gainActivity);
                 };
+
                 _activities.Add(remodelActivity);
             }
         }

@@ -7,10 +7,11 @@ namespace Dominion.Rules.Activities
 
     public interface ISelectionSpecification
     {
+        bool IsMatch(CardPile pile);
         bool IsMatch(IEnumerable<Card> cards);
         ActivityType ActivityType { get; }
         Type CardTypeRestriction { get; set; }
-        void WriteProperties(IDictionary<string, object> bag);
+        void WriteProperties(IDictionary<string, object> bag);        
     }
 
     public static class SelectionSpecifications
@@ -25,13 +26,23 @@ namespace Dominion.Rules.Activities
             };
         }
 
-        public static ISelectionSpecification SelectUpToXCards(int upTo)
+        public static ISelectionSpecification SelectUpToXCards(int countUpTo)
         {
             return new SelectionSpecification
             {
-                MatchFunction = cards => cards.Count() <= upTo,
+                MatchFunction = cards => cards.Count() <= countUpTo,
                 ActivityType = ActivityType.SelectUpToNumberOfCards,
-                Count = upTo
+                Count = countUpTo
+            };
+        }
+
+        public static ISelectionSpecification SelectPileCostingUpToX(int costUpTo)
+        {
+            return new SelectionSpecification
+            {
+                MatchFunction = cards => cards.Count() == 1 && cards.Single().Cost <= costUpTo,
+                ActivityType = ActivityType.SelectPile,
+                Cost = costUpTo
             };
         }
 
@@ -41,14 +52,23 @@ namespace Dominion.Rules.Activities
             public ActivityType ActivityType { get; set; }
             public Type CardTypeRestriction { get; set; }
             public int? Count { get; set; }
+            public int? Cost { get; set; }
 
             public void WriteProperties(IDictionary<string, object> bag)
             {
+                if (Cost != null)
+                    bag["Cost"] = Cost;
+
                 if(Count != null)
                     bag["NumberOfCardsToSelect"] = Count;
 
                 if (CardTypeRestriction != null)
                     bag["CardsMustBeOfType"] = this.CardTypeRestriction.Name;
+            }
+
+            public bool IsMatch(CardPile pile)
+            {
+                return IsMatch(new[] {pile.TopCard});
             }
 
             public bool IsMatch(IEnumerable<Card> cards)

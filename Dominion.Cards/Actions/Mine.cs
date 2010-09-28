@@ -23,8 +23,10 @@ namespace Dominion.Cards.Actions
         {
             public override void Resolve(TurnContext context)
             {
-                var activity = new SelectCardToActionActivity(context, "Select a treasure card to mine");
-                activity.Restrictions.Add(RestrictionType.TreasureCard);
+                var activity = new SelectCardsFromHandActivity(context, "Select a treasure card to mine", 
+                    SelectionSpecifications.SelectExactlyXCards(1));
+
+                activity.Specification.CardTypeRestriction = typeof(ITreasureCard);
                 activity.AfterCardsSelected = cardList =>
                 {
                     var cardToMine = cardList.Single();
@@ -37,10 +39,8 @@ namespace Dominion.Cards.Actions
 
             public void AddGainActivity(IGameLog log, Player player, int upToCost)
             {
-                var activity = new GainACardUpToActivity(log, player, upToCost);
-                activity.Restrictions.Add(RestrictionType.TreasureCard);
-                activity.GetDestinationPile = p => p.Hand;
-
+                var activity = Activities.GainACardCostingUpToX(log, player, upToCost, player.Hand);
+                activity.Specification.CardTypeRestriction = typeof (ITreasureCard);
                 _activities.Add(activity);
             }
         }

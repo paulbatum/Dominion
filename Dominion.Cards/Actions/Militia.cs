@@ -26,12 +26,12 @@ namespace Dominion.Cards.Actions
                 var numberToDiscard = player.Hand.CardCount - 3;
 
                 if (numberToDiscard > 0)
-                    _activities.Add(new DiscardCardsActivity(context.Game.Log, player, numberToDiscard));
+                    _activities.Add(Activities.DiscardCards(context, player, numberToDiscard));
                 else
                 {
                     context.Game.Log.LogMessage("{0} did not have to discard any cards.", player.Name);
                 }
-            }
+            }            
         }
     }
 }

@@ -215,27 +215,12 @@ namespace Dominion.Specs.Bindings
         {
             var player = _game.Players.Single(p => p.Name == playerName);
             var pile = _game.Bank.Piles.First(p => p.Name == cardName);
-            var activity = (GainACardActivity) _game.GetPendingActivity(player);
+            var activity = (ISelectPileActivity) _game.GetPendingActivity(player);
 
-            activity.SelectPileToGainFrom(pile);
+            activity.SelectPile(pile);
         }
 
-        [When(@"(.*) attempts to gain a (.*)")]
-        public void WhenPlayerAttemptsToGainACard(string playerName, string cardName)
-        {
-            var player = _game.Players.Single(p => p.Name == playerName);
-            var pile = _game.Bank.Piles.First(p => p.Name == cardName);
-            var activity = (GainACardActivity) _game.GetPendingActivity(player);
-
-            try
-            {
-                activity.SelectPileToGainFrom(pile);
-            }
-            catch (Exception)
-            {
-                //this may fail
-            }
-        }
+        
 
         [When(@"(.*) reveals (.*)")]
         public void WhenPlayerRevealsCard(string playerName, string cardName)
@@ -420,9 +405,10 @@ namespace Dominion.Specs.Bindings
         public void ThenPlayerMustSelectCards(string playerName, int numberOfCards)
         {
             var player = _game.Players.Single(p => p.Name == playerName);
-            var activity = (SelectCardsFromHandActivity) _game.GetPendingActivity(player);
+            var activity = (ISelectCardsActivity) _game.GetPendingActivity(player);
 
-            activity.Count.ShouldEqual(numberOfCards);
+            activity.Type.ShouldEqual(ActivityType.SelectFixedNumberOfCards);
+            activity.GetCountProperty().ShouldEqual(numberOfCards);
         }
 
         [Then(@"All actions should be resolved")]
@@ -458,32 +444,37 @@ namespace Dominion.Specs.Bindings
             var player = _game.Players.Single(p => p.Name == playerName);
             var activity = (ISelectCardsActivity) _game.GetPendingActivity(player);
 
-            activity.Properties["NumberOfCardsToSelect"].ShouldEqual(cardCount);
-            activity.Properties["CardsMustBeOfType"].ShouldEqual(typeof (IActionCard).Name);
+            activity.GetCountProperty().ShouldEqual(cardCount);
+            activity.GetTypeRestrictionProperty().ShouldEqual(typeof (IActionCard).Name);
         }
 
-        [Then(@"(.*) must select (\d+) treasure (\(only\) )?card[s]? to .*")]
-        public void ThenPlayerMustSelectTreasureCard(string playerName, int cardCount, string only)
+        [Then(@"(.*) must select (\d+) treasure card[s]? to .*")]
+        public void ThenPlayerMustSelectTreasureCard(string playerName, int cardCount)
         {
-            bool onlyTreasureIsAllowed = !string.IsNullOrEmpty(only);
-
             var player = _game.Players.Single(p => p.Name == playerName);
-            var activity = _game.GetPendingActivity(player) as SelectCardsFromHandActivity;
+            var activity = (ISelectCardsActivity) _game.GetPendingActivity(player);
 
-            activity.Count.ShouldEqual(cardCount);
-            activity.Restrictions.ShouldContain(RestrictionType.TreasureCard);
-
-            if (onlyTreasureIsAllowed)
-                activity.Restrictions.Count.ShouldEqual(1);
+            activity.GetCountProperty().ShouldEqual(cardCount);
+            activity.GetTypeRestrictionProperty().ShouldEqual(typeof(ITreasureCard).Name);
         }
 
         [Then(@"(.*) must gain a card of cost (\d+) or less")]
         public void ThenPlayerMustGainACardOfCostOrLess(string playerName, int cardCost)
         {
             var player = _game.Players.Single(p => p.Name == playerName);
-            var activity = _game.GetPendingActivity(player) as GainACardUpToActivity;
+            var activity = (ISelectPileActivity) _game.GetPendingActivity(player);
 
-            activity.UpToCost.ShouldEqual(cardCost);
+            activity.GetCostProperty().ShouldEqual(cardCost);
+        }
+
+        [Then(@"(.*) must gain a treasure card of cost (\d+) or less")]
+        public void ThenPlayerMustGainATreasureCardOfCostOrLess(string playerName, int cardCost)
+        {
+            var player = _game.Players.Single(p => p.Name == playerName);
+            var activity = (ISelectPileActivity)_game.GetPendingActivity(player);
+
+            activity.GetCostProperty().ShouldEqual(cardCost);
+            activity.GetTypeRestrictionProperty().ShouldEqual(typeof (ITreasureCard).Name);
         }
 
         [Then(@"(.*) must wait")]
@@ -510,7 +501,7 @@ namespace Dominion.Specs.Bindings
             var player = _game.Players.Single(p => p.Name == playerName);
             var activity = (ISelectCardsActivity) _game.GetPendingActivity(player);
 
-            activity.Properties["NumberOfCardsToSelect"].ShouldEqual(cardCount);
+            activity.GetCountProperty().ShouldEqual(cardCount);
             activity.Type.ShouldEqual(ActivityType.SelectUpToNumberOfCards);
         }
 

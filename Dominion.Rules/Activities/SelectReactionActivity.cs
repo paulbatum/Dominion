@@ -5,7 +5,7 @@ using Dominion.Rules.CardTypes;
 
 namespace Dominion.Rules.Activities
 {
-    public class SelectReactionActivity : NewSelectCardsFromHandActivity
+    public class SelectReactionActivity : SelectCardsFromHandActivity
     {
         private readonly TurnContext _currentTurn;
         private readonly AttackEffect _attackEffect;

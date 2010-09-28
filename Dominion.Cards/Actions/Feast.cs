@@ -20,7 +20,7 @@ namespace Dominion.Cards.Actions
     {
         public override void Resolve(TurnContext context)
         {
-            _activities.Add(new GainACardUpToActivity(context.Game.Log, context.ActivePlayer, 5));
+            _activities.Add(Activities.GainACardCostingUpToX(context.Game.Log, context.ActivePlayer, 5));
         }
     }
 }

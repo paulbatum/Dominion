@@ -68,6 +68,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bindings\Extensions.cs" />
     <Compile Include="Bindings\ScoringBindings.cs" />
     <Compile Include="Cards\Chancellor.feature.cs">
       <AutoGen>True</AutoGen>

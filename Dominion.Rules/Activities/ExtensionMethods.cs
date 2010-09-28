@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using Dominion.Rules.CardTypes;
 
@@ -8,29 +7,22 @@ namespace Dominion.Rules.Activities
 {
     public static class ExtensionMethods
     {
-        public static void EnsureCardsAreAllowed(this IRestrictedActivity activity, IEnumerable<Card> cardList)
+        public static string ToOrderString(this int number)
         {
-            foreach (var card in cardList)
-                activity.EnsureCardIsAllowed(card);
-        }
-
-        public static void EnsureCardIsAllowed(this IRestrictedActivity activity, Card card)
-        {
-            bool cardAllowed = false;
-            if (activity.Restrictions.Count() == 0)
-                cardAllowed |= true;
-
-            if (card is IActionCard)
-                cardAllowed |= activity.Restrictions.Contains(RestrictionType.ActionCard);
-            if (card is ITreasureCard)
-                cardAllowed |= activity.Restrictions.Contains(RestrictionType.TreasureCard);
-            if (card is IReactionCard)
-                cardAllowed |= activity.Restrictions.Contains(RestrictionType.ReactionCard);
-
-            if (cardAllowed)
-                return;
-
-            throw new ArgumentException("Card is disallowed by restrictions.", "card");
+            switch(number)
+            {
+                case 1: return "first";
+                case 2: return "second";
+                case 3: return "third";
+                case 4: return "fourth";
+                case 5: return "fifth";
+                case 6: return "sixth";
+                case 7: return "seventh";
+                case 8: return "eighth";
+                case 9: return "ninth";
+                case 10: return "tenth";
+                default: return number + "th";
+            }
         }
     }
 }

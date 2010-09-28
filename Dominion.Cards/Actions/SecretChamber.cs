@@ -36,10 +36,10 @@ namespace Dominion.Cards.Actions
             public override void Resolve(TurnContext context)
             {
                 _player.DrawCards(2);
-                _activities.Add(new SelectCardToPutBackOnDeckActivity(_player, context, "Select the first card to put on top of the deck."));
-                _activities.Add(new SelectCardToPutBackOnDeckActivity(_player, context, "Select the second card to put on top of the deck."));
+                foreach(var activity in Activities.PutMultipleCardsFromHandOnTopOfDeck(context.Game.Log, _player, 2))
+                    _activities.Add(activity);
             }
-        }
+        }   
 
         public void Play(TurnContext context)
         {
@@ -50,8 +50,8 @@ namespace Dominion.Cards.Actions
         {
             public override void Resolve(TurnContext context)
             {
-                var activity = new NewSelectCardsFromHandActivity(
-                    context.Game.Log, context.ActivePlayer,
+                var activity = new SelectCardsFromHandActivity(
+                    context,
                     "Select any number of cards to discard, you will gain $1 per card",
                     SelectionSpecifications.SelectUpToXCards(context.ActivePlayer.Hand.CardCount));
 
