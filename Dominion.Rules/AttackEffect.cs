@@ -38,4 +38,5 @@ namespace Dominion.Rules
             _nullifications.Add(player);
         }
     }
+
 }

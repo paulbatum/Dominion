@@ -361,12 +361,27 @@ namespace Dominion.Specs.Bindings
         [Then(@"(.*) should have a (.*) on top of the discard pile")]
         public void PlayerShouldHaveCardOnTopOfDiscardPile(string playerName, string cardName)
         {
-            var player = _game.Players.Single(p => p.Name == playerName);                        
+            var player = _game.Players.Single(p => p.Name == playerName);                 
             player.Discards.TopCard.Name.ShouldEqual(cardName);
         }
 
+        [Then(@"(.*) should not have a (.*) on top of the discard pile")]
+        public void PlayerShouldNotHaveCardOnTopOfDiscardPile(string playerName, string cardName)
+        {
+            var player = _game.Players.Single(p => p.Name == playerName);
+            if(player.Discards.CardCount > 0)
+                player.Discards.TopCard.Name.ShouldNotEqual(cardName);
+        }
+                
+        [Then(@"(.*) should have a discard pile of (.*)")]
+        public void PlayerShouldHaveADiscardPileOf(string playerName, string cards)
+        {
+            var player = _game.Players.Single(p => p.Name == playerName);
+            player.Discards.ToString().ShouldEqual(cards);
+        }
+
         [Then(@"There should be a (.*) on top of the trash pile")]
-        public void PlayerShouldHaveCardOnTopOfTrashPile(string cardName)
+        public void ShouldHaveCardOnTopOfTrashPile(string cardName)
         {
             _game.Trash.TopCard.Name.ShouldEqual(cardName);
         }

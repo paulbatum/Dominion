@@ -17,20 +17,20 @@ namespace Dominion.Specs.Cards
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.3.5.2")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Witch")]
-    public partial class WitchFeature
+    [NUnit.Framework.DescriptionAttribute("Mountebank")]
+    public partial class MountebankFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "Witch.feature"
+#line 1 "Mountebank.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Witch", "", ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Mountebank", "", ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -53,51 +53,47 @@ namespace Dominion.Specs.Cards
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Play Witch")]
-        public virtual void PlayWitch()
+        [NUnit.Framework.DescriptionAttribute("Play Mountebank")]
+        public virtual void PlayMountebank()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Play Witch", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Play Mountebank", ((string[])(null)));
 #line 3
 this.ScenarioSetup(scenarioInfo);
 #line 4
 testRunner.Given("A new game with 3 players");
 #line 5
-testRunner.And("Player1 has a Witch in hand instead of a Copper");
+testRunner.And("Player1 has a Mountebank in hand instead of a Copper");
 #line 6
-testRunner.When("Player1 plays a Witch");
+testRunner.When("Player1 plays a Mountebank");
 #line 7
-testRunner.Then("Player1 should have 6 cards in hand");
+testRunner.Then("Player1 should have 2 to spend");
 #line 8
-testRunner.Then("Player2 should have a Curse on top of the discard pile");
+testRunner.Then("Player2 should have a discard pile of Copper, Curse");
 #line 9
-testRunner.Then("Player3 should have a Curse on top of the discard pile");
+testRunner.Then("Player3 should have a discard pile of Copper, Curse");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Play Witch with only 1 Curse left")]
-        public virtual void PlayWitchWithOnly1CurseLeft()
+        [NUnit.Framework.DescriptionAttribute("Play Mountebank when a player is holding a curse")]
+        public virtual void PlayMountebankWhenAPlayerIsHoldingACurse()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Play Witch with only 1 Curse left", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Play Mountebank when a player is holding a curse", ((string[])(null)));
 #line 11
 this.ScenarioSetup(scenarioInfo);
 #line 12
 testRunner.Given("A new game with 3 players");
 #line 13
-testRunner.Given("There is only 1 Curse left");
+testRunner.And("Player1 has a Mountebank in hand instead of a Copper");
 #line 14
-testRunner.And("Player2 has a Witch in hand instead of a Copper");
+testRunner.And("Player2 has a Curse in hand instead of a Copper");
 #line 15
-testRunner.When("Player1 ends their turn");
+testRunner.When("Player1 plays a Mountebank");
 #line 16
-testRunner.When("Player2 plays a Witch");
+testRunner.Then("Player2 should have a discard pile of Curse");
 #line 17
-testRunner.Then("Player2 should have 6 cards in hand");
-#line 18
-testRunner.Then("Player3 should have a Curse on top of the discard pile");
-#line 19
-testRunner.Then("Player1 should not have a Curse on top of the discard pile");
+testRunner.Then("Player3 should have a discard pile of Copper, Curse");
 #line hidden
             testRunner.CollectScenarioErrors();
         }

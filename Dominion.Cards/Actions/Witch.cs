@@ -26,18 +26,8 @@ namespace Dominion.Cards.Actions
         {
             public override void Attack(Player player, TurnContext context)
             {
-                var cursePile = context.Game.Bank.Piles.SingleOrDefault(x => x.TopCard is Curse);
-
-                if (cursePile != null)
-                {
-                    var card = cursePile.TopCard;
-                    card.MoveTo(player.Discards);
-                    context.Game.Log.LogGain(player, card);
-                }
-                else
-                {
-                    context.Game.Log.LogMessage("{0} avoided a Curse because the pile is empty", player.Name);
-                }
+                var gainUtil = new GainUtility(context, player);                
+                gainUtil.Gain<Curse>();       
             }
         }
     }

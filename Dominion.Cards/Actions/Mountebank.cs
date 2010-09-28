@@ -23,30 +23,23 @@ namespace Dominion.Cards.Actions
         {
             public override void Attack(Player player, TurnContext context)
             {
-                var curse = player.Hand.OfType<Curse>().FirstOrDefault();
-                var cursePile = context.Game.Bank.Piles.SingleOrDefault(x => x.TopCard is Curse);
-                var copperPile = context.Game.Bank.Piles.SingleOrDefault(x => x.TopCard is Copper);
+                var curseInHand = player.Hand.OfType<Curse>().FirstOrDefault();
 
-                if(curse == null)
+                if(curseInHand == null)
                 {
                     context.Game.Log.LogMessage("{0} did not have a Curse to discard.", player.Name);
-                    var copper = copperPile.TopCard;
-                    copper.MoveTo(player.Discards);
-                    context.Game.Log.LogGain(player, copper);
-
-                    if (cursePile != null)
-                    {
-                        var card = cursePile.TopCard;
-                        card.MoveTo(player.Discards);
-                        context.Game.Log.LogGain(player, card);
-                    }
+                    var gainUtil = new GainUtility(context, player);                    
+                    gainUtil.Gain<Copper>();                    
+                    gainUtil.Gain<Curse>();                    
                 }
                 else
                 {
-                    curse.MoveTo(player.Discards);
-                    context.Game.Log.LogDiscard(player, curse);
+                    curseInHand.MoveTo(player.Discards);
+                    context.Game.Log.LogDiscard(player, curseInHand);
                 }
             }
         }
     }
+
+    
 }

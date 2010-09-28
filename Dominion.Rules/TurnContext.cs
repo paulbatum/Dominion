@@ -28,7 +28,13 @@ namespace Dominion.Rules
 
         public IEnumerable<Player> Opponents
         {
-            get { return this.Game.Players.Where(p => p != ActivePlayer); }
+            get
+            {
+                var playersBefore = this.Game.Players.TakeWhile(p => p != this.ActivePlayer);
+                var playersAfter = this.Game.Players.SkipWhile(p => p != this.ActivePlayer).Skip(1);
+                var opponents = playersAfter.Concat(playersBefore).ToList();
+                return opponents;
+            }
         }
 
         public void DrawCards(int numberOfCardsToDraw)

@@ -20,13 +20,8 @@ namespace Dominion.Cards.Actions
             context.DrawCards(4);
             context.Buys += 1;
 
-            foreach (var player in context.Game.Players)
-            {
-                if (player != context.ActivePlayer)
-                {
-                    player.DrawCards(1);
-                }
-            }
+            foreach (var player in context.Opponents)
+                player.DrawCards(1);
         }
     }
 }
