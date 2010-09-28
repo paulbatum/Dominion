@@ -20,8 +20,8 @@ namespace Dominion.Cards.Actions
             context.DrawCards(4);
             context.Buys += 1;
 
-            foreach (var player in context.Opponents)
-                player.DrawCards(1);
+            foreach (var opponent in context.Opponents)
+                opponent.DrawCards(1);
         }
     }
 }
