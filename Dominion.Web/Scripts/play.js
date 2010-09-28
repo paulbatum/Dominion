@@ -81,11 +81,13 @@
             setupChat();
             setupHover();
             bindDefaultClickEvents();
-        
+
             doChatComet();
             doGameComet();
 
             bindCommands();
+
+            actions.chat("(SYSTEM) I'm here!");
         });
 
         function setupChat() {
@@ -151,6 +153,8 @@
             updateSection('#deck', data.Deck, '#deckTemplate');
             updateSection('#discards', data.Discards, '#discardpileTemplate');
 
+            $('#bank > .cardpile:gt(0)')                
+                .css('margin-left','-15px');
 
             if (data.PendingActivity) {
                 bindActivity(data.PendingActivity)

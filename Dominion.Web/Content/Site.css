@@ -6,7 +6,12 @@ body
 #bank .cardpile,
 #hand .card
 {
-    cursor: pointer;
+    cursor: pointer;    
+}
+
+.pileLabel
+{
+    font-size:small;    
 }
 
 .cardpile, .card
@@ -18,7 +23,7 @@ body
 .cardpile img,
 .card img
 {    
-    height: 150px;           
+    height: 150px;               
 }   
 
 #bank .cardpile img,
@@ -42,7 +47,8 @@ body
 #bank
 {        
     background-color:DarkSlateGray;        
-    color:White;        
+    color:White;      
+    overflow-y:auto; 
 }
 
 #display

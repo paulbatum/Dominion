@@ -22,7 +22,7 @@
     <script id="cardpileTemplate" type="text/html">
         <div class="cardpile">            
             <img src="${ImageUrl}" />   
-            <div>
+            <div class="pileLabel">
                 (${CountDescription})                        
             </div>
         </div>
@@ -50,7 +50,7 @@
     </script>
 </asp:Content>
 <asp:Content runat="server" ID="Content2" ContentPlaceHolderID="MainContent">
-    <div id="bank" class="ui-layout-north container"></div>
+    <div id="bank" class="ui-layout-north"></div>
     <div id="main" class="ui-layout-center">        
         <div id="display" class="ui-layout-west">
             <div id="status" class="container"></div>

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Dominion.Rules;
@@ -127,7 +127,7 @@ namespace Dominion.GameHost
 
         public string CountDescription
         {
-            get { return IsLimited ? Count.ToString() : "Unlimited"; }
+            get { return IsLimited ? Count.ToString() : "∞"; }
         }
     }
 
