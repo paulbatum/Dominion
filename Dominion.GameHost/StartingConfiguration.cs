@@ -22,12 +22,12 @@ namespace Dominion.GameHost
 
         public virtual void InitializeBank(CardBank bank)
         {
-            bank.AddCardPile(Copper);
-            bank.AddCardPile(Silver);
             bank.AddCardPile(Gold);
-            bank.AddCardPile(Estates);
-            bank.AddCardPile(Duchies);
+            bank.AddCardPile(Silver);            
             bank.AddCardPileWhichEndsTheGameWhenEmpty(Provinces);
+            bank.AddCardPile(Duchies);
+            bank.AddCardPile(Copper);                        
+            bank.AddCardPile(Estates);                        
             bank.AddCardPile(Curses);
         }
 

@@ -22,9 +22,14 @@ namespace Dominion.Cards.Actions
         public bool ContinueReactingIfOnlyReaction
         {
             get { return true; }
+        }        
+
+        public void Play(TurnContext context)
+        {
+            context.AddEffect(new SecretChamberActionEffect());
         }
 
-        public class SecretChamberReactionEffect : CardEffectBase
+        private class SecretChamberReactionEffect : CardEffectBase
         {
             private readonly Player _player;
 
@@ -36,17 +41,12 @@ namespace Dominion.Cards.Actions
             public override void Resolve(TurnContext context)
             {
                 _player.DrawCards(2);
-                foreach(var activity in Activities.PutMultipleCardsFromHandOnTopOfDeck(context.Game.Log, _player, 2))
+                foreach (var activity in Activities.PutMultipleCardsFromHandOnTopOfDeck(context.Game.Log, _player, 2))
                     _activities.Add(activity);
             }
-        }   
-
-        public void Play(TurnContext context)
-        {
-            context.AddEffect(new SecretChamberActionEffect());
         }
 
-        public class SecretChamberActionEffect : CardEffectBase
+        private class SecretChamberActionEffect : CardEffectBase
         {
             public override void Resolve(TurnContext context)
             {

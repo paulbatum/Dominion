@@ -42,6 +42,9 @@ namespace Dominion.GameHost.AI
                 .OrderBy(x => priorities.IndexOf(x.Name))
                 .First();
 
+            if(pile.Name == "Province")
+                _client.SendChatMessage("Province muthafucka!");
+
             return new BuyCardMessage(_client.PlayerId, pile.Id);
         }
 
