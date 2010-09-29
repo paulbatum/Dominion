@@ -52,5 +52,13 @@ namespace Dominion.Rules
             this.Cards.Insert(0, card);
         }
 
+        public void MoveTop(int count, CardZone cardZone)
+        {
+            count.Times(() =>
+            {
+                if (TopCard != null) 
+                    TopCard.MoveTo(cardZone);
+            });                       
+        }
     }
 }

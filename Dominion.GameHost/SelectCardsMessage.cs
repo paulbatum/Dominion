@@ -6,9 +6,9 @@ using Dominion.Rules.Activities;
 
 namespace Dominion.GameHost
 {
-    public class SelectCardsFromHandMessage : IGameActionMessage
+    public class SelectCardsMessage : IGameActionMessage
     {
-        public SelectCardsFromHandMessage(Guid playerId, Guid[] cardIds)
+        public SelectCardsMessage(Guid playerId, Guid[] cardIds)
         {
             PlayerId = playerId;
             CardIds = cardIds ?? new Guid[]{};

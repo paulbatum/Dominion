@@ -73,8 +73,7 @@
                 <input id="choiceGainActions" type="submit" class="promptButton" value="Gain Actions" />
                 <input id="choiceNo" type="submit" class="promptButton" value="No" />
                 <input id="choiceYes" type="submit" class="promptButton" value="Yes" />
-            </div>
-            <div id="revealed" class="ui-layout-north container"></div>
+            </div>            
         </div>
         <div id="log" class="ui-layout-east container log"></div>
     </div>        

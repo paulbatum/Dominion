@@ -71,14 +71,12 @@ namespace Dominion.GameHost
         public ActivityModel(IActivity activity)
         {
             Properties = activity.Properties;
-            Type = activity.Type.ToString();
-            Category = activity.Category.ToString();
+            Type = activity.Type.ToString();            
             Message = activity.Message;
             Id = activity.Id;
             
         }
-
-        public string Category { get; set; }
+        
         public string Type { get; set; }
         public string Message { get; set; }
         public Guid Id { get; set; }

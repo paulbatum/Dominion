@@ -21,17 +21,10 @@ namespace Dominion.Cards.Actions
         private class ThiefAttack : AttackEffect
         {
             public override void Attack(Player player, TurnContext context)
-            {
-                var log = context.Game.Log;
+            {                
                 var revealZone = new RevealZone(player);
-
-                // Top 2
-                if(player.Deck.TopCard != null)
-                    player.Deck.TopCard.MoveTo(revealZone);
-                if(player.Deck.TopCard != null)
-                    player.Deck.TopCard.MoveTo(revealZone);
-
-                log.LogMessage("{0} revealed {1}.", player.Name, revealZone);
+                player.Deck.MoveTop(2, revealZone);
+                revealZone.LogReveal(context.Game.Log);                
 
                 var revealedTreasures = revealZone.OfType<ITreasureCard>().WithDistinctTypes();
 
@@ -41,57 +34,40 @@ namespace Dominion.Cards.Actions
                         revealZone.MoveAll(player.Discards);
                         return;
                     case 1:
-                        var trashedCard = revealedTreasures.Single();
-                        trashedCard.MoveTo(context.Game.Trash);
-                        log.LogTrash(player, trashedCard);
-                        revealZone.MoveAll(player.Discards);
-                        var gainOrTrashActivity = CreateGainOrTrashActivity(context, trashedCard, TODO);
-                        _activities.Add(gainOrTrashActivity);
+                        var trashedCard = TrashAndDiscard(context, revealZone, revealedTreasures);
+                        var gainChoiceActivity = Activities.GainOpponentsCardChoice(context, trashedCard, revealZone.Owner);
+                        _activities.Add(gainChoiceActivity);
                         break;
                     default:
                         var chooseTreasureActivity = CreateChooseTreasureActivity(context, revealZone);
                         _activities.Add(chooseTreasureActivity);
                         break;
                 }
+            }
 
+            private Card TrashAndDiscard(TurnContext context, RevealZone revealZone, IEnumerable<ITreasureCard> revealedTreasures)
+            {
+                var trashedCard = revealedTreasures.Single();
+                trashedCard.MoveTo(context.Game.Trash);
+                context.Game.Log.LogTrash(revealZone.Owner, trashedCard);
+                revealZone.MoveAll(revealZone.Owner.Discards);
+                return (Card) trashedCard;
             }
 
             private IActivity CreateChooseTreasureActivity(TurnContext context, RevealZone revealZone)
             {
-                var selectTreasure = new SelectFromRevealedCardsActivity(context, revealZone, 
+                var selectTreasure = new SelectFromRevealedCardsActivity(context, revealZone,
                     "Select a treasure to trash (you will have the opportunity to gain it).", SelectionSpecifications.SelectExactlyXCards(1));
                 
                 selectTreasure.AfterCardsSelected = cards =>
                 {
-                    var card = cards.OfType<ITreasureCard>().Single();
-                    card.MoveTo(context.Game.Trash);
-                    revealZone.MoveAll(revealZone.Owner.Discards);
-
-                    var gainOrTrashActivity = CreateGainOrTrashActivity(context, card, revealZone.Owner);
+                    var trashedCard = TrashAndDiscard(context, revealZone, cards.OfType<ITreasureCard>());
+                    var gainOrTrashActivity = Activities.GainOpponentsCardChoice(context, trashedCard, revealZone.Owner);
                     _activities.Insert(0, gainOrTrashActivity);
                 };
                 
                 return selectTreasure;
-            }
-
-            private IActivity CreateGainOrTrashActivity(TurnContext context, ITreasureCard trashedCard, Player owner)
-            {                
-                var gainOrTrash = new ChoiceActivity(context, context.ActivePlayer, 
-                                                     string.Format("Gain {0}'s {1}?", owner.Name, trashedCard),Choice.Yes, Choice.No);
-                
-                gainOrTrash.ActOnChoice = choice =>
-                {
-                    if(choice == Choice.Yes)
-                    {
-                        trashedCard.MoveTo(context.ActivePlayer.Discards);
-                        context.Game.Log.LogGain(context.ActivePlayer, (Card)trashedCard);
-                    }
-                };
-
-                return gainOrTrash;
-            }
+            }            
         }
-
-      
     }    
 }

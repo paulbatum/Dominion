@@ -14,7 +14,7 @@ namespace Dominion.GameHost.AI
             var orderedHand = currentState.Hand                
                 .OrderBy(c => discardPreference.IndexOf(c.Name)).ToList();
             var cardIdsToDiscard = orderedHand.Take(count).Select(c => c.Id).ToArray();
-            var discardAction = new SelectCardsFromHandMessage(_client.PlayerId, cardIdsToDiscard.ToArray());
+            var discardAction = new SelectCardsMessage(_client.PlayerId, cardIdsToDiscard.ToArray());
             _client.AcceptMessage(discardAction);
         }
 

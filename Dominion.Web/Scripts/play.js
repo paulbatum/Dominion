@@ -110,47 +110,40 @@
             controller.HandClick = function (event) { };
             controller.BankClick = function (event) { };
             controller.DoneClick = function (event) { };
-            controller.RevealedClick = function (event) { };
+            controller.PlayAreaClick = function (event) { };
 
-            if (activity.Category == "SelectFromRevealed") {
-                middleLayout.open('north');
-                controller.RevealedClick = function (event) { actions.selectFixedNumberOfCards(event, activity); };
+            //This should be generalised to add/remove choice elements from the DOM
+            $('#choiceDrawCards').hide();
+            $('#choiceGainActions').hide();
+            $('#choiceYes').hide();
+            $('#choiceNo').hide();
+            $('#doneChoice').hide();
+
+            if (activity.Type == "SelectFromRevealed") {
+                controller.PlayAreaClick = function (event) { actions.selectFixedNumberOfCards(event, activity); };
             }
-            else {
 
-                middleLayout.close('north');
+            if (activity.Type == "SelectFixedNumberOfCards") {
+                controller.HandClick = function (event) { actions.selectFixedNumberOfCards(event, activity); };
+            }
 
-                if (activity.Type == "SelectFixedNumberOfCards") {
-                    controller.HandClick = function (event) { actions.selectFixedNumberOfCards(event, activity); };
-                }
-
-                //This should be generalised to add/remove choice elements from the DOM
-                $('#choiceDrawCards').hide();
-                $('#choiceGainActions').hide();
-                $('#choiceYes').hide();
-                $('#choiceNo').hide();
-
-                if (activity.Type == "MakeChoice") {
-                    for (var iOption in activity.Properties["AllowedOptions"]) {
-                        var optionName = activity.Properties["AllowedOptions"][iOption];
-                        var elementName = '#choice' + optionName;
-                        $(elementName).show();
-                    }
-                }
-
-                if (activity.Type == "SelectUpToNumberOfCards") {
-                    controller.HandClick = function (event) { actions.toggleCardSelection(event, activity); };
-                    controller.DoneClick = function (event) { actions.submitCardSelection(event, activity); };
-                    $('#doneChoice').show();
-                }
-                else {
-                    $('#doneChoice').hide();
-                }
-
-                if (activity.Type == "SelectPile") {
-                    controller.BankClick = function (event) { actions.selectPile(event, activity); };
+            if (activity.Type == "MakeChoice") {
+                for (var iOption in activity.Properties["AllowedOptions"]) {
+                    var optionName = activity.Properties["AllowedOptions"][iOption];
+                    var elementName = '#choice' + optionName;
+                    $(elementName).show();
                 }
             }
+
+            if (activity.Type == "SelectUpToNumberOfCards") {
+                controller.HandClick = function (event) { actions.toggleCardSelection(event, activity); };
+                controller.DoneClick = function (event) { actions.submitCardSelection(event, activity); };
+                $('#doneChoice').show();
+            }
+
+            if (activity.Type == "SelectPile") {
+                controller.BankClick = function (event) { actions.selectPile(event, activity); };
+            }            
 
         }
 
@@ -158,11 +151,10 @@
 
             updateSection('#bank', data.Bank, '#cardpileTemplate');
             updateSection('#hand', data.Hand, '#cardTemplate');
-            updateSection('#status', data.Status, '#statusTemplate');
-            updateSection('#playArea', data.InPlay, '#cardTemplate');
+            updateSection('#status', data.Status, '#statusTemplate');            
             updateSection('#deck', data.Deck, '#deckTemplate');
             updateSection('#discards', data.Discards, '#discardpileTemplate');
-            updateSection('#revealed', data.Revealed, '#cardTemplate');
+            updateSection('#playArea', data.Revealed || data.InPlay, '#cardTemplate');
 
             $('#bank > .cardpile:gt(0)')                
                 .css('margin-left','-15px');
@@ -279,10 +271,6 @@
             middleLayout = $('#middle').layout({
                 defaults: defaults,
 
-                north: {
-                    size: '60%',
-                    initClosed: true
-                },
                 south: {
                     size: '30%' 
                 },
@@ -308,7 +296,7 @@
 
         function bindCommands() {
             $('#hand .card').live('click', function (event) { controller.HandClick(event); });
-            $('#revealed .card').live('click', function (event) { controller.RevealedClick(event); });
+            $('#playArea .card').live('click', function (event) { controller.PlayAreaClick(event); });
             $('#bank .cardpile').live('click', function (event) { controller.BankClick(event); });
 
             $('#yesChoice')

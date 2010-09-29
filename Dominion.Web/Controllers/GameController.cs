@@ -67,7 +67,7 @@ namespace Dominion.Web.Controllers
         [HttpPost]
         public ActionResult SelectCards(Guid[] ids)
         {
-            var message = new SelectCardsFromHandMessage(Client.PlayerId, ids);
+            var message = new SelectCardsMessage(Client.PlayerId, ids);
             Client.AcceptMessage(message);
             return new EmptyResult();
         }

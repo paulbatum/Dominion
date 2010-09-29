@@ -17,7 +17,9 @@
             : base(context.Game.Log, context.ActivePlayer, message, selectionSpecification)
         {
             RevealedCards = revealZone;
-            this.Category = ActivityCategory.SelectFromRevealed;
+
+            // HACK. I'm ignoring the activity type on the selection specification. Not sure what to do here.
+            Type = ActivityType.SelectFromRevealed;
         }
     }
 }

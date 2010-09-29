@@ -82,7 +82,7 @@ namespace Dominion.Specs.Bindings
             var client = _clients.Single(c => c.PlayerName == playerName);
             var gameState = _gameHost.GetGameState(client);
             var cardId = gameState.Hand.First(p => p.Name == cardName).Id;
-            var message = new SelectCardsFromHandMessage(client.PlayerId, new[] { cardId });
+            var message = new SelectCardsMessage(client.PlayerId, new[] { cardId });
             _gameHost.AcceptMessage(message);
         }
 

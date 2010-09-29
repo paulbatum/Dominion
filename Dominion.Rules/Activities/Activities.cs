@@ -48,5 +48,22 @@ namespace Dominion.Rules.Activities
                 }
             };
         }
+
+        public static IActivity GainOpponentsCardChoice(TurnContext context, Card card, Player cardOwner)
+        {
+            var activity = new ChoiceActivity(context, context.ActivePlayer,
+                string.Format("Gain {0}'s {1}?", cardOwner.Name, card), Choice.Yes, Choice.No);
+
+            activity.ActOnChoice = choice =>
+            {
+                if (choice == Choice.Yes)
+                {
+                    card.MoveTo(context.ActivePlayer.Discards);
+                    context.Game.Log.LogGain(context.ActivePlayer, card);
+                }
+            };
+
+            return activity;
+        }
     }
 }

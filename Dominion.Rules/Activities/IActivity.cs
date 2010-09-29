@@ -9,7 +9,6 @@ namespace Dominion.Rules.Activities
         bool IsSatisfied { get; }
         Player Player { get; }
         ActivityType Type { get; }
-        ActivityCategory Category { get; }
         Guid Id { get; }
         IDictionary<string, object> Properties { get; }
     }

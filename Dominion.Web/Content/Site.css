@@ -51,19 +51,6 @@ body
     overflow-y:auto; 
 }
 
-#revealed
-{
-    background-color:Blue;
-    overflow:visible;
-    z-index:50;
-}
-
-#revealed .card img
-{    
-    height:100px;
-}
-
-
 #display
 {          
     font-weight:bold;

@@ -574,8 +574,7 @@ namespace Dominion.Specs.Bindings
             var player = _game.Players.Single(p => p.Name == playerName);
             var activity = (ISelectFromRevealedCardsActivity) _game.GetPendingActivity(player);
             activity.RevealedCards.ToString().ShouldEqual(cards);
-            activity.Type.ShouldEqual(ActivityType.SelectFixedNumberOfCards);            
-            activity.Category.ShouldEqual(ActivityCategory.SelectFromRevealed);
+            activity.Type.ShouldEqual(ActivityType.SelectFromRevealed);                        
             activity.GetCountProperty().ShouldEqual(1);
         }
 

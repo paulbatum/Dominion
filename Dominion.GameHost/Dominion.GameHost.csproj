@@ -90,7 +90,7 @@
     <Compile Include="MoveToBuyStepMessage.cs" />
     <Compile Include="MultiGameHost.cs" />
     <Compile Include="PlayCardMessage.cs" />
-    <Compile Include="SelectCardsFromHandMessage.cs" />
+    <Compile Include="SelectCardsMessage.cs" />
     <Compile Include="SimpleStartingConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StartingConfiguration.cs" />
