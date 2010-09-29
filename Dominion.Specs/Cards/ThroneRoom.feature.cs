@@ -134,9 +134,9 @@ testRunner.When("Player1 selects a ThroneRoom to ThroneRoom");
 #line 28
 testRunner.When("Player1 selects a Chancellor to ThroneRoom");
 #line 29
-testRunner.When("Player1 chooses No");
+testRunner.When("Player1 chooses to leave their deck as is (No)");
 #line 30
-testRunner.When("Player1 chooses No");
+testRunner.When("Player1 chooses to leave their deck as is (No)");
 #line 31
 testRunner.When("Player1 selects a Smithy to ThroneRoom");
 #line 32

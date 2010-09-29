@@ -26,8 +26,8 @@ Scenario: Player uses Throne Room's effect on a Throne Room
 	When Player1 plays a ThroneRoom
 	When Player1 selects a ThroneRoom to ThroneRoom	
 	When Player1 selects a Chancellor to ThroneRoom
-	When Player1 chooses No	
-	When Player1 chooses No
+	When Player1 chooses to leave their deck as is (No)
+	When Player1 chooses to leave their deck as is (No)
 	When Player1 selects a Smithy to ThroneRoom
 	Then Player1 should have 6 cards in hand	
 	And Player1 should have 4 to spend	

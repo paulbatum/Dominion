@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using Dominion.Cards.Curses;
 using Dominion.Rules;
+using Dominion.Rules.CardTypes;
 
 namespace Dominion.Cards
 {
-    public static class BankExtensions
+    public static class Extensions
     {
         public static CardPile Pile<T> (this CardBank bank)
         {
@@ -20,6 +21,9 @@ namespace Dominion.Cards
             return pile.IsEmpty ? null : pile;
         }
 
-
+        public static IEnumerable<T> WithDistinctTypes<T>(this IEnumerable<T> input)
+        {
+            return input.Distinct(new SameTypeEqualityComparer<T>());
+        }
     }
 }

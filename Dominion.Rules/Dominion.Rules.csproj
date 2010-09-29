@@ -65,12 +65,14 @@
     <Compile Include="Activities\ChoiceActivity.cs" />
     <Compile Include="Activities\ExtensionMethods.cs" />
     <Compile Include="Activities\IActivity.cs" />
+    <Compile Include="Activities\SelectFromRevealedCardsActivity.cs" />
     <Compile Include="Activities\SelectionSpecifications.cs" />
     <Compile Include="Activities\SelectPileActivity.cs" />
     <Compile Include="Activities\WaitingForPlayersActivity.cs" />
     <Compile Include="AttackEffect.cs" />
     <Compile Include="CardBank.cs" />
     <Compile Include="CardEffectBase.cs" />
+    <Compile Include="CardTypes\SameTypeEqualityComparer.cs" />
     <Compile Include="CardTypes\IActionCard.cs" />
     <Compile Include="Card.cs" />
     <Compile Include="CardTypes\ICurseCard.cs" />
@@ -82,7 +84,7 @@
     <Compile Include="DiscardPile.cs" />
     <Compile Include="EnumerableCardZone.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="Activities\SelectCardsFromHandActivity.cs" />
+    <Compile Include="Activities\SelectCardsActivity.cs" />
     <Compile Include="GameScores.cs" />
     <Compile Include="ICard.cs" />
     <Compile Include="PlayArea.cs" />

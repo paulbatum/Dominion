@@ -9,12 +9,12 @@ Scenario: Player must choose between cards or actions
 	Then Player1 must choose from DrawCards, GainActions
 
 Scenario: Player gets 3 Cards for DrawCards
-	And Player1 chooses DrawCards
+	And Player1 chooses to draw 3 cards (DrawCards)
 	Then Player1 should have 7 cards in hand
 	And Player1 should have 0 actions remaining
 	
 Scenario: Player gets 2 Actions for GainActions
-	And Player1 chooses GainActions
+	And Player1 chooses to gain 2 actions (GainActions)
 	Then Player1 should have 2 actions remaining
 	And Player1 should have 4 cards in hand
 	

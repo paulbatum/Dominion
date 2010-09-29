@@ -150,6 +150,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SecretChamber.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\Thief.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Thief.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\ThroneRoom.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -300,6 +305,10 @@
     <None Include="Cards\SecretChamber.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>SecretChamber.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\Thief.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Thief.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\ThroneRoom.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

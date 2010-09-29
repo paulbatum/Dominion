@@ -23,7 +23,7 @@ namespace Dominion.Cards.Actions
         {
             public override void Resolve(TurnContext context)
             {
-                var remodelActivity = new SelectCardsFromHandActivity(context, "Select a card to remodel", 
+                var remodelActivity = new SelectCardsActivity(context, "Select a card to remodel", 
                     SelectionSpecifications.SelectExactlyXCards(1));
 
                 remodelActivity.AfterCardsSelected = cardList =>

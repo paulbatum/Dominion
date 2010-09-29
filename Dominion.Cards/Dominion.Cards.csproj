@@ -74,12 +74,13 @@
     <Compile Include="Actions\Remodel.cs" />
     <Compile Include="Actions\SecretChamber.cs" />
     <Compile Include="Actions\Smithy.cs" />
+    <Compile Include="Actions\Thief.cs" />
     <Compile Include="Actions\ThroneRoom.cs" />
     <Compile Include="Actions\Village.cs" />
     <Compile Include="Actions\Witch.cs" />
     <Compile Include="Actions\Woodcutter.cs" />
     <Compile Include="Actions\Workshop.cs" />
-    <Compile Include="BankExtensions.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Curses\Curse.cs" />
     <Compile Include="GainUtility.cs" />
     <Compile Include="Hybrid\GreatHall.cs" />

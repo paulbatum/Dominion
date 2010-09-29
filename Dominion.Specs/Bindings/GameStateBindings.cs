@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using Dominion.Cards.Treasure;
@@ -201,14 +202,24 @@ namespace Dominion.Specs.Bindings
             activity.SelectCards(cards);
         }
 
-        [When(@"(.*) chooses (.*)")]
+        //[When(@"(.*) chooses (.*)")]
+        //public void WhenPlayerChooses(string playerName, string choice)
+        //{            
+        //    var player = _game.Players.Single(p => p.Name == playerName);
+        //    var pendingActivity = _game.GetPendingActivity(player);
+        //    var activity = (ChoiceActivity)pendingActivity;
+        //    activity.MakeChoice(choice);
+        //}
+
+        [When(@"(.*) chooses to .* \((.*)\)")]
         public void WhenPlayerChooses(string playerName, string choice)
-        {            
+        {
             var player = _game.Players.Single(p => p.Name == playerName);
             var pendingActivity = _game.GetPendingActivity(player);
             var activity = (ChoiceActivity)pendingActivity;
             activity.MakeChoice(choice);
         }
+
 
         [When(@"(.*) gains a (.*)")]
         public void WhenPlayerGainsACard(string playerName, string cardName)
@@ -242,6 +253,15 @@ namespace Dominion.Specs.Bindings
             activity.SelectCards(Enumerable.Empty<Card>());
         }
 
+        [When(@"(.*) selects (.*) from the revealed cards")]
+        public void WhenPlayerSelectsFromTheRevealedCards(string playerName, string cardName)
+        {
+            var player = _game.Players.Single(p => p.Name == playerName);
+
+            var activity = (ISelectFromRevealedCardsActivity)_game.GetPendingActivity(player);
+            var card = activity.RevealedCards.First(c => c.Name == cardName);
+            activity.SelectCards(new[] { card });            
+        }
 
        
 
@@ -453,6 +473,18 @@ namespace Dominion.Specs.Bindings
                 (IEnumerable<string>) activity.Properties["AllowedOptions"]);
         }
 
+        [Then(@"(.*) must choose whether to .* \((.*) or (.*)\)")]
+        public void ThenPlayerMustChooseFromYesNo(string playerName, string option1, string option2)
+        {
+            var player = _game.Players.Single(p => p.Name == playerName);
+            var activity = _game.GetPendingActivity(player);
+
+            activity.ShouldBeOfType<ChoiceActivity>();
+            CollectionAssert.AreEquivalent(
+                new[] { option1, option2 },
+                (IEnumerable) activity.Properties["AllowedOptions"]);
+        }        
+
         [Then(@"(.*) must select (\d+) action card[s]?")]
         public void ThenPlayerMustSelectActionCard(string playerName, int cardCount)
         {
@@ -536,6 +568,14 @@ namespace Dominion.Specs.Bindings
             deckContents.ShouldEqual(cardNames);
         }
 
+        [Then(@"(.*) must select a revealed card from: (.*)")]
+        public void ThenPlayerMustSelectARevealedCardFromSilverCopper(string playerName, string cards)
+        {
+            var player = _game.Players.Single(p => p.Name == playerName);
+            var activity = (ISelectFromRevealedCardsActivity) _game.GetPendingActivity(player);
+            activity.RevealedCards.ToString().ShouldEqual(cards);
+            activity.Type.ShouldEqual(ActivityType.SelectFixedNumberOfCards);
+        }
 
 
 

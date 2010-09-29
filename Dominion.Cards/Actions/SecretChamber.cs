@@ -50,7 +50,7 @@ namespace Dominion.Cards.Actions
         {
             public override void Resolve(TurnContext context)
             {
-                var activity = new SelectCardsFromHandActivity(
+                var activity = new SelectCardsActivity(
                     context,
                     "Select any number of cards to discard, you will gain $1 per card",
                     SelectionSpecifications.SelectUpToXCards(context.ActivePlayer.Hand.CardCount));

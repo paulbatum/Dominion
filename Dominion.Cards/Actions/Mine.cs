@@ -23,7 +23,7 @@ namespace Dominion.Cards.Actions
         {
             public override void Resolve(TurnContext context)
             {
-                var activity = new SelectCardsFromHandActivity(context, "Select a treasure card to mine", 
+                var activity = new SelectCardsActivity(context, "Select a treasure card to mine", 
                     SelectionSpecifications.SelectExactlyXCards(1));
 
                 activity.Specification.CardTypeRestriction = typeof(ITreasureCard);

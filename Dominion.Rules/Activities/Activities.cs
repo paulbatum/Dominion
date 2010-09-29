@@ -7,7 +7,7 @@ namespace Dominion.Rules.Activities
     {
         public static ISelectCardsActivity DiscardCards(TurnContext context, Player player, int numberToDiscard)
         {
-            return new SelectCardsFromHandActivity(
+            return new SelectCardsActivity(
                 context.Game.Log, player, string.Format("Select {0} card(s) to discard", numberToDiscard),
                 SelectionSpecifications.SelectExactlyXCards(numberToDiscard))
             {
@@ -17,7 +17,7 @@ namespace Dominion.Rules.Activities
 
         public static ISelectCardsActivity PutCardFromHandOnTopOfDeck(IGameLog log, Player player, string message)
         {
-            return new SelectCardsFromHandActivity
+            return new SelectCardsActivity
                 (log, player, message, SelectionSpecifications.SelectExactlyXCards(1))
             {
                 AfterCardsSelected = cards => player.Deck.MoveToTop(cards.Single())

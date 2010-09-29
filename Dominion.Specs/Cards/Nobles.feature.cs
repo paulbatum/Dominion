@@ -86,7 +86,7 @@ testRunner.Then("Player1 must choose from DrawCards, GainActions");
 #line 11
 this.ScenarioSetup(scenarioInfo);
 #line 12
-testRunner.And("Player1 chooses DrawCards");
+testRunner.And("Player1 chooses to draw 3 cards (DrawCards)");
 #line 13
 testRunner.Then("Player1 should have 7 cards in hand");
 #line 14
@@ -103,7 +103,7 @@ testRunner.And("Player1 should have 0 actions remaining");
 #line 16
 this.ScenarioSetup(scenarioInfo);
 #line 17
-testRunner.And("Player1 chooses GainActions");
+testRunner.And("Player1 chooses to gain 2 actions (GainActions)");
 #line 18
 testRunner.Then("Player1 should have 2 actions remaining");
 #line 19

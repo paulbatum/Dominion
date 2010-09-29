@@ -27,7 +27,7 @@ namespace Dominion.Cards.Actions
 
                 if (player.Hand.OfType<IActionCard>().Any())
                 {
-                    var activity = new SelectCardsFromHandActivity(
+                    var activity = new SelectCardsActivity(
                         log, player,
                         "Select an action to play twice",
                         SelectionSpecifications.SelectExactlyXCards(1));

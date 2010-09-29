@@ -10,15 +10,15 @@ namespace Dominion.Rules.Activities
         void SelectCards(IEnumerable<Card> cards);                
     }
 
-    public class SelectCardsFromHandActivity : ActivityBase, ISelectCardsActivity
+    public class SelectCardsActivity : ActivityBase, ISelectCardsActivity
     {
-        public SelectCardsFromHandActivity(IGameLog log, Player player, string message, ISelectionSpecification specification) 
+        public SelectCardsActivity(IGameLog log, Player player, string message, ISelectionSpecification specification) 
             : base(log, player, message, specification.ActivityType)
         {
             Specification = specification;
         }
 
-        public SelectCardsFromHandActivity(TurnContext context, string message, ISelectionSpecification specification)
+        public SelectCardsActivity(TurnContext context, string message, ISelectionSpecification specification)
             : this(context.Game.Log, context.ActivePlayer, message, specification)
         {
             
@@ -50,4 +50,6 @@ namespace Dominion.Rules.Activities
             }
         }
     }
+
+
 }
