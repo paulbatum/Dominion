@@ -63,7 +63,7 @@
                 </form>
             </div>
         </div>        
-        <div id="middle" class="ui-layout-center">
+        <div id="middle" class="ui-layout-center">            
             <div id="playArea" class="ui-layout-center container"></div>
             <div id="chatLog" class="ui-layout-east container log"></div>
             <div id="prompt" class="ui-layout-south container">
@@ -74,6 +74,7 @@
                 <input id="choiceNo" type="submit" class="promptButton" value="No" />
                 <input id="choiceYes" type="submit" class="promptButton" value="Yes" />
             </div>
+            <div id="revealed" class="ui-layout-north container"></div>
         </div>
         <div id="log" class="ui-layout-east container log"></div>
     </div>        

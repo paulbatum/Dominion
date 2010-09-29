@@ -12,6 +12,7 @@ namespace Dominion.Rules.Activities
         public Player Player { get; private set; }
         public string Message { get; private set; }
         public ActivityType Type { get; private set; }
+        public ActivityCategory Category { get; protected set; }
         public Guid Id { get; private set; }
 
         public bool IsSatisfied { get; protected set; }
@@ -27,8 +28,16 @@ namespace Dominion.Rules.Activities
             Player = player;
             Message = message;
             Type = type;
+            Category = ActivityCategory.None;
             Id = Guid.NewGuid();
         }
+    }
+
+    public enum ActivityCategory
+    {
+        None,
+        SelectFromHand,
+        SelectFromRevealed
     }
 
     public enum ActivityType
@@ -39,14 +48,4 @@ namespace Dominion.Rules.Activities
         MakeChoice,
         SelectUpToNumberOfCards
     }
-
-    public enum RestrictionType
-    {
-        ActionCard,
-        ReactionCard,
-        TreasureCard
-    }
-
-
-    
 }

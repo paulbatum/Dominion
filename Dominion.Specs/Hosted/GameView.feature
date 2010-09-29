@@ -59,3 +59,12 @@ Scenario: View deck at the game end
 	And Player1 tells the host to buy Province	
 	Then Player1's view of the play area should start with this sequence of cards: Province
 	Then Player2's view of the play area should start with this sequence of cards: Estate
+
+Scenario: Player with pending reveal cards action can see the revealed cards
+	Given A new hosted game with 3 players
+	And Player1 has a Thief in hand instead of a Copper
+	And Player2 has a deck of Silver, Copper, Estate, Copper, Copper
+	And Player3 has a deck of Gold, Copper, Estate, Copper, Copper	
+	When The game begins
+	And Player1 tells the host to play Thief	
+	Then Player1's view includes Silver, Copper in the revealed zone

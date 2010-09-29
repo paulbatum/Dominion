@@ -223,6 +223,31 @@ testRunner.Then("Player2\'s view of the play area should start with this sequenc
 #line hidden
             testRunner.CollectScenarioErrors();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Player with pending reveal cards action can see the revealed cards")]
+        public virtual void PlayerWithPendingRevealCardsActionCanSeeTheRevealedCards()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Player with pending reveal cards action can see the revealed cards", ((string[])(null)));
+#line 63
+this.ScenarioSetup(scenarioInfo);
+#line 64
+testRunner.Given("A new hosted game with 3 players");
+#line 65
+testRunner.And("Player1 has a Thief in hand instead of a Copper");
+#line 66
+testRunner.And("Player2 has a deck of Silver, Copper, Estate, Copper, Copper");
+#line 67
+testRunner.And("Player3 has a deck of Gold, Copper, Estate, Copper, Copper");
+#line 68
+testRunner.When("The game begins");
+#line 69
+testRunner.And("Player1 tells the host to play Thief");
+#line 70
+testRunner.Then("Player1\'s view includes Silver, Copper in the revealed zone");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
     }
 }
 #endregion

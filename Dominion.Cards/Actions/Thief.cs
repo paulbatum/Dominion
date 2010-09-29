@@ -31,7 +31,7 @@ namespace Dominion.Cards.Actions
                 if(player.Deck.TopCard != null)
                     player.Deck.TopCard.MoveTo(revealZone);
 
-                log.LogMessage("{0} revealed {1}.", player, revealZone);
+                log.LogMessage("{0} revealed {1}.", player.Name, revealZone);
 
                 var revealedTreasures = revealZone.OfType<ITreasureCard>().WithDistinctTypes();
 
@@ -43,8 +43,9 @@ namespace Dominion.Cards.Actions
                     case 1:
                         var trashedCard = revealedTreasures.Single();
                         trashedCard.MoveTo(context.Game.Trash);
+                        log.LogTrash(player, trashedCard);
                         revealZone.MoveAll(player.Discards);
-                        var gainOrTrashActivity = CreateGainOrTrashActivity(context, trashedCard);
+                        var gainOrTrashActivity = CreateGainOrTrashActivity(context, trashedCard, TODO);
                         _activities.Add(gainOrTrashActivity);
                         break;
                     default:
@@ -57,25 +58,26 @@ namespace Dominion.Cards.Actions
 
             private IActivity CreateChooseTreasureActivity(TurnContext context, RevealZone revealZone)
             {
-                var selectTreasure = new SelectFromRevealedCardsActivity(context, revealZone, "Select a treasure to trash (you will have the opportunity to gain it).", SelectionSpecifications.SelectExactlyXCards(1));
-
+                var selectTreasure = new SelectFromRevealedCardsActivity(context, revealZone, 
+                    "Select a treasure to trash (you will have the opportunity to gain it).", SelectionSpecifications.SelectExactlyXCards(1));
+                
                 selectTreasure.AfterCardsSelected = cards =>
                 {
                     var card = cards.OfType<ITreasureCard>().Single();
                     card.MoveTo(context.Game.Trash);
                     revealZone.MoveAll(revealZone.Owner.Discards);
-                    
-                    var gainOrTrashActivity = CreateGainOrTrashActivity(context, card);
+
+                    var gainOrTrashActivity = CreateGainOrTrashActivity(context, card, revealZone.Owner);
                     _activities.Insert(0, gainOrTrashActivity);
                 };
                 
                 return selectTreasure;
             }
 
-            private IActivity CreateGainOrTrashActivity(TurnContext context, ITreasureCard trashedCard)
+            private IActivity CreateGainOrTrashActivity(TurnContext context, ITreasureCard trashedCard, Player owner)
             {                
                 var gainOrTrash = new ChoiceActivity(context, context.ActivePlayer, 
-                                                     string.Format("Gain the {0}?", trashedCard),Choice.Yes, Choice.No);
+                                                     string.Format("Gain {0}'s {1}?", owner.Name, trashedCard),Choice.Yes, Choice.No);
                 
                 gainOrTrash.ActOnChoice = choice =>
                 {
@@ -91,47 +93,5 @@ namespace Dominion.Cards.Actions
         }
 
       
-    }
-
-    public class CompositeActivity : IActivity
-    {
-        public Player Player { get; private set; }
-        public IActivity Activity1 { get; set; }
-        public IActivity Activity2 { get; set; }
-
-        public CompositeActivity(Player player)
-        {
-            Player = player;
-        }
-
-        private IActivity ActiveActivity
-        {
-            get { return Activity1.IsSatisfied ? Activity2 : Activity1; }
-        }
-
-        public string Message
-        {
-            get { return ActiveActivity.Message; }
-        }
-
-        public bool IsSatisfied
-        {
-            get { return Activity1.IsSatisfied && Activity2.IsSatisfied; }
-        }
-
-        public ActivityType Type
-        {
-            get { return ActiveActivity.Type; }
-        }
-
-        public Guid Id
-        {
-            get { return ActiveActivity.Id; }
-        }
-
-        public IDictionary<string, object> Properties
-        {
-            get { return ActiveActivity.Properties; }
-        }
-    }
+    }    
 }

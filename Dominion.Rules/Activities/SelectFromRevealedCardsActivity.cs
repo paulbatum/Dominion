@@ -1,8 +1,12 @@
 ﻿namespace Dominion.Rules.Activities
 {
-    public interface ISelectFromRevealedCardsActivity : ISelectCardsActivity
+    public interface ISelectFromRevealedCardsActivity : ISelectCardsActivity, IRevealedCardsActivity
     {
-        RevealZone RevealedCards { get; }
+    }
+
+    public interface IRevealedCardsActivity
+    {
+        RevealZone RevealedCards { get; }        
     }
 
     public class SelectFromRevealedCardsActivity : SelectCardsActivity, ISelectFromRevealedCardsActivity
@@ -13,6 +17,7 @@
             : base(context.Game.Log, context.ActivePlayer, message, selectionSpecification)
         {
             RevealedCards = revealZone;
+            this.Category = ActivityCategory.SelectFromRevealed;
         }
     }
 }

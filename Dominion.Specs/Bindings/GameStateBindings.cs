@@ -569,12 +569,14 @@ namespace Dominion.Specs.Bindings
         }
 
         [Then(@"(.*) must select a revealed card from: (.*)")]
-        public void ThenPlayerMustSelectARevealedCardFromSilverCopper(string playerName, string cards)
+        public void ThenPlayerMustSelectARevealedCardFrom(string playerName, string cards)
         {
             var player = _game.Players.Single(p => p.Name == playerName);
             var activity = (ISelectFromRevealedCardsActivity) _game.GetPendingActivity(player);
             activity.RevealedCards.ToString().ShouldEqual(cards);
-            activity.Type.ShouldEqual(ActivityType.SelectFixedNumberOfCards);
+            activity.Type.ShouldEqual(ActivityType.SelectFixedNumberOfCards);            
+            activity.Category.ShouldEqual(ActivityCategory.SelectFromRevealed);
+            activity.GetCountProperty().ShouldEqual(1);
         }
 
 

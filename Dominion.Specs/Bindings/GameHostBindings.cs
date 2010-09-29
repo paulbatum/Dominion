@@ -173,6 +173,16 @@ namespace Dominion.Specs.Bindings
             playAreaCardNames.ShouldStartWith(sequence);
         }
 
+        [Then(@"(.*)'s view includes (.*) in the revealed zone")]
+        public void ThenPlayerViewIncludesInTheRevealedZone(string playerName, string cards)
+        {
+            var client = _clients.Single(c => c.PlayerName == playerName);
+            var gameState = _gameHost.GetGameState(client);
+
+            gameState.Revealed.GetCardNames().ShouldEqual(cards);            
+        }
+
+
 
     }
 }

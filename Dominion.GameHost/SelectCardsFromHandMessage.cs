@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Dominion.Rules;
 using Dominion.Rules.Activities;
@@ -24,9 +25,18 @@ namespace Dominion.GameHost
             if (activity == null)
                 throw new InvalidOperationException("There must be a corresponding activity");
 
-            var cards = player.Hand.Where(c => CardIds.Contains(c.Id)).ToList();               
+            IEnumerable<Card> cardSource;
 
+            if(activity is ISelectFromRevealedCardsActivity)
+            {
+                cardSource = ((ISelectFromRevealedCardsActivity) activity).RevealedCards;
+            }
+            else
+            {
+                cardSource = player.Hand;
+            }
 
+            var cards = cardSource.Where(c => CardIds.Contains(c.Id)).ToList();                   
             activity.SelectCards(cards);            
         }
 

@@ -14,10 +14,8 @@ namespace Dominion.GameHost
             Log = game.Log.Contents;
 
             Version = game.Version;
-
-            var activity = game.GetPendingActivity(player);
-            if(activity != null)
-                PendingActivity = new ActivityModel(activity);
+            
+            PopulateActivityRelated(game, player);
 
             Bank = game.Bank.Piles
                 .Select(p => new CardPileViewModel(p, game.CurrentTurn, player)).ToArray();
@@ -43,6 +41,19 @@ namespace Dominion.GameHost
             Discards = new DiscardPileViewModel(player.Discards);
         }
 
+        private void PopulateActivityRelated(Game game, Player player)
+        {
+            var activity = game.GetPendingActivity(player);
+            if(activity != null)
+                PendingActivity = new ActivityModel(activity);
+
+            if (activity is IRevealedCardsActivity)
+            {
+                this.Revealed = ((IRevealedCardsActivity)activity).RevealedCards
+                    .Select(c => new CardViewModel(c)).ToArray();
+            }
+        }
+
         public string Log { get; set; }
         public long Version { get; set; }
         public ActivityModel PendingActivity { get; set; }
@@ -52,6 +63,7 @@ namespace Dominion.GameHost
         public CardViewModel[] InPlay { get; set; }
         public DeckViewModel Deck { get; set; }
         public DiscardPileViewModel Discards { get; set; }
+        public CardViewModel[] Revealed { get; set; }
     }
 
     public class ActivityModel
@@ -60,11 +72,13 @@ namespace Dominion.GameHost
         {
             Properties = activity.Properties;
             Type = activity.Type.ToString();
+            Category = activity.Category.ToString();
             Message = activity.Message;
             Id = activity.Id;
             
         }
 
+        public string Category { get; set; }
         public string Type { get; set; }
         public string Message { get; set; }
         public Guid Id { get; set; }
