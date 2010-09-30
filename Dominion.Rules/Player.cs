@@ -44,5 +44,10 @@ namespace Dominion.Rules
         {
             Name = newName;
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

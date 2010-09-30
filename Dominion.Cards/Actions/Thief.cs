@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Collections.Generic;
 using Dominion.Rules;
 using Dominion.Rules.Activities;
@@ -56,7 +55,7 @@ namespace Dominion.Cards.Actions
 
             private IActivity CreateChooseTreasureActivity(TurnContext context, RevealZone revealZone)
             {
-                var selectTreasure = new SelectFromRevealedCardsActivity(context, revealZone,
+                var selectTreasure = new SelectFromRevealedCardsActivity(context.Game.Log, context.ActivePlayer, revealZone,
                     "Select a treasure to trash (you will have the opportunity to gain it).", SelectionSpecifications.SelectExactlyXCards(1));
                 
                 selectTreasure.AfterCardsSelected = cards =>
@@ -69,5 +68,5 @@ namespace Dominion.Cards.Actions
                 return selectTreasure;
             }            
         }
-    }    
+    }
 }

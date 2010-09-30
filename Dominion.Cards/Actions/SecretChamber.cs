@@ -17,6 +17,8 @@ namespace Dominion.Cards.Actions
         public void React(AttackEffect attackEffect, Player player, TurnContext currentTurn)
         {
             currentTurn.AddEffect(new SecretChamberReactionEffect(player));
+            currentTurn.Game.Log.LogMessage("{0} revealed a Secret Chamber.", player);
+
         }
 
         public bool ContinueReactingIfOnlyReaction
@@ -39,7 +41,7 @@ namespace Dominion.Cards.Actions
             }
 
             public override void Resolve(TurnContext context)
-            {
+            {                
                 _player.DrawCards(2);
                 foreach (var activity in Activities.PutMultipleCardsFromHandOnTopOfDeck(context.Game.Log, _player, 2))
                     _activities.Add(activity);

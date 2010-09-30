@@ -13,8 +13,8 @@
     {
         public RevealZone RevealedCards { get; private set; }
 
-        public SelectFromRevealedCardsActivity(TurnContext context, RevealZone revealZone, string message, ISelectionSpecification selectionSpecification)
-            : base(context.Game.Log, context.ActivePlayer, message, selectionSpecification)
+        public SelectFromRevealedCardsActivity(IGameLog log, Player player, RevealZone revealZone, string message, ISelectionSpecification selectionSpecification)
+            : base(log, player, message, selectionSpecification)
         {
             RevealedCards = revealZone;
 

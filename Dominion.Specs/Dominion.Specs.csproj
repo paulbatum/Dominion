@@ -85,6 +85,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CountingHouse.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\Envoy.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Envoy.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\Feast.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -253,6 +258,10 @@
     <None Include="Cards\CountingHouse.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>CountingHouse.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\Envoy.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Envoy.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\Feast.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

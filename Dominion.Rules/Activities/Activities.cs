@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Dominion.Rules.Activities
@@ -64,6 +65,18 @@ namespace Dominion.Rules.Activities
             };
 
             return activity;
+        }
+
+        public static IEnumerable<IActivity> PutRevealedCardsOnTopOfDeck(IGameLog log, Player player, RevealZone revealZone)
+        {
+            return revealZone.Count().Items<IActivity>(
+                () =>                            
+                    new SelectFromRevealedCardsActivity(log, player, revealZone, "Select the next card to put on top",
+                                                        SelectionSpecifications.SelectExactlyXCards(1))
+                    {
+                        AfterCardsSelected = cards => player.Deck.MoveToTop(cards.Single())
+                    }
+            );               
         }
     }
 }

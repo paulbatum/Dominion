@@ -64,7 +64,18 @@ namespace Dominion.GameHost.AI
                     DiscardCards(cardsToDiscard, state);
                     break;
                 }
+                case "SelectFromRevealed":
+                {
+                    SelectFromRevealed(activity, state);
+                    break;
+                }
             }
+        }
+
+         protected virtual void SelectFromRevealed(ActivityModel activity, GameViewModel state)
+        {
+            var selected = state.Revealed.First();
+            _client.AcceptMessage(new SelectCardsMessage(_client.PlayerId, new[] { selected.Id }));
         }
 
         protected abstract void DiscardCards(int count, GameViewModel currentState);
