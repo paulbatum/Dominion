@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actions\Chancellor.cs" />
+    <Compile Include="Actions\Coppersmith.cs" />
     <Compile Include="Actions\CouncilRoom.cs" />
     <Compile Include="Actions\CountingHouse.cs" />
     <Compile Include="Actions\Envoy.cs" />

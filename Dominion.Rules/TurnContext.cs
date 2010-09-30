@@ -18,6 +18,7 @@ namespace Dominion.Rules
         }
 
         private Stack<ICardEffect> _effects = new Stack<ICardEffect>();
+        private List<IPassiveCardEffect> _passiveEffects = new List<IPassiveCardEffect>();
 
         public Player ActivePlayer { get; private set; }
         public Game Game { get; private set; }
@@ -129,6 +130,7 @@ namespace Dominion.Rules
 
             ActivePlayer.PlayArea.MoveAll(ActivePlayer.Discards);
             ActivePlayer.Hand.MoveAll(ActivePlayer.Discards);
+            _passiveEffects.Clear();
             DrawCards(5);
         }
 
@@ -142,7 +144,16 @@ namespace Dominion.Rules
 
             InBuyStep = true;
             RemainingActions = 0;
-            MoneyToSpend = MoneyToSpend + this.ActivePlayer.Hand.OfType<IMoneyCard>().Sum(x => x.Value);
+            MoneyToSpend = MoneyToSpend + this.ActivePlayer.Hand.OfType<ITreasureCard>().Sum(x => CalculateMoneyToSpend(x));
+        }
+
+        private int CalculateMoneyToSpend(ITreasureCard card)
+        {
+            int value = card.Value;
+            foreach (IPassiveCardEffect effect in _passiveEffects)
+                value = effect.ModifyValue(value, card);
+
+            return value;
         }
 
         public void AddEffect(ICardEffect cardEffect)
@@ -166,6 +177,19 @@ namespace Dominion.Rules
             }
 
             return null;
+        }
+
+        public void AddPassiveCardEffect(IPassiveCardEffect passiveCardEffect)
+        {
+            _passiveEffects.Add(passiveCardEffect);
+        }
+
+        public IEnumerable<IPassiveCardEffect> PassiveEffects
+        {
+            get
+            {
+                return _passiveEffects.AsReadOnly();
+            }
         }
 
         public void Trash(Player player, ICard card)
