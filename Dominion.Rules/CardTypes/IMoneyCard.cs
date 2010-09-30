@@ -1,7 +1,6 @@
 ﻿namespace Dominion.Rules.CardTypes
 {
-    public interface IMoneyCard : ITreasureCard, ICard
+    public interface IMoneyCard : ITreasureCard
     {
-        int Value { get; }
     }
 }

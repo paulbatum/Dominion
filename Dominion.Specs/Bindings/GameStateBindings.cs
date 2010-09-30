@@ -202,6 +202,23 @@ namespace Dominion.Specs.Bindings
             activity.SelectCards(cards);
         }
 
+        [When(@"(.*) selects cards (.*) to .*")]
+        public void WhenPlayerSelectsCards(string playerName, string selectedCardList)
+        {
+            var cardNames = selectedCardList.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            var player = _game.Players.Single(p => p.Name == playerName);
+            var cardList = new List<Card>();
+            foreach (var name in cardNames)
+            {
+                var card = player.Hand.Where(c => c.Name == name && !cardList.Contains(c))
+                    .Take(1).Single();
+                cardList.Add(card);
+            }
+            var activity = (ISelectCardsActivity)_game.GetPendingActivity(player);
+
+            activity.SelectCards(cardList);
+        }
+
         //[When(@"(.*) chooses (.*)")]
         //public void WhenPlayerChooses(string playerName, string choice)
         //{            

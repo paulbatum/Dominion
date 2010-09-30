@@ -60,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions\Cellar.cs" />
     <Compile Include="Actions\Chancellor.cs" />
     <Compile Include="Actions\Coppersmith.cs" />
     <Compile Include="Actions\CouncilRoom.cs" />

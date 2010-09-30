@@ -70,10 +70,20 @@
   <ItemGroup>
     <Compile Include="Bindings\Extensions.cs" />
     <Compile Include="Bindings\ScoringBindings.cs" />
+    <Compile Include="Cards\Cellar.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Cellar.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\Chancellor.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Chancellor.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Cards\Coppersmith.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Coppersmith.feature</DependentUpon>
     </Compile>
     <Compile Include="Cards\CouncilRoom.feature.cs">
       <AutoGen>True</AutoGen>
@@ -247,9 +257,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Cards\Cellar.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Cellar.feature.cs</LastGenOutput>
+    </None>
     <None Include="Cards\Chancellor.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Chancellor.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\Coppersmith.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Coppersmith.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\CouncilRoom.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
