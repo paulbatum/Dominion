@@ -10,10 +10,18 @@ namespace Dominion.Rules.Activities
         public IEnumerable<Choice> AllowedOptions { get; private set; }
 
         public ChoiceActivity(TurnContext context, Player player, string message, params Choice[] options)
-            : base(context.Game.Log, player, message, ActivityType.MakeChoice)
+            : this(context.Game.Log, player, message, options)
+        {
+        }
+
+        public ChoiceActivity(IGameLog log, Player player, string message, params Choice[] options)
+            : base(log, player, message, ActivityType.MakeChoice)
         {
             AllowedOptions = options;
+            
         }
+
+
 
         public void MakeChoice(string optionString)
         {

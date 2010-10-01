@@ -3,6 +3,7 @@ using System.Linq;
 using Dominion.Cards.Curses;
 using Dominion.Cards.Treasure;
 using Dominion.Rules;
+using Dominion.Rules.Activities;
 using Dominion.Rules.CardTypes;
 
 namespace Dominion.Cards.Actions
@@ -27,16 +28,24 @@ namespace Dominion.Cards.Actions
 
                 if(curseInHand == null)
                 {
-                    context.Game.Log.LogMessage("{0} did not have a Curse to discard.", player.Name);
-                    var gainUtil = new GainUtility(context, player);                    
-                    gainUtil.Gain<Copper>();                    
-                    gainUtil.Gain<Curse>();                    
+                    DoGain(player, context);
                 }
                 else
                 {
-                    curseInHand.MoveTo(player.Discards);
-                    context.Game.Log.LogDiscard(player, curseInHand);
+                    var activity = Activities.ChooseYesOrNo(context.Game.Log, player, "Discard a curse?",
+                        () => context.DiscardCard(player, curseInHand),
+                        () => DoGain(player, context));                  
+
+                    _activities.Add(activity);
+                    
                 }
+            }
+
+            private void DoGain(Player player, TurnContext context)
+            {
+                var gainUtil = new GainUtility(context, player);                    
+                gainUtil.Gain<Copper>();                    
+                gainUtil.Gain<Curse>();
             }
         }
     }

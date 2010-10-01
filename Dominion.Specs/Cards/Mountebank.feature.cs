@@ -53,10 +53,10 @@ namespace Dominion.Specs.Cards
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Play Mountebank")]
-        public virtual void PlayMountebank()
+        [NUnit.Framework.DescriptionAttribute("Player plays Mountebank when opponents have no curses in hand")]
+        public virtual void PlayerPlaysMountebankWhenOpponentsHaveNoCursesInHand()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Play Mountebank", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Player plays Mountebank when opponents have no curses in hand", ((string[])(null)));
 #line 3
 this.ScenarioSetup(scenarioInfo);
 #line 4
@@ -76,10 +76,10 @@ testRunner.Then("Player3 should have a discard pile of Copper, Curse");
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Play Mountebank when a player is holding a curse")]
-        public virtual void PlayMountebankWhenAPlayerIsHoldingACurse()
+        [NUnit.Framework.DescriptionAttribute("Player plays Mountebank, opponent must choose whether to discard a curse")]
+        public virtual void PlayerPlaysMountebankOpponentMustChooseWhetherToDiscardACurse()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Play Mountebank when a player is holding a curse", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Player plays Mountebank, opponent must choose whether to discard a curse", ((string[])(null)));
 #line 11
 this.ScenarioSetup(scenarioInfo);
 #line 12
@@ -91,8 +91,33 @@ testRunner.And("Player2 has a Curse in hand instead of a Copper");
 #line 15
 testRunner.When("Player1 plays a Mountebank");
 #line 16
-testRunner.Then("Player2 should have a discard pile of Curse");
+testRunner.Then("Player2 must choose whether to discard a Curse (Yes or No)");
 #line 17
+testRunner.Then("Player3 must wait");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Play Mountebank when an opponent is holding a curse")]
+        public virtual void PlayMountebankWhenAnOpponentIsHoldingACurse()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Play Mountebank when an opponent is holding a curse", ((string[])(null)));
+#line 19
+this.ScenarioSetup(scenarioInfo);
+#line 20
+testRunner.Given("A new game with 3 players");
+#line 21
+testRunner.And("Player1 has a Mountebank in hand instead of a Copper");
+#line 22
+testRunner.And("Player2 has a Curse in hand instead of a Copper");
+#line 23
+testRunner.When("Player1 plays a Mountebank");
+#line 24
+testRunner.When("Player2 chooses to discard a Curse (Yes)");
+#line 25
+testRunner.Then("Player2 should have a discard pile of Curse");
+#line 26
 testRunner.Then("Player3 should have a discard pile of Copper, Curse");
 #line hidden
             testRunner.CollectScenarioErrors();

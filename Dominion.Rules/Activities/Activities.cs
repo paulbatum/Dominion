@@ -78,5 +78,26 @@ namespace Dominion.Rules.Activities
                     }
             );               
         }
+
+        public static IActivity ChooseYesOrNo(IGameLog log, Player player, string message, Action ifYes, Action ifNo)
+        {
+            var choiceActivity = new ChoiceActivity(log, player,
+                  message,
+                  Choice.Yes, Choice.No);
+
+            choiceActivity.ActOnChoice = c =>
+            {
+                if (c == Choice.Yes)
+                {
+                    ifYes();
+                }
+                else
+                {
+                    ifNo();
+                }
+            };
+
+            return choiceActivity;
+        }
     }
 }

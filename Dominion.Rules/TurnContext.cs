@@ -216,14 +216,16 @@ namespace Dominion.Rules
             card.MoveTo(this.Game.Trash);
         }
 
+        public void DiscardCard(Player player, Card card)
+        {
+            Game.Log.LogDiscard(player, card);
+            card.MoveTo(player.Discards);
+        }
 
         public void DiscardCards(Player player, IEnumerable<ICard> cards)
         {
             foreach (var card in cards)
-            {
-                Game.Log.LogDiscard(player, card);
-                card.MoveTo(player.Discards);
-            }
+                DiscardCard(player, card);
         }
     }
 
