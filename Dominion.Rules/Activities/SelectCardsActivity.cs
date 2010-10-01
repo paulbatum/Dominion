@@ -7,7 +7,7 @@ namespace Dominion.Rules.Activities
 {
     public interface ISelectCardsActivity : IActivity
     {        
-        void SelectCards(IEnumerable<Card> cards);                
+        void SelectCards(IEnumerable<ICard> cards);                
     }
 
     public class SelectCardsActivity : ActivityBase, ISelectCardsActivity
@@ -25,15 +25,15 @@ namespace Dominion.Rules.Activities
         }
 
         public ISelectionSpecification Specification { get; private set; }
-        public Action<IEnumerable<Card>> AfterCardsSelected { get; set; }
+        public Action<IEnumerable<ICard>> AfterCardsSelected { get; set; }
 
-        protected void CheckCards(IEnumerable<Card> cards)
+        protected void CheckCards(IEnumerable<ICard> cards)
         {
             if (!Specification.IsMatch(cards))
                 throw new ArgumentException("Selected cards do not match specification!", "cards");
         }
 
-        public virtual void SelectCards(IEnumerable<Card> cards)
+        public virtual void SelectCards(IEnumerable<ICard> cards)
         {
             CheckCards(cards);
             AfterCardsSelected(cards.ToList());

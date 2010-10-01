@@ -26,7 +26,7 @@ namespace Dominion.Rules.Activities
                 reaction.React(_attackEffect, this.Player, _currentTurn);
         }
 
-        public override void SelectCards(IEnumerable<Card> cards)
+        public override void SelectCards(IEnumerable<ICard> cards)
         {
             CheckCards(cards);
 

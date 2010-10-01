@@ -7,11 +7,11 @@ namespace Dominion.Rules
     public class CardZone
     {
         private Random _random;
-        private List<Card> _cards;
+        private List<ICard> _cards;
 
         public CardZone()
-        {            
-            _cards = new List<Card>();
+        {
+            _cards = new List<ICard>();
 
             unchecked
             {
@@ -33,14 +33,21 @@ namespace Dominion.Rules
             changer(targetZone);
         }
 
+        public void MoveWhere(CardZone targetZone, Func<ICard, bool> predicate)
+        {
+            var matchingCards = _cards.Where(predicate).ToList();
+            foreach (Card c in matchingCards)
+                c.MoveTo(targetZone);
+        }
+
         public void MoveAll(CardZone targetZone)
         {
-            IList<Card> allCards = new List<Card>(_cards);
+            var allCards = new List<ICard>(_cards);
             foreach (Card c in allCards)
                 c.MoveTo(targetZone);
         }
 
-        protected IList<Card> Cards
+        protected IList<ICard> Cards
         {
             get { return _cards; }
         }
@@ -50,17 +57,17 @@ namespace Dominion.Rules
             _cards = _cards.OrderBy(_ => _random.NextDouble()).ToList();
         }
 
-        protected void Sort(Comparison<Card> comparison)
+        protected void Sort(Comparison<ICard> comparison)
         {
             _cards.Sort(comparison);
         }
 
-        protected virtual void AddCard(Card card)
+        protected virtual void AddCard(ICard card)
         {
             _cards.Add(card);
         }
 
-        protected virtual void RemoveCard(Card card)
+        protected virtual void RemoveCard(ICard card)
         {
             _cards.Remove(card);
         }

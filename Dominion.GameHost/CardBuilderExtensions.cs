@@ -6,7 +6,7 @@ namespace Dominion.GameHost
 {
     public static class CardBuilderExtensions
     {
-        public static CardPile WithNewCards<T>(this CardPile targetPile, int count) where T : Card, new()
+        public static CardPile WithNewCards<T>(this CardPile targetPile, int count) where T : ICard, new()
         {
             count.Times(() => new T().MoveTo(targetPile));
             return targetPile;
@@ -18,9 +18,9 @@ namespace Dominion.GameHost
             return targetPile;
         }
 
-        public static IEnumerable<Card> NewCards<T>(this int count) where T : Card, new()
+        public static IEnumerable<ICard> NewCards<T>(this int count) where T : Card, new()
         {
-            return count.Items<Card>(() => new T());
+            return count.Items<ICard>(() => new T());
         }
     }
 }

@@ -4,12 +4,12 @@ namespace Dominion.Rules
 {
     public class NullZone : CardZone
     {
-        protected override void AddCard(Card card)
+        protected override void AddCard(ICard card)
         {
             // NO OP
         }
 
-        protected override void RemoveCard(Card card)
+        protected override void RemoveCard(ICard card)
         {
             // NO OP
         }

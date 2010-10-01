@@ -89,6 +89,7 @@
     <Compile Include="ICard.cs" />
     <Compile Include="PassiveCardEffectBase.cs" />
     <Compile Include="PlayArea.cs" />
+    <Compile Include="ILongLivedCardEffect.cs" />
     <Compile Include="ReactionEffect.cs" />
     <Compile Include="Activities\SelectReactionActivity.cs" />
     <Compile Include="TextGameLog.cs" />

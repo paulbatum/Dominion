@@ -50,7 +50,7 @@ namespace Dominion.Rules
     {
         public Guid Id { get; set; }
         public abstract bool IsEmpty { get; }
-        public abstract Card TopCard { get; }
+        public abstract ICard TopCard { get; }
         public abstract bool IsLimited { get; }
 
         private string _cachedName;
@@ -80,7 +80,7 @@ namespace Dominion.Rules
             get { return this.CardCount == 0; }
         }
 
-        public override Card TopCard
+        public override ICard TopCard
         {
             get { return Cards.FirstOrDefault(); }
         }
@@ -93,9 +93,9 @@ namespace Dominion.Rules
 
     public class UnlimitedSupplyCardPile : CardPile
     {
-        private readonly Func<Card> _cardCreator;
+        private readonly Func<ICard> _cardCreator;
 
-        public UnlimitedSupplyCardPile(Func<Card> cardCreator)
+        public UnlimitedSupplyCardPile(Func<ICard> cardCreator)
         {
             _cardCreator = cardCreator;
         }
@@ -113,7 +113,7 @@ namespace Dominion.Rules
             }
         }
 
-        public override Card TopCard
+        public override ICard TopCard
         {
             get { return _cardCreator(); }
         }
@@ -123,12 +123,12 @@ namespace Dominion.Rules
             get { return false; }
         }
 
-        protected override void AddCard(Card card)
+        protected override void AddCard(ICard card)
         {
             // NO OP
         }
 
-        protected override void RemoveCard(Card card)
+        protected override void RemoveCard(ICard card)
         {
             // NO OP
         }

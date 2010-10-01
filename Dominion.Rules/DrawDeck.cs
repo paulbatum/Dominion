@@ -8,7 +8,7 @@ namespace Dominion.Rules
     {
         private readonly DiscardPile _discards;
 
-        public DrawDeck(IEnumerable<Card> startingCards, DiscardPile discards)
+        public DrawDeck(IEnumerable<ICard> startingCards, DiscardPile discards)
         {
             foreach (Card card in startingCards)
                 card.MoveTo(this);
@@ -21,7 +21,7 @@ namespace Dominion.Rules
             RandomizeOrder();
         }
 
-        public Card TopCard
+        public ICard TopCard
         {
             get
             {
@@ -40,12 +40,12 @@ namespace Dominion.Rules
             count.Times(() => TopCard.MoveTo(cardZone));
         }
 
-        public IEnumerable<Card> Contents
+        public IEnumerable<ICard> Contents
         {
             get { return this.Cards; }
         }
 
-        public void MoveToTop(Card card)
+        public void MoveToTop(ICard card)
         {
             card.MoveTo(this);
             this.Cards.Remove(card);

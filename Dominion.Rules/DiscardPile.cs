@@ -5,7 +5,7 @@ namespace Dominion.Rules
 {
     public class DiscardPile : EnumerableCardZone
     {
-        public Card TopCard
+        public ICard TopCard
         {
             get { return this.Cards.Last(); }
         }

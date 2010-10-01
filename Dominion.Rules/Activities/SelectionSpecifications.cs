@@ -8,7 +8,7 @@ namespace Dominion.Rules.Activities
     public interface ISelectionSpecification
     {
         bool IsMatch(CardPile pile);
-        bool IsMatch(IEnumerable<Card> cards);
+        bool IsMatch(IEnumerable<ICard> cards);
         ActivityType ActivityType { get; }
         Type CardTypeRestriction { get; set; }
         void WriteProperties(IDictionary<string, object> bag);        
@@ -48,7 +48,7 @@ namespace Dominion.Rules.Activities
 
         private class SelectionSpecification : ISelectionSpecification
         {            
-            public Func<IEnumerable<Card>, bool> MatchFunction { get; set; }
+            public Func<IEnumerable<ICard>, bool> MatchFunction { get; set; }
             public ActivityType ActivityType { get; set; }
             public Type CardTypeRestriction { get; set; }
             public int? Count { get; set; }
@@ -71,7 +71,7 @@ namespace Dominion.Rules.Activities
                 return IsMatch(new[] {pile.TopCard});
             }
 
-            public bool IsMatch(IEnumerable<Card> cards)
+            public bool IsMatch(IEnumerable<ICard> cards)
             {
                 if (CardTypeRestriction != null && 
                     cards.All(c => c.GetType().GetInterfaces().Contains(CardTypeRestriction)) == false)

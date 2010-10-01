@@ -145,7 +145,7 @@ namespace Dominion.GameHost
 
     public class CardViewModel
     {
-        public CardViewModel(Card card)
+        public CardViewModel(ICard card)
         {
             Id = card.Id;
             Cost = card.Cost;
@@ -168,7 +168,7 @@ namespace Dominion.GameHost
             Types = types.ToArray();
         }
 
-        public CardViewModel(Card card, TurnContext currentTurn, Player player) : this(card)
+        public CardViewModel(ICard card, TurnContext currentTurn, Player player) : this(card)
         {
             CanPlay = currentTurn.CanPlay(card, player);
         }

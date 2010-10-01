@@ -69,6 +69,7 @@
     <Compile Include="Actions\Expand.cs" />
     <Compile Include="Actions\Feast.cs" />
     <Compile Include="Actions\Festival.cs" />
+    <Compile Include="Actions\FishingVillage.cs" />
     <Compile Include="Actions\Laboratory.cs" />
     <Compile Include="Actions\Market.cs" />
     <Compile Include="Actions\Militia.cs" />

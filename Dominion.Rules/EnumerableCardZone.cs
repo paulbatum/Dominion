@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace Dominion.Rules
 {
-    public abstract class EnumerableCardZone : CardZone, IEnumerable<Card>
+    public abstract class EnumerableCardZone : CardZone, IEnumerable<ICard>
     {
-        public IEnumerator<Card> GetEnumerator()
+        public IEnumerator<ICard> GetEnumerator()
         {
             return this.Cards.GetEnumerator();
         }

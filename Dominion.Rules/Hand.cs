@@ -23,4 +23,8 @@ namespace Dominion.Rules
             log.LogMessage("{0} revealed {1}.", Owner.Name, this);
         }
     }
+
+    public class LongLivedCardZone : EnumerableCardZone
+    {
+    }
 }

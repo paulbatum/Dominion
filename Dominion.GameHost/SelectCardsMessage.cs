@@ -25,7 +25,7 @@ namespace Dominion.GameHost
             if (activity == null)
                 throw new InvalidOperationException("There must be a corresponding activity");
 
-            IEnumerable<Card> cardSource;
+            IEnumerable<ICard> cardSource;
 
             if(activity is ISelectFromRevealedCardsActivity)
             {

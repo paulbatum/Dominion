@@ -5,7 +5,7 @@ namespace Dominion.Rules
 {
     public class Player
     {
-        public Player(string name, IEnumerable<Card> startingDeck)
+        public Player(string name, IEnumerable<ICard> startingDeck)
         {
             Id = Guid.NewGuid();
             Name = name;
@@ -15,7 +15,7 @@ namespace Dominion.Rules
             Deck.Shuffle();
 
             Hand = new Hand();
-            Deck.MoveCards(Hand, 5);
+            DrawCards(5);
 
             PlayArea = new PlayArea();                       
         }
@@ -26,6 +26,7 @@ namespace Dominion.Rules
         public DiscardPile Discards { get; private set; }
         public Hand Hand { get; private set; }
         public PlayArea PlayArea { get; private set; }
+        public List<ILongLivedCardEffect> LongLivedEffects = new List<ILongLivedCardEffect>();
 
         public TurnContext BeginTurn(Game game)
         {            

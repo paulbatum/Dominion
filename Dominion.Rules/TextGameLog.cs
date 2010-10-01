@@ -13,9 +13,9 @@ namespace Dominion.Rules
         void LogPlay(Player player, IActionCard card);
         void LogBuy(Player player, CardPile pile);
         void LogGameEnd(Game game);
-        void LogDiscard(Player player, Card card);
+        void LogDiscard(Player player, ICard card);
         void LogMessage(string message, params object[] values);
-        void LogGain(Player player, Card card);        
+        void LogGain(Player player, ICard card);        
         void LogTrash(Player player, ICard card);
     }
 
@@ -70,7 +70,7 @@ namespace Dominion.Rules
 
         }
 
-        public void LogDiscard(Player player, Card card)
+        public void LogDiscard(Player player, ICard card)
         {
             _builder.AppendFormat("{0} discarded a {1}.", player.Name, card.Name);
             _builder.AppendLine();
@@ -83,7 +83,7 @@ namespace Dominion.Rules
 
         }
 
-        public void LogGain(Player player, Card card)
+        public void LogGain(Player player, ICard card)
         {
             _builder.AppendFormat("{0} gained a {1}", player.Name, card.Name);
             _builder.AppendLine();

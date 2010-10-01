@@ -15,6 +15,9 @@ namespace Dominion.Rules
             MoneyToSpend = 0;
             RemainingActions = 1;
             Buys = 1;
+
+            foreach (var longLivedEffect in player.LongLivedEffects)
+                longLivedEffect.OnTurnStarting(this);
         }
 
         private Stack<ICardEffect> _effects = new Stack<ICardEffect>();
@@ -128,10 +131,20 @@ namespace Dominion.Rules
             if (GetCurrentEffect() != null)
                 throw new InvalidOperationException("Cannot end the turn - there is a current effect.");
 
-            ActivePlayer.PlayArea.MoveAll(ActivePlayer.Discards);
+            ActivePlayer.PlayArea.MoveWhere(ActivePlayer.Discards, c => !ShouldRemainInPlay(c));
+            ActivePlayer.LongLivedEffects.RemoveAll(e => e.IsFinished);
             ActivePlayer.Hand.MoveAll(ActivePlayer.Discards);
             _passiveEffects.Clear();
             DrawCards(5);
+        }
+
+        private bool ShouldRemainInPlay(ICard card)
+        {
+            var relevantLongLivedEffects = ActivePlayer.LongLivedEffects.Where(c => c.SourceCard == card);
+            if (relevantLongLivedEffects.Any(c => !c.IsFinished))
+                return true;
+
+            return false;
         }
 
         public void MoveToBuyStep()
@@ -192,6 +205,11 @@ namespace Dominion.Rules
             }
         }
 
+        public void AddLongLivedEffect(ILongLivedCardEffect effect)
+        {
+            ActivePlayer.LongLivedEffects.Add(effect);
+        }
+
         public void Trash(Player player, ICard card)
         {
             this.Game.Log.LogTrash(player, card);
@@ -199,7 +217,7 @@ namespace Dominion.Rules
         }
 
 
-        public void DiscardCards(Player player, IEnumerable<Card> cards)
+        public void DiscardCards(Player player, IEnumerable<ICard> cards)
         {
             foreach (var card in cards)
             {

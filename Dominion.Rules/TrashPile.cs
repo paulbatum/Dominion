@@ -7,7 +7,7 @@ namespace Dominion.Rules
 {
     public class TrashPile : EnumerableCardZone
     {
-        public Card TopCard
+        public ICard TopCard
         {
             get { return this.Cards.Last(); }
         }

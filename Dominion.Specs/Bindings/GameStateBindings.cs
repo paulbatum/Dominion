@@ -207,7 +207,7 @@ namespace Dominion.Specs.Bindings
         {
             var cardNames = selectedCardList.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
             var player = _game.Players.Single(p => p.Name == playerName);
-            var cardList = new List<Card>();
+            var cardList = new List<ICard>();
             foreach (var name in cardNames)
             {
                 var card = player.Hand.Where(c => c.Name == name && !cardList.Contains(c))
@@ -267,7 +267,7 @@ namespace Dominion.Specs.Bindings
             var player = _game.Players.Single(p => p.Name == playerName);
 
             var activity = (ISelectCardsActivity) _game.GetPendingActivity(player);
-            activity.SelectCards(Enumerable.Empty<Card>());
+            activity.SelectCards(Enumerable.Empty<ICard>());
         }
 
         [When(@"(.*) selects (.*) from the revealed cards")]

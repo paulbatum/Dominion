@@ -18,7 +18,7 @@ namespace Dominion.GameHost
 
         public void UpdateGameState(Game game)
         {
-            Card card = game.CurrentTurn.ActivePlayer.Hand.Single(c => c.Id == CardId);
+            ICard card = game.CurrentTurn.ActivePlayer.Hand.Single(c => c.Id == CardId);
             game.CurrentTurn.Play((IActionCard) card);            
         }
 

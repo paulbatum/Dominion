@@ -52,7 +52,7 @@ namespace Dominion.GameHost
             return new Game(players, bank, new TextGameLog());
         }
 
-        public IEnumerable<Card> CreateStartingDeck()
+        public IEnumerable<ICard> CreateStartingDeck()
         {
             return 3.NewCards<Estate>().Concat(7.NewCards<Copper>());
         }
