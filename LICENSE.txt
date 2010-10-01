@@ -1,6 +1,6 @@
 The MIT License
 
-Copyright (c) 2010 Paul Batum, Glenn Condron
+Copyright (c) 2010 Paul Batum, Glenn Condron, Trent Kerin
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
