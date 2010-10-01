@@ -21,21 +21,16 @@ namespace Dominion.Cards.Actions
         {
             public override void Resolve(TurnContext context)
             {
-                var choiceActivity = new ChoiceActivity(context, context.ActivePlayer,
+                var player = context.ActivePlayer;
+                var choiceActivity = Activities.ChooseYesOrNo(context.Game.Log, player,
                     "Do you wish to put your deck into your discard pile?",
-                    Choice.Yes, Choice.No);
-                choiceActivity.ActOnChoice = c => Execute(context, context.ActivePlayer, c);
+                    () =>
+                    {
+                        context.Game.Log.LogMessage("{0} put his deck in his discard pile", player);
+                        player.Deck.MoveAll(player.Discards);
+                    });
 
                 _activities.Add(choiceActivity);
-            }
-
-            private void Execute(TurnContext context, Player player, Choice choice)
-            {
-                if (choice == Choice.Yes)
-                {
-                    context.Game.Log.LogMessage("{0} put his deck in his discard pile", player);
-                    player.Deck.MoveAll(player.Discards);
-                }
             }
         }
     }

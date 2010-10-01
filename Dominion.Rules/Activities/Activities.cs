@@ -85,6 +85,11 @@ namespace Dominion.Rules.Activities
             );               
         }
 
+        public static IActivity ChooseYesOrNo(IGameLog log, Player player, string message, Action ifYes)
+        {
+            return ChooseYesOrNo(log, player, message, ifYes, null);
+        }
+
         public static IActivity ChooseYesOrNo(IGameLog log, Player player, string message, Action ifYes, Action ifNo)
         {
             var choiceActivity = new ChoiceActivity(log, player,
@@ -95,11 +100,13 @@ namespace Dominion.Rules.Activities
             {
                 if (c == Choice.Yes)
                 {
-                    ifYes();
+                    if (ifYes != null)
+                        ifYes();
                 }
                 else
                 {
-                    ifNo();
+                    if(ifNo != null)
+                        ifNo();
                 }
             };
 
