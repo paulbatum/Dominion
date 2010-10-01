@@ -44,6 +44,17 @@ namespace Dominion.Rules
         {
             get { return _gameEndPiles.Count(x => x.IsEmpty); }
         }
+
+        public CardPile Pile<T>()
+        {
+            return this.Piles.Single(x => x.Name == typeof(T).Name);
+        }
+
+        public CardPile NonEmptyPile<T>()
+        {
+            var pile = this.Pile<T>();
+            return pile.IsEmpty ? null : pile;
+        }
     }
 
     public abstract class CardPile : CardZone

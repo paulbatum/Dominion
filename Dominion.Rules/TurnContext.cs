@@ -216,7 +216,7 @@ namespace Dominion.Rules
             card.MoveTo(this.Game.Trash);
         }
 
-        public void DiscardCard(Player player, Card card)
+        public void DiscardCard(Player player, ICard card)
         {
             Game.Log.LogDiscard(player, card);
             card.MoveTo(player.Discards);

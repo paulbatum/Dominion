@@ -86,7 +86,6 @@
     <Compile Include="Actions\Witch.cs" />
     <Compile Include="Actions\Woodcutter.cs" />
     <Compile Include="Actions\Workshop.cs" />
-    <Compile Include="Extensions.cs" />
     <Compile Include="Curses\Curse.cs" />
     <Compile Include="GainUtility.cs" />
     <Compile Include="Hybrid\GreatHall.cs" />

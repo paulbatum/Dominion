@@ -28,20 +28,20 @@ namespace Dominion.Cards.Actions
 
                 if(curseInHand == null)
                 {
-                    DoGain(player, context);
+                    GainCopperAndCurse(player, context);
                 }
                 else
                 {
                     var activity = Activities.ChooseYesOrNo(context.Game.Log, player, "Discard a curse?",
                         () => context.DiscardCard(player, curseInHand),
-                        () => DoGain(player, context));                  
+                        () => GainCopperAndCurse(player, context));                  
 
                     _activities.Add(activity);
                     
                 }
             }
 
-            private void DoGain(Player player, TurnContext context)
+            private void GainCopperAndCurse(Player player, TurnContext context)
             {
                 var gainUtil = new GainUtility(context, player);                    
                 gainUtil.Gain<Copper>();                    

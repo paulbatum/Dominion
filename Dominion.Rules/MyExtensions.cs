@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Dominion.Rules.CardTypes;
 
 namespace Dominion.Rules
 {
@@ -32,5 +34,9 @@ namespace Dominion.Rules
                 yield return builder(i);
         }
 
+        public static IEnumerable<T> WithDistinctTypes<T>(this IEnumerable<T> input)
+        {
+            return input.Distinct(new SameTypeEqualityComparer<T>());
+        }
     }
 }
