@@ -33,7 +33,7 @@ namespace Dominion.Rules
             changer(targetZone);
         }
 
-        public void MoveWhere(CardZone targetZone, Func<ICard, bool> predicate)
+        public void MoveWhere(Func<ICard, bool> predicate, CardZone targetZone)
         {
             var matchingCards = _cards.Where(predicate).ToList();
             foreach (Card c in matchingCards)

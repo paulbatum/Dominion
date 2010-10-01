@@ -131,7 +131,7 @@ namespace Dominion.Rules
             if (GetCurrentEffect() != null)
                 throw new InvalidOperationException("Cannot end the turn - there is a current effect.");
 
-            ActivePlayer.PlayArea.MoveWhere(ActivePlayer.Discards, c => !ShouldRemainInPlay(c));
+            ActivePlayer.PlayArea.MoveWhere(c => !ShouldRemainInPlay(c), ActivePlayer.Discards);
             ActivePlayer.LongLivedEffects.RemoveAll(e => e.IsFinished);
             ActivePlayer.Hand.MoveAll(ActivePlayer.Discards);
             _passiveEffects.Clear();

@@ -67,15 +67,21 @@ namespace Dominion.Rules.Activities
             return activity;
         }
 
-        public static IEnumerable<IActivity> PutRevealedCardsOnTopOfDeck(IGameLog log, Player player, RevealZone revealZone)
+        public static IActivity SelectARevealedCardToPutOnTopOfDeck(IGameLog log, Player player, RevealZone revealZone, string message)
         {
-            return revealZone.Count().Items<IActivity>(
-                () =>                            
-                    new SelectFromRevealedCardsActivity(log, player, revealZone, "Select the next card to put on top",
-                                                        SelectionSpecifications.SelectExactlyXCards(1))
-                    {
-                        AfterCardsSelected = cards => player.Deck.MoveToTop(cards.Single())
-                    }
+            return new SelectFromRevealedCardsActivity(log, player, revealZone, message,
+                                                       SelectionSpecifications.SelectExactlyXCards(1))
+            {
+                AfterCardsSelected = cards => player.Deck.MoveToTop(cards.Single())
+            };
+        }
+
+        public static IEnumerable<IActivity> SelectMultipleRevealedCardsToPutOnTopOfDeck(IGameLog log, Player player, RevealZone revealZone)
+        {
+            var count = revealZone.Count();
+            return count.Items(
+                (i) => SelectARevealedCardToPutOnTopOfDeck(log, player, revealZone,
+                    string.Format("Select the {0} (of {1}) card to put on top of the deck.", i.ToOrderString(), count))
             );               
         }
 
