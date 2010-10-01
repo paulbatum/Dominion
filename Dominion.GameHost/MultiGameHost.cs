@@ -35,13 +35,13 @@ namespace Dominion.GameHost
         {
             var someCards = new List<string>{"SecretChamber", "Moat", "Mine", "Market", "Chancellor", "Nobles", "Militia", "Village", "ThroneRoom", "Remodel"};
 
-            return CreateNewGame(playerNames, numberOfPlayers, someCards);
+            return CreateNewGame(playerNames, numberOfPlayers, someCards, false);
         }
 
-        public string CreateNewGame(IEnumerable<string> playerNames, int numberOfPlayers, IEnumerable<string> selectedCardNames)
+        public string CreateNewGame(IEnumerable<string> playerNames, int numberOfPlayers, IEnumerable<string> selectedCardNames, bool useProsperity)
         {
             var key = _gameData.Count.ToString();
-            var startingConfig = new ChosenStartingConfiguration(numberOfPlayers, selectedCardNames);
+            var startingConfig = new ChosenStartingConfiguration(numberOfPlayers, selectedCardNames, useProsperity);
             var game = startingConfig.CreateGame(playerNames);
 
             var host = new LockingGameHost(game);            

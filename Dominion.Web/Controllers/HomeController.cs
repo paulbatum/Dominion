@@ -46,7 +46,7 @@ namespace Dominion.Web.Controllers
                 .Split(new[] {',', '.'}, StringSplitOptions.RemoveEmptyEntries)
                 .Select(n => n.Trim());
 
-            string gameKey = _host.CreateNewGame(namesArray, model.NumberOfPlayers, model.ChosenCards);
+            string gameKey = _host.CreateNewGame(namesArray, model.NumberOfPlayers, model.ChosenCards, model.UseProsperty);
             return this.RedirectToAction(x => x.ViewPlayers(gameKey));
         }        
 

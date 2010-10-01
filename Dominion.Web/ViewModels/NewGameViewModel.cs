@@ -17,5 +17,7 @@ namespace Dominion.Web.ViewModels
         public IList<string> CardsToChooseFrom { get; set; }
 
         public IList<string> ChosenCards { get; set; }
+
+        public bool UseProsperty { get; set; }
     }
 }

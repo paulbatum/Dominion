@@ -41,6 +41,10 @@
             ) %>
         Player names: <%= Html.TextBox("Names", "", new { style="width:250px"}) %>
         <br />
+        <br />
+        <%= Html.EditorFor(x => x.UseProsperty) %> Use Prosperity cards (Platinum & Colony)
+        <br />
+        <br />
         <% foreach (var cardName in Model.CardsToChooseFrom.OrderBy(c => c))
            {%>
            <input type="checkbox" name="chosenCards" class="someCard" value="<%=cardName%>" onclick="checkIfSubmitAllowed()" <%= Model.ChosenCards.Contains(cardName) ? "checked=checked" : "" %> />

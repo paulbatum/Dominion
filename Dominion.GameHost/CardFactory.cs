@@ -35,6 +35,8 @@ namespace Dominion.GameHost
                     typeof(Duchy),
                     typeof(Province),
                     typeof(Curse),
+                    typeof(Colony),
+                    typeof(Platinum)
                 };
 
                 return allCards

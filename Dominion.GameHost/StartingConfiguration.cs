@@ -31,6 +31,15 @@ namespace Dominion.GameHost
             bank.AddCardPile(Curses);
         }
 
+        protected void AddProsperityCards(CardBank bank)
+        {
+            bank.AddCardPile(new UnlimitedSupplyCardPile(() => new Platinum()));
+
+            var colonyPile = new LimitedSupplyCardPile();            
+            colonyPile.WithNewCards<Colony>(_numberOfPlayers <= 2 ? 8 : 12);
+            bank.AddCardPile(colonyPile);
+        }
+
         public Game CreateGame(IEnumerable<string> playerNames)
         {
             if(playerNames.Count() != _numberOfPlayers)
