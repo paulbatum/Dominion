@@ -37,7 +37,7 @@ namespace Dominion.GameHost
 
             var colonyPile = new LimitedSupplyCardPile();            
             colonyPile.WithNewCards<Colony>(_numberOfPlayers <= 2 ? 8 : 12);
-            bank.AddCardPile(colonyPile);
+            bank.AddCardPileWhichEndsTheGameWhenEmpty(colonyPile);
         }
 
         public Game CreateGame(IEnumerable<string> playerNames)
