@@ -115,6 +115,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Festival.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\FishingVillage.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FishingVillage.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\Gardens.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -302,6 +307,10 @@
     <None Include="Cards\Festival.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Festival.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\FishingVillage.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>FishingVillage.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\Gardens.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
