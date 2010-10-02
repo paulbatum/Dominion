@@ -10,7 +10,7 @@ namespace Dominion.GameHost.AI
 
         protected override void DiscardCards(int count, GameViewModel currentState)
         {
-            var discardPreference = new List<string> { "Estate", "Duchy", "Province", "Curse", "Copper", "Silver", "Gold" };
+            var discardPreference = new List<string> { "Estate", "Duchy", "Province", "Curse", "Colony", "Copper", "Silver", "Gold", "Platinum" };
             var orderedHand = currentState.Hand                
                 .OrderBy(c => discardPreference.IndexOf(c.Name)).ToList();
             var cardIdsToDiscard = orderedHand.Take(count).Select(c => c.Id).ToArray();
@@ -20,9 +20,9 @@ namespace Dominion.GameHost.AI
 
         protected virtual IList<string> GetPriorities(GameViewModel state)
         {
-            var priorities = new List<string> {"Province", "Gold", "Silver", "Copper"};
+            var priorities = new List<string> {"Colony", "Platinum", "Province", "Gold", "Silver", "Copper"};
             if(state.Bank.Single(p => p.Name == "Province").Count < 7)
-                priorities.Insert(1, "Duchy");
+                priorities.Insert(3, "Duchy");
 
             return priorities;
         }
@@ -44,6 +44,9 @@ namespace Dominion.GameHost.AI
 
             if(pile.Name == "Province")
                 _client.SendChatMessage("Province muthafucka!");
+
+            if(pile.Name == "Colony")
+                _client.SendChatMessage("COLONY! SUCK IT!");
 
             return new BuyCardMessage(_client.PlayerId, pile.Id);
         }
