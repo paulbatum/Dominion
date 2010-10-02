@@ -19,7 +19,7 @@ namespace Dominion.Cards.Actions
             context.DrawCards(1);
             context.RemainingActions += 1;
             context.Buys += 1;
-            context.MoneyToSpend += 1;
+            context.AvailableSpend += 1;
         }
     }
 }

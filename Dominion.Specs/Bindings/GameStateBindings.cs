@@ -355,10 +355,11 @@ namespace Dominion.Specs.Bindings
         }
 
         [Then(@"(.*) should have (\d+) to spend")]
-        public void ThenPlayerShouldHaveToSpend(string playerName, int moneyCount)
+        public void ThenPlayerShouldHaveToSpend(string playerName, string spend)
         {
             _game.ActivePlayer.Name.ShouldEqual(playerName);
-            _game.CurrentTurn.MoneyToSpend.ShouldEqual(moneyCount);
+            CardCost actualSpend = CardCost.Parse(spend);
+            _game.CurrentTurn.AvailableSpend.ShouldEqual(actualSpend);
         }
 
         [Then(@"(.*) should have (\d+) remaining action[s]?")]

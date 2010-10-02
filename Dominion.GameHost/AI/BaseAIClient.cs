@@ -48,10 +48,7 @@ namespace Dominion.GameHost.AI
 
         protected IList<CardPileViewModel> GetValidBuys(GameViewModel state)
         {
-            return (from pile in state.Bank
-                    where (!pile.IsLimited) || pile.Count > 0
-                    where state.Status.MoneyToSpend >= pile.Cost
-                    select pile).ToList();
+            return state.Bank.Where(p => p.CanBuy).ToList();
         }
 
         protected virtual void HandleActivity(ActivityModel activity, GameViewModel state)

@@ -17,7 +17,7 @@ namespace Dominion.Cards.Actions
         public void Play(TurnContext context)
         {
             context.RemainingActions += 2;
-            context.MoneyToSpend += 1;
+            context.AvailableSpend += 1;
 
             context.AddLongLivedEffect(new FishingVillageEffect(this));
         }
@@ -35,7 +35,7 @@ namespace Dominion.Cards.Actions
             public void OnTurnStarting(TurnContext context)
             {
                 context.RemainingActions += 1;
-                context.MoneyToSpend += 1;
+                context.AvailableSpend += 1;
                 IsFinished = true;
                 context.Game.Log.LogMessage("FishingVillage adds one action and one spend");
             }

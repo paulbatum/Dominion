@@ -22,7 +22,7 @@ namespace Dominion.Cards.Actions
 
         private class CoppersmithPassiveEffect : PassiveCardEffectBase
         {
-            public override int ModifyValue(int currentValue, ITreasureCard card)
+            public override CardCost ModifyValue(CardCost currentValue, ITreasureCard card)
             {
                 if (card is Copper)
                     return currentValue + 1;

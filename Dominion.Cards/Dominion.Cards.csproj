@@ -93,6 +93,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Treasure\Copper.cs" />
     <Compile Include="Treasure\Platinum.cs" />
+    <Compile Include="Treasure\Potion.cs" />
     <Compile Include="Victory\Colony.cs" />
     <Compile Include="Victory\Gardens.cs" />
     <Compile Include="Treasure\Gold.cs" />

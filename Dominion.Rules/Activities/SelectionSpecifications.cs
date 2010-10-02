@@ -40,7 +40,7 @@ namespace Dominion.Rules.Activities
         {
             return new SelectionSpecification
             {
-                MatchFunction = cards => cards.Count() == 1 && cards.Single().Cost <= costUpTo,
+                MatchFunction = cards => cards.Count() == 1 && costUpTo.IsEnoughFor(cards.Single()),
                 ActivityType = ActivityType.SelectPile,
                 Cost = costUpTo
             };

@@ -12,7 +12,7 @@ namespace Dominion.Rules
         {
             ActivePlayer = player;
             Game = game;
-            MoneyToSpend = 0;
+            AvailableSpend = 0;
             RemainingActions = 1;
             Buys = 1;
 
@@ -25,7 +25,7 @@ namespace Dominion.Rules
 
         public Player ActivePlayer { get; private set; }
         public Game Game { get; private set; }
-        public int MoneyToSpend { get; set; }
+        public CardCost AvailableSpend { get; set; }
         public int RemainingActions { get; set; }
         public int Buys { get; set; }
         public bool InBuyStep { get; private set; }
@@ -100,11 +100,7 @@ namespace Dominion.Rules
             if (pile.IsEmpty)
                 return false;
 
-            if (MoneyToSpend < pile.TopCard.Cost)
-                return false;
-            //throw new ArgumentException(string.Format("Cannot buy the card '{0}', you only have {1} to spend.", cardToBuy, MoneyToSpend));
-
-            return true;
+            return AvailableSpend.IsEnoughFor(pile.TopCard);
         }
 
         public bool CanBuy(CardPile pile, Player player)
@@ -120,7 +116,7 @@ namespace Dominion.Rules
             var cardToBuy = pile.TopCard;
 
             Buys--;
-            MoneyToSpend -= cardToBuy.Cost.Money;
+            AvailableSpend -= cardToBuy.Cost.Money;
             this.Game.Log.LogBuy(this.ActivePlayer, pile);
 
             cardToBuy.MoveTo(this.ActivePlayer.Discards);
@@ -157,12 +153,14 @@ namespace Dominion.Rules
 
             InBuyStep = true;
             RemainingActions = 0;
-            MoneyToSpend = MoneyToSpend + this.ActivePlayer.Hand.OfType<ITreasureCard>().Sum(x => CalculateMoneyToSpend(x));
+
+            foreach(var card in ActivePlayer.Hand.OfType<ITreasureCard>())
+                AvailableSpend += CalculateAvailableSpend(card);
         }
 
-        private int CalculateMoneyToSpend(ITreasureCard card)
+        private CardCost CalculateAvailableSpend(ITreasureCard card)
         {
-            int value = card.Value;
+            CardCost value = card.Value;
             foreach (IPassiveCardEffect effect in _passiveEffects)
                 value = effect.ModifyValue(value, card);
 

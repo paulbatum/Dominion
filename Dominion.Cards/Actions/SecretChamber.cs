@@ -60,7 +60,7 @@ namespace Dominion.Cards.Actions
                 activity.AfterCardsSelected = cards =>
                 {
                     context.DiscardCards(activity.Player, cards);
-                    context.MoneyToSpend += cards.Count();                    
+                    context.AvailableSpend += cards.Count();                    
                 };
                 
                 _activities.Add(activity);

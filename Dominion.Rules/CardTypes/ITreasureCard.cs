@@ -2,6 +2,6 @@
 {
     public interface ITreasureCard : ICard
     {
-        int Value { get; }
+        CardCost Value { get; }
     }
 }

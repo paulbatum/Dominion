@@ -36,32 +36,53 @@ namespace Dominion.Tests
             newCost.Potions.ShouldEqual(0);
         }
 
+
         [Test]
-        public void CardCost_of_3_is_less_than_CardCost_of_5()
+        public void CardCost_of_5_is_enough_for_CardCost_of_5()
         {
-            CardCost cost3 = 3;
+            CardCost cost1 = 5;
+            CardCost cost2 = 5;
+
+            Assert.That(cost1.IsEnoughFor(cost2));
+        }
+
+
+        [Test]
+        public void CardCost_of_2P_is_enough_for_CardCost_of_2P()
+        {
+            CardCost cost1 = CardCost.Parse("2P");
+            CardCost cost2 = CardCost.Parse("2P");
+
+            Assert.That(cost1.IsEnoughFor(cost2));
+        }
+
+        [Test]
+        public void CardCost_of_5_is_enough_for_CardCost_of_3()
+        {
             CardCost cost5 = 5;
+            CardCost cost3 = 3;            
 
-            Assert.That(cost3 < cost5);
+            Assert.That(cost5.IsEnoughFor(cost3));
         }
 
         [Test]
-        public void CardCost_of_5_is_greater_than_CardCost_of_3()
+        public void CardCost_of_5_is_not_enough_for_CardCost_of_3P()
         {
-            CardCost cost3 = 3;
             CardCost cost5 = 5;
+            CardCost cost3P = CardCost.Parse("3P");            
 
-            Assert.That(cost5 > cost3);
+            Assert.False(cost5.IsEnoughFor(cost3P));
         }
 
         [Test]
-        public void CardCost_of_5_is_greater_than_or_equal_to_CardCost_of_5()
+        public void CardCost_of_3P_is_not_enough_for_CardCost_of_5()
         {
-            CardCost c1 = 5;
-            CardCost c2 = 5;
+            CardCost cost5 = 5;
+            CardCost cost3P = CardCost.Parse("3P");
 
-            Assert.That(c1 >= c2);
+            Assert.False(cost3P.IsEnoughFor(cost5));
         }
+        
 
         [Test]
         public void Can_compare_CardCost_to_integer()
@@ -70,16 +91,7 @@ namespace Dominion.Tests
             int otherCost = 5;
 
             Assert.That( cost == otherCost);       
-        }
-
-        [Test]
-        public void Cannot_use_magnitude_comparison_between_CardCosts_with_differing_potions()
-        {
-            CardCost costWithPotion = new CardCost(3, 1);
-            CardCost costWithNoPotion = 5;
-
-            Assert.Throws(typeof (ArgumentException), () => { bool x = costWithNoPotion > costWithPotion; });
-        }
+        }        
 
         [Test]
         public void CardCosts_with_same_values_are_equal()

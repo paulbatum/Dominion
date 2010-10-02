@@ -9,6 +9,6 @@ namespace Dominion.Cards.Treasure
             : base(3)
         { }
 
-        public int Value { get { return 2; } }
+        public CardCost Value { get { return 2; } }
     }
 }

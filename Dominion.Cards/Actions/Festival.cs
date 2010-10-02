@@ -17,7 +17,7 @@ namespace Dominion.Cards.Actions
         {
             context.RemainingActions += 2;
             context.Buys += 1;
-            context.MoneyToSpend += 2;
+            context.AvailableSpend += 2;
         }
     }
 }

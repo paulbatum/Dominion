@@ -26,6 +26,7 @@ namespace Dominion.GameHost
             bank.AddCardPile(Silver);            
             bank.AddCardPileWhichEndsTheGameWhenEmpty(Provinces);
             bank.AddCardPile(Duchies);
+            bank.AddCardPile(Potions);
             bank.AddCardPile(Copper);                        
             bank.AddCardPile(Estates);                        
             bank.AddCardPile(Curses);
@@ -95,6 +96,11 @@ namespace Dominion.GameHost
         private CardPile Curses
         {
             get { return new LimitedSupplyCardPile().WithNewCards<Curse>(Math.Max(10, (_numberOfPlayers - 1) * 10)); }            
+        }
+
+        private CardPile Potions
+        {
+            get { return new UnlimitedSupplyCardPile(() => new Potion()); }
         }
     }
 }

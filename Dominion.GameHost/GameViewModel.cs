@@ -93,7 +93,7 @@ namespace Dominion.GameHost
             {
                 BuyCount = currentTurn.Buys;
                 RemainingActions = currentTurn.RemainingActions;
-                MoneyToSpend = currentTurn.MoneyToSpend;
+                AvailableSpend = new AvailableSpendViewModel(currentTurn.AvailableSpend);
                 IsActive = true;
                 InBuyStep = currentTurn.InBuyStep;
             }
@@ -109,10 +109,24 @@ namespace Dominion.GameHost
         public bool GameIsComplete { get; set; }
         public bool IsActive { get; set; }
         public bool InBuyStep { get; set; }
-        public int MoneyToSpend { get; set; }
+        public AvailableSpendViewModel AvailableSpend { get; set; }
         public int RemainingActions { get; set; }
         public int BuyCount { get; set; }
         public string ActivePlayerName { get; set; }
+    }
+
+    public class AvailableSpendViewModel
+    {
+        public AvailableSpendViewModel(CardCost availableSpend)
+        {
+            Money = availableSpend.Money;
+            Potions = availableSpend.Potions;
+            DisplayValue = availableSpend.ToString();
+        }
+
+        public int Money { get; set; }
+        public int Potions { get; set; }
+        public string DisplayValue { get; set; }
     }
 
     public class CardPileViewModel
@@ -132,7 +146,7 @@ namespace Dominion.GameHost
 
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public int Cost { get; set; }
+        public CardCost Cost { get; set; }
         public int Count { get; set; }
         public bool IsLimited { get; set; }
         public bool CanBuy { get; set; }

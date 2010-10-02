@@ -27,6 +27,11 @@ namespace Dominion.Rules
             return result;
         }
 
+        public static CardCost Potion
+        {
+            get { return new CardCost(0, 1); }
+        }
+
         public static CardCost Parse(string stringCost)
         {
             var match = Regex.Match(stringCost, @"(\d+)(P*)");
@@ -34,6 +39,16 @@ namespace Dominion.Rules
             var potions = match.Groups.Count > 2 ? match.Groups[2].Length : 0;
 
             return new CardCost(money, potions);
+        }
+
+        public bool IsEnoughFor(ICard card)
+        {
+            return IsEnoughFor(card.Cost);
+        }
+
+        public bool IsEnoughFor(CardCost cost)
+        {
+            return this.Money >= cost.Money && this.Potions >= cost.Potions;
         }
 
         public static implicit operator CardCost (int money)
@@ -56,37 +71,37 @@ namespace Dominion.Rules
             return new CardCost(a.Money - b.Money, a.Potions - b.Potions);
         }
 
-        public static bool operator <(CardCost a, CardCost b)
-        {
-            if(a.Potions != b.Potions)
-                throw new ArgumentException("Cannot compare two card costs that have differing potion values");
+        //public static bool operator <(CardCost a, CardCost b)
+        //{
+        //    if(a.Potions != b.Potions)
+        //        throw new ArgumentException("Cannot compare two card costs that have differing potion values");
 
-            return a.Money < b.Money;
-        }
+        //    return a.Money < b.Money;
+        //}
 
-        public static bool operator >(CardCost a, CardCost b)
-        {
-            if (a.Potions != b.Potions)
-                throw new ArgumentException("Cannot compare two card costs that have differing potion values");
+        //public static bool operator >(CardCost a, CardCost b)
+        //{
+        //    if (a.Potions != b.Potions)
+        //        throw new ArgumentException("Cannot compare two card costs that have differing potion values");
 
-            return a.Money > b.Money;
-        }
+        //    return a.Money > b.Money;
+        //}
 
-        public static bool operator <=(CardCost a, CardCost b)
-        {
-            if (a.Potions != b.Potions)
-                throw new ArgumentException("Cannot compare two card costs that have differing potion values");
+        //public static bool operator <=(CardCost a, CardCost b)
+        //{
+        //    if (a.Potions != b.Potions)
+        //        throw new ArgumentException("Cannot compare two card costs that have differing potion values");
 
-            return a.Money <= b.Money;
-        }
+        //    return a.Money <= b.Money;
+        //}
 
-        public static bool operator >=(CardCost a, CardCost b)
-        {
-            if (a.Potions != b.Potions)
-                throw new ArgumentException("Cannot compare two card costs that have differing potion values");
+        //public static bool operator >=(CardCost a, CardCost b)
+        //{
+        //    if (a.Potions != b.Potions)
+        //        throw new ArgumentException("Cannot compare two card costs that have differing potion values");
 
-            return a.Money >= b.Money;
-        }
+        //    return a.Money >= b.Money;
+        //}
 
         
         public static bool operator ==(CardCost a, CardCost b)

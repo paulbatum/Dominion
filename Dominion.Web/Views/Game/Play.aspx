@@ -40,7 +40,7 @@
             </tr>
             <tr>
                 <td>Buy of: </td>
-                <td>${MoneyToSpend}</td>
+                <td>${AvailableSpend.DisplayValue}</td>
             </tr>
             <tr>
                 <td>Buys: </td>

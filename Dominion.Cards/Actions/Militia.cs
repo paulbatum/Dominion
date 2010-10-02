@@ -14,7 +14,7 @@ namespace Dominion.Cards.Actions
 
         public void Play(TurnContext context)
         {
-            context.MoneyToSpend += 2;
+            context.AvailableSpend += 2;
             context.AddEffect(new MilitiaAttack());
         }
 

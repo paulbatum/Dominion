@@ -25,7 +25,7 @@ namespace Dominion.Rules
         /// <param name="currentValue">The current value of the card, potentially already modified</param>
         /// <param name="card">The card whose value is being modified</param>
         /// <returns></returns>
-        int ModifyValue(int currentValue, ITreasureCard card);
+        CardCost ModifyValue(CardCost currentValue, ITreasureCard card);
     }
 
     public class PassiveCardEffectBase : IPassiveCardEffect
@@ -35,7 +35,7 @@ namespace Dominion.Rules
             return currentCost;
         }
 
-        public virtual int ModifyValue(int currentValue, ITreasureCard card)
+        public virtual CardCost ModifyValue(CardCost currentValue, ITreasureCard card)
         {
             return currentValue;
         }
