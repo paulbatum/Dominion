@@ -205,6 +205,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Workshop.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\Chapel.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Chapel.feature</DependentUpon>
+    </Compile>
     <Compile Include="GameEnd.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -384,6 +389,10 @@
     <None Include="Cards\Workshop.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Workshop.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\Chapel.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Chapel.feature.cs</LastGenOutput>
     </None>
     <None Include="GameEnd.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
