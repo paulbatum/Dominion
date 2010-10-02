@@ -70,6 +70,11 @@
   <ItemGroup>
     <Compile Include="Bindings\Extensions.cs" />
     <Compile Include="Bindings\ScoringBindings.cs" />
+    <Compile Include="Cards\Caravan.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Caravan.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\Cellar.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -272,6 +277,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Cards\Caravan.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Caravan.feature.cs</LastGenOutput>
+    </None>
     <None Include="Cards\Cellar.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Cellar.feature.cs</LastGenOutput>
