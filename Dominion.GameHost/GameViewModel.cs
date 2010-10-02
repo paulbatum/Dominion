@@ -125,7 +125,7 @@ namespace Dominion.GameHost
             Name = pile.Name;
 
             if (!pile.IsEmpty)
-                Cost = pile.TopCard.Cost;
+                Cost = pile.TopCard.Cost.Money;
 
             CanBuy = context.CanBuy(pile, player);
         }
@@ -148,7 +148,7 @@ namespace Dominion.GameHost
         public CardViewModel(ICard card)
         {
             Id = card.Id;
-            Cost = card.Cost;
+            Cost = card.Cost.Money;
             Name = card.Name;
 
             var types = new List<string>();

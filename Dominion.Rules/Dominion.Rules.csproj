@@ -71,6 +71,7 @@
     <Compile Include="Activities\WaitingForPlayersActivity.cs" />
     <Compile Include="AttackEffect.cs" />
     <Compile Include="CardBank.cs" />
+    <Compile Include="CardCost.cs" />
     <Compile Include="CardEffectBase.cs" />
     <Compile Include="CardTypes\SameTypeEqualityComparer.cs" />
     <Compile Include="CardTypes\IActionCard.cs" />

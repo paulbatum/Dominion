@@ -3,7 +3,7 @@ namespace Dominion.Rules
 {
     public interface ICard
     {
-        int Cost { get; }
+        CardCost Cost { get; }
         CardZone CurrentZone { get; }
         Guid Id { get; }
         void MoveTo(CardZone targetZone);

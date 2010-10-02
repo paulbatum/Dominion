@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AITests.cs" />
+    <Compile Include="CardCostTests.cs" />
     <Compile Include="CardMovementTests.cs" />
     <Compile Include="DeckTests.cs" />
     <Compile Include="HelperExtensions.cs" />

@@ -37,7 +37,7 @@ namespace Dominion.Cards.Actions
                 _activities.Add(activity);
             }
 
-            public void AddGainActivity(IGameLog log, Player player, int upToCost)
+            public void AddGainActivity(IGameLog log, Player player, CardCost upToCost)
             {
                 var activity = Activities.GainACardCostingUpToX(log, player, upToCost, player.Hand);
                 activity.Specification.CardTypeRestriction = typeof (ITreasureCard);

@@ -29,7 +29,7 @@ namespace Dominion.Rules
             get { return _currentZone; }
         }
 
-        public int Cost { get; protected set; }
+        public CardCost Cost { get; protected set; }
 
 
         public string Name

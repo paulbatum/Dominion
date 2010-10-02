@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Dominion.GameHost;
+using Dominion.Rules;
 using Dominion.Rules.Activities;
 
 namespace Dominion.Specs.Bindings
@@ -14,9 +15,9 @@ namespace Dominion.Specs.Bindings
             return (int) activity.Properties["NumberOfCardsToSelect"];
         }
 
-        public static int GetCostProperty(this IActivity activity)
+        public static CardCost GetCostProperty(this IActivity activity)
         {
-            return (int) activity.Properties["Cost"];
+            return (CardCost)activity.Properties["Cost"];
         }
 
         public static string GetTypeRestrictionProperty(this IActivity activity)

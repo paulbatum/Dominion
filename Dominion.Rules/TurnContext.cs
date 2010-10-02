@@ -120,7 +120,7 @@ namespace Dominion.Rules
             var cardToBuy = pile.TopCard;
 
             Buys--;
-            MoneyToSpend -= cardToBuy.Cost;
+            MoneyToSpend -= cardToBuy.Cost.Money;
             this.Game.Log.LogBuy(this.ActivePlayer, pile);
 
             cardToBuy.MoveTo(this.ActivePlayer.Discards);

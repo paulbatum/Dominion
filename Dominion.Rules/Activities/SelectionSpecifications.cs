@@ -36,7 +36,7 @@ namespace Dominion.Rules.Activities
             };
         }
 
-        public static ISelectionSpecification SelectPileCostingUpToX(int costUpTo)
+        public static ISelectionSpecification SelectPileCostingUpToX(CardCost costUpTo)
         {
             return new SelectionSpecification
             {
@@ -52,7 +52,7 @@ namespace Dominion.Rules.Activities
             public ActivityType ActivityType { get; set; }
             public Type CardTypeRestriction { get; set; }
             public int? Count { get; set; }
-            public int? Cost { get; set; }
+            public CardCost Cost { get; set; }
 
             public void WriteProperties(IDictionary<string, object> bag)
             {

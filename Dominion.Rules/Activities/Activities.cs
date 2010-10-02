@@ -31,12 +31,12 @@ namespace Dominion.Rules.Activities
                                                                string.Format("Select the {0} (of {1}) card to put on top of the deck.", i.ToOrderString(), count)));
         }
 
-        public static SelectPileActivity GainACardCostingUpToX(IGameLog log, Player player, int cost)
+        public static SelectPileActivity GainACardCostingUpToX(IGameLog log, Player player, CardCost cost)
         {
             return GainACardCostingUpToX(log, player, cost, player.Discards);
         }
 
-        public static SelectPileActivity GainACardCostingUpToX(IGameLog log, Player player, int cost, CardZone destination)
+        public static SelectPileActivity GainACardCostingUpToX(IGameLog log, Player player, CardCost cost, CardZone destination)
         {
             return new SelectPileActivity(log, player, string.Format("Select a card to gain of cost {0} or less", cost),
                                           SelectionSpecifications.SelectPileCostingUpToX(cost))

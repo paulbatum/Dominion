@@ -522,20 +522,22 @@ namespace Dominion.Specs.Bindings
             activity.GetTypeRestrictionProperty().ShouldEqual(typeof(ITreasureCard).Name);
         }
 
-        [Then(@"(.*) must gain a card of cost (\d+) or less")]
-        public void ThenPlayerMustGainACardOfCostOrLess(string playerName, int cardCost)
+        [Then(@"(.*) must gain a card of cost (.*) or less")]
+        public void ThenPlayerMustGainACardOfCostOrLess(string playerName, string cost)
         {
             var player = _game.Players.Single(p => p.Name == playerName);
             var activity = (ISelectPileActivity) _game.GetPendingActivity(player);
+            CardCost cardCost = CardCost.Parse(cost);
 
             activity.GetCostProperty().ShouldEqual(cardCost);
         }
 
-        [Then(@"(.*) must gain a treasure card of cost (\d+) or less")]
-        public void ThenPlayerMustGainATreasureCardOfCostOrLess(string playerName, int cardCost)
+        [Then(@"(.*) must gain a treasure card of cost (.*) or less")]
+        public void ThenPlayerMustGainATreasureCardOfCostOrLess(string playerName, string cost)
         {
             var player = _game.Players.Single(p => p.Name == playerName);
             var activity = (ISelectPileActivity)_game.GetPendingActivity(player);
+            CardCost cardCost = CardCost.Parse(cost);
 
             activity.GetCostProperty().ShouldEqual(cardCost);
             activity.GetTypeRestrictionProperty().ShouldEqual(typeof (ITreasureCard).Name);
