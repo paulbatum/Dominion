@@ -261,6 +261,7 @@ namespace Dominion.Specs.Bindings
         }
 
         [When(@"(.*) selects nothing to discard")]
+        [When(@"(.*) selects nothing to trash")]
         [When(@"(.*) is done with reactions")]
         public void WhenPlayerSelectsNothingToDiscard(string playerName)
         {

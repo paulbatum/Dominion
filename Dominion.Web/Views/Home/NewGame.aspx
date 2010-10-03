@@ -3,12 +3,12 @@
 <asp:Content runat="server" ID="Content" ContentPlaceHolderID="TitleContent"></asp:Content>
 <asp:Content runat="server" ID="Content1" ContentPlaceHolderID="HeadContent">
 <script type="text/javascript">
-    $(document).ready( function() {
+    $(document).ready(function () {
         $('#numberOfPlayers')
-            .change( function(event) {
+            .change(function (event) {
                 populateNames(event.target.value);
             });
-        $('#submitbutton').attr('disabled', true);
+        checkIfSubmitAllowed();
     });
 
     function populateNames(numberOfPlayers) {

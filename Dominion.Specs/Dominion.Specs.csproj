@@ -70,6 +70,11 @@
   <ItemGroup>
     <Compile Include="Bindings\Extensions.cs" />
     <Compile Include="Bindings\ScoringBindings.cs" />
+    <Compile Include="Cards\Caravan.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Caravan.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\Cellar.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -114,6 +119,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Festival.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Cards\FishingVillage.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FishingVillage.feature</DependentUpon>
     </Compile>
     <Compile Include="Cards\Gardens.feature.cs">
       <AutoGen>True</AutoGen>
@@ -195,6 +205,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Workshop.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\Chapel.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Chapel.feature</DependentUpon>
+    </Compile>
     <Compile Include="GameEnd.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -267,6 +282,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Cards\Caravan.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Caravan.feature.cs</LastGenOutput>
+    </None>
     <None Include="Cards\Cellar.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Cellar.feature.cs</LastGenOutput>
@@ -302,6 +321,10 @@
     <None Include="Cards\Festival.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Festival.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\FishingVillage.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>FishingVillage.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\Gardens.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -366,6 +389,10 @@
     <None Include="Cards\Workshop.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Workshop.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\Chapel.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Chapel.feature.cs</LastGenOutput>
     </None>
     <None Include="GameEnd.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
