@@ -110,6 +110,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Expand.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\Familiar.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Familiar.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\Feast.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -313,6 +318,10 @@
     <None Include="Cards\Expand.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Expand.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\Familiar.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Familiar.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\Feast.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

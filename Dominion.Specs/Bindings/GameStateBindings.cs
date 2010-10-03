@@ -141,6 +141,12 @@ namespace Dominion.Specs.Bindings
                 c.MoveTo(player.Deck);
         }
 
+        [Given(@"(.*) is available to buy")]
+        public void GivenCardIsAvailableToBuy(string cardName)
+        {
+            _game.Bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards(cardName, 10));
+        }
+
 
 
         // When
@@ -334,7 +340,7 @@ namespace Dominion.Specs.Bindings
             _game.ActivePlayer.Name.ShouldEqual(playerName);
         }
 
-        [Then(@"(.*) should have (\d+) actions remaining")]
+        [Then(@"(.*) should have (\d+) action[s]? remaining")]
         public void ThenPlayerShouldHaveActionsRemaining(string playerName, int actionCount)
         {
             _game.ActivePlayer.Name.ShouldEqual(playerName);

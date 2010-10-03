@@ -11,7 +11,7 @@ namespace Dominion.Rules
 
         public Guid Id { get; private set; }
         
-        protected Card(int cost)
+        protected Card(CardCost cost)
         {
             Id = Guid.NewGuid();
             Cost = cost;

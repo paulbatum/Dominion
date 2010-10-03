@@ -36,6 +36,16 @@ namespace Dominion.Tests
             newCost.Potions.ShouldEqual(0);
         }
 
+        [Test]
+        public void CardCost_3P_minus_CardCost_2P_equals_1()
+        {
+            CardCost cost3P = new CardCost(3, 1);
+            CardCost cost2P = new CardCost(2, 1);
+            var newCost = cost3P - cost2P;
+            newCost.Money.ShouldEqual(1);
+            newCost.Potions.ShouldEqual(0);
+        }
+
 
         [Test]
         public void CardCost_of_5_is_enough_for_CardCost_of_5()
