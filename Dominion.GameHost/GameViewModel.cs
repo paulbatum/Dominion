@@ -99,6 +99,7 @@ namespace Dominion.GameHost
             }
             else
             {
+                AvailableSpend = new AvailableSpendViewModel(new CardCost(0));
                 IsActive = false;
             }
 

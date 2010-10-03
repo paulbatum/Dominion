@@ -17,12 +17,12 @@ namespace Dominion.Web.Controllers
         public IGameClient Client { get; set; }
 
         [HttpGet]
-        public void GameStateAsync(long mostRecentVersion)
+        public void GameStateAsync(long? mostRecentVersion)
         {
             AsyncManager.OutstandingOperations.Increment();
 
             var currentGameState = Client.GetGameState();
-            if(mostRecentVersion < currentGameState.Version)
+            if (mostRecentVersion == null || mostRecentVersion < currentGameState.Version)
             {
                 AsyncManager.Parameters["gameState"] = currentGameState;
                 AsyncManager.OutstandingOperations.Decrement();
