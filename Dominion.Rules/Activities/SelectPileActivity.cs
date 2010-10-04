@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace Dominion.Rules.Activities
 {
-
     public interface ISelectPileActivity : IActivity
     {
         void SelectPile(CardPile pile);
+        ISelectionSpecification Specification { get; }
     }
 
     public class SelectPileActivity : ActivityBase, ISelectPileActivity

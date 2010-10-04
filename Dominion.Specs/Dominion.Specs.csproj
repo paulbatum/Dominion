@@ -200,6 +200,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ThroneRoom.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\Upgrade.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Upgrade.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\Witch.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -390,6 +395,10 @@
     <None Include="Cards\ThroneRoom.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ThroneRoom.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\Upgrade.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Upgrade.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\Witch.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

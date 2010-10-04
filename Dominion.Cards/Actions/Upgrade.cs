@@ -1,0 +1,56 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Dominion.Rules;
+using Dominion.Rules.Activities;
+using Dominion.Rules.CardTypes;
+
+namespace Dominion.Cards.Actions
+{
+    public class Upgrade : Card, IActionCard
+    {
+        public Upgrade()
+            : base(5)
+        {
+        }
+
+        public void Play(TurnContext context)
+        {
+            context.DrawCards(1);
+            context.RemainingActions += 1;
+
+            context.AddEffect(new UpgradeEffect());
+        }
+
+        public class UpgradeEffect : CardEffectBase
+        {
+            public override void Resolve(TurnContext context)
+            {
+                var upgradeActivity = new SelectCardsActivity(context, "Select a card to Upgrade",
+                    SelectionSpecifications.SelectExactlyXCards(1));
+
+                upgradeActivity.AfterCardsSelected = cardList =>
+                {
+                    var player = context.ActivePlayer;
+                    var cardToUpgrade = cardList.Single();
+                    var upgradeCost = cardToUpgrade.Cost + 1;
+                    context.Trash(player, cardToUpgrade);
+
+                    if (context.Game.Bank.Piles.Any(p => !p.IsEmpty && p.TopCard.Cost == upgradeCost))
+                    {
+                        var gainActivity = Activities.GainACardCostingExactlyX(context.Game.Log, player,
+                            upgradeCost, player.Discards);
+                        _activities.Add(gainActivity);
+                    }
+                    else
+                    {
+                        context.Game.Log.LogMessage("{0} could gain no card of appropriate cost", player);
+                    }
+                };
+
+                _activities.Add(upgradeActivity);
+            }
+        }
+    }
+}

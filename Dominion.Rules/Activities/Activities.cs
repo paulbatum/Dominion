@@ -50,6 +50,20 @@ namespace Dominion.Rules.Activities
             };
         }
 
+        public static SelectPileActivity GainACardCostingExactlyX(IGameLog log, Player player, CardCost cost, CardZone destination)
+        {
+            return new SelectPileActivity(log, player, string.Format("Select a card to gain with a cost of exactly {0}", cost),
+                                          SelectionSpecifications.SelectPileCostingExactlyX(cost))
+            {
+                AfterPileSelected = pile =>
+                {
+                    var card = pile.TopCard;
+                    card.MoveTo(destination);
+                    log.LogGain(player, card);
+                }
+            };
+        }
+
         public static IActivity GainOpponentsCardChoice(TurnContext context, Card card, Player cardOwner)
         {
             var activity = new ChoiceActivity(context, context.ActivePlayer,

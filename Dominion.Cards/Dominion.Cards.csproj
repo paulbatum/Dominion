@@ -85,6 +85,7 @@
     <Compile Include="Actions\Smithy.cs" />
     <Compile Include="Actions\Thief.cs" />
     <Compile Include="Actions\ThroneRoom.cs" />
+    <Compile Include="Actions\Upgrade.cs" />
     <Compile Include="Actions\Village.cs" />
     <Compile Include="Actions\Witch.cs" />
     <Compile Include="Actions\Woodcutter.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="Hybrid\GreatHall.cs" />
     <Compile Include="Hybrid\Nobles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestCard.cs" />
     <Compile Include="Treasure\Copper.cs" />
     <Compile Include="Treasure\Platinum.cs" />
     <Compile Include="Treasure\Potion.cs" />

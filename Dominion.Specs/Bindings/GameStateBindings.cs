@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
+using Dominion.Cards;
 using Dominion.Cards.Treasure;
 using Dominion.Cards.Victory;
 using Dominion.GameHost;
@@ -34,6 +35,14 @@ namespace Dominion.Specs.Bindings
             _game = startingConfig.CreateGame(names);
         }
 
+        [Given(@"A new game with (\d+) player[s]? and bank of (.*)")]
+        public void GivenANewGameWithPlayersAndBank(int playerCount, string bankCardNames)
+        {
+            var cardNameList = bankCardNames.Split(new char[]{',', ' '}, StringSplitOptions.RemoveEmptyEntries);
+            var startingConfig = new ChosenStartingConfiguration(playerCount, cardNameList, false);
+            var names = playerCount.Items(i => "Player" + i);
+            _game = startingConfig.CreateGame(names);
+        }
 
         [Given(@"(.*) has a (.*) in hand instead of a (.*)")]
         public void GivenPlayerHasACardInHandInsteadOfAnotherCard(string playerName, string cardName, string cardToReplace)
@@ -538,6 +547,22 @@ namespace Dominion.Specs.Bindings
             CardCost cardCost = CardCost.Parse(cost);
 
             activity.GetCostProperty().ShouldEqual(cardCost);
+        }
+
+        [Then(@"(.*) must gain a card of exact cost (.*)")]
+        public void ThenPlayerMustGainACardOfExactCost(string playerName, string costString)
+        {
+            var player = _game.Players.Single(p => p.Name == playerName);
+            var cost = CardCost.Parse(costString);
+            var activity = (ISelectPileActivity) _game.GetPendingActivity(player);
+
+            activity.GetCostProperty().ShouldEqual(cost);
+
+            var matchingPile = new TestCardPile(cost);
+            activity.Specification.IsMatch(matchingPile).ShouldBeTrue();
+
+            var lowMismatchPile = new TestCardPile(cost - 1);
+            activity.Specification.IsMatch(lowMismatchPile).ShouldBeFalse();
         }
 
         [Then(@"(.*) must gain a treasure card of cost (.*) or less")]

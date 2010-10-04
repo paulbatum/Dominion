@@ -46,6 +46,16 @@ namespace Dominion.Rules.Activities
             };
         }
 
+        public static ISelectionSpecification SelectPileCostingExactlyX(CardCost cost)
+        {
+            return new SelectionSpecification
+            {
+                MatchFunction = cards => cards.Count() == 1 && cost == cards.Single().Cost,
+                ActivityType = ActivityType.SelectPile,
+                Cost = cost
+            };
+        }
+
         private class SelectionSpecification : ISelectionSpecification
         {            
             public Func<IEnumerable<ICard>, bool> MatchFunction { get; set; }
