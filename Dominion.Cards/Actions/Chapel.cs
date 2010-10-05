@@ -17,7 +17,6 @@ namespace Dominion.Cards.Actions
 
         public void Play(TurnContext context)
         {
-            context.RemainingActions += 1;
             context.AddEffect(new ChapelEffect());
         }
 
