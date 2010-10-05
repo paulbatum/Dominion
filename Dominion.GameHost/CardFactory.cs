@@ -5,6 +5,7 @@ using Dominion.Rules;
 using System.Collections.Generic;
 using Dominion.Cards.Victory;
 using Dominion.Cards.Curses;
+using Dominion.Cards;
 
 namespace Dominion.GameHost
 {
@@ -38,6 +39,7 @@ namespace Dominion.GameHost
                     typeof(Colony),
                     typeof(Platinum),
                     typeof(Potion),
+                    typeof(TestCard),
                 };
 
                 return allCards
