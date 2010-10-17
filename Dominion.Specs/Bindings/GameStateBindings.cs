@@ -435,9 +435,15 @@ namespace Dominion.Specs.Bindings
         }
 
         [Then(@"There should be a (.*) on top of the trash pile")]
-        public void ShouldHaveCardOnTopOfTrashPile(string cardName)
+        public void ThenThereShouldBeACardOnTopOfTrashPile(string cardName)
         {
             _game.Trash.TopCard.Name.ShouldEqual(cardName);
+        }
+
+        [Then(@"The trash pile should be (.*)")]
+        public void ThenTheTrashPileShouldBe(string trashPileContents)
+        {
+            _game.Trash.ToString().ShouldEqual(trashPileContents);
         }
         
         [Then(@"The game log should report that (.*)'s turn has begun")]

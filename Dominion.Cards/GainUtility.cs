@@ -1,4 +1,5 @@
-﻿using Dominion.Rules;
+﻿using System;
+using Dominion.Rules;
 
 namespace Dominion.Cards
 {
@@ -19,19 +20,24 @@ namespace Dominion.Cards
             _bank = bank;
         }
 
-        public void Gain<T>() where T : Card
+        public void Gain<T>(Action<T> doMove) where T : Card
         {
             var pile = _bank.NonEmptyPile<T>();
             if (pile != null)
             {
-                var card = pile.TopCard;
-                card.MoveTo(_player.Discards);
+                var card = (T) pile.TopCard;
+                doMove(card);                
                 _log.LogGain(_player, card);
             }
             else
             {
                 _log.LogMessage("{0} did not gain a {1} because the pile is empty", _player.Name, typeof(T).Name);                
             }
+        }
+
+        public void Gain<T>() where T : Card
+        {
+            Gain<T>(card => card.MoveTo(_player.Discards));           
         }
     }
 }

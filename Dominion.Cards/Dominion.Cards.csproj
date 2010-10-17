@@ -85,6 +85,7 @@
     <Compile Include="Actions\Smithy.cs" />
     <Compile Include="Actions\Thief.cs" />
     <Compile Include="Actions\ThroneRoom.cs" />
+    <Compile Include="Actions\TreasureMap.cs" />
     <Compile Include="Actions\Upgrade.cs" />
     <Compile Include="Actions\Village.cs" />
     <Compile Include="Actions\Witch.cs" />
