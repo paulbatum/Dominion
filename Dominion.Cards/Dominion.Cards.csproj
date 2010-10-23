@@ -64,6 +64,7 @@
     <Compile Include="Actions\Cellar.cs" />
     <Compile Include="Actions\Chancellor.cs" />
     <Compile Include="Actions\Chapel.cs" />
+    <Compile Include="Actions\City.cs" />
     <Compile Include="Actions\Coppersmith.cs" />
     <Compile Include="Actions\CouncilRoom.cs" />
     <Compile Include="Actions\CountingHouse.cs" />

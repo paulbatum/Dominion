@@ -44,7 +44,6 @@ namespace Dominion.Specs.Cards
         public virtual void ScenarioSetup(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
         {
             testRunner.OnScenarioStart(scenarioInfo);
-            this.FeatureBackground();
         }
         
         [NUnit.Framework.TearDownAttribute()]
@@ -53,41 +52,22 @@ namespace Dominion.Specs.Cards
             testRunner.OnScenarioEnd();
         }
         
-        public virtual void FeatureBackground()
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Play Woodcutter")]
+        public virtual void PlayWoodcutter()
         {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Play Woodcutter", ((string[])(null)));
 #line 3
+this.ScenarioSetup(scenarioInfo);
 #line 4
 testRunner.Given("A new game with 3 players");
 #line 5
 testRunner.And("Player1 has a Woodcutter in hand instead of a Copper");
-#line hidden
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Woodcutter grants extra buy")]
-        public virtual void WoodcutterGrantsExtraBuy()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Woodcutter grants extra buy", ((string[])(null)));
+#line 6
+testRunner.When("Player1 plays a Woodcutter");
 #line 7
-this.ScenarioSetup(scenarioInfo);
-#line 8
-testRunner.When("Player1 plays a Woodcutter");
-#line 9
 testRunner.Then("Player1 should have 2 buys");
-#line hidden
-            testRunner.CollectScenarioErrors();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Woodcutter is +2 money")]
-        public virtual void WoodcutterIs2Money()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Woodcutter is +2 money", ((string[])(null)));
-#line 11
-this.ScenarioSetup(scenarioInfo);
-#line 12
-testRunner.When("Player1 plays a Woodcutter");
-#line 13
+#line 8
 testRunner.Then("Player1 should have 2 to spend");
 #line hidden
             testRunner.CollectScenarioErrors();

@@ -85,6 +85,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Chancellor.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\City.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>City.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\Coppersmith.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -308,6 +313,10 @@
     <None Include="Cards\Chancellor.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Chancellor.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\City.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>City.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\Coppersmith.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
