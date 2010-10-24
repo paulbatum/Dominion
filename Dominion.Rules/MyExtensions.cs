@@ -38,5 +38,10 @@ namespace Dominion.Rules
         {
             return input.Distinct(new SameTypeEqualityComparer<T>());
         }
+
+        public static bool AllSame<T,T2>(this IEnumerable<T> items, Func<T, T2> selector)
+        {            
+            return items.Select(selector).Distinct().Count() < 2;
+        }
     }
 }

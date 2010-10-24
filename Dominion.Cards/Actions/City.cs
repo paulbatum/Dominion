@@ -1,4 +1,5 @@
-﻿using Dominion.Rules;
+﻿using System;
+using Dominion.Rules;
 using Dominion.Rules.CardTypes;
 
 namespace Dominion.Cards.Actions

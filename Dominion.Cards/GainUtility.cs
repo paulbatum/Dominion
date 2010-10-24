@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Dominion.Rules;
+using Dominion.Rules.CardTypes;
 
 namespace Dominion.Cards
 {
@@ -38,6 +41,26 @@ namespace Dominion.Cards
         public void Gain<T>() where T : Card
         {
             Gain<T>(card => card.MoveTo(_player.Discards));           
+        }
+    }
+
+    public class PlayCardUtility
+    {
+        private readonly TurnContext _context;
+
+        public PlayCardUtility(TurnContext context)
+        {
+            _context = context;
+        }
+
+        public void Play(IEnumerable<IActionCard> cards)
+        {
+            foreach(var card in cards.ToList())
+            {
+                _context.Game.Log.LogPlay(_context.ActivePlayer, card);
+                card.Play(_context);
+                card.MoveTo(_context.ActivePlayer.PlayArea);
+            }
         }
     }
 }

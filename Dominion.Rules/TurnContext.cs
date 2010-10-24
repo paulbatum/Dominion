@@ -181,6 +181,10 @@ namespace Dominion.Rules
 
                 effect.BeginResolve(this);
 
+                // Resolving one effect could push another on top.
+                if (effect != _effects.Peek())
+                    continue;
+
                 if (effect.HasFinished)
                     _effects.Pop();
                 else

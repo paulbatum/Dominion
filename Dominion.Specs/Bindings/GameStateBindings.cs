@@ -363,6 +363,13 @@ namespace Dominion.Specs.Bindings
                 .ShouldContain(c => c.Name == cardName);
         }
 
+        [Then(@"(.*) should have in play: (.*)")]
+        public void ThenShouldBeInPlay(string playerName, string cardsInPlay)
+        {
+            _game.ActivePlayer.Name.ShouldEqual(playerName);
+            _game.ActivePlayer.PlayArea.ToString().ShouldEqual(cardsInPlay);                
+        }
+
         [Then(@"(.*) should have (\d+) buy[s]?")]
         public void ThenPlayerShouldHaveBuys(string playerName, int buyCount)
         {
