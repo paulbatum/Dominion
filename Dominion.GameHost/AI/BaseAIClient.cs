@@ -66,10 +66,25 @@ namespace Dominion.GameHost.AI
                     SelectFromRevealed(activity, state);
                     break;
                 }
+                case "MakeChoice":
+                {
+                    MakeChoice(activity, state);
+                    break;
+                }
             }
         }
 
-         protected virtual void SelectFromRevealed(ActivityModel activity, GameViewModel state)
+        protected virtual void MakeChoice(ActivityModel activity, GameViewModel state)
+        {
+            IEnumerable<string> options = (IEnumerable<string>) activity.Properties["AllowedOptions"];
+
+            var choice = options.FirstOrDefault(x => x == "Yes") ??
+                         options.First();
+                
+            _client.AcceptMessage(new ChoiceMessage(_client.PlayerId, choice));
+        }
+
+        protected virtual void SelectFromRevealed(ActivityModel activity, GameViewModel state)
         {
             var selected = state.Revealed.First();
             _client.AcceptMessage(new SelectCardsMessage(_client.PlayerId, new[] { selected.Id }));
