@@ -17,6 +17,8 @@ namespace Dominion.Rules
         void LogMessage(string message, params object[] values);
         void LogGain(Player player, ICard card);        
         void LogTrash(Player player, ICard card);
+
+        void LogRevealHand(Player player);
     }
 
     public class TextGameLog : IGameLog
@@ -94,6 +96,11 @@ namespace Dominion.Rules
         {
             _builder.AppendFormat("{0} trashed a {1}.", player.Name, card.Name);
             _builder.AppendLine();
+        }
+
+        public void LogRevealHand(Player player)
+        {
+            _builder.AppendFormat("{0} has the following cards in hand: {1}", player.Name, player.Hand);
         }
     }
 }

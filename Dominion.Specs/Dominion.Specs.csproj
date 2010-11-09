@@ -150,6 +150,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GreatHall.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\Harem.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Harem.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\Laboratory.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -199,6 +204,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SecretChamber.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Cards\ShantyTown.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ShantyTown.feature</DependentUpon>
     </Compile>
     <Compile Include="Cards\Thief.feature.cs">
       <AutoGen>True</AutoGen>
@@ -371,6 +381,10 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>GreatHall.feature.cs</LastGenOutput>
     </None>
+    <None Include="Cards\Harem.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Harem.feature.cs</LastGenOutput>
+    </None>
     <None Include="Cards\Laboratory.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Laboratory.feature.cs</LastGenOutput>
@@ -410,6 +424,10 @@
     <None Include="Cards\SecretChamber.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>SecretChamber.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\ShantyTown.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ShantyTown.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\Thief.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
