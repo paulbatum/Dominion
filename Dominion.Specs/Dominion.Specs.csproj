@@ -95,6 +95,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Coppersmith.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\Moneylender1.cs">
+      <DependentUpon>Moneylender.feature</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Cards\CouncilRoom.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -336,6 +341,10 @@
     <None Include="Cards\Coppersmith.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Coppersmith.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\Moneylender.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Moneylender1.cs</LastGenOutput>
     </None>
     <None Include="Cards\CouncilRoom.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
