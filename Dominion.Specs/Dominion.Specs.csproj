@@ -95,11 +95,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Coppersmith.feature</DependentUpon>
     </Compile>
-    <Compile Include="Cards\Moneylender1.cs">
-      <DependentUpon>Moneylender.feature</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Cards\CouncilRoom.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
