@@ -32,18 +32,21 @@ namespace Dominion.Cards.Actions
 
             public override void Resolve(TurnContext context)
             {
-                var activity = Activities.ChooseYesOrNo(context.Game.Log, context.ActivePlayer, "Trash mining village for +2 buy?",
-                    () =>
-                    {
-                        if (context.ActivePlayer.Hand.Contains(_source))
-                        {
-                            context.Trash(context.ActivePlayer, _source);
-                            context.AvailableSpend += 2;
-                        }
-                    }
-                    );
+                if (!context.Game.Trash.Contains(_source))
+                {
+                    var activity = Activities.ChooseYesOrNo(context.Game.Log, context.ActivePlayer,
+                                                            "Trash mining village for +2 buy?",
+                                                            () =>
+                                                            {
 
-                _activities.Add(activity);
+                                                                context.Trash(context.ActivePlayer, _source);
+                                                                context.AvailableSpend += 2;
+
+                                                            }
+                        );
+
+                    _activities.Add(activity);
+                }
             }
         }
     }

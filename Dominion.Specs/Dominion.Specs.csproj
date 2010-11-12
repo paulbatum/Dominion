@@ -175,10 +175,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Mine.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\MiningVillage.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MiningVillage.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\Moat.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Moat.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Cards\Moneylender.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Moneylender.feature</DependentUpon>
     </Compile>
     <Compile Include="Cards\Mountebank.feature.cs">
       <AutoGen>True</AutoGen>
@@ -337,9 +347,13 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Coppersmith.feature.cs</LastGenOutput>
     </None>
+    <None Include="Cards\MiningVillage.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>MiningVillage.feature.cs</LastGenOutput>
+    </None>
     <None Include="Cards\Moneylender.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Moneylender1.cs</LastGenOutput>
+      <LastGenOutput>Moneylender.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\CouncilRoom.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
