@@ -35,8 +35,11 @@ namespace Dominion.Cards.Actions
                 var activity = Activities.ChooseYesOrNo(context.Game.Log, context.ActivePlayer, "Trash mining village for +2 buy?",
                     () =>
                     {
-                        context.Trash(context.ActivePlayer, _source);
-                        context.AvailableSpend += 2;
+                        if (context.ActivePlayer.Hand.Contains(_source))
+                        {
+                            context.Trash(context.ActivePlayer, _source);
+                            context.AvailableSpend += 2;
+                        }
                     }
                     );
 
