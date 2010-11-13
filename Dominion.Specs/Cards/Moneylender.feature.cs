@@ -66,7 +66,7 @@ testRunner.And("Player1 has a hand of Moneylender, Copper, Estate, Estate, Estat
 #line 6
 testRunner.When("Player1 plays a Moneylender");
 #line 7
-testRunner.Then("Player1 should have 2 to spend");
+testRunner.Then("Player1 should have 3 to spend");
 #line 8
 testRunner.And("There should be a Copper on top of the trash pile");
 #line hidden

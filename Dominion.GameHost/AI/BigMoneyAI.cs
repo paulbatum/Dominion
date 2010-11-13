@@ -10,7 +10,7 @@ namespace Dominion.GameHost.AI
 
         protected override void DiscardCards(int count, GameViewModel currentState)
         {
-            var discardPreference = new List<string> { "Estate", "Duchy", "Province", "Curse", "Colony", "Copper", "Silver", "Gold", "Platinum" };
+            var discardPreference = new List<string> { "Curse", "Estate", "Duchy", "Province", "Colony", "Copper", "Silver", "Gold", "Platinum" };
             var orderedHand = currentState.Hand                
                 .OrderBy(c => discardPreference.IndexOf(c.Name)).ToList();
             var cardIdsToDiscard = orderedHand.Take(count).Select(c => c.Id).ToArray();

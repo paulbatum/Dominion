@@ -126,5 +126,20 @@ namespace Dominion.Rules.Activities
 
             return choiceActivity;
         }
+
+        public static IActivity SelectUpToXCardsToTrash(TurnContext context, Player player, int count)
+        {
+            var activity = new SelectCardsActivity(context.Game.Log, player,    
+                string.Format("Select up to {0} card(s) to trash", count),
+                 SelectionSpecifications.SelectUpToXCards(count));
+
+            activity.AfterCardsSelected = cards =>
+            {
+                foreach (var cardToTrash in cards)
+                    context.Trash(activity.Player, cardToTrash);
+            };
+
+            return activity;
+        }
     }
 }

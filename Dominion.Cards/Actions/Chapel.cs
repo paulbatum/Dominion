@@ -24,17 +24,7 @@ namespace Dominion.Cards.Actions
         {
             public override void Resolve(TurnContext context)
             {
-                var activity = new SelectCardsActivity(
-                    context,
-                    "Select up to 4 cards to trash",
-                    SelectionSpecifications.SelectUpToXCards(4));
-
-                activity.AfterCardsSelected = cards =>
-                {
-                    foreach (var cardToTrash in cards)
-                        context.Trash(activity.Player, cardToTrash);
-                };
-
+                var activity = Activities.SelectUpToXCardsToTrash(context, context.ActivePlayer, 4);
                 _activities.Add(activity);
             }
         }

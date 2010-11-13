@@ -481,7 +481,13 @@ namespace Dominion.Specs.Bindings
         public void ThenPlayerShouldBeTheWinner(string playerName)
         {
             _game.Log.Contents.ShouldContain(playerName + " is the winner");
-        }        
+        }
+
+        [Then(@"(.*) must select a card to .*")]
+        public void ThenPlayerMustSelectACard(string playerName)
+        {
+            ThenPlayerMustSelectCards(playerName, 1);
+        }
 
         [Then(@"(.*) must select (\d+) card[s]? to .*")]
         public void ThenPlayerMustSelectCards(string playerName, int numberOfCards)
@@ -607,7 +613,8 @@ namespace Dominion.Specs.Bindings
             activity.ShouldBeOfType<SelectReactionActivity>();
         }
 
-        [Then(@"(.*) may select up to (\d+) cards from their hand")]
+        [Then(@"(.*) may select up to (\d+) card[s]? from their hand")]
+        [Then(@"(.*) may select up to (\d+) card[s]? from their hand to .*")]
         public void ThenPlayerMustSelectAnyNumberOfCardsFromTheirHand(string playerName, int cardCount)
         {
             var player = _game.Players.Single(p => p.Name == playerName);

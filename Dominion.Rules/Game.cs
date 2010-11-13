@@ -43,6 +43,14 @@ namespace Dominion.Rules
             get { return CurrentTurn.ActivePlayer; }
         }
 
+        public Player PlayerToLeftOf(Player player)
+        {
+            if (player == _players.Last())
+                return _players.First();
+
+            return _players.SkipWhile(p => p != player).Skip(1).First();
+        }
+
         private IEnumerable<Player> TurnLoop
         {
             get
