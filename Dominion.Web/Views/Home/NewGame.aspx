@@ -44,12 +44,15 @@
         <br />
         <%= Html.EditorFor(x => x.UseProsperty) %> Use Prosperity cards (Platinum & Colony)
         <br />
-        <br />
+        <br />        
         <% foreach (var cardName in Model.CardsToChooseFrom.OrderBy(c => c))
            {%>
-           <input type="checkbox" name="chosenCards" class="someCard" value="<%=cardName%>" onclick="checkIfSubmitAllowed()" <%= Model.ChosenCards.Contains(cardName) ? "checked=checked" : "" %> />
-           <%= cardName%>
-           <br />
+           <div style="float:left; padding:5px; height:310px">
+               <img src="/dominion/content/images/cards/<%= cardName %>.jpg" />
+               <br />
+               <input type="checkbox" name="chosenCards" class="someCard" value="<%=cardName%>" onclick="checkIfSubmitAllowed()" <%= Model.ChosenCards.Contains(cardName) ? "checked=checked" : "" %> />
+               <%= cardName%>
+           </div>
         <% } %>
         <%= Html.SubmitButton("submitbutton", "New Game") %>
     </form>
