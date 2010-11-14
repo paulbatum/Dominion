@@ -79,7 +79,7 @@ namespace Dominion.Rules
         }
 
         // Side effects FTW.
-        private void ResolvePendingEffects()
+        public void ResolvePendingEffects()
         {
             GetCurrentEffect();
         }

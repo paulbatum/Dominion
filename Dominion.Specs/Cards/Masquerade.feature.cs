@@ -185,6 +185,33 @@ testRunner.Then("All actions should be resolved");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Throne Room a Masquerade")]
+        public virtual void ThroneRoomAMasquerade()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Throne Room a Masquerade", ((string[])(null)));
+#line 56
+this.ScenarioSetup(scenarioInfo);
+#line 57
+testRunner.Given("A new game with 3 players");
+#line 58
+testRunner.And("Player1 has a hand of Masquerade, ThroneRoom, Curse, Copper, Copper");
+#line 59
+testRunner.When("Player1 plays a ThroneRoom");
+#line 60
+testRunner.When("Player1 selects a Masquerade to ThroneRoom");
+#line 61
+testRunner.Then("Player1 should have 5 cards in hand");
+#line 62
+testRunner.And("Player1 must select a card to pass");
+#line 63
+testRunner.And("Player2 must select a card to pass");
+#line 64
+testRunner.And("Player3 must select a card to pass");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
     }
 }
 #endregion

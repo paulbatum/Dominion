@@ -124,12 +124,10 @@ testRunner.And("There should be a MiningVillage on top of the trash pile");
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Using Throne Room on a Mining Village and then trashing should not prompt to tras" +
-            "h a second time")]
-        public virtual void UsingThroneRoomOnAMiningVillageAndThenTrashingShouldNotPromptToTrashASecondTime()
+        [NUnit.Framework.DescriptionAttribute("Using Throne Room on a Mining Village should draw one card and then prompt")]
+        public virtual void UsingThroneRoomOnAMiningVillageShouldDrawOneCardAndThenPrompt()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Using Throne Room on a Mining Village and then trashing should not prompt to tras" +
-                    "h a second time", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Using Throne Room on a Mining Village should draw one card and then prompt", ((string[])(null)));
 #line 28
 this.ScenarioSetup(scenarioInfo);
 #line 29
@@ -141,16 +139,43 @@ testRunner.When("Player1 plays a ThroneRoom");
 #line 32
 testRunner.When("Player1 selects a MiningVillage to ThroneRoom");
 #line 33
-testRunner.And("Player1 chooses to trash MiningVillage (Yes)");
+testRunner.Then("Player1 must choose whether to trash MiningVillage (Yes or No)");
 #line 34
-testRunner.Then("All actions should be resolved");
+testRunner.And("Player1 should have 4 cards in hand");
 #line 35
-testRunner.And("Player1 should have 5 cards in hand");
-#line 36
-testRunner.And("Player1 should have 4 actions remaining");
+testRunner.And("Player1 should have 2 actions remaining");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Using Throne Room on a Mining Village and then trashing should not prompt to tras" +
+            "h a second time")]
+        public virtual void UsingThroneRoomOnAMiningVillageAndThenTrashingShouldNotPromptToTrashASecondTime()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Using Throne Room on a Mining Village and then trashing should not prompt to tras" +
+                    "h a second time", ((string[])(null)));
 #line 37
-testRunner.And("There should be a MiningVillage on top of the trash pile");
+this.ScenarioSetup(scenarioInfo);
 #line 38
+testRunner.Given("A new game with 3 players");
+#line 39
+testRunner.And("Player1 has a hand of ThroneRoom, MiningVillage, Copper, Copper, Estate");
+#line 40
+testRunner.When("Player1 plays a ThroneRoom");
+#line 41
+testRunner.When("Player1 selects a MiningVillage to ThroneRoom");
+#line 42
+testRunner.And("Player1 chooses to trash MiningVillage (Yes)");
+#line 43
+testRunner.Then("All actions should be resolved");
+#line 44
+testRunner.And("Player1 should have 5 cards in hand");
+#line 45
+testRunner.And("Player1 should have 4 actions remaining");
+#line 46
+testRunner.And("There should be a MiningVillage on top of the trash pile");
+#line 47
 testRunner.And("Player1 should have 2 to spend");
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -161,25 +186,25 @@ testRunner.And("Player1 should have 2 to spend");
         public virtual void CanTrashAMiningVillageRevealedViaAGolem()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can trash a Mining Village revealed via a Golem", ((string[])(null)));
-#line 40
-this.ScenarioSetup(scenarioInfo);
-#line 41
-testRunner.Given("A new game with 3 players");
-#line 42
-testRunner.And("Player1 has a Golem in hand instead of a Copper");
-#line 43
-testRunner.And("Player1 has a deck of MiningVillage, Copper, Copper, Copper, Copper");
-#line 44
-testRunner.When("Player1 plays a Golem");
-#line 45
-testRunner.And("Player1 chooses to trash MiningVillage (Yes)");
-#line 46
-testRunner.Then("Player1 should have 2 to spend");
-#line 47
-testRunner.And("Player1 should have 5 cards in hand");
-#line 48
-testRunner.And("Player1 should have 2 actions remaining");
 #line 49
+this.ScenarioSetup(scenarioInfo);
+#line 50
+testRunner.Given("A new game with 3 players");
+#line 51
+testRunner.And("Player1 has a Golem in hand instead of a Copper");
+#line 52
+testRunner.And("Player1 has a deck of MiningVillage, Copper, Copper, Copper, Copper");
+#line 53
+testRunner.When("Player1 plays a Golem");
+#line 54
+testRunner.And("Player1 chooses to trash MiningVillage (Yes)");
+#line 55
+testRunner.Then("Player1 should have 2 to spend");
+#line 56
+testRunner.And("Player1 should have 5 cards in hand");
+#line 57
+testRunner.And("Player1 should have 2 actions remaining");
+#line 58
 testRunner.And("There should be a MiningVillage on top of the trash pile");
 #line hidden
             testRunner.CollectScenarioErrors();

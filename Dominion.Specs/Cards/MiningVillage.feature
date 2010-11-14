@@ -25,6 +25,15 @@ Scenario: Player trashes Mining Village
 	And Player1 should have 2 actions remaining
 	And There should be a MiningVillage on top of the trash pile	
 
+Scenario: Using Throne Room on a Mining Village should draw one card and then prompt
+	Given A new game with 3 players
+	And Player1 has a hand of ThroneRoom, MiningVillage, Copper, Copper, Estate
+	When Player1 plays a ThroneRoom
+	When Player1 selects a MiningVillage to ThroneRoom
+	Then Player1 must choose whether to trash MiningVillage (Yes or No)	
+	And Player1 should have 4 cards in hand
+	And Player1 should have 2 actions remaining	
+
 Scenario: Using Throne Room on a Mining Village and then trashing should not prompt to trash a second time
 	Given A new game with 3 players
 	And Player1 has a hand of ThroneRoom, MiningVillage, Copper, Copper, Estate

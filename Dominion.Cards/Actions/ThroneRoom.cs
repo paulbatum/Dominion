@@ -38,15 +38,29 @@ namespace Dominion.Cards.Actions
                         var actionCard = cards.OfType<IActionCard>().Single();
                         log.LogMessage("{0} selected {1} to be played twice.", player.Name, actionCard.Name);
 
-                        actionCard.MoveTo(player.PlayArea);
-
-                        actionCard.Play(context);
-                        actionCard.Play(context);
+                        actionCard.MoveTo(context.ActivePlayer.PlayArea);
+                        context.AddEffect(new PlayCardEffect(actionCard));
+                        context.AddEffect(new PlayCardEffect(actionCard));                        
                     };
 
                     _activities.Add(activity);
                 }
                     
+            }
+
+            private class PlayCardEffect : CardEffectBase
+            {
+                private readonly IActionCard _card;
+
+                public PlayCardEffect(IActionCard card)
+                {
+                    _card = card;
+                }
+
+                public override void Resolve(TurnContext context)
+                {
+                    _card.Play(context);
+                }
             }
             
         }

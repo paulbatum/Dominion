@@ -52,3 +52,13 @@ Scenario: Player trashes a card
 	Then Player2 should have a hand of Estate, Estate, Estate, Estate, Curse
 	Then Player3 should have a hand of Silver, Silver, Silver, Silver, Estate
 	Then All actions should be resolved
+
+Scenario: Throne Room a Masquerade
+	Given A new game with 3 players	
+	And Player1 has a hand of Masquerade, ThroneRoom, Curse, Copper, Copper
+	When Player1 plays a ThroneRoom
+	When Player1 selects a Masquerade to ThroneRoom	
+	Then Player1 should have 5 cards in hand
+	And Player1 must select a card to pass
+	And Player2 must select a card to pass
+	And Player3 must select a card to pass
