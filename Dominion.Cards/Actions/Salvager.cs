@@ -25,17 +25,19 @@ namespace Dominion.Cards.Actions
         {
             public override void Resolve(TurnContext context)
             {
-                var activity = new SelectCardsActivity(context, "Select a card to salvage",
-                    SelectionSpecifications.SelectExactlyXCards(1));
-
-                activity.AfterCardsSelected = cardList =>
+                if (context.ActivePlayer.Hand.CardCount > 0)
                 {
-                    var cardToSalvage = cardList.Single();
-                    context.AvailableSpend += cardToSalvage.Cost;
-                    context.Trash(context.ActivePlayer, cardToSalvage);
-                };
+                    var activity = new SelectCardsActivity(context, "Select a card to salvage",
+                        SelectionSpecifications.SelectExactlyXCards(1));
 
-                _activities.Add(activity);
+                    activity.AfterCardsSelected = cardList =>
+                    {
+                        var cardToSalvage = cardList.Single();
+                        context.AvailableSpend += cardToSalvage.Cost;
+                        context.Trash(context.ActivePlayer, cardToSalvage);
+                    };
+                    _activities.Add(activity);
+                }
             }
         }
     }
