@@ -347,6 +347,10 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Coppersmith.feature.cs</LastGenOutput>
     </None>
+    <None Include="Cards\Salvager.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Copy of GreatHall.feature.cs</LastGenOutput>
+    </None>
     <None Include="Cards\Warehouse.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Copy of GreatHall.feature.cs</LastGenOutput>
