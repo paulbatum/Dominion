@@ -215,6 +215,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Remodel.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\Salvager.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Salvager.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\SecretChamber.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -244,6 +249,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Upgrade.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Cards\Warehouse.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Warehouse.feature</DependentUpon>
     </Compile>
     <Compile Include="Cards\Witch.feature.cs">
       <AutoGen>True</AutoGen>
@@ -351,6 +361,10 @@
     <None Include="Cards\Coppersmith.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Coppersmith.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\Salvager.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Salvager.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\MiningVillage.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -471,6 +485,10 @@
     <None Include="Cards\Upgrade.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Upgrade.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\Warehouse.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Warehouse.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\Witch.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
