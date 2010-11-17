@@ -53,10 +53,10 @@ namespace Dominion.Specs.Cards
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("WarehouseWorksProperly")]
-        public virtual void WarehouseWorksProperly()
+        [NUnit.Framework.DescriptionAttribute("Player must decide what cards to discard")]
+        public virtual void PlayerMustDecideWhatCardsToDiscard()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("WarehouseWorksProperly", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Player must decide what cards to discard", ((string[])(null)));
 #line 3
 this.ScenarioSetup(scenarioInfo);
 #line 4
@@ -66,11 +66,61 @@ testRunner.And("Player1 has a Warehouse in hand instead of a Copper");
 #line 6
 testRunner.When("Player1 plays a Warehouse");
 #line 7
-testRunner.Then("Player1 should have 4 cards in hand");
+testRunner.Then("Player1 should have 7 cards in hand");
 #line 8
-testRunner.Then("Player1 should have 1 remaining action");
+testRunner.And("Player1 should have 1 remaining action");
 #line 9
-testRunner.Then("Player1 should have 3 cards in discard pile");
+testRunner.And("Player1 must select 3 cards to discard");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Player discards 3 cards")]
+        public virtual void PlayerDiscards3Cards()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Player discards 3 cards", ((string[])(null)));
+#line 11
+this.ScenarioSetup(scenarioInfo);
+#line 12
+testRunner.Given("A new game with 3 players");
+#line 13
+testRunner.And("Player1 has a Warehouse in hand instead of a Copper");
+#line 14
+testRunner.When("Player1 plays a Warehouse");
+#line 15
+testRunner.And("Player1 selects 3 Copper to discard");
+#line 16
+testRunner.Then("Player1 should have 4 cards in hand");
+#line 17
+testRunner.And("Player1 should have 1 remaining action");
+#line 18
+testRunner.And("Player1 should have 3 cards in the discard pile");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Play warehouse with a total of two cards in hand, deck and discard pile")]
+        public virtual void PlayWarehouseWithATotalOfTwoCardsInHandDeckAndDiscardPile()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Play warehouse with a total of two cards in hand, deck and discard pile", ((string[])(null)));
+#line 20
+this.ScenarioSetup(scenarioInfo);
+#line 21
+testRunner.Given("A new game with 3 players");
+#line 22
+testRunner.And("Player1 has a hand of Warehouse, Copper");
+#line 23
+testRunner.And("Player1 has an empty deck");
+#line 24
+testRunner.When("Player1 plays a Warehouse");
+#line 25
+testRunner.Then("Player1 should have 0 cards in hand");
+#line 26
+testRunner.And("Player1 should have 1 remaining action");
+#line 27
+testRunner.And("Player1 should have 1 card in the discard pile");
 #line hidden
             testRunner.CollectScenarioErrors();
         }

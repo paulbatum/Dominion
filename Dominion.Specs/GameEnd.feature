@@ -6,7 +6,7 @@
 Scenario: Game ends when last province is bought
 	Given A new game with 3 players
 	But There is only 1 Province left	
-	And Player1 has a hand of all Gold	
+	And Player1 has 5 Gold in hand	
 	When Player1 moves to the buy step
 	And Player1 buys a Province	
 	And Player1 ends their turn
@@ -30,7 +30,7 @@ Scenario Outline: Game ends when piles are exhausted
 Scenario: Game isn't over until the last turn ends
 	Given A new game with 3 players
 	But There is only 1 Province left	
-	And Player1 has a hand of all Gold	
+	And Player1 has 5 Gold in hand	
 	When Player1 moves to the buy step
 	And Player1 buys a Province		
 	Then The game should not have ended

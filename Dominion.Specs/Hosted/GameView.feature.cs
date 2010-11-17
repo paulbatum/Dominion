@@ -210,7 +210,7 @@ testRunner.Given("A new hosted game with 3 players");
 #line 56
 testRunner.But("There is only 1 Province left");
 #line 57
-testRunner.And("Player1 has a hand of all Gold");
+testRunner.And("Player1 has 5 Gold in hand");
 #line 58
 testRunner.When("The game begins");
 #line 59

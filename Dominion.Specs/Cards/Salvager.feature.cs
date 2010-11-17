@@ -44,7 +44,6 @@ namespace Dominion.Specs.Cards
         public virtual void ScenarioSetup(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
         {
             testRunner.OnScenarioStart(scenarioInfo);
-            this.FeatureBackground();
         }
         
         [NUnit.Framework.TearDownAttribute()]
@@ -53,26 +52,22 @@ namespace Dominion.Specs.Cards
             testRunner.OnScenarioEnd();
         }
         
-        public virtual void FeatureBackground()
-        {
-#line 3
-#line 4
-testRunner.Given("A new game with 3 players");
-#line 5
-testRunner.And("Player1 has a Salvager in hand instead of a Copper");
-#line 6
-testRunner.When("Player1 plays a Salvager");
-#line hidden
-        }
-        
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Salvager trashes a card")]
         public virtual void SalvagerTrashesACard()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Salvager trashes a card", ((string[])(null)));
-#line 8
+#line 3
 this.ScenarioSetup(scenarioInfo);
-#line 9
+#line 4
+testRunner.Given("A new game with 3 players");
+#line 5
+testRunner.And("Player1 has a Salvager in hand instead of a Copper");
+#line 6
+testRunner.And("Player1 has a Salvager in hand instead of a Copper");
+#line 7
+testRunner.When("Player1 plays a Salvager");
+#line 8
 testRunner.Then("Player1 must select 1 card to trash");
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -83,25 +78,45 @@ testRunner.Then("Player1 must select 1 card to trash");
         public virtual void SalvagerTrashingEstateGivesPlus2Spend()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Salvager trashing estate gives plus 2 spend", ((string[])(null)));
-#line 11
+#line 10
 this.ScenarioSetup(scenarioInfo);
+#line 11
+testRunner.Given("A new game with 3 players");
 #line 12
-testRunner.And("Player1 selects a Estate to trash");
+testRunner.And("Player1 has a Salvager in hand instead of a Copper");
 #line 13
+testRunner.And("Player1 has a Salvager in hand instead of a Copper");
+#line 14
+testRunner.When("Player1 plays a Salvager");
+#line 15
+testRunner.And("Player1 selects a Estate to trash");
+#line 16
 testRunner.Then("Player1 should have 2 to spend");
+#line 17
+testRunner.And("Player1 should have 2 buys");
+#line 18
+testRunner.And("There should be a Estate on top of the trash pile");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Salvager gives plus one buy")]
-        public virtual void SalvagerGivesPlusOneBuy()
+        [NUnit.Framework.DescriptionAttribute("Salvager with no other cards in hand")]
+        public virtual void SalvagerWithNoOtherCardsInHand()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Salvager gives plus one buy", ((string[])(null)));
-#line 15
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Salvager with no other cards in hand", ((string[])(null)));
+#line 20
 this.ScenarioSetup(scenarioInfo);
-#line 16
-testRunner.Then("Player1 should have 2 buys");
+#line 21
+testRunner.Given("A new game with 3 players");
+#line 22
+testRunner.And("Player1 has a hand of Salvager");
+#line 23
+testRunner.When("Player1 plays a Salvager");
+#line 24
+testRunner.Then("All actions should be resolved");
+#line 25
+testRunner.And("Player1 should have 2 buys");
 #line hidden
             testRunner.CollectScenarioErrors();
         }

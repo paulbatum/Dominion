@@ -19,25 +19,23 @@ namespace Dominion.Cards.Actions
         {
             context.RemainingActions += 1;
             context.DrawCards(3);
-            context.AddEffect(new DiscardEffect());
-            context.AddEffect(new DiscardEffect());
-            context.AddEffect(new DiscardEffect());
+            context.AddEffect(new WarehouseEffect());
         }
 
-        private class DiscardEffect : CardEffectBase
+        private class WarehouseEffect : CardEffectBase
         {
             public override void Resolve(TurnContext context)
             {
-                var discardActivity = new SelectCardsActivity(context, "Select a card to discard",
-                    SelectionSpecifications.SelectExactlyXCards(1));
-
-                discardActivity.AfterCardsSelected = cardList =>
+                if(context.ActivePlayer.Hand.CardCount < 4)
                 {
-                    var cardToDiscard = cardList.Single();
-                    context.DiscardCard(context.ActivePlayer, cardToDiscard);
-                };
-
-                _activities.Add(discardActivity);
+                    context.DiscardCards(context.ActivePlayer, context.ActivePlayer.Hand);
+                }
+                else
+                {
+                    var discardActivity = Activities.DiscardCards(context, context.ActivePlayer, 3);
+                    _activities.Add(discardActivity);    
+                }
+                
             }
         }
     }

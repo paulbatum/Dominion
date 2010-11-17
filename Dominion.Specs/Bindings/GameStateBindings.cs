@@ -61,36 +61,30 @@ namespace Dominion.Specs.Bindings
                 .MoveTo(new NullZone());
         }      
 
-        [Given(@"(.*) has a hand of all (.*)")]
-        public void GivenPlayerHasAHandOfAll(string playerName, string cardName)
+        [Given(@"(.*) has (\d+) (.*) in hand")]
+        public void GivenPlayerHasAHandOfNumberCard(string playerName, int cardCount, string cardName)
         {
             var player = Game.Players.Single(p => p.Name == playerName);
             
             player.Hand.MoveAll(new NullZone());
 
-            var cards = 5.Items(() => CardFactory.CreateCard(cardName)).ToList();
+            var cards = cardCount.Items(() => CardFactory.CreateCard(cardName)).ToList();
 
             foreach (var card in cards)
                 card.MoveTo(player.Hand);
         }
 
-        [Given(@"(.*) has a hand of (.*), (.*), (.*), (.*), (.*)")]
-        public void GivenPlayerHasAHandOfExactly(string playerName, string cardName1, string cardName2, string cardName3, string cardName4, string cardName5)
+        [Given(@"(.*) has a hand of (.*)")]
+        public void GivenPlayerHasAHandOfExactly(string playerName, string cardNames)
         {
             var player = Game.Players.Single(p => p.Name == playerName);
-
             player.Hand.MoveAll(new NullZone());
 
-            var cards = new List<Card>();
-
-            cards.Add(CardFactory.CreateCard(cardName1));
-            cards.Add(CardFactory.CreateCard(cardName2));
-            cards.Add(CardFactory.CreateCard(cardName3));
-            cards.Add(CardFactory.CreateCard(cardName4));
-            cards.Add(CardFactory.CreateCard(cardName5));
+            var cards = cardNames.Split(',')
+                .Select(s => s.Trim());
 
             foreach (var card in cards)
-                card.MoveTo(player.Hand);
+                CardFactory.CreateCard(card).MoveTo(player.Hand);
         }
 
         [Given(@"(.*) has a (.*) in the discard pile")]
@@ -153,6 +147,15 @@ namespace Dominion.Specs.Bindings
             foreach(Card c in cards)
                 c.MoveTo(player.Deck);
         }
+
+        [Given(@"(.*) has an empty deck")]
+        public void GivenPlayerHasAnEmptyDeck(string playerName)
+        {
+            var player = _game.Players.Single(p => p.Name == playerName);
+            
+            player.Deck.MoveAll(new NullZone());
+        }
+
 
         [Given(@"(.*) is available to buy")]
         public void GivenCardIsAvailableToBuy(string cardName)
@@ -326,7 +329,7 @@ namespace Dominion.Specs.Bindings
             Game.Bank.Piles.Single(x => x.TopCard.Name == cardName).CardCount.ShouldEqual(cardCount);
         }        
 
-        [Then(@"(.*) should have (\d+) cards in the discard pile")]
+        [Then(@"(.*) should have (\d+) card[s]? in the discard pile")]
         public void ThenPlayerShouldHaveCardsInTheDiscardPile(string playerName, int cardCount)
         {
             var player = Game.Players.Single(p => p.Name == playerName);

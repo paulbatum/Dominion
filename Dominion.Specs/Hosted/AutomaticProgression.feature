@@ -40,7 +40,7 @@ Scenario: Automatic progression when using 2 of 2 buys
 Scenario: Automatic progression at the game end
 	Given A new hosted game with 3 players
 	But There is only 1 Province left	
-	And Player1 has a hand of all Gold	
+	And Player1 has 5 Gold in hand	
 	When The game begins
 	And Player1 tells the host to buy Province	
 	Then The game should have ended

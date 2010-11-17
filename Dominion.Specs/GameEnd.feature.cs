@@ -65,7 +65,7 @@ testRunner.Given("A new game with 3 players");
 #line 8
 testRunner.But("There is only 1 Province left");
 #line 9
-testRunner.And("Player1 has a hand of all Gold");
+testRunner.And("Player1 has 5 Gold in hand");
 #line 10
 testRunner.When("Player1 moves to the buy step");
 #line 11
@@ -149,7 +149,7 @@ testRunner.Given("A new game with 3 players");
 #line 32
 testRunner.But("There is only 1 Province left");
 #line 33
-testRunner.And("Player1 has a hand of all Gold");
+testRunner.And("Player1 has 5 Gold in hand");
 #line 34
 testRunner.When("Player1 moves to the buy step");
 #line 35

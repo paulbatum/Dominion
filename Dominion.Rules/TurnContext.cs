@@ -226,7 +226,7 @@ namespace Dominion.Rules
 
         public void DiscardCards(Player player, IEnumerable<ICard> cards)
         {
-            foreach (var card in cards)
+            foreach (var card in cards.ToList())
                 DiscardCard(player, card);
         }
     }

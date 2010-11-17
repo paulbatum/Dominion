@@ -54,7 +54,7 @@ Scenario: Active player cannot play card if in buy step
 Scenario: View deck at the game end
 	Given A new hosted game with 3 players
 	But There is only 1 Province left	
-	And Player1 has a hand of all Gold	
+	And Player1 has 5 Gold in hand	
 	When The game begins
 	And Player1 tells the host to buy Province	
 	Then Player1's view of the play area should start with this sequence of cards: Province
