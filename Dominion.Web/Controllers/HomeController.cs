@@ -34,7 +34,9 @@ namespace Dominion.Web.Controllers
         {
             var model = new NewGameViewModel();
             model.CardsToChooseFrom = CardFactory.OptionalCardsForBank.OrderBy(c => c).ToList();
-            model.ChosenCards = model.CardsToChooseFrom.Take(10).ToList();
+
+            var random = new Random();
+            model.ChosenCards = model.CardsToChooseFrom.OrderBy(x => random.Next(100)).Take(10).ToList();
 
             return View(model);
         }

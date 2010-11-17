@@ -101,6 +101,7 @@ namespace Dominion.Rules
         public void LogRevealHand(Player player)
         {
             _builder.AppendFormat("{0} has the following cards in hand: {1}", player.Name, player.Hand);
+            _builder.AppendLine();
         }
     }
 }

@@ -51,8 +51,8 @@
         <br />        
         <% foreach (var cardName in Model.CardsToChooseFrom.OrderBy(c => c))
            {%>
-           <div style="float:left; padding:5px; height:310px">
-               <img src="<%= ResolveUrl("~/content/images/cards/" + cardName) %>.jpg" />
+           <div style="float:left; padding:5px;">
+               <img style="height:200px" src="<%= ResolveUrl("~/content/images/cards/" + cardName) %>.jpg" />
                <br />
                <input type="checkbox" name="chosenCards" class="someCard" value="<%=cardName%>" onclick="checkIfSubmitAllowed()" <%= Model.ChosenCards.Contains(cardName) ? "checked=checked" : "" %> />
                <%= cardName%>
