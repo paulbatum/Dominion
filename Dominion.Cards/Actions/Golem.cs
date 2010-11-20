@@ -11,7 +11,7 @@ namespace Dominion.Cards.Actions
     {
         public Golem() : base(new CardCost(4, 1))
         {
-            
+
         }
 
         public void Play(TurnContext context)

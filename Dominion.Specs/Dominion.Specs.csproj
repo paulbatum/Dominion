@@ -572,9 +572,12 @@
   <ItemGroup>
     <None Include="Cards\Adventurer.feature" />
   </ItemGroup>
+<<<<<<< HEAD
   <ItemGroup>
     <None Include="Cards\GhostShip.feature" />
   </ItemGroup>
+=======
+>>>>>>> e4419ff567fc85e27383aa57ad0d1eeab4393a71
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
