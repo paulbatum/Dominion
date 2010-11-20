@@ -67,6 +67,7 @@
     <Compile Include="Actions\Chapel.cs" />
     <Compile Include="Actions\City.cs" />
     <Compile Include="Actions\Adventurer.cs" />
+    <Compile Include="Actions\GhostShip.cs" />
     <Compile Include="Actions\Masquerade.cs" />
     <Compile Include="Actions\Salvager.cs" />
     <Compile Include="Actions\Warehouse.cs" />
