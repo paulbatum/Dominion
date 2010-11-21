@@ -24,5 +24,5 @@ Scenario: Play Adventurer and reveal two treasure
 	And Player1 has a deck of Estate, Copper, Estate, Copper, Silver
 	When Player1 plays a Adventurer
 	Then Player1 should have a hand of Copper, Copper, Copper, Copper, Copper, Copper
-	And Player1 should have a deck of Silver
+	And Player1 should have a deck of: Silver
 	And Player1 should have a discard pile of Estate, Estate

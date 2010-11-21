@@ -7,7 +7,7 @@ using Dominion.Rules.CardTypes;
 
 namespace Dominion.Cards.Actions
 {
-    public class GhostShip : Card, IActionCard
+    public class GhostShip : Card, IActionCard, IAttackCard
     {
         public GhostShip()
             : base(5)
@@ -26,10 +26,9 @@ namespace Dominion.Cards.Actions
             {
                 int cardsToPutBack = player.Hand.CardCount - 3;
 
-                while (cardsToPutBack > 0)
-                {
-                    _activities.Add(Activities.PutCardFromHandOnTopOfDeck(context.Game.Log, player, string.Concat(cardsToPutBack, " cards left to put on top of deck.")));
-                }
+                var activities = Activities.PutMultipleCardsFromHandOnTopOfDeck(context.Game.Log, player, cardsToPutBack);
+                foreach(var activity in activities)
+                    _activities.Add(activity);
             }
         }
     }

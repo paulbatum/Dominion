@@ -70,6 +70,11 @@
   <ItemGroup>
     <Compile Include="Bindings\Extensions.cs" />
     <Compile Include="Bindings\ScoringBindings.cs" />
+    <Compile Include="Cards\Adventurer.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Adventurer.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\Caravan.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -139,6 +144,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Gardens.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Cards\GhostShip.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GhostShip.feature</DependentUpon>
     </Compile>
     <Compile Include="Cards\Golem.feature.cs">
       <AutoGen>True</AutoGen>
@@ -570,14 +580,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Cards\Adventurer.feature" />
+    <None Include="Cards\Adventurer.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Adventurer.feature.cs</LastGenOutput>
+    </None>
   </ItemGroup>
-<<<<<<< HEAD
   <ItemGroup>
-    <None Include="Cards\GhostShip.feature" />
+    <None Include="Cards\GhostShip.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>GhostShip.feature.cs</LastGenOutput>
+    </None>
   </ItemGroup>
-=======
->>>>>>> e4419ff567fc85e27383aa57ad0d1eeab4393a71
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

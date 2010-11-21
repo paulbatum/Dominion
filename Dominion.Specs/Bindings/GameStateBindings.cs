@@ -657,6 +657,14 @@ namespace Dominion.Specs.Bindings
             activity.GetCountProperty().ShouldEqual(1);
         }
 
+        [Then(@"(.*) should have (\d+) card[s]? in deck")]
+        public void ThenPlayer1ShouldHaveXCardsInDeck(string playerName, int cardCount)
+        {
+            var player = _game.Players.Single(p => p.Name == playerName);
+            player.Deck.CardCount.ShouldEqual(cardCount);
+        }
+
+
 
 
     }
