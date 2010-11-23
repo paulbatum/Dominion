@@ -22,7 +22,9 @@ namespace Dominion.Cards.Actions
         {
             public override void Attack(Player player, TurnContext context)
             {
-                player.Deck.MoveTop(1, player.Discards);
+                if (player.Deck.CardCount + player.Discards.CardCount > 0)
+                    player.Deck.MoveTop(1, player.Discards);
+
                 var gainUtil = new GainUtility(context, player);
                 gainUtil.Gain<Curse>(c => c.MoveTo(player.Deck));
             }
