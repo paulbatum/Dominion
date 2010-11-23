@@ -230,6 +230,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Salvager.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\SeaHag.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SeaHag.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\SecretChamber.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -592,7 +597,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Cards\SeaHag.feature" />
+    <None Include="Cards\SeaHag.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>SeaHag.feature.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
