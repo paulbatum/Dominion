@@ -98,7 +98,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\HTMLPage1.htm" />
-    <Content Include="Content\Images\Cards\empty.jpg" />
     <Content Include="Content\jqueryUI\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\jqueryUI\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\jqueryUI\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -137,7 +136,9 @@
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
     <Content Include="Views\Web.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Content\Images\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\site.Master" />
   </ItemGroup>

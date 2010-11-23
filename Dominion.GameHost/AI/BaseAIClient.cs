@@ -33,15 +33,10 @@ namespace Dominion.GameHost.AI
 
                 var activity = state.PendingActivity;
 
-                if (activity != null && _lastActivityHandled != activity.Id)
+                if (_lastActivityHandled != activity.Id)
                 {
-                    _lastActivityHandled = activity.Id;
+                    _lastActivityHandled = activity.Id;                    
                     HandleActivity(activity, state);
-                }
-                else if (activity == null && state.Status.IsActive)
-                {
-                    var message = DoTurn(state);
-                    _client.AcceptMessage(message);
                 }
             }
         }
@@ -55,6 +50,10 @@ namespace Dominion.GameHost.AI
         {
             switch (activity.Type)
             {
+                case "PlayActions":
+                case "DoBuys":
+                    _client.AcceptMessage(DoTurn(state));
+                    break;
                 case "SelectFixedNumberOfCards":
                 {
                     int cardsToDiscard = int.Parse(activity.Properties["NumberOfCardsToSelect"].ToString());
@@ -70,7 +69,7 @@ namespace Dominion.GameHost.AI
                 {
                     MakeChoice(activity, state);
                     break;
-                }
+                }                
             }
         }
 

@@ -38,6 +38,8 @@ namespace Dominion.Rules.Activities
         WaitingForOtherPlayers,
         SelectPile,
         MakeChoice,
-        SelectUpToNumberOfCards
+        SelectUpToNumberOfCards,
+        DoBuys,
+        PlayActions
     }
 }
