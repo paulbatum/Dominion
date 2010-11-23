@@ -21,7 +21,11 @@ namespace Dominion.Rules.Activities
             return new SelectCardsActivity
                 (log, player, message, SelectionSpecifications.SelectExactlyXCards(1))
             {
-                AfterCardsSelected = cards => player.Deck.MoveToTop(cards.Single())
+                AfterCardsSelected = cards =>
+                {
+                    player.Deck.MoveToTop(cards.Single());
+                    log.LogMessage("{0} put a card on top of the deck", player.Name);
+                }
             };
         }
 
