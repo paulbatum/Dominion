@@ -70,11 +70,11 @@ testRunner.Then("Player1 should have 4 cards in hand");
 #line 8
 testRunner.Then("Player2 should have a Curse on top of the deck");
 #line 9
-testRunner.Then("Player2 should have a card on top of the discard pile");
+testRunner.Then("Player2 should have 1 card in the discard pile");
 #line 10
 testRunner.Then("Player3 should have a Curse on top of the deck");
 #line 11
-testRunner.Then("Player3 should have a card on top of the discard pile");
+testRunner.Then("Player3 should have 1 card in the discard pile");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
@@ -91,13 +91,13 @@ testRunner.Given("A new game with 2 players");
 #line 15
 testRunner.And("Player1 has a SeaHag in hand instead of a Copper");
 #line 16
-testRunner.And("Player2 has no cards in deck");
+testRunner.And("Player2 has an empty deck");
 #line 17
 testRunner.When("Player1 plays a SeaHag");
 #line 18
 testRunner.Then("Player2 should have a Curse on top of the deck");
 #line 19
-testRunner.Then("Player2 should have no cards in the discard pile");
+testRunner.Then("Player2 should have 0 cards in the discard pile");
 #line hidden
             testRunner.CollectScenarioErrors();
         }

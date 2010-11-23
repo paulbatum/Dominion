@@ -664,6 +664,12 @@ namespace Dominion.Specs.Bindings
             player.Deck.CardCount.ShouldEqual(cardCount);
         }
 
+        [Then(@"(.*) should have a (.*) on top of the deck")]
+        public void ThenPlayerShouldHaveACardOnTopOfTheDeck(string playerName, string cardName)
+        {
+            var player = _game.Players.Single(p => p.Name == playerName);
+            player.Deck.TopCard.Name.ShouldEqual(cardName);
+        }
 
 
 
