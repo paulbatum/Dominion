@@ -80,7 +80,7 @@
             createLayout();
             setupChat();
             setupHover();
-            bindDefaultClickEvents();
+            
 
             doChatComet();
             doGameComet();
@@ -118,6 +118,14 @@
             $('#choiceYes').hide();
             $('#choiceNo').hide();
             $('#doneChoice').hide();
+
+            if (activity.Type == "DoBuys") {
+                controller.BankClick = actions.buy;
+            }
+
+            if (activity.Type == "PlayActions") {
+                controller.HandClick = actions.play;                
+            }
 
             if (activity.Type == "SelectFromRevealed") {
                 controller.PlayAreaClick = function (event) { actions.selectFixedNumberOfCards(event, activity); };
@@ -164,8 +172,7 @@
                 renderPendingActivity(data.PendingActivity);
             }
             else {
-                bindDefaultClickEvents();
-                middleLayout.close('south');
+                alert('wtf!');
             }
 
             $('#playArea')
@@ -184,11 +191,6 @@
                 $('#prompt').addClass('waitingForOthers');
             else
                 $('#prompt').removeClass('waitingForOthers');
-        }
-
-        function bindDefaultClickEvents() {
-            controller.HandClick = actions.play;
-            controller.BankClick = actions.buy;
         }
 
         function doChatComet() {

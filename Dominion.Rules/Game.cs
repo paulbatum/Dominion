@@ -129,10 +129,14 @@ namespace Dominion.Rules
             if (currentEffect != null)
                 return currentEffect.GetActivity(player);
 
-            if(player != ActivePlayer)
+            if (player == ActivePlayer)
+            {
+                return CurrentTurn.GetDefaultActivity();
+            }
+            else
+            {
                 return new WaitingForPlayersActivity(player);
-
-            return null;
+            }            
         }
 
         public void IncrementVersion()
