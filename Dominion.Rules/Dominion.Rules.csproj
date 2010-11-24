@@ -63,8 +63,10 @@
     <Compile Include="Activities\Activities.cs" />
     <Compile Include="Activities\ActivityBase.cs" />
     <Compile Include="Activities\ChoiceActivity.cs" />
+    <Compile Include="Activities\DoBuysActivity.cs" />
     <Compile Include="Activities\ExtensionMethods.cs" />
     <Compile Include="Activities\IActivity.cs" />
+    <Compile Include="Activities\PlayActionsActivity.cs" />
     <Compile Include="Activities\SelectFromRevealedCardsActivity.cs" />
     <Compile Include="Activities\SelectionSpecifications.cs" />
     <Compile Include="Activities\SelectPileActivity.cs" />

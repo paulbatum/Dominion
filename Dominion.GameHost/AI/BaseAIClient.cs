@@ -4,6 +4,7 @@ using System.Concurrency;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using Dominion.Rules.Activities;
 
 namespace Dominion.GameHost.AI
 {
@@ -18,7 +19,6 @@ namespace Dominion.GameHost.AI
         {            
             _client = client;
             client.GameStateUpdates.ObserveOn(Scheduler.NewThread)
-                //.Delay(TimeSpan.FromMilliseconds(new Random(client.GetHashCode()).Next(500, 1500)))
                 .Subscribe(Respond);
         }
 
@@ -33,15 +33,10 @@ namespace Dominion.GameHost.AI
 
                 var activity = state.PendingActivity;
 
-                if (activity != null && _lastActivityHandled != activity.Id)
+                if (_lastActivityHandled != activity.Id)
                 {
-                    _lastActivityHandled = activity.Id;
+                    _lastActivityHandled = activity.Id;                    
                     HandleActivity(activity, state);
-                }
-                else if (activity == null && state.Status.IsActive)
-                {
-                    var message = DoTurn(state);
-                    _client.AcceptMessage(message);
                 }
             }
         }
@@ -53,24 +48,30 @@ namespace Dominion.GameHost.AI
 
         protected virtual void HandleActivity(ActivityModel activity, GameViewModel state)
         {
-            switch (activity.Type)
+            ActivityType activityType = (ActivityType) Enum.Parse(typeof (ActivityType), activity.Type);
+
+            switch (activityType)
             {
-                case "SelectFixedNumberOfCards":
+                case ActivityType.PlayActions:
+                case ActivityType.DoBuys:
+                    _client.AcceptMessage(DoTurn(state));
+                    break;
+                case ActivityType.SelectFixedNumberOfCards:
                 {
                     int cardsToDiscard = int.Parse(activity.Properties["NumberOfCardsToSelect"].ToString());
                     DiscardCards(cardsToDiscard, state);
                     break;
                 }
-                case "SelectFromRevealed":
+                case ActivityType.SelectFromRevealed:
                 {
                     SelectFromRevealed(activity, state);
                     break;
                 }
-                case "MakeChoice":
+                case ActivityType.MakeChoice:
                 {
                     MakeChoice(activity, state);
                     break;
-                }
+                }                
             }
         }
 

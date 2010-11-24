@@ -229,6 +229,14 @@ namespace Dominion.Rules
             foreach (var card in cards.ToList())
                 DiscardCard(player, card);
         }
+
+        public IActivity GetDefaultActivity()
+        {
+            if (this.InBuyStep)
+                return new DoBuysActivity(ActivePlayer, this.Buys, this.AvailableSpend);
+            else
+                return new PlayActionsActivity(ActivePlayer, this.RemainingActions);
+        }
     }
 
 }

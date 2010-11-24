@@ -26,7 +26,7 @@ namespace Dominion.Cards.Actions
                     player.Deck.MoveTop(1, player.Discards);
 
                 var gainUtil = new GainUtility(context, player);
-                gainUtil.Gain<Curse>(c => c.MoveTo(player.Deck));
+                gainUtil.Gain<Curse>(c => player.Deck.MoveToTop(c));
             }
         }
     }

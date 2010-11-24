@@ -9,9 +9,9 @@ namespace Dominion.Cards.Actions
 {
     public class Adventurer : Card, IActionCard
     {
-        public Adventurer() : base(5)
+        public Adventurer() : base(6)
         {
-            //cock
+            
         }
 
         public void Play(TurnContext context)
