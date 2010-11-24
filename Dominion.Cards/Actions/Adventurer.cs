@@ -9,7 +9,7 @@ namespace Dominion.Cards.Actions
 {
     public class Adventurer : Card, IActionCard
     {
-        public Adventurer() : base(6)
+        public Adventurer() : base(7)
         {
             
         }
