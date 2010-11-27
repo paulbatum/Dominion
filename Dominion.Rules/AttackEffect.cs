@@ -19,19 +19,19 @@ namespace Dominion.Rules
             {
                 _hasHadReactionStep = true;
                 if (context.Opponents.Any(o => o.Hand.OfType<IReactionCard>().Any()))
-                    context.AddEffect(new ReactionEffect(this));
+                    context.AddEffect(Source, new ReactionEffect(this));
                 else
                     base.BeginResolve(context);
             }
         }
 
-        public override void Resolve(TurnContext context)
+        public override void Resolve(TurnContext context, ICard source)
         {
             foreach(var opponent in context.Opponents.Where(o => !_nullifications.Contains(o)))
-                Attack(opponent, context);
+                Attack(opponent, context, source);
         }
 
-        public abstract void Attack(Player player, TurnContext context);
+        public abstract void Attack(Player player, TurnContext context, ICard source);
 
         public void Nullify(Player player)
         {            

@@ -15,17 +15,17 @@ namespace Dominion.Cards.Actions
         public void Play(TurnContext context)
         {
             context.AvailableSpend += 2;
-            context.AddEffect(new MilitiaAttack());
+            context.AddEffect(this, new MilitiaAttack());
         }
 
         private class MilitiaAttack : AttackEffect
         {
-            public override void Attack(Player player, TurnContext context)
+            public override void Attack(Player player, TurnContext context, ICard source)
             {
                 var numberToDiscard = player.Hand.CardCount - 3;
 
                 if (numberToDiscard > 0)
-                    _activities.Add(Activities.DiscardCards(context, player, numberToDiscard));
+                    _activities.Add(Activities.DiscardCards(context, player, numberToDiscard, source));
                 else
                 {
                     context.Game.Log.LogMessage("{0} did not have to discard any cards.", player.Name);

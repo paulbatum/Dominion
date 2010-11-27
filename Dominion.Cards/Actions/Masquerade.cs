@@ -15,7 +15,7 @@ namespace Dominion.Cards.Actions
         public void Play(TurnContext context)
         {
             context.DrawCards(2);
-            context.AddEffect(new MasqueradeEffect());
+            context.AddEffect(this, new MasqueradeEffect());
         }
 
         public class MasqueradeEffect : CardEffectBase
@@ -28,7 +28,7 @@ namespace Dominion.Cards.Actions
                 _cardMovements = new Dictionary<ICard, CardZone>();
             }            
 
-            public override void Resolve(TurnContext context)
+            public override void Resolve(TurnContext context, ICard source)
             {
                 var passingPlayers = context.Game.Players.Where(p => p.Hand.CardCount > 0);
                 _expectedMovementCount = passingPlayers.Count();
@@ -38,7 +38,7 @@ namespace Dominion.Cards.Actions
                     Player tempPlayer = player;
 
                     var activity = (ISelectCardsActivity) new SelectCardsActivity
-                        (context.Game.Log, player, "Select a card to pass.", SelectionSpecifications.SelectExactlyXCards(1))
+                        (context.Game.Log, player, "Select a card to pass.", SelectionSpecifications.SelectExactlyXCards(1), source)
                     {
                         AfterCardsSelected = cards =>
                         {
@@ -46,7 +46,7 @@ namespace Dominion.Cards.Actions
                             if (_cardMovements.Keys.Count == _expectedMovementCount)
                             {
                                 DoMovements();
-                                DoTrash(context);
+                                DoTrash(context, source);
                             }
                         }
                     };
@@ -61,11 +61,11 @@ namespace Dominion.Cards.Actions
                     cardMovement.Key.MoveTo(cardMovement.Value);
             }
 
-            private void DoTrash(TurnContext context)
+            private void DoTrash(TurnContext context, ICard source)
             {
                 if (context.ActivePlayer.Hand.CardCount > 0)
                 {
-                    var activity = Activities.SelectUpToXCardsToTrash(context, context.ActivePlayer, 1);
+                    var activity = Activities.SelectUpToXCardsToTrash(context, context.ActivePlayer, 1, source);
                     _activities.Add(activity);
                 }
             }

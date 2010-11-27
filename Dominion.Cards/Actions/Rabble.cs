@@ -16,12 +16,12 @@ namespace Dominion.Cards.Actions
         public void Play(TurnContext context)
         {
             context.DrawCards(3);
-            context.AddEffect(new RabbleAttack());
+            context.AddEffect(this, new RabbleAttack());
         }
 
         private class RabbleAttack : AttackEffect
         {
-            public override void Attack(Player player, TurnContext context)
+            public override void Attack(Player player, TurnContext context, ICard source)
             {
                 var revealZone = new RevealZone(player);
                 player.Deck.MoveTop(3, revealZone);
@@ -29,7 +29,7 @@ namespace Dominion.Cards.Actions
                 revealZone.LogReveal(context.Game.Log);
                 revealZone.MoveWhere(c => c is IActionCard || c is ITreasureCard, player.Discards);
 
-                foreach (var activity in Activities.SelectMultipleRevealedCardsToPutOnTopOfDeck(context.Game.Log, player, revealZone))
+                foreach (var activity in Activities.SelectMultipleRevealedCardsToPutOnTopOfDeck(context.Game.Log, player, revealZone, source))
                     _activities.Add(activity);
             }
 

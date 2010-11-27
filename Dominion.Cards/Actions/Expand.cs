@@ -13,7 +13,7 @@ namespace Dominion.Cards.Actions
 
         public void Play(TurnContext context)
         {
-            context.AddEffect(new ExpandEffect());
+            context.AddEffect(this, new ExpandEffect());
         }
         
         public class ExpandEffect : Remodel.RemodelEffect

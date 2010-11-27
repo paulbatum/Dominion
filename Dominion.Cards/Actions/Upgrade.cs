@@ -20,15 +20,15 @@ namespace Dominion.Cards.Actions
             context.DrawCards(1);
             context.RemainingActions += 1;
 
-            context.AddEffect(new UpgradeEffect());
+            context.AddEffect(this, new UpgradeEffect());
         }
 
         public class UpgradeEffect : CardEffectBase
         {
-            public override void Resolve(TurnContext context)
+            public override void Resolve(TurnContext context, ICard source)
             {
                 var upgradeActivity = new SelectCardsActivity(context, "Select a card to Upgrade",
-                    SelectionSpecifications.SelectExactlyXCards(1));
+                    SelectionSpecifications.SelectExactlyXCards(1), source);
 
                 upgradeActivity.AfterCardsSelected = cardList =>
                 {
@@ -40,7 +40,7 @@ namespace Dominion.Cards.Actions
                     if (context.Game.Bank.Piles.Any(p => !p.IsEmpty && p.TopCard.Cost == upgradeCost))
                     {
                         var gainActivity = Activities.GainACardCostingExactlyX(context.Game.Log, player,
-                            upgradeCost, player.Discards);
+                            upgradeCost, player.Discards, source);
                         _activities.Add(gainActivity);
                     }
                     else

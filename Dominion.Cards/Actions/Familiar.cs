@@ -14,12 +14,12 @@ namespace Dominion.Cards.Actions
         {
             context.DrawCards(1);
             context.RemainingActions += 1;
-            context.AddEffect(new FamiliarAttack());
+            context.AddEffect(this, new FamiliarAttack());
         }
 
         private class FamiliarAttack : AttackEffect
         {
-            public override void Attack(Player player, TurnContext context)
+            public override void Attack(Player player, TurnContext context, ICard source)
             {
                 var gainUtil = new GainUtility(context, player);
                 gainUtil.Gain<Curse>();

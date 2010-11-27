@@ -19,12 +19,12 @@ namespace Dominion.Cards.Actions
         {
             context.RemainingActions += 1;
             context.DrawCards(3);
-            context.AddEffect(new WarehouseEffect());
+            context.AddEffect(this, new WarehouseEffect());
         }
 
         private class WarehouseEffect : CardEffectBase
         {
-            public override void Resolve(TurnContext context)
+            public override void Resolve(TurnContext context, ICard source)
             {
                 if(context.ActivePlayer.Hand.CardCount < 4)
                 {
@@ -32,7 +32,7 @@ namespace Dominion.Cards.Actions
                 }
                 else
                 {
-                    var discardActivity = Activities.DiscardCards(context, context.ActivePlayer, 3);
+                    var discardActivity = Activities.DiscardCards(context, context.ActivePlayer, 3, source);
                     _activities.Add(discardActivity);    
                 }
                 

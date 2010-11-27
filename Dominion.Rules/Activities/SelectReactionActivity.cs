@@ -11,7 +11,7 @@ namespace Dominion.Rules.Activities
         private readonly AttackEffect _attackEffect;
 
         public SelectReactionActivity(TurnContext currentTurn, Player player, AttackEffect attackEffect)
-            : base(currentTurn.Game.Log, player, "Select a reaction to use, click Done when finished.", SelectionSpecifications.SelectUpToXCards(1))
+            : base(currentTurn.Game.Log, player, "Select a reaction to use, click Done when finished.", SelectionSpecifications.SelectUpToXCards(1), null)
         {
             _currentTurn = currentTurn;
             _attackEffect = attackEffect;

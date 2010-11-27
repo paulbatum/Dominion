@@ -21,15 +21,16 @@ namespace Dominion.Cards.Hybrid
 
         public void Play(TurnContext context)
         {
-            context.AddEffect(new NoblesEffect());
+            context.AddEffect(this, new NoblesEffect());
         }
 
         public class NoblesEffect : CardEffectBase
         {
-            public override void Resolve(TurnContext context)
+            public override void Resolve(TurnContext context, ICard source)
             {
                 var choiceActivity = new ChoiceActivity(context, context.ActivePlayer, 
                     "Choose from: Draw 3 cards, gain 2 actions", 
+                    source,
                     Choice.DrawCards, Choice.GainActions);
                 choiceActivity.ActOnChoice = c => Execute(context, c);
 

@@ -16,12 +16,12 @@ namespace Dominion.Cards.Actions
 
         public void Play(TurnContext context)
         {
-            context.AddEffect(new MoneylenderEffect());
+            context.AddEffect(this, new MoneylenderEffect());
         }
 
         private class MoneylenderEffect : CardEffectBase
         {
-            public override void Resolve(TurnContext context)
+            public override void Resolve(TurnContext context, ICard source)
             {
                 if (context.ActivePlayer.Hand.OfType<Copper>().Any())
                 {

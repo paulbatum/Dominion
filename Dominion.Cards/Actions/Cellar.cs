@@ -18,17 +18,17 @@ namespace Dominion.Cards.Actions
         public void Play(TurnContext context)
         {
             context.RemainingActions += 1;
-            context.AddEffect(new CellarEffect());
+            context.AddEffect(this, new CellarEffect());
         }
 
         private class CellarEffect : CardEffectBase
         {
-            public override void Resolve(TurnContext context)
+            public override void Resolve(TurnContext context, ICard source)
             {
                 var activity = new SelectCardsActivity(
                     context,
                     "Select any number of cards to discard, you will draw 1 new card for each discard",
-                    SelectionSpecifications.SelectUpToXCards(context.ActivePlayer.Hand.CardCount));
+                    SelectionSpecifications.SelectUpToXCards(context.ActivePlayer.Hand.CardCount), source);
 
                 activity.AfterCardsSelected = cards =>
                 {

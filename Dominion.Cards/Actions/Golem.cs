@@ -16,7 +16,7 @@ namespace Dominion.Cards.Actions
 
         public void Play(TurnContext context)
         {
-            context.AddEffect(new GolemEffect());                                
+            context.AddEffect(this, new GolemEffect());                                
         }
 
         private class GolemEffect : CardEffectBase
@@ -26,7 +26,7 @@ namespace Dominion.Cards.Actions
                 return zone.OfType<IActionCard>().Where(c => !(c is Golem));
             }
 
-            public override void Resolve(TurnContext context)
+            public override void Resolve(TurnContext context, ICard source)
             {
                 var deck = context.ActivePlayer.Deck;
                 var revealZone = new RevealZone(context.ActivePlayer);
@@ -48,13 +48,13 @@ namespace Dominion.Cards.Actions
                 if (actionsToPlay.AllSame(a => a.Name))
                     playUtil.Play(actionsToPlay);                                       
                 else
-                    _activities.Add(CreateChooseActionActivity(context, revealZone));
+                    _activities.Add(CreateChooseActionActivity(context, revealZone, source));
             }
 
-            private IActivity CreateChooseActionActivity(TurnContext context, RevealZone revealZone)
+            private IActivity CreateChooseActionActivity(TurnContext context, RevealZone revealZone, ICard source)
             {
                 var selectTreasure = new SelectFromRevealedCardsActivity(context.Game.Log, context.ActivePlayer, revealZone,
-                    "Select the action to play first.", SelectionSpecifications.SelectExactlyXCards(1));
+                    "Select the action to play first.", SelectionSpecifications.SelectExactlyXCards(1), source);
 
                 selectTreasure.AfterCardsSelected = cards =>
                 {
@@ -62,8 +62,8 @@ namespace Dominion.Cards.Actions
                     var second = revealZone.OfType<IActionCard>().Single(c => c != first);
 
                     // Reverse order because we're on a stack.
-                    context.AddEffect(new PlayCardEffect(second));
-                    context.AddEffect(new PlayCardEffect(first));                    
+                    context.AddEffect(source, new PlayCardEffect(second));
+                    context.AddEffect(source, new PlayCardEffect(first));                    
                 };
 
                 return selectTreasure;
@@ -78,7 +78,7 @@ namespace Dominion.Cards.Actions
                     _card = card;
                 }
 
-                public override void Resolve(TurnContext context)
+                public override void Resolve(TurnContext context, ICard source)
                 {
                     _card.Play(context);
                     _card.MoveTo(context.ActivePlayer.PlayArea);

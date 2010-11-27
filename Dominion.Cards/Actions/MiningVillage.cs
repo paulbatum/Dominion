@@ -18,7 +18,7 @@ namespace Dominion.Cards.Actions
         {
             context.DrawCards(1);
             context.RemainingActions += 2;
-            context.AddEffect(new MiningVillageEffect(this));
+            context.AddEffect(this, new MiningVillageEffect(this));
         }
 
         private class MiningVillageEffect : CardEffectBase
@@ -30,12 +30,13 @@ namespace Dominion.Cards.Actions
                 _source = source;
             }
 
-            public override void Resolve(TurnContext context)
+            public override void Resolve(TurnContext context, ICard source)
             {
                 if (!context.Game.Trash.Contains(_source))
                 {
                     var activity = Activities.ChooseYesOrNo(context.Game.Log, context.ActivePlayer,
                                                             "Trash mining village for +2 buy?",
+                                                            source,
                                                             () =>
                                                             {
 

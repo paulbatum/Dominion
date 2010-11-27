@@ -19,12 +19,12 @@ namespace Dominion.Cards.Actions
         public void Play(TurnContext context)
         {
             context.DrawCards(2);
-            context.AddEffect(new WitchAttack());            
+            context.AddEffect(this, new WitchAttack());            
         }
 
         private class WitchAttack : AttackEffect
         {
-            public override void Attack(Player player, TurnContext context)
+            public override void Attack(Player player, TurnContext context, ICard source)
             {
                 var gainUtil = new GainUtility(context, player);                
                 gainUtil.Gain<Curse>();       

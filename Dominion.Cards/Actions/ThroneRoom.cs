@@ -15,12 +15,12 @@ namespace Dominion.Cards.Actions
 
         public void Play(TurnContext context)
         {
-            context.AddEffect(new ThroneRoomEffect());
+            context.AddEffect(this, new ThroneRoomEffect());
         }
 
         private class ThroneRoomEffect : CardEffectBase
         {
-            public override void Resolve(TurnContext context)
+            public override void Resolve(TurnContext context, ICard source)
             {
                 var player = context.ActivePlayer;
                 var log = context.Game.Log;
@@ -30,7 +30,7 @@ namespace Dominion.Cards.Actions
                     var activity = new SelectCardsActivity(
                         log, player,
                         "Select an action to play twice",
-                        SelectionSpecifications.SelectExactlyXCards(1));
+                        SelectionSpecifications.SelectExactlyXCards(1), source);
 
                     activity.Specification.CardTypeRestriction = typeof (IActionCard);
                     activity.AfterCardsSelected = cards =>
@@ -39,8 +39,8 @@ namespace Dominion.Cards.Actions
                         log.LogMessage("{0} selected {1} to be played twice.", player.Name, actionCard.Name);
 
                         actionCard.MoveTo(context.ActivePlayer.PlayArea);
-                        context.AddEffect(new PlayCardEffect(actionCard));
-                        context.AddEffect(new PlayCardEffect(actionCard));                        
+                        context.AddEffect(source, new PlayCardEffect(actionCard));
+                        context.AddEffect(source, new PlayCardEffect(actionCard));                        
                     };
 
                     _activities.Add(activity);
@@ -57,7 +57,7 @@ namespace Dominion.Cards.Actions
                     _card = card;
                 }
 
-                public override void Resolve(TurnContext context)
+                public override void Resolve(TurnContext context, ICard source)
                 {
                     _card.Play(context);
                 }

@@ -15,12 +15,12 @@ namespace Dominion.Cards.Actions
         public void Play(TurnContext context)
         {
             var effect = new EnvoyEffect();
-            context.AddEffect(effect);
+            context.AddEffect(this, effect);
         }
 
         private class EnvoyEffect : CardEffectBase
         {
-            public override void Resolve(TurnContext context)
+            public override void Resolve(TurnContext context, ICard source)
             {
                 var leftPlayer = context.Opponents.FirstOrDefault();
                 if (leftPlayer != null)
@@ -29,15 +29,15 @@ namespace Dominion.Cards.Actions
                     context.ActivePlayer.Deck.MoveTop(5, revealZone);
                     revealZone.LogReveal(context.Game.Log);
 
-                    var activity = CreateChooseCardActivity(context, revealZone, leftPlayer);
+                    var activity = CreateChooseCardActivity(context, revealZone, leftPlayer, source);
                     _activities.Add(activity);
                 }
             }
 
-            private IActivity CreateChooseCardActivity(TurnContext context, RevealZone revealZone, Player player)
+            private IActivity CreateChooseCardActivity(TurnContext context, RevealZone revealZone, Player player, ICard source)
             {
                 var selectTreasure = new SelectFromRevealedCardsActivity(context.Game.Log, player, revealZone,
-                    string.Format("Select the card you do NOT want {0} to draw.", revealZone.Owner.Name), SelectionSpecifications.SelectExactlyXCards(1));
+                    string.Format("Select the card you do NOT want {0} to draw.", revealZone.Owner.Name), SelectionSpecifications.SelectExactlyXCards(1), source);
 
                 selectTreasure.AfterCardsSelected = cards =>
                 {

@@ -11,8 +11,8 @@ namespace Dominion.Rules.Activities
 
     public class SelectPileActivity : ActivityBase, ISelectPileActivity
     {
-        public SelectPileActivity(IGameLog log, Player player, string message, ISelectionSpecification specification) 
-            : base(log, player, message, specification.ActivityType)
+        public SelectPileActivity(IGameLog log, Player player, string message, ISelectionSpecification specification, ICard source)
+            : base(log, player, message, specification.ActivityType, source)
         {
             Specification = specification;
         }

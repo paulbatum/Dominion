@@ -9,13 +9,13 @@ namespace Dominion.Rules.Activities
     {
         public IEnumerable<Choice> AllowedOptions { get; private set; }
 
-        public ChoiceActivity(TurnContext context, Player player, string message, params Choice[] options)
-            : this(context.Game.Log, player, message, options)
+        public ChoiceActivity(TurnContext context, Player player, string message, ICard source, params Choice[] options)
+            : this(context.Game.Log, player, message, source, options)
         {
         }
 
-        public ChoiceActivity(IGameLog log, Player player, string message, params Choice[] options)
-            : base(log, player, message, ActivityType.MakeChoice)
+        public ChoiceActivity(IGameLog log, Player player, string message, ICard source, params Choice[] options)
+            : base(log, player, message, ActivityType.MakeChoice, source)
         {
             AllowedOptions = options;
             

@@ -15,12 +15,12 @@ namespace Dominion.Cards.Actions
 
         public void Play(TurnContext context)
         {
-            context.AddEffect(new SeaHagAttack());
+            context.AddEffect(this, new SeaHagAttack());
         }
 
         private class SeaHagAttack : AttackEffect
         {
-            public override void Attack(Player player, TurnContext context)
+            public override void Attack(Player player, TurnContext context, ICard source)
             {
                 if (player.Deck.CardCount + player.Discards.CardCount > 0)
                     player.Deck.MoveTop(1, player.Discards);

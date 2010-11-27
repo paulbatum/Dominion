@@ -14,12 +14,12 @@ namespace Dominion.Cards.Actions
 
         public void Play(TurnContext context)
         {
-            context.AddEffect(new ThiefAttack());
+            context.AddEffect(this, new ThiefAttack());
         }
 
         private class ThiefAttack : AttackEffect
         {
-            public override void Attack(Player player, TurnContext context)
+            public override void Attack(Player player, TurnContext context, ICard source)
             {                
                 var revealZone = new RevealZone(player);
                 player.Deck.MoveTop(2, revealZone);
@@ -34,11 +34,11 @@ namespace Dominion.Cards.Actions
                         return;
                     case 1:
                         var trashedCard = TrashAndDiscard(context, revealZone, revealedTreasures);
-                        var gainChoiceActivity = Activities.GainOpponentsCardChoice(context, trashedCard, revealZone.Owner);
+                        var gainChoiceActivity = Activities.GainOpponentsCardChoice(context, trashedCard, revealZone.Owner, source);
                         _activities.Add(gainChoiceActivity);
                         break;
                     default:
-                        var chooseTreasureActivity = CreateChooseTreasureActivity(context, revealZone);
+                        var chooseTreasureActivity = CreateChooseTreasureActivity(context, revealZone, source);
                         _activities.Add(chooseTreasureActivity);
                         break;
                 }
@@ -53,15 +53,15 @@ namespace Dominion.Cards.Actions
                 return (Card) trashedCard;
             }
 
-            private IActivity CreateChooseTreasureActivity(TurnContext context, RevealZone revealZone)
+            private IActivity CreateChooseTreasureActivity(TurnContext context, RevealZone revealZone, ICard source)
             {
                 var selectTreasure = new SelectFromRevealedCardsActivity(context.Game.Log, context.ActivePlayer, revealZone,
-                    "Select a treasure to trash (you will have the opportunity to gain it).", SelectionSpecifications.SelectExactlyXCards(1));
+                    "Select a treasure to trash (you will have the opportunity to gain it).", SelectionSpecifications.SelectExactlyXCards(1), source);
                 
                 selectTreasure.AfterCardsSelected = cards =>
                 {
                     var trashedCard = TrashAndDiscard(context, revealZone, cards.OfType<ITreasureCard>());
-                    var gainOrTrashActivity = Activities.GainOpponentsCardChoice(context, trashedCard, revealZone.Owner);
+                    var gainOrTrashActivity = Activities.GainOpponentsCardChoice(context, trashedCard, revealZone.Owner, source);
                     _activities.Insert(0, gainOrTrashActivity);
                 };
                 

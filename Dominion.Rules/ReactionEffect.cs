@@ -13,7 +13,7 @@ namespace Dominion.Rules
             _attackEffect = attackEffect;            
         }
 
-        public override void Resolve(TurnContext context)
+        public override void Resolve(TurnContext context, ICard source)
         {
             foreach(var opponent in context.Opponents)
             {

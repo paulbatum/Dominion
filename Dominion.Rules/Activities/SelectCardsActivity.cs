@@ -12,14 +12,14 @@ namespace Dominion.Rules.Activities
 
     public class SelectCardsActivity : ActivityBase, ISelectCardsActivity
     {
-        public SelectCardsActivity(IGameLog log, Player player, string message, ISelectionSpecification specification) 
-            : base(log, player, message, specification.ActivityType)
+        public SelectCardsActivity(IGameLog log, Player player, string message, ISelectionSpecification specification, ICard source)
+            : base(log, player, message, specification.ActivityType, source)
         {
             Specification = specification;
         }
 
-        public SelectCardsActivity(TurnContext context, string message, ISelectionSpecification specification)
-            : this(context.Game.Log, context.ActivePlayer, message, specification)
+        public SelectCardsActivity(TurnContext context, string message, ISelectionSpecification specification, ICard source)
+            : this(context.Game.Log, context.ActivePlayer, message, specification, source)
         {
             
         }

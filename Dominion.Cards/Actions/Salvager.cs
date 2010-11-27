@@ -18,17 +18,17 @@ namespace Dominion.Cards.Actions
         public void Play(TurnContext context)
         {
             context.Buys += 1;
-            context.AddEffect(new SalvagerEffect());
+            context.AddEffect(this, new SalvagerEffect());
         }
 
         private class SalvagerEffect : CardEffectBase
         {
-            public override void Resolve(TurnContext context)
+            public override void Resolve(TurnContext context, ICard source)
             {
                 if (context.ActivePlayer.Hand.CardCount > 0)
                 {
                     var activity = new SelectCardsActivity(context, "Select a card to salvage",
-                        SelectionSpecifications.SelectExactlyXCards(1));
+                        SelectionSpecifications.SelectExactlyXCards(1), source);
 
                     activity.AfterCardsSelected = cardList =>
                     {

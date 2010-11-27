@@ -8,16 +8,19 @@ namespace Dominion.Rules
     public interface ICardEffect
     {        
         bool HasFinished { get; }
+        ICard Source { get; set; }
         IActivity GetActivity(Player player);
         void BeginResolve(TurnContext currentTurn);
     }
 
     public abstract class CardEffectBase : ICardEffect
-    {
+    {        
         protected readonly IList<IActivity> _activities = new List<IActivity>();
         private bool _isResolved = false;
 
-        public abstract void Resolve(TurnContext context);
+        public abstract void Resolve(TurnContext context, ICard source);
+
+        public ICard Source { get; set; }
 
         public bool HasFinished
         {
@@ -44,7 +47,7 @@ namespace Dominion.Rules
             if (!_isResolved)
             {
                 _isResolved = true;
-                Resolve(currentTurn);
+                Resolve(currentTurn, Source);
             }
         }
     }

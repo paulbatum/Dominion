@@ -16,7 +16,7 @@ namespace Dominion.Cards.Actions
 
         public void React(AttackEffect attackEffect, Player player, TurnContext currentTurn)
         {
-            currentTurn.AddEffect(new SecretChamberReactionEffect(player));
+            currentTurn.AddEffect(this, new SecretChamberReactionEffect(player));
             currentTurn.Game.Log.LogMessage("{0} revealed a Secret Chamber.", player);
 
         }
@@ -28,7 +28,7 @@ namespace Dominion.Cards.Actions
 
         public void Play(TurnContext context)
         {
-            context.AddEffect(new SecretChamberActionEffect());
+            context.AddEffect(this, new SecretChamberActionEffect());
         }
 
         private class SecretChamberReactionEffect : CardEffectBase
@@ -40,22 +40,22 @@ namespace Dominion.Cards.Actions
                 _player = player;
             }
 
-            public override void Resolve(TurnContext context)
+            public override void Resolve(TurnContext context, ICard source)
             {                
                 _player.DrawCards(2);
-                foreach (var activity in Activities.PutMultipleCardsFromHandOnTopOfDeck(context.Game.Log, _player, 2))
+                foreach (var activity in Activities.PutMultipleCardsFromHandOnTopOfDeck(context.Game.Log, _player, 2, source))
                     _activities.Add(activity);
             }
         }
 
         private class SecretChamberActionEffect : CardEffectBase
         {
-            public override void Resolve(TurnContext context)
+            public override void Resolve(TurnContext context, ICard source)
             {
                 var activity = new SelectCardsActivity(
                     context,
                     "Select any number of cards to discard, you will gain $1 per card",
-                    SelectionSpecifications.SelectUpToXCards(context.ActivePlayer.Hand.CardCount));
+                    SelectionSpecifications.SelectUpToXCards(context.ActivePlayer.Hand.CardCount), source);
 
                 activity.AfterCardsSelected = cards =>
                 {

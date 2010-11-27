@@ -167,8 +167,9 @@ namespace Dominion.Rules
             return value;
         }
 
-        public void AddEffect(ICardEffect cardEffect)
+        public void AddEffect(ICard source, ICardEffect cardEffect)
         {
+            cardEffect.Source = source;
             _effects.Push(cardEffect);
         }
 

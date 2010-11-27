@@ -17,16 +17,16 @@ namespace Dominion.Cards.Actions
         public void Play(TurnContext context)
         {
             context.ActivePlayer.DrawCards(2);
-            context.AddEffect(new GhostShipAttack());
+            context.AddEffect(this, new GhostShipAttack());
         }
 
         private class GhostShipAttack : AttackEffect
         {
-            public override void Attack(Player player, TurnContext context)
+            public override void Attack(Player player, TurnContext context, ICard source)
             {
                 int cardsToPutBack = player.Hand.CardCount - 3;
 
-                var activities = Activities.PutMultipleCardsFromHandOnTopOfDeck(context.Game.Log, player, cardsToPutBack);
+                var activities = Activities.PutMultipleCardsFromHandOnTopOfDeck(context.Game.Log, player, cardsToPutBack, source);
                 foreach(var activity in activities)
                     _activities.Add(activity);
             }

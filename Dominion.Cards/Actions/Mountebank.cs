@@ -17,12 +17,12 @@ namespace Dominion.Cards.Actions
         public void Play(TurnContext context)
         {
             context.AvailableSpend += 2;
-            context.AddEffect(new MountebankAttack());
+            context.AddEffect(this, new MountebankAttack());
         }
 
         public class MountebankAttack : AttackEffect
         {
-            public override void Attack(Player player, TurnContext context)
+            public override void Attack(Player player, TurnContext context, ICard source)
             {
                 var curseInHand = player.Hand.OfType<Curse>().FirstOrDefault();
 
@@ -33,6 +33,7 @@ namespace Dominion.Cards.Actions
                 else
                 {
                     var activity = Activities.ChooseYesOrNo(context.Game.Log, player, "Discard a curse?",
+                        source,
                         () => context.DiscardCard(player, curseInHand),
                         () => GainCopperAndCurse(player, context));                  
 

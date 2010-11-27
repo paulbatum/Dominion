@@ -17,14 +17,14 @@ namespace Dominion.Cards.Actions
 
         public void Play(TurnContext context)
         {
-            context.AddEffect(new ChapelEffect());
+            context.AddEffect(this, new ChapelEffect());
         }
 
         private class ChapelEffect : CardEffectBase
         {
-            public override void Resolve(TurnContext context)
+            public override void Resolve(TurnContext context, ICard source)
             {
-                var activity = Activities.SelectUpToXCardsToTrash(context, context.ActivePlayer, 4);
+                var activity = Activities.SelectUpToXCardsToTrash(context, context.ActivePlayer, 4, source);
                 _activities.Add(activity);
             }
         }

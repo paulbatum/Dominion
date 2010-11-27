@@ -16,30 +16,30 @@ namespace Dominion.Cards.Actions
 
         public void Play(TurnContext context)
         {
-            context.AddEffect(new MineEffect());
+            context.AddEffect(this, new MineEffect());
         }
 
         public class MineEffect : CardEffectBase
         {
-            public override void Resolve(TurnContext context)
+            public override void Resolve(TurnContext context, ICard source)
             {
                 var activity = new SelectCardsActivity(context, "Select a treasure card to mine", 
-                    SelectionSpecifications.SelectExactlyXCards(1));
+                    SelectionSpecifications.SelectExactlyXCards(1), source);
 
                 activity.Specification.CardTypeRestriction = typeof(ITreasureCard);
                 activity.AfterCardsSelected = cardList =>
                 {
                     var cardToMine = cardList.Single();
                     context.Trash(context.ActivePlayer, cardToMine);
-                    AddGainActivity(context.Game.Log, context.ActivePlayer, cardToMine.Cost + 3);
+                    AddGainActivity(context.Game.Log, context.ActivePlayer, cardToMine.Cost + 3, source);
                 };
 
                 _activities.Add(activity);
             }
 
-            public void AddGainActivity(IGameLog log, Player player, CardCost upToCost)
+            public void AddGainActivity(IGameLog log, Player player, CardCost upToCost, ICard source)
             {
-                var activity = Activities.GainACardCostingUpToX(log, player, upToCost, player.Hand);
+                var activity = Activities.GainACardCostingUpToX(log, player, upToCost, player.Hand, source);
                 activity.Specification.CardTypeRestriction = typeof (ITreasureCard);
                 _activities.Add(activity);
             }

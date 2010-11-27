@@ -16,7 +16,7 @@ namespace Dominion.Cards.Actions
 
         public void Play(TurnContext context)
         {
-            context.AddEffect(new RemodelEffect());
+            context.AddEffect(this, new RemodelEffect());
         }
 
         public class RemodelEffect : CardEffectBase
@@ -36,10 +36,10 @@ namespace Dominion.Cards.Actions
                 _message = message;
             }
 
-            public override void Resolve(TurnContext context)
+            public override void Resolve(TurnContext context, ICard source)
             {
                 var remodelActivity = new SelectCardsActivity(context, _message, 
-                    SelectionSpecifications.SelectExactlyXCards(1));
+                    SelectionSpecifications.SelectExactlyXCards(1), source);
 
                 remodelActivity.AfterCardsSelected = cardList =>
                 {
@@ -47,7 +47,7 @@ namespace Dominion.Cards.Actions
                     var cardToRemodel = cardList.Single();
                     context.Trash(player, cardToRemodel);
 
-                    var gainActivity = Activities.GainACardCostingUpToX(context.Game.Log, player, cardToRemodel.Cost + _costIncrease);
+                    var gainActivity = Activities.GainACardCostingUpToX(context.Game.Log, player, cardToRemodel.Cost + _costIncrease, source);
                     _activities.Add(gainActivity);
                 };
 

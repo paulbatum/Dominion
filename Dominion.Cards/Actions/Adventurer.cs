@@ -16,7 +16,7 @@ namespace Dominion.Cards.Actions
 
         public void Play(TurnContext context)
         {
-            context.AddEffect(new AdventurerEffect());                                
+            context.AddEffect(this, new AdventurerEffect());                                
         }
 
         private class AdventurerEffect : CardEffectBase
@@ -26,7 +26,7 @@ namespace Dominion.Cards.Actions
                 return zone.OfType<ITreasureCard>();
             }
 
-            public override void Resolve(TurnContext context)
+            public override void Resolve(TurnContext context, ICard source)
             {
                 var deck = context.ActivePlayer.Deck;
                 var revealZone = new RevealZone(context.ActivePlayer);
