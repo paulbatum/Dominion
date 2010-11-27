@@ -11,5 +11,7 @@ namespace Dominion.Rules.Activities
         ActivityType Type { get; }
         Guid Id { get; }
         IDictionary<string, object> Properties { get; }
+        string Source { get; }
+        ActivityHint Hint { get; }
     }
 }

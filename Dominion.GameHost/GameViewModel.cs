@@ -44,6 +44,7 @@ namespace Dominion.GameHost
         private void PopulateActivityRelated(Game game, Player player)
         {
             var activity = game.GetPendingActivity(player);
+
             if(activity != null)
                 PendingActivity = new ActivityModel(activity);
 
@@ -74,11 +75,15 @@ namespace Dominion.GameHost
             Type = activity.Type.ToString();            
             Message = activity.Message;
             Id = activity.Id;
-            
+
+            Hint = activity.Hint.ToString();
+            Source = activity.Source;
         }
         
         public string Type { get; set; }
         public string Message { get; set; }
+        public string Source { get; set; }
+        public string Hint { get; set; }
         public Guid Id { get; set; }
         public IDictionary<string, object> Properties { get; set; }
     }
