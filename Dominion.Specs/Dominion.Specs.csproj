@@ -295,11 +295,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GameLog.feature</DependentUpon>
     </Compile>
-    <Compile Include="Hosted\ActivityInformation.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ActivityInformation.feature</DependentUpon>
-    </Compile>
     <Compile Include="Hosted\AutomaticReaction.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -529,10 +524,6 @@
     <None Include="GameLog.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>GameLog.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Hosted\ActivityInformation.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>ActivityInformation.feature.cs</LastGenOutput>
     </None>
     <None Include="Hosted\AutomaticReaction.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

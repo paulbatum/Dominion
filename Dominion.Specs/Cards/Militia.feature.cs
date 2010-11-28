@@ -132,6 +132,33 @@ testRunner.And("Player3 should have 3 cards in hand");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Information on Militia discard")]
+        [NUnit.Framework.CategoryAttribute("Hosted")]
+        public virtual void InformationOnMilitiaDiscard()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Information on Militia discard", new string[] {
+                        "Hosted"});
+#line 34
+this.ScenarioSetup(scenarioInfo);
+#line 35
+testRunner.Given("A new hosted game with 2 players");
+#line 36
+testRunner.And("Player1 has a Militia in hand instead of a Copper");
+#line 37
+testRunner.When("The game begins");
+#line 38
+testRunner.And("Player1 tells the host to play Militia");
+#line 39
+testRunner.Then("Player2\'s current activity should have a type of SelectFixedNumberOfCards");
+#line 40
+testRunner.Then("Player2\'s current activity should have a hint of DiscardCards");
+#line 41
+testRunner.Then("Player2\'s current activity should have a source of Militia");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
     }
 }
 #endregion

@@ -137,6 +137,33 @@ testRunner.And("Player1 should have 7 cards in hand");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Information on Ghost Ship effect")]
+        [NUnit.Framework.CategoryAttribute("Hosted")]
+        public virtual void InformationOnGhostShipEffect()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Information on Ghost Ship effect", new string[] {
+                        "Hosted"});
+#line 36
+this.ScenarioSetup(scenarioInfo);
+#line 37
+testRunner.Given("A new hosted game with 2 players");
+#line 38
+testRunner.And("Player1 has a GhostShip in hand instead of a Copper");
+#line 39
+testRunner.When("The game begins");
+#line 40
+testRunner.And("Player1 tells the host to play GhostShip");
+#line 41
+testRunner.Then("Player2\'s current activity should have a type of SelectFixedNumberOfCards");
+#line 42
+testRunner.Then("Player2\'s current activity should have a hint of RedrawCards");
+#line 43
+testRunner.Then("Player2\'s current activity should have a source of GhostShip");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
     }
 }
 #endregion

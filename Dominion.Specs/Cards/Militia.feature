@@ -29,3 +29,13 @@ Scenario: Militia played twice via Throne Room
 	Then All actions should be resolved
 	And Player2 should have 3 cards in hand
 	And Player3 should have 3 cards in hand
+
+@Hosted
+Scenario: Information on Militia discard
+	Given A new hosted game with 2 players		
+	And Player1 has a Militia in hand instead of a Copper	
+	When The game begins
+	And Player1 tells the host to play Militia
+	Then Player2's current activity should have a type of SelectFixedNumberOfCards 
+	Then Player2's current activity should have a hint of DiscardCards
+	Then Player2's current activity should have a source of Militia

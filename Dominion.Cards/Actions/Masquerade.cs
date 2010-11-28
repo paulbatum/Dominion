@@ -35,24 +35,27 @@ namespace Dominion.Cards.Actions
 
                 foreach(var player in passingPlayers)
                 {
-                    Player tempPlayer = player;
-
-                    var activity = (ISelectCardsActivity) new SelectCardsActivity
-                        (context.Game.Log, player, "Select a card to pass.", SelectionSpecifications.SelectExactlyXCards(1), source)
-                    {
-                        AfterCardsSelected = cards =>
-                        {
-                            _cardMovements[cards.Single()] = context.Game.PlayerToLeftOf(tempPlayer).Hand;
-                            if (_cardMovements.Keys.Count == _expectedMovementCount)
-                            {
-                                DoMovements();
-                                DoTrash(context, source);
-                            }
-                        }
-                    };
-
-                    _activities.Add(activity);
+                   ISelectCardsActivity activity = CreatePassCardsActivity(context, player, source, player);
+                   _activities.Add(activity);
                 }
+            }
+
+            private ISelectCardsActivity CreatePassCardsActivity(TurnContext context, Player player, ICard source, Player tempPlayer)
+            {
+                return new SelectCardsActivity
+                    (context.Game.Log, player, "Select a card to pass.", SelectionSpecifications.SelectExactlyXCards(1), source)
+                {
+                    AfterCardsSelected = cards =>
+                    {
+                        _cardMovements[cards.Single()] = context.Game.PlayerToLeftOf(tempPlayer).Hand;
+                        if (_cardMovements.Keys.Count == _expectedMovementCount)
+                        {
+                            DoMovements();
+                            DoTrash(context, source);
+                        }
+                    },
+                    Hint = ActivityHint.PassCards
+                };
             }
 
             private void DoMovements()

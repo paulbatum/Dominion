@@ -31,3 +31,13 @@ Scenario: Ghost ship played twice via Throne Room
 	And Player2 selects a Copper to go on top (again)
 	Then All actions should be resolved
 	And Player1 should have 7 cards in hand
+
+@Hosted
+Scenario: Information on Ghost Ship effect
+	Given A new hosted game with 2 players		
+	And Player1 has a GhostShip in hand instead of a Copper	
+	When The game begins
+	And Player1 tells the host to play GhostShip
+	Then Player2's current activity should have a type of SelectFixedNumberOfCards 
+	Then Player2's current activity should have a hint of RedrawCards
+	Then Player2's current activity should have a source of GhostShip

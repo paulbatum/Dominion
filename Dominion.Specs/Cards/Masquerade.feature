@@ -62,3 +62,13 @@ Scenario: Throne Room a Masquerade
 	And Player1 must select a card to pass
 	And Player2 must select a card to pass
 	And Player3 must select a card to pass
+
+@Hosted
+Scenario: Information on Masquerade pass
+	Given A new hosted game with 2 players		
+	And Player1 has a Masquerade in hand instead of a Copper	
+	When The game begins
+	And Player1 tells the host to play Masquerade
+	Then Player2's current activity should have a type of SelectFixedNumberOfCards 
+	Then Player2's current activity should have a hint of PassCards
+	Then Player2's current activity should have a source of Masquerade

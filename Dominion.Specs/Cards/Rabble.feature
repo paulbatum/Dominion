@@ -25,3 +25,13 @@ Scenario: Player plays Rabble and the revealed cards include two non-treasure no
 	When Player2 selects Curse from the revealed cards
 	Then Player2 should have a deck of: Curse, Estate, Copper, Estate
 	And All actions should be resolved
+
+@Hosted
+Scenario: Information on Rabble effect
+	Given A new hosted game with 2 players		
+	And Player1 has a Rabble in hand instead of a Copper	
+	When The game begins
+	And Player1 tells the host to play Rabble
+	Then Player2's current activity should have a type of SelectFromRevealed 
+	Then Player2's current activity should have a hint of RedrawCards
+	Then Player2's current activity should have a source of Rabble

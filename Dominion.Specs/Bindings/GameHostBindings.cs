@@ -182,7 +182,32 @@ namespace Dominion.Specs.Bindings
             gameState.Revealed.GetCardNames().ShouldEqual(cards);            
         }
 
+        [Then(@"(.*)'s current activity should have a type of (.*)")]
+        public void ThenPlayersCurrentActivityHasATypeOf(string playerName, string activityType)
+        {
+            var client = _clients.Single(c => c.PlayerName == playerName);
+            var gameState = _gameHost.GetGameState(client);
+
+            gameState.PendingActivity.Type.ShouldEqual(activityType);
+        }
+
+        [Then(@"(.*)'s current activity should have a hint of (.*)")]
+        public void ThenPlayersCurrentActivityHasAHintOf(string playerName, string hint)
+        {
+            var client = _clients.Single(c => c.PlayerName == playerName);
+            var gameState = _gameHost.GetGameState(client);
+
+            gameState.PendingActivity.Hint.ShouldEqual(hint);
+        }
 
 
+        [Then(@"(.*)'s current activity should have a source of (.*)")]
+        public void ThenPlayersCurrentActivityHasASourceOf(string playerName, string source)
+        {
+            var client = _clients.Single(c => c.PlayerName == playerName);
+            var gameState = _gameHost.GetGameState(client);
+
+            gameState.PendingActivity.Source.ShouldEqual(source);
+        }
     }
 }

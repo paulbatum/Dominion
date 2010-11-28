@@ -212,6 +212,33 @@ testRunner.And("Player3 must select a card to pass");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Information on Masquerade pass")]
+        [NUnit.Framework.CategoryAttribute("Hosted")]
+        public virtual void InformationOnMasqueradePass()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Information on Masquerade pass", new string[] {
+                        "Hosted"});
+#line 67
+this.ScenarioSetup(scenarioInfo);
+#line 68
+testRunner.Given("A new hosted game with 2 players");
+#line 69
+testRunner.And("Player1 has a Masquerade in hand instead of a Copper");
+#line 70
+testRunner.When("The game begins");
+#line 71
+testRunner.And("Player1 tells the host to play Masquerade");
+#line 72
+testRunner.Then("Player2\'s current activity should have a type of SelectFixedNumberOfCards");
+#line 73
+testRunner.Then("Player2\'s current activity should have a hint of PassCards");
+#line 74
+testRunner.Then("Player2\'s current activity should have a source of Masquerade");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
     }
 }
 #endregion

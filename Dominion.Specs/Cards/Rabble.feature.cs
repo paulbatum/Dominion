@@ -126,6 +126,33 @@ testRunner.And("All actions should be resolved");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Information on Rabble effect")]
+        [NUnit.Framework.CategoryAttribute("Hosted")]
+        public virtual void InformationOnRabbleEffect()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Information on Rabble effect", new string[] {
+                        "Hosted"});
+#line 30
+this.ScenarioSetup(scenarioInfo);
+#line 31
+testRunner.Given("A new hosted game with 2 players");
+#line 32
+testRunner.And("Player1 has a Rabble in hand instead of a Copper");
+#line 33
+testRunner.When("The game begins");
+#line 34
+testRunner.And("Player1 tells the host to play Rabble");
+#line 35
+testRunner.Then("Player2\'s current activity should have a type of SelectFromRevealed");
+#line 36
+testRunner.Then("Player2\'s current activity should have a hint of RedrawCards");
+#line 37
+testRunner.Then("Player2\'s current activity should have a source of Rabble");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
     }
 }
 #endregion
