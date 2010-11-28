@@ -9,7 +9,7 @@ using Dominion.Cards.Curses;
 
 namespace Dominion.Cards.Actions
 {
-    class SeaHag : Card, IActionCard, IAttackCard
+    public class SeaHag : Card, IActionCard, IAttackCard
     {
         public SeaHag() : base(4) { }
 

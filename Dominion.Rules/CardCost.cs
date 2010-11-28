@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace Dominion.Rules
 {
-    public class CardCost : IEquatable<CardCost>
+    public class CardCost : IEquatable<CardCost>, IComparable<CardCost>
     {
         public CardCost(int money)
             :this(money, 0)
@@ -19,6 +19,15 @@ namespace Dominion.Rules
 
         public int Money { get; private set; }
         public int Potions { get; private set; }
+
+        public int CompareTo(CardCost other)
+        {
+            var potionsComparison = this.Potions.CompareTo(other.Potions);
+            if (potionsComparison != 0)
+                return potionsComparison;
+
+            return this.Money.CompareTo(other.Money);
+        }
 
         public override string ToString()
         {

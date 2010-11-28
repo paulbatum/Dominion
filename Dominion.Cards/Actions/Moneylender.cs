@@ -8,7 +8,7 @@ using Dominion.Cards.Treasure;
 
 namespace Dominion.Cards.Actions
 {
-    class Moneylender : Card, IActionCard
+    public class Moneylender : Card, IActionCard
     {
         public Moneylender()
             : base(4)
