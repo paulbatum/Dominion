@@ -103,8 +103,4 @@ namespace Dominion.GameHost.AI
 
         protected abstract IGameActionMessage DoTurn(GameViewModel currentState);
     }
-
-    
-
-    
 }

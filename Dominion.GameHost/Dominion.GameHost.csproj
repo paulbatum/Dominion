@@ -73,7 +73,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AI\BaseAIClient.cs" />
-    <Compile Include="AI\BigMoneyAI.cs" />
+    <Compile Include="AI\BehaviourBased\BigMoneyAI.cs" />
+    <Compile Include="AI\BehaviourBased\BehaviourBasedAI.cs" />
+    <Compile Include="AI\BehaviourBased\BigMoneyBuyBehaviour.cs" />
+    <Compile Include="AI\BehaviourBased\BuyBehaviourBase.cs" />
+    <Compile Include="AI\BehaviourBased\BuyPointsBehaviour.cs" />
+    <Compile Include="AI\BehaviourBased\CommentOnGameEndBehaviour.cs" />
+    <Compile Include="AI\BehaviourBased\DefaultDiscardCardsBehaviour.cs" />
+    <Compile Include="AI\BehaviourBased\DefaultMakeChoiceBehaviour.cs" />
+    <Compile Include="AI\BehaviourBased\DefaultPassCardsBehaviour.cs" />
+    <Compile Include="AI\BehaviourBased\DefaultSelectFromRevealedBehaviour.cs" />
+    <Compile Include="AI\BehaviourBased\SelectFixedNumberOfCardsBehaviourBase.cs" />
+    <Compile Include="AI\BehaviourBased\SkipActionsBehaviour.cs" />
+    <Compile Include="AI\OldBigMoneyAI.cs" />
+    <Compile Include="AI\GameViewModelExtensions.cs" />
     <Compile Include="AI\MilitiaAI.cs" />
     <Compile Include="BeginGameMessage.cs" />
     <Compile Include="BuyCardMessage.cs" />

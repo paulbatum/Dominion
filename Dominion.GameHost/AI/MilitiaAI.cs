@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Dominion.GameHost.AI
 {
-    public class MilitiaAI : BigMoneyAI
+    public class MilitiaAI : OldBigMoneyAI
     {
         protected override IList<string> GetPriorities(GameViewModel state)
         {
