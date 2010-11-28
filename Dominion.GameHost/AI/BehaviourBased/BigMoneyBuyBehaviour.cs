@@ -14,15 +14,6 @@ namespace Dominion.GameHost.AI.BehaviourBased
                 .First();
         }
 
-        protected override void TalkSmack(CardPileViewModel pile, IGameClient client)
-        {
-            base.TalkSmack(pile, client);
 
-            if (pile.Name == "Province")
-                client.SendChatMessage("Province muthafucka!");
-
-            if (pile.Name == "Colony")
-                client.SendChatMessage("COLONY! SUCK IT!");
-        }
     }
 }

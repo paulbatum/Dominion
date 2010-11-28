@@ -17,8 +17,8 @@
 
     function populateNames(numberOfPlayers) {
         var names = "Player1";
-        for(var i = 2; i <= numberOfPlayers; i++)
-            names += ", BigMoneyAI"
+        for (var i = 2; i <= numberOfPlayers; i++)
+            names += i % 2 == 0 ? ", SimpleAI" : ", BigMoneyAI"; 
         $('#Names')
             .val(names);
     }

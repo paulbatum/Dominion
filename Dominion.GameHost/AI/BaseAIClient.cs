@@ -46,7 +46,7 @@ namespace Dominion.GameHost.AI
        
     }
 
-    public abstract class SimpleAI : BaseAIClient
+    public abstract class OldAI : BaseAIClient
     {
         protected override void HandleActivity(ActivityModel activity, GameViewModel state)
         {

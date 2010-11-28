@@ -41,5 +41,36 @@ namespace Dominion.Tests
 
             Debug.Write(player1Client.GetGameState().Log);
         }
+
+        [Test]
+        public void SimpleAI_can_complete_a_game()
+        {
+
+            var multiGameHost = new MultiGameHost();
+            var key = multiGameHost.CreateNewGame(new[] { "SimpleAI", "SimpleAI", "SimpleAI" }, 3);
+            var gameData = multiGameHost.GetGameData(key);
+            var player1Id = gameData.Slots.Keys.First();
+
+            var player1Client = multiGameHost.FindClient(player1Id);
+            while (!player1Client.GetGameState().Status.GameIsComplete)
+                Thread.Sleep(500);
+
+            Debug.Write(player1Client.GetGameState().Log);
+        }
+
+        [Test]
+        public void BigMoney_vs_SimpleAI()
+        {
+            var multiGameHost = new MultiGameHost();
+            var key = multiGameHost.CreateNewGame(new[] { "SimpleAI", "SimpleAI", "BigMoneyAI", "BigMoneyAI" }, 4);
+            var gameData = multiGameHost.GetGameData(key);
+            var player1Id = gameData.Slots.Keys.First();
+
+            var player1Client = multiGameHost.FindClient(player1Id);
+            while (!player1Client.GetGameState().Status.GameIsComplete)
+                Thread.Sleep(500);
+
+            Debug.Write(player1Client.GetGameState().Log);
+        }
     }
 }

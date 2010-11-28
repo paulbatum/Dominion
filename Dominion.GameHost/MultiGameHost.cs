@@ -33,7 +33,7 @@ namespace Dominion.GameHost
 
         public string CreateNewGame(IEnumerable<string> playerNames, int numberOfPlayers)
         {
-            var someCards = new List<string>{"SecretChamber", "Moat", "Mine", "Market", "Chancellor", "Nobles", "Militia", "Village", "ThroneRoom", "Remodel"};
+            var someCards = new List<string>{"Smithy", "Moat", "Witch", "Market", "SeaHag", "Adventurer", "Militia", "Village", "Caravan", "CouncilRoom"};
 
             return CreateNewGame(playerNames, numberOfPlayers, someCards, false);
         }

@@ -8,7 +8,8 @@ namespace Dominion.GameHost.AI.BehaviourBased
     {
         public override bool CanRespond(ActivityModel activity, GameViewModel state)
         {
-            return base.CanRespond(activity, state) && activity.ParseHint() == ActivityHint.DiscardCards;
+            return base.CanRespond(activity, state) && 
+                (activity.ParseHint() == ActivityHint.DiscardCards || activity.ParseHint() == ActivityHint.RedrawCards);
         }
 
         protected override IEnumerable<CardViewModel> PrioritiseCards(GameViewModel state)
