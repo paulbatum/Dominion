@@ -144,8 +144,17 @@ namespace Dominion.GameHost
             Count = pile.IsLimited ? pile.CardCount : 0;
             Name = pile.Name;
 
-            if (!pile.IsEmpty)
+            if (pile.IsEmpty)
+            {
+                Cost = 0;
+                Types = new string[] { };
+            }
+            else
+            {
                 Cost = pile.TopCard.Cost.Money;
+                Types = pile.TopCard.GetTypes();
+            }
+
 
             CanBuy = context.CanBuy(pile, player);
         }
@@ -156,11 +165,22 @@ namespace Dominion.GameHost
         public int Count { get; set; }
         public bool IsLimited { get; set; }
         public bool CanBuy { get; set; }
+        public string[] Types { get; set; }
 
         public string CountDescription
         {
             get { return IsLimited ? Count.ToString() : "∞"; }
         }
+    }
+
+    public enum CardType
+    {
+        Action,
+        Reaction,
+        Attack,
+        Victory,
+        Curse,
+        Treasure
     }
 
     public class CardViewModel
@@ -170,22 +190,7 @@ namespace Dominion.GameHost
             Id = card.Id;
             Cost = card.Cost.Money;
             Name = card.Name;
-
-            var types = new List<string>();
-            if(card is IActionCard)
-                types.Add("Action");
-            if (card is IReactionCard)
-                types.Add("Reaction");
-            if (card is IAttackCard)
-                types.Add("Attack");
-            if (card is IVictoryCard)
-                types.Add("Victory");
-            if (card is ICurseCard)
-                types.Add("Curse");
-            if (card is ITreasureCard)
-                types.Add("Treasure");
-
-            Types = types.ToArray();
+            Types = card.GetTypes();
         }
 
         public CardViewModel(ICard card, TurnContext currentTurn, Player player) : this(card)
@@ -198,6 +203,7 @@ namespace Dominion.GameHost
         public int Cost { get; set; }
         public string[] Types { get; set; }
         public bool CanPlay { get; set; }
+
 
     }
 
@@ -228,5 +234,27 @@ namespace Dominion.GameHost
         public string CountDescription { get; set; }
         public bool IsEmpty { get; set; }
         public string TopCardName { get; set; }
+    }
+
+    public static class ViewModelExtensions
+    {
+        public static string[] GetTypes(this ICard card)
+        {
+            var types = new List<CardType>();
+            if (card is IActionCard)
+                types.Add(CardType.Action);
+            if (card is IReactionCard)
+                types.Add(CardType.Reaction);
+            if (card is IAttackCard)
+                types.Add(CardType.Attack);
+            if (card is IVictoryCard)
+                types.Add(CardType.Victory);
+            if (card is ICurseCard)
+                types.Add(CardType.Curse);
+            if (card is ITreasureCard)
+                types.Add(CardType.Treasure);
+
+            return types.Select(t => t.ToString()).ToArray();
+        }
     }
 }
