@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Dominion.GameHost.AI
 {
-    public class BigMoneyAI : BaseAIClient
+    public class BigMoneyAI : SimpleAI
     {
 
         protected override void DiscardCards(int count, GameViewModel currentState)
