@@ -16,7 +16,8 @@ namespace Dominion.Specs.Bindings
         {
             var gameBinding = Binding<GameStateBindings>();
             _game = gameBinding.Game;
-            _scores = _game.Score();
+            _game.Score();
+            _scores = _game.Scores;
         }
 
         [Then(@"(.*) should have (\d+) victory point[s]?")]

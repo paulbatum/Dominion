@@ -15,6 +15,7 @@ namespace Dominion.Rules
         public IGameLog Log { get; private set; }
         public long Version { get; private set; }
         public TrashPile Trash {get; private set; }
+        public GameScores Scores { get; private set; }
 
         public Game(IEnumerable<Player> players, CardBank bank, IGameLog log)
         {
@@ -102,14 +103,12 @@ namespace Dominion.Rules
             IsComplete = TooManyEmptyPiles || GameEndingPileDepleted;
         }
 
-        public GameScores Score()
+        public void Score()
         {
-            var scores = new GameScores(this);
+            Scores = new GameScores(this);
 
             foreach(var player in Players)
-                scores.Score(player);                
-
-            return scores;
+                Scores.Score(player);                
         }
 
         public void EndTurn()
@@ -118,7 +117,10 @@ namespace Dominion.Rules
             CheckGameComplete();
 
             if (IsComplete)
-                Log.LogGameEnd(this);
+            {
+                Score();
+                Log.LogGameEnd(this.Scores);
+            }
             else
                 _gameTurns.MoveNext();
         }

@@ -39,6 +39,11 @@ namespace Dominion.GameHost
             Deck = new DeckViewModel(player.Deck);
 
             Discards = new DiscardPileViewModel(player.Discards);
+
+            if(Status.GameIsComplete)
+            {
+                Results = new GameResultsViewModel(game.Scores);
+            }
         }
 
         private void PopulateActivityRelated(Game game, Player player)
@@ -65,6 +70,7 @@ namespace Dominion.GameHost
         public DeckViewModel Deck { get; set; }
         public DiscardPileViewModel Discards { get; set; }
         public CardViewModel[] Revealed { get; set; }
+        public GameResultsViewModel Results { get; set; }
     }
 
     public class ActivityModel
@@ -235,6 +241,28 @@ namespace Dominion.GameHost
         public bool IsEmpty { get; set; }
         public string TopCardName { get; set; }
     }
+
+    public class GameResultsViewModel
+    {
+        public GameResultsViewModel(GameScores scores)
+        {
+            Winner = scores.Winner.Name;
+            Scores = scores
+                .Select(s => new PlayerResultViewModel {PlayerName = s.Key.Name, Score = s.Value})
+                .ToArray();
+        }
+
+        public string Winner { get; set; }
+        public PlayerResultViewModel[] Scores { get; set; }
+
+        public class PlayerResultViewModel
+        {
+            public string PlayerName { get; set; }
+            public int Score { get; set; }
+        }
+    }
+
+
 
     public static class ViewModelExtensions
     {

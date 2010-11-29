@@ -12,7 +12,7 @@ namespace Dominion.Rules
         void LogTurn(Player player);
         void LogPlay(Player player, IActionCard card);
         void LogBuy(Player player, CardPile pile);
-        void LogGameEnd(Game game);
+        void LogGameEnd(GameScores scores);
         void LogDiscard(Player player, ICard card);
         void LogMessage(string message, params object[] values);
         void LogGain(Player player, ICard card);        
@@ -48,10 +48,8 @@ namespace Dominion.Rules
             _builder.AppendLine();
         }
 
-        public void LogGameEnd(Game game)
+        public void LogGameEnd(GameScores scores)
         {
-            GameScores scores = game.Score();
-
             _builder
                 .AppendLine("The game has ended!")
                 .AppendLine()
