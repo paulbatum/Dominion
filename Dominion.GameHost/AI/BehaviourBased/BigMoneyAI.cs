@@ -33,6 +33,7 @@
             Behaviours.Add(new BuyAlternatingMoneyAndActionsBehaviour());
 
             Behaviours.Add(new PlaySimpleActionsBehaviour());
+            Behaviours.Add(new SkipActionsBehaviour());
         }
     }
 }

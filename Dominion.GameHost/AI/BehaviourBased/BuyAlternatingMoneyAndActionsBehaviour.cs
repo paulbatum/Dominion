@@ -20,6 +20,7 @@ namespace Dominion.GameHost.AI.BehaviourBased
             {
                 yield return _buySimpleAction;
                 yield return _bigMoney;
+                yield return _bigMoney;
             }
         }
 
