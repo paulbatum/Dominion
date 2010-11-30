@@ -11,6 +11,8 @@ namespace Dominion.AIWorkbench
 {
     public partial class MDIParent : Form
     {
+        private int simulationCount;
+
         public MDIParent()
         {
             InitializeComponent();
@@ -18,9 +20,8 @@ namespace Dominion.AIWorkbench
 
         private void ShowNewForm(object sender, EventArgs e)
         {
-            var childForm = new SimulationForm();
-            childForm.MdiParent = this;
-            childForm.Text = "New Simulation";
+            var childForm = new SimulationForm(++simulationCount);
+            childForm.MdiParent = this;            
             childForm.Show();
         }
 

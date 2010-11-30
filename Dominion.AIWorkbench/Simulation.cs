@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Dominion.GameHost;
@@ -14,47 +16,57 @@ namespace Dominion.AIWorkbench
         public List<string> Cards { get; set; }
         public Dictionary<string, Type> Players { get; set; }
         public int NumberOfGamesToExecute { get; set; }
-
-        private List<GameResultsViewModel> _results;
+        public string Name { get; set; }
+        private GameResultsViewModel[] _results;
 
         public Simulation()
         {
             NumberOfGamesToExecute = 1000;
         }
 
-        public void Run(Action<Task<ResultsSummary>> onUpdateResults)
+        public void Run(Action<Task<ResultsSummary>> onUpdateResults, Action<Task> onDone)
         {
-            _results = new List<GameResultsViewModel>();
+            _results = new GameResultsViewModel[NumberOfGamesToExecute];
             var startingConfig = new ChosenStartingConfiguration(Players.Count, Cards, false);
 
             TaskScheduler syncContext = TaskScheduler.FromCurrentSynchronizationContext();
 
-            //Task<GameResultsViewModel>[] gameResults = new Task<GameResultsViewModel>[NumberOfGamesToExecute];
+            Task[] tasks = new Task[NumberOfGamesToExecute];
 
             for (int i = 0; i < NumberOfGamesToExecute; i++)
             {
-                Task.Factory.StartNew(() => RunGame(startingConfig))
-                    .ContinueWith(t => CreateSummary(t.Result))
+                int i1 = i;
+                tasks[i] = Task.Factory.StartNew(() => RunGame(i1, startingConfig))
+                    .ContinueWith(t => CreateSummary())
                     .ContinueWith(onUpdateResults, syncContext);
             }
 
-            
-            
+            Task.Factory
+                .ContinueWhenAll(tasks, WriteScores)
+                .ContinueWith(onDone, syncContext);
+        }
 
-            //Parallel.For(0, NumberOfGamesToExecute, i =>
-            //    {
-            //        var result = RunGame(startingConfig);
-            //        _results.Add(result);
-            //        onUpdateResults(CreateSummary());
-            //    });
-            
-            
-            //onUpdateResults(CreateSummary());
+        private void WriteScores(Task[] obj)
+        {
+            var resultsBuilder = new StringBuilder();
+
+            var playerNames = string.Join(", ", Players.Keys.ToArray());
+            resultsBuilder.AppendLine("Game Number, " + playerNames);
+            for(int i = 0; i < _results.Length; i++)
+            {
+                var result = _results[i];
+                var scores = string.Join(", ", result.Scores.Select(s => s.Score.ToString()));
+                resultsBuilder.AppendFormat("{0}, {1}", i, scores)
+                    .AppendLine();
+            }
+
+            var output = resultsBuilder.ToString();
+
+            File.WriteAllText(Path.Combine(Name, "scores.csv"), output);              
         }
 
 
-
-        private GameResultsViewModel RunGame(ChosenStartingConfiguration startingConfig)
+        private void RunGame(int gameNumber, ChosenStartingConfiguration startingConfig)
         {
             var game = startingConfig.CreateGame(Players.Keys);
             var clients = new List<IGameClient>();
@@ -66,9 +78,9 @@ namespace Dominion.AIWorkbench
                 IGameClient client = new GameClient(player.Id, player.Name);
                 clients.Add(client);
 
-                var ai = (BaseAIClient) Activator.CreateInstance(Players[player.Name]);
+                var ai = (BaseAIClient)Activator.CreateInstance(Players[player.Name]);
                 ai.Attach(client);
-                
+
                 host.RegisterGameClient(client, player);
             }
 
@@ -76,32 +88,49 @@ namespace Dominion.AIWorkbench
 
             var firstClient = clients.First();
 
-            while(!firstClient.GetGameState().Status.GameIsComplete)
+            while (!firstClient.GetGameState().Status.GameIsComplete)
                 Thread.Sleep(500);
 
-            return firstClient.GetGameState().Results;
+            var state = firstClient.GetGameState();
+
+            File.WriteAllText(Path.Combine(Name, string.Format("game_{0}.txt", gameNumber)), state.Log);
+
+            _results[gameNumber] = state.Results;            
         }
 
-        private ResultsSummary CreateSummary(GameResultsViewModel result)
+        private ResultsSummary CreateSummary()
         {
+            List<GameResultsViewModel> resultsCopy;
             lock (_results)
+                resultsCopy = _results.Where(r => r != null).ToList();
+
+            var summary = new ResultsSummary();
+            foreach (var kvp in Players)
             {
-                _results.Add(result);
-
-                var summary = new ResultsSummary();
-                foreach (var kvp in Players)
-                {
-                    string player = kvp.Key;
-                    var winPercentage = ((decimal) _results.Count(x => x.Winner == player) / _results.Count()) * 100.0m;
-                    var totalScore = _results.Sum(x => x.Scores.Single(p => p.PlayerName == player).Score);
-                    summary.AddResult(player, winPercentage, totalScore);
-                    summary.CompletedGameCount = _results.Count();
-                }
-
-                return summary;
+                string player = kvp.Key;
+                var winPercentage = ((decimal)resultsCopy.Count(x => x.Winner == player) / resultsCopy.Count()) * 100.0m;
+                var totalScore = resultsCopy.Sum(x => x.Scores.Single(p => p.PlayerName == player).Score);
+                summary.AddResult(player, winPercentage, totalScore);
             }
+            
+            summary.CompletedGameCount = resultsCopy.Count();
+
+            WriteSummaryToFile(summary);
+            return summary;
         }
 
+        private void WriteSummaryToFile(ResultsSummary summary)
+        {
+            var builder = new StringBuilder();
+            foreach (var gameResult in summary.Results)
+            {
+                builder.AppendFormat("{0} Win %: {1} Total Score: {2}", gameResult.PlayerName, gameResult.WinPercentage,
+                                     gameResult.TotalScore)
+                    .AppendLine();
+            }
+
+            File.WriteAllText(Path.Combine(Name, "summary.txt"), builder.ToString());
+        }
     }
 
     public class ResultsSummary
@@ -116,7 +145,7 @@ namespace Dominion.AIWorkbench
 
         public void AddResult(string playerName, decimal winPercentage, long totalScore)
         {
-            Results.Add(new PlayerResults { PlayerName = playerName, WinPercentage = winPercentage, TotalScore = totalScore});
+            Results.Add(new PlayerResults { PlayerName = playerName, WinPercentage = winPercentage, TotalScore = totalScore });
         }
 
         public class PlayerResults

@@ -30,6 +30,7 @@
         {
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.gbCards = new System.Windows.Forms.GroupBox();
+            this.btnRandomCards = new System.Windows.Forms.Button();
             this.lbSelectedCards = new System.Windows.Forms.ListBox();
             this.btnUnselectCard = new System.Windows.Forms.Button();
             this.btnSelectCard = new System.Windows.Forms.Button();
@@ -51,7 +52,8 @@
             this.colTotalScore = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label2 = new System.Windows.Forms.Label();
             this.pbProgress = new System.Windows.Forms.ProgressBar();
-            this.btnRandomCards = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtOutputFilename = new System.Windows.Forms.TextBox();
             this.flowLayoutPanel1.SuspendLayout();
             this.gbCards.SuspendLayout();
             this.gbPlayers.SuspendLayout();
@@ -87,11 +89,22 @@
             this.gbCards.TabStop = false;
             this.gbCards.Text = "Cards";
             // 
+            // btnRandomCards
+            // 
+            this.btnRandomCards.Location = new System.Drawing.Point(159, 125);
+            this.btnRandomCards.Name = "btnRandomCards";
+            this.btnRandomCards.Size = new System.Drawing.Size(53, 23);
+            this.btnRandomCards.TabIndex = 4;
+            this.btnRandomCards.Text = "Rnd 10";
+            this.btnRandomCards.UseVisualStyleBackColor = true;
+            this.btnRandomCards.Click += new System.EventHandler(this.btnRandomCards_Click);
+            // 
             // lbSelectedCards
             // 
             this.lbSelectedCards.FormattingEnabled = true;
             this.lbSelectedCards.Location = new System.Drawing.Point(218, 19);
             this.lbSelectedCards.Name = "lbSelectedCards";
+            this.lbSelectedCards.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.lbSelectedCards.Size = new System.Drawing.Size(142, 160);
             this.lbSelectedCards.TabIndex = 3;
             // 
@@ -120,6 +133,7 @@
             this.lbAllCards.FormattingEnabled = true;
             this.lbAllCards.Location = new System.Drawing.Point(9, 19);
             this.lbAllCards.Name = "lbAllCards";
+            this.lbAllCards.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.lbAllCards.Size = new System.Drawing.Size(142, 160);
             this.lbAllCards.TabIndex = 0;
             // 
@@ -184,12 +198,14 @@
             // 
             // gbSimulation
             // 
+            this.gbSimulation.Controls.Add(this.txtOutputFilename);
+            this.gbSimulation.Controls.Add(this.label3);
             this.gbSimulation.Controls.Add(this.btnRun);
             this.gbSimulation.Controls.Add(this.label1);
             this.gbSimulation.Controls.Add(this.nudGameCount);
             this.gbSimulation.Location = new System.Drawing.Point(384, 3);
             this.gbSimulation.Name = "gbSimulation";
-            this.gbSimulation.Size = new System.Drawing.Size(437, 55);
+            this.gbSimulation.Size = new System.Drawing.Size(437, 90);
             this.gbSimulation.TabIndex = 2;
             this.gbSimulation.TabStop = false;
             this.gbSimulation.Text = "Simulation";
@@ -231,9 +247,9 @@
             this.gbResults.Controls.Add(this.lvResults);
             this.gbResults.Controls.Add(this.label2);
             this.gbResults.Controls.Add(this.pbProgress);
-            this.gbResults.Location = new System.Drawing.Point(384, 64);
+            this.gbResults.Location = new System.Drawing.Point(384, 99);
             this.gbResults.Name = "gbResults";
-            this.gbResults.Size = new System.Drawing.Size(437, 259);
+            this.gbResults.Size = new System.Drawing.Size(437, 206);
             this.gbResults.TabIndex = 3;
             this.gbResults.TabStop = false;
             this.gbResults.Text = "Results";
@@ -246,7 +262,7 @@
             this.colTotalScore});
             this.lvResults.Location = new System.Drawing.Point(6, 64);
             this.lvResults.Name = "lvResults";
-            this.lvResults.Size = new System.Drawing.Size(425, 189);
+            this.lvResults.Size = new System.Drawing.Size(425, 183);
             this.lvResults.TabIndex = 2;
             this.lvResults.UseCompatibleStateImageBehavior = false;
             this.lvResults.View = System.Windows.Forms.View.Details;
@@ -281,15 +297,21 @@
             this.pbProgress.Size = new System.Drawing.Size(425, 23);
             this.pbProgress.TabIndex = 0;
             // 
-            // btnRandomCards
+            // label3
             // 
-            this.btnRandomCards.Location = new System.Drawing.Point(159, 125);
-            this.btnRandomCards.Name = "btnRandomCards";
-            this.btnRandomCards.Size = new System.Drawing.Size(53, 23);
-            this.btnRandomCards.TabIndex = 4;
-            this.btnRandomCards.Text = "Rnd 10";
-            this.btnRandomCards.UseVisualStyleBackColor = true;
-            this.btnRandomCards.Click += new System.EventHandler(this.btnRandomCards_Click);
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(10, 48);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(71, 13);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Output name:";
+            // 
+            // txtOutputFilename
+            // 
+            this.txtOutputFilename.Location = new System.Drawing.Point(109, 45);
+            this.txtOutputFilename.Name = "txtOutputFilename";
+            this.txtOutputFilename.Size = new System.Drawing.Size(201, 20);
+            this.txtOutputFilename.TabIndex = 4;
             // 
             // SimulationForm
             // 
@@ -337,5 +359,7 @@
         private System.Windows.Forms.ColumnHeader colWinPercentage;
         private System.Windows.Forms.ColumnHeader colTotalScore;
         private System.Windows.Forms.Button btnRandomCards;
+        private System.Windows.Forms.TextBox txtOutputFilename;
+        private System.Windows.Forms.Label label3;
     }
 }

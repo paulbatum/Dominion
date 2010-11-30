@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Concurrency;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,19 +18,24 @@ namespace Dominion.AIWorkbench
 {
     public partial class SimulationForm : Form
     {
+        private readonly int _simulationNumber;
         private Simulation _simulation;
         private List<Type> _aiTypes;
 
-        public SimulationForm()
+        public SimulationForm(int simulationNumber)
         {
-            InitializeComponent();
+            _simulationNumber = simulationNumber;            
             _simulation = new Simulation();
             _aiTypes = new List<Type>();
+
+            InitializeComponent();
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+            Text = "Simulation " + _simulationNumber;
+            txtOutputFilename.Text = Text;
             LoadAIs();
             LoadCards();
         }
@@ -58,6 +64,8 @@ namespace Dominion.AIWorkbench
 
         private void btnRun_Click(object sender, EventArgs e)
         {
+            this.Cursor = Cursors.WaitCursor;
+
             var players = new Dictionary<string, Type>();
             for (int i = 0; i < lbPlayers.Items.Count; i++)
             {
@@ -66,17 +74,20 @@ namespace Dominion.AIWorkbench
                 players[playerName] = _aiTypes.Single(t => t.Name == typeName);
             }
 
+            if (!Directory.Exists(txtOutputFilename.Text))
+                Directory.CreateDirectory(txtOutputFilename.Text);
+
+            _simulation.Name = txtOutputFilename.Text;
             _simulation.Cards = lbSelectedCards.Items.Cast<string>().ToList();
             _simulation.Players = players;
             _simulation.NumberOfGamesToExecute = (int) nudGameCount.Value;
             pbProgress.Maximum = (int)nudGameCount.Value;
-            _simulation.Run(UpdateResults);
+            _simulation.Run(UpdateResults, OnDone);
         }
 
         private void btnSelectCard_Click(object sender, EventArgs e)
         {
-            var item = lbAllCards.SelectedItem;
-            if (item != null)
+            foreach (var item in lbAllCards.SelectedItems.Cast<string>().ToList())
             {
                 lbAllCards.Items.Remove(item);
                 lbSelectedCards.Items.Add(item);                
@@ -85,12 +96,16 @@ namespace Dominion.AIWorkbench
 
         private void btnUnselectCard_Click(object sender, EventArgs e)
         {
-            var item = lbAllCards.SelectedItem;
-            if (item != null)
+            foreach (var item in lbSelectedCards.SelectedItems.Cast<string>().ToList())
             {
                 lbAllCards.Items.Add(item);
                 lbSelectedCards.Items.Remove(item);                
             }
+        }
+
+        private void OnDone(Task t)
+        {
+            this.Cursor = Cursors.Default;
         }
 
         private void UpdateResults(Task<ResultsSummary> task)
