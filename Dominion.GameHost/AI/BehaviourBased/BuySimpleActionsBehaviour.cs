@@ -10,13 +10,13 @@ namespace Dominion.GameHost.AI.BehaviourBased
         public override bool CanRespond(ActivityModel activity, GameViewModel state)
         {
             return base.CanRespond(activity, state) &&
-                   GetValidBuys(state).Any(pile => SimpleActions.All.Contains(pile.Name));
+                   GetValidBuys(state).Any(pile => AISupportedActions.All.Contains(pile.Name));
         }
 
         protected override CardPileViewModel SelectPile(GameViewModel state)
         {
             return GetValidBuys(state)
-                .Where(pile => SimpleActions.All.Contains(pile.Name))
+                .Where(pile => AISupportedActions.All.Contains(pile.Name))
                 .OrderByDescending(pile => pile.Cost)
                 .ThenBy(pile => _random.Next(100))
                 .First();

@@ -324,10 +324,10 @@ namespace Dominion.Specs.Bindings
         }
 
         [Then(@"There should be (\d+) (.*) available to buy")]
-        public void ThenThereShouldBeAvailableToBuy(int cardCount, string cardName)
+        public void ThenThereShouldBeCountAvailableToBuy(int cardCount, string cardName)
         {
             Game.Bank.Piles.Single(x => x.TopCard.Name == cardName).CardCount.ShouldEqual(cardCount);
-        }        
+        }
 
         [Then(@"(.*) should have (\d+) card[s]? in the discard pile")]
         public void ThenPlayerShouldHaveCardsInTheDiscardPile(string playerName, int cardCount)
@@ -671,7 +671,11 @@ namespace Dominion.Specs.Bindings
             player.Deck.TopCard.Name.ShouldEqual(cardName);
         }
 
-
+        [Then(@"There should be no (.*) pile")]
+        public void ThenThereShouldBeNoPile(string pileName)
+        {
+            this.Game.Bank.Piles.Any(p => p.Name == pileName).ShouldBeFalse();
+        }
 
     }
 }

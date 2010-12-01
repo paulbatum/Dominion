@@ -2,27 +2,28 @@
 using System.Linq;
 using Dominion.Cards.Actions;
 using Dominion.Cards.Hybrid;
+using Dominion.Cards.Treasure;
 using Dominion.Rules;
 
 namespace Dominion.GameHost.AI
 {
-    public static class SimpleActions
+    public static class AISupportedActions
     {
         public static IList<string> All = GetAll();
-        public static IList<string> PlusActions = GetSimplePlusActions();
+        public static IList<string> PlusActions = GetPlusActions();
         public static IList<string> PlusCards = GetPlusCards();
         public static IList<string> Others = GetOthers();
 
         private static IList<string> GetAll()
         {
-            return GetSimplePlusActions()
+            return GetPlusActions()
                 .Concat(GetPlusCards())
                 .Concat(GetOthers())
                 .ToList();
         }
 
 
-        private static IList<string> GetSimplePlusActions()
+        private static IList<string> GetPlusActions()
         {
             var list = new List<string>();
             list.AddSimpleAction<Bazaar>();
@@ -49,6 +50,7 @@ namespace Dominion.GameHost.AI
             list.AddSimpleAction<Rabble>();
             list.AddSimpleAction<Smithy>();
             list.AddSimpleAction<Witch>();
+            list.AddSimpleAction<Masquerade>();
             
             return list;
         }
@@ -69,6 +71,26 @@ namespace Dominion.GameHost.AI
         private static void AddSimpleAction<T>(this IList<string> list) where T : Card
         {
             list.Add(typeof(T).Name);            
+        }
+    }
+
+    public static class Treasure
+    {
+        public static IList<string> Basic = GetBasicTreasure();
+
+        private static IList<string> GetBasicTreasure()
+        {
+            var list = new List<string>();
+            list.AddTreasure<Copper>();
+            list.AddTreasure<Silver>();
+            list.AddTreasure<Gold>();
+            list.AddTreasure<Platinum>();
+            return list;
+        }
+
+        private static void AddTreasure<T>(this IList<string> list) where T : Card
+        {
+            list.Add(typeof(T).Name);
         }
     }
 }

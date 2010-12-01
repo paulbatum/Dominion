@@ -192,6 +192,37 @@ testRunner.Then(string.Format("There should be {0} Curse available to buy", curs
         {
             this.AvailableCursesForNumberOfPlayers("6", "50");
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("No potions are available if there are no cards that cost them")]
+        public virtual void NoPotionsAreAvailableIfThereAreNoCardsThatCostThem()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("No potions are available if there are no cards that cost them", ((string[])(null)));
+#line 41
+this.ScenarioSetup(scenarioInfo);
+#line 42
+testRunner.Given("A new game with 3 players");
+#line 43
+testRunner.Then("There should be no Potion pile");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Potions are available if there are cards that cost them")]
+        public virtual void PotionsAreAvailableIfThereAreCardsThatCostThem()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Potions are available if there are cards that cost them", ((string[])(null)));
+#line 45
+this.ScenarioSetup(scenarioInfo);
+#line 46
+testRunner.Given("A new game with 3 players and bank of Familiar, Militia, Smithy, Village, Cellar," +
+                    " Gardens, Market, Festival, Witch, CouncilRoom");
+#line 47
+testRunner.Then("There should be 20 Potion available to buy");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
     }
 }
 #endregion

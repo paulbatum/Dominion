@@ -25,21 +25,27 @@ namespace Dominion.GameHost.AI.BehaviourBased
             bool severalPilesAreEmpty = state.Bank.Count(pile => pile.IsLimited && pile.Count == 0) >= 2;
             bool closeToEnding = anyGameEndingPilesRunningLow || severalPilesAreEmpty;
 
-            if (closeToEnding)            
-                return true;
-
             var bestBuy = GetValidBuys(state)
                 .OrderByDescending(pile => pile.Cost)
                 .First();
 
-            return gameEndingPiles.Contains(bestBuy);
+            bool bestBuyIsFromGameEndingPile = gameEndingPiles.Contains(bestBuy);
+
+            if(closeToEnding || bestBuyIsFromGameEndingPile)
+            {
+                return GetValidBuys(state)
+                    .Where(pile => pile.Is(CardType.Victory))
+                    .Any();
+            }
+
+            return false;
         }
 
         protected override CardPileViewModel SelectPile(GameViewModel state)
         {
             return GetValidBuys(state)
-                .OrderByDescending(pile => pile.Is(CardType.Victory))
-                .ThenByDescending(pile => pile.Cost)
+                .Where(pile => pile.Is(CardType.Victory))
+                .OrderByDescending(pile => pile.Cost)
                 .First();
         }
 

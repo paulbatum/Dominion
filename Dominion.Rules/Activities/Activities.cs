@@ -145,6 +145,7 @@ namespace Dominion.Rules.Activities
                 string.Format("Select up to {0} card(s) to trash", count),
                  SelectionSpecifications.SelectUpToXCards(count), source);
 
+            activity.Hint = ActivityHint.TrashCards;
             activity.AfterCardsSelected = cards =>
             {
                 foreach (var cardToTrash in cards)

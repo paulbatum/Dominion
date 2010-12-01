@@ -32,6 +32,7 @@ namespace Dominion.Cards.Actions
                         "Select an action to play twice",
                         SelectionSpecifications.SelectExactlyXCards(1), source);
 
+                    activity.Hint = ActivityHint.PlayCards;
                     activity.Specification.CardTypeRestriction = typeof (IActionCard);
                     activity.AfterCardsSelected = cards =>
                     {

@@ -31,3 +31,13 @@ Scenario: Player uses Throne Room's effect on a Throne Room
 	When Player1 selects a Smithy to ThroneRoom
 	Then Player1 should have 6 cards in hand	
 	And Player1 should have 4 to spend	
+
+@Hosted
+Scenario: Information on ThroneRoom pick action
+	Given A new hosted game with 2 players		
+	And Player1 has a hand of ThroneRoom, Militia, Copper, Copper, Copper
+	When The game begins
+	And Player1 tells the host to play ThroneRoom	
+	Then Player1's current activity should have a type of SelectFixedNumberOfCards 
+	Then Player1's current activity should have a hint of PlayCards
+	Then Player1's current activity should have a source of ThroneRoom

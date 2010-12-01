@@ -7,13 +7,11 @@ namespace Dominion.GameHost.AI.BehaviourBased
     {
         protected override CardPileViewModel SelectPile(GameViewModel state)
         {
-            return GetValidBuys(state)
-                .Where(pile => pile.Is<Potion>() == false) // Stupid potions! "Smarter" big money was too dumb to ignore them!
-                .OrderByDescending(pile => pile.Is(CardType.Treasure))                
-                .ThenByDescending(pile => pile.Cost)
+            return GetValidBuys(state)                
+                .Where(pile => Treasure.Basic.Contains(pile.Name))                
+                .OrderByDescending(pile => pile.Cost)
                 .First();
         }
-
 
     }
 }

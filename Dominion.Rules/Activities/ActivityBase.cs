@@ -54,6 +54,8 @@ namespace Dominion.Rules.Activities
         DiscardCards,
         PassCards,
         RedrawCards,
-        GainCards
+        GainCards,
+        TrashCards,
+        PlayCards
     }
 }

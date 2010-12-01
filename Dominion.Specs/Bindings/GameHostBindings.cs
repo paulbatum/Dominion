@@ -76,6 +76,7 @@ namespace Dominion.Specs.Bindings
         }
 
         [When(@"(.*) tells the host to reveal (.*)")]
+        [When(@"(.*) tells the host to pass (.*)")]
         [When(@"(.*) tells the host to put (.*) on top")]
         public void WhenPlayerTellsTheHostToReveal(string playerName, string cardName)
         {
@@ -85,6 +86,7 @@ namespace Dominion.Specs.Bindings
             var message = new SelectCardsMessage(client.PlayerId, new[] { cardId });
             _gameHost.AcceptMessage(message);
         }
+
 
         [Then(@"All players should recieve (\d+) game state update[s]?")]
         public void ThenAllPlayersShouldRecieveAGameStateUpdate(int updateCount)

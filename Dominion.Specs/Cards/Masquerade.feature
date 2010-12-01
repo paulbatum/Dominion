@@ -72,3 +72,15 @@ Scenario: Information on Masquerade pass
 	Then Player2's current activity should have a type of SelectFixedNumberOfCards 
 	Then Player2's current activity should have a hint of PassCards
 	Then Player2's current activity should have a source of Masquerade
+
+@Hosted
+Scenario: Information on Masquerade trash
+	Given A new hosted game with 2 players		
+	And Player1 has a Masquerade in hand instead of a Copper	
+	When The game begins
+	And Player1 tells the host to play Masquerade
+	And Player1 tells the host to pass Copper
+	And Player2 tells the host to pass Copper
+	Then Player1's current activity should have a type of SelectUpToNumberOfCards 
+	Then Player1's current activity should have a hint of TrashCards
+	Then Player1's current activity should have a source of Masquerade

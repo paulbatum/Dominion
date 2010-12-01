@@ -146,6 +146,33 @@ testRunner.And("Player1 should have 4 to spend");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Information on ThroneRoom pick action")]
+        [NUnit.Framework.CategoryAttribute("Hosted")]
+        public virtual void InformationOnThroneRoomPickAction()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Information on ThroneRoom pick action", new string[] {
+                        "Hosted"});
+#line 36
+this.ScenarioSetup(scenarioInfo);
+#line 37
+testRunner.Given("A new hosted game with 2 players");
+#line 38
+testRunner.And("Player1 has a hand of ThroneRoom, Militia, Copper, Copper, Copper");
+#line 39
+testRunner.When("The game begins");
+#line 40
+testRunner.And("Player1 tells the host to play ThroneRoom");
+#line 41
+testRunner.Then("Player1\'s current activity should have a type of SelectFixedNumberOfCards");
+#line 42
+testRunner.Then("Player1\'s current activity should have a hint of PlayCards");
+#line 43
+testRunner.Then("Player1\'s current activity should have a source of ThroneRoom");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
     }
 }
 #endregion

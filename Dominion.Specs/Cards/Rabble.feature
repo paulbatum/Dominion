@@ -30,6 +30,7 @@ Scenario: Player plays Rabble and the revealed cards include two non-treasure no
 Scenario: Information on Rabble effect
 	Given A new hosted game with 2 players		
 	And Player1 has a Rabble in hand instead of a Copper	
+	And Player2 has a deck of Estate, Curse, Copper, Copper, Estate
 	When The game begins
 	And Player1 tells the host to play Rabble
 	Then Player2's current activity should have a type of SelectFromRevealed 

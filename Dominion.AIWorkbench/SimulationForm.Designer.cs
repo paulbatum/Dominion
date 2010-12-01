@@ -42,6 +42,8 @@
             this.lbPlayers = new System.Windows.Forms.ListBox();
             this.cbPlayers = new System.Windows.Forms.ComboBox();
             this.gbSimulation = new System.Windows.Forms.GroupBox();
+            this.txtOutputFilename = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.btnRun = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.nudGameCount = new System.Windows.Forms.NumericUpDown();
@@ -52,8 +54,6 @@
             this.colTotalScore = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label2 = new System.Windows.Forms.Label();
             this.pbProgress = new System.Windows.Forms.ProgressBar();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtOutputFilename = new System.Windows.Forms.TextBox();
             this.flowLayoutPanel1.SuspendLayout();
             this.gbCards.SuspendLayout();
             this.gbPlayers.SuspendLayout();
@@ -107,6 +107,7 @@
             this.lbSelectedCards.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.lbSelectedCards.Size = new System.Drawing.Size(142, 160);
             this.lbSelectedCards.TabIndex = 3;
+            this.lbSelectedCards.DoubleClick += new System.EventHandler(this.lbSelectedCards_DoubleClick);
             // 
             // btnUnselectCard
             // 
@@ -136,6 +137,7 @@
             this.lbAllCards.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.lbAllCards.Size = new System.Drawing.Size(142, 160);
             this.lbAllCards.TabIndex = 0;
+            this.lbAllCards.DoubleClick += new System.EventHandler(this.lbAllCards_DoubleClick);
             // 
             // gbPlayers
             // 
@@ -209,6 +211,22 @@
             this.gbSimulation.TabIndex = 2;
             this.gbSimulation.TabStop = false;
             this.gbSimulation.Text = "Simulation";
+            // 
+            // txtOutputFilename
+            // 
+            this.txtOutputFilename.Location = new System.Drawing.Point(109, 45);
+            this.txtOutputFilename.Name = "txtOutputFilename";
+            this.txtOutputFilename.Size = new System.Drawing.Size(201, 20);
+            this.txtOutputFilename.TabIndex = 4;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(10, 48);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(71, 13);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Output name:";
             // 
             // btnRun
             // 
@@ -296,22 +314,6 @@
             this.pbProgress.Name = "pbProgress";
             this.pbProgress.Size = new System.Drawing.Size(425, 23);
             this.pbProgress.TabIndex = 0;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(10, 48);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(71, 13);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Output name:";
-            // 
-            // txtOutputFilename
-            // 
-            this.txtOutputFilename.Location = new System.Drawing.Point(109, 45);
-            this.txtOutputFilename.Name = "txtOutputFilename";
-            this.txtOutputFilename.Size = new System.Drawing.Size(201, 20);
-            this.txtOutputFilename.TabIndex = 4;
             // 
             // SimulationForm
             // 

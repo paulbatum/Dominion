@@ -25,11 +25,13 @@ namespace Dominion.GameHost
             bank.AddCardPile(Gold);
             bank.AddCardPile(Silver);            
             bank.AddCardPileWhichEndsTheGameWhenEmpty(Provinces);
-            bank.AddCardPile(Duchies);
-            bank.AddCardPile(Potions);
+            bank.AddCardPile(Duchies);            
             bank.AddCardPile(Copper);                        
             bank.AddCardPile(Estates);                        
             bank.AddCardPile(Curses);
+
+            if(bank.Piles.Any(p => p.TopCard.Cost.Potions > 0))
+                bank.AddCardPile(Potions);
         }
 
         protected void AddProsperityCards(CardBank bank)
@@ -100,7 +102,7 @@ namespace Dominion.GameHost
 
         private CardPile Potions
         {
-            get { return new UnlimitedSupplyCardPile(() => new Potion()); }
+            get { return new LimitedSupplyCardPile().WithNewCards<Potion>(20); }
         }
     }
 }

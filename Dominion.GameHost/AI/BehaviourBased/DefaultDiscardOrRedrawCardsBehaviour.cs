@@ -4,7 +4,7 @@ using Dominion.Rules.Activities;
 
 namespace Dominion.GameHost.AI.BehaviourBased
 {
-    public class DefaultDiscardCardsBehaviour : SelectFixedNumberOfCardsBehaviourBase
+    public class DefaultDiscardOrRedrawCardsBehaviour : SelectFixedNumberOfCardsBehaviourBase
     {
         public override bool CanRespond(ActivityModel activity, GameViewModel state)
         {
@@ -12,7 +12,7 @@ namespace Dominion.GameHost.AI.BehaviourBased
                 (activity.ParseHint() == ActivityHint.DiscardCards || activity.ParseHint() == ActivityHint.RedrawCards);
         }
 
-        protected override IEnumerable<CardViewModel> PrioritiseCards(GameViewModel state)
+        protected override IEnumerable<CardViewModel> PrioritiseCards(GameViewModel state, ActivityModel activity)
         {
             return state.Hand
                 .OrderByDescending(c => c.Is(CardType.Treasure) == false)

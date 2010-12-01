@@ -141,14 +141,16 @@ testRunner.Given("A new hosted game with 2 players");
 #line 32
 testRunner.And("Player1 has a Rabble in hand instead of a Copper");
 #line 33
-testRunner.When("The game begins");
+testRunner.And("Player2 has a deck of Estate, Curse, Copper, Copper, Estate");
 #line 34
-testRunner.And("Player1 tells the host to play Rabble");
+testRunner.When("The game begins");
 #line 35
-testRunner.Then("Player2\'s current activity should have a type of SelectFromRevealed");
+testRunner.And("Player1 tells the host to play Rabble");
 #line 36
-testRunner.Then("Player2\'s current activity should have a hint of RedrawCards");
+testRunner.Then("Player2\'s current activity should have a type of SelectFromRevealed");
 #line 37
+testRunner.Then("Player2\'s current activity should have a hint of RedrawCards");
+#line 38
 testRunner.Then("Player2\'s current activity should have a source of Rabble");
 #line hidden
             testRunner.CollectScenarioErrors();

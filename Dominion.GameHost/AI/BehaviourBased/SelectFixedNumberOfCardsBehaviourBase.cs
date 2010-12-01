@@ -12,13 +12,13 @@ namespace Dominion.GameHost.AI.BehaviourBased
             return activity.ParseType() == ActivityType.SelectFixedNumberOfCards;
         }
 
-        protected abstract IEnumerable<CardViewModel> PrioritiseCards(GameViewModel state);
+        protected abstract IEnumerable<CardViewModel> PrioritiseCards(GameViewModel state, ActivityModel activity);
 
         public void Respond(IGameClient client, ActivityModel activity, GameViewModel state)
         {
             int count = activity.ParseNumberOfCardsToSelect();
 
-            var ids = PrioritiseCards(state)
+            var ids = PrioritiseCards(state, activity)
                 .Take(count)
                 .Select(c => c.Id)
                 .ToArray();

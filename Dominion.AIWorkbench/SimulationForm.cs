@@ -134,7 +134,7 @@ namespace Dominion.AIWorkbench
 
         private void btnRemovePlayer_Click(object sender, EventArgs e)
         {
-            var item = cbPlayers.SelectedItem;
+            var item = lbPlayers.SelectedItem;
             if (item != null)
             {                
                 lbPlayers.Items.Remove(item);
@@ -150,6 +150,16 @@ namespace Dominion.AIWorkbench
                 lbAllCards.SelectedIndex = random.Next(1, lbAllCards.Items.Count);
                 btnSelectCard_Click(null, EventArgs.Empty);
             });
+        }
+
+        private void lbAllCards_DoubleClick(object sender, EventArgs e)
+        {
+            btnSelectCard_Click(sender, e);
+        }
+
+        private void lbSelectedCards_DoubleClick(object sender, EventArgs e)
+        {
+            btnUnselectCard_Click(sender, e);
         }
 
 

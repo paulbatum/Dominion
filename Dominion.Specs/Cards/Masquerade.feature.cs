@@ -239,6 +239,37 @@ testRunner.Then("Player2\'s current activity should have a source of Masquerade"
 #line hidden
             testRunner.CollectScenarioErrors();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Information on Masquerade trash")]
+        [NUnit.Framework.CategoryAttribute("Hosted")]
+        public virtual void InformationOnMasqueradeTrash()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Information on Masquerade trash", new string[] {
+                        "Hosted"});
+#line 77
+this.ScenarioSetup(scenarioInfo);
+#line 78
+testRunner.Given("A new hosted game with 2 players");
+#line 79
+testRunner.And("Player1 has a Masquerade in hand instead of a Copper");
+#line 80
+testRunner.When("The game begins");
+#line 81
+testRunner.And("Player1 tells the host to play Masquerade");
+#line 82
+testRunner.And("Player1 tells the host to pass Copper");
+#line 83
+testRunner.And("Player2 tells the host to pass Copper");
+#line 84
+testRunner.Then("Player1\'s current activity should have a type of SelectUpToNumberOfCards");
+#line 85
+testRunner.Then("Player1\'s current activity should have a hint of TrashCards");
+#line 86
+testRunner.Then("Player1\'s current activity should have a source of Masquerade");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
     }
 }
 #endregion

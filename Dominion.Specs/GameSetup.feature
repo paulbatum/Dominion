@@ -38,3 +38,10 @@ Scenario Outline: Available curses for number of players
 		|6				|50				|
 
 
+Scenario: No potions are available if there are no cards that cost them
+	Given A new game with 3 players
+	Then There should be no Potion pile
+
+Scenario: Potions are available if there are cards that cost them
+	Given A new game with 3 players and bank of Familiar, Militia, Smithy, Village, Cellar, Gardens, Market, Festival, Witch, CouncilRoom
+	Then There should be 20 Potion available to buy
