@@ -138,23 +138,42 @@ testRunner.Then("The game should have ended");
         }
         
         [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Game still ends when more piles are exhausted than necessary")]
+        public virtual void GameStillEndsWhenMorePilesAreExhaustedThanNecessary()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Game still ends when more piles are exhausted than necessary", ((string[])(null)));
+#line 30
+this.ScenarioSetup(scenarioInfo);
+#line 31
+testRunner.Given("A new game with 4 players");
+#line 32
+testRunner.And("There are 4 empty piles");
+#line 33
+testRunner.When("Player1 ends their turn");
+#line 34
+testRunner.Then("The game should have ended");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Game isn\'t over until the last turn ends")]
         public virtual void GameIsnTOverUntilTheLastTurnEnds()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Game isn\'t over until the last turn ends", ((string[])(null)));
-#line 30
-this.ScenarioSetup(scenarioInfo);
-#line 31
-testRunner.Given("A new game with 3 players");
-#line 32
-testRunner.But("There is only 1 Province left");
-#line 33
-testRunner.And("Player1 has 5 Gold in hand");
-#line 34
-testRunner.When("Player1 moves to the buy step");
-#line 35
-testRunner.And("Player1 buys a Province");
 #line 36
+this.ScenarioSetup(scenarioInfo);
+#line 37
+testRunner.Given("A new game with 3 players");
+#line 38
+testRunner.But("There is only 1 Province left");
+#line 39
+testRunner.And("Player1 has 5 Gold in hand");
+#line 40
+testRunner.When("Player1 moves to the buy step");
+#line 41
+testRunner.And("Player1 buys a Province");
+#line 42
 testRunner.Then("The game should not have ended");
 #line hidden
             testRunner.CollectScenarioErrors();

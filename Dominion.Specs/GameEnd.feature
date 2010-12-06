@@ -27,6 +27,12 @@ Scenario Outline: Game ends when piles are exhausted
 		|5				|4					|
 		|6				|4					|
 
+Scenario: Game still ends when more piles are exhausted than necessary
+	Given A new game with 4 players
+	And There are 4 empty piles		
+	When Player1 ends their turn
+	Then The game should have ended
+
 Scenario: Game isn't over until the last turn ends
 	Given A new game with 3 players
 	But There is only 1 Province left	

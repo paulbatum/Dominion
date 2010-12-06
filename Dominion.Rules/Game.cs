@@ -95,7 +95,7 @@ namespace Dominion.Rules
 
         private bool TooManyEmptyPiles
         {
-            get { return Bank.EmptyPileCount == (_players.Count < 5 ? 3 : 4); }
+            get { return Bank.EmptyPileCount >= (_players.Count < 5 ? 3 : 4); }
         }
 
         private void CheckGameComplete()
