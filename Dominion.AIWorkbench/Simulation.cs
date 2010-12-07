@@ -35,8 +35,8 @@ namespace Dominion.AIWorkbench
 
             for (int i = 0; i < NumberOfGamesToExecute; i++)
             {
-                int i1 = i;
-                tasks[i] = Task.Factory.StartNew(() => RunGame(i1, startingConfig))
+                int temp = i;
+                tasks[i] = Task.Factory.StartNew(() => RunGame(temp, startingConfig))
                     .ContinueWith(t => CreateSummary())
                     .ContinueWith(onUpdateResults, syncContext);
             }

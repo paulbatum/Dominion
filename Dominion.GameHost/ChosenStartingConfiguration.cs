@@ -12,7 +12,7 @@ namespace Dominion.GameHost
     public class ChosenStartingConfiguration : StartingConfiguration
     {
         private readonly bool _useProsperity;
-        IList<string> mChosenCards;
+        IList<string> _chosenCards;
 
         public ChosenStartingConfiguration(int numberOfPlayers, IEnumerable<string> chosenCards, bool useProsperity)
             : base(numberOfPlayers)
@@ -21,15 +21,15 @@ namespace Dominion.GameHost
             if (chosenCards.Count() != 10)
             {
                 string error = string.Format("Passed card collection contains {0} cards. Expected exactly 10.", chosenCards.Count());
-                throw new Exception(error);
+                throw new ArgumentException(error, "chosenCards");
             }           
 
-            mChosenCards = chosenCards.ToList();
+            _chosenCards = chosenCards.ToList();
         }
 
         public override void InitializeBank(CardBank bank)
         {
-            foreach (var card in mChosenCards)
+            foreach (var card in _chosenCards)
                 bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards(card, 10));
 
             if (_useProsperity)            

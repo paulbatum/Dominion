@@ -14,11 +14,18 @@ namespace Dominion.GameHost.AI
         private Guid _lastActivityHandled = Guid.Empty;
         protected IGameClient _client;
         private object _gate = new object();
+        private IDisposable _subscription;
 
         public void Attach(IGameClient client)
-        {            
+        {
+            if (_client != null)
+                _subscription.Dispose();
+
+            _lastGameStateVersionHandled = 0;
+            _lastActivityHandled = Guid.Empty;
+
             _client = client;
-            client.GameStateUpdates.ObserveOn(Scheduler.NewThread)
+            _subscription = client.GameStateUpdates.ObserveOn(Scheduler.NewThread)
                 .Subscribe(Respond);
         }
 
