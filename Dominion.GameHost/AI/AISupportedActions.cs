@@ -2,7 +2,6 @@
 using System.Linq;
 using Dominion.Cards.Actions;
 using Dominion.Cards.Hybrid;
-using Dominion.Cards.Treasure;
 using Dominion.Rules;
 
 namespace Dominion.GameHost.AI
@@ -65,32 +64,15 @@ namespace Dominion.GameHost.AI
             list.AddSimpleAction<Mountebank>();
             list.AddSimpleAction<SeaHag>();
             list.AddSimpleAction<Woodcutter>();
+            list.AddSimpleAction<ThroneRoom>();
+            // Chapel behavior has to be more sophisticated before it can be turned on.
+            // list.AddSimpleAction<Chapel>(); 
             return list;
         }
 
         private static void AddSimpleAction<T>(this IList<string> list) where T : Card
         {
             list.Add(typeof(T).Name);            
-        }
-    }
-
-    public static class Treasure
-    {
-        public static IList<string> Basic = GetBasicTreasure();
-
-        private static IList<string> GetBasicTreasure()
-        {
-            var list = new List<string>();
-            list.AddTreasure<Copper>();
-            list.AddTreasure<Silver>();
-            list.AddTreasure<Gold>();
-            list.AddTreasure<Platinum>();
-            return list;
-        }
-
-        private static void AddTreasure<T>(this IList<string> list) where T : Card
-        {
-            list.Add(typeof(T).Name);
         }
     }
 }

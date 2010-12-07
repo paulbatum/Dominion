@@ -42,11 +42,11 @@ namespace Dominion.AIWorkbench
             }
 
             Task.Factory
-                .ContinueWhenAll(tasks, WriteScores)
+                .ContinueWhenAll(tasks, WriteResults)
                 .ContinueWith(onDone, syncContext);
         }
 
-        private void WriteScores(Task[] obj)
+        private void WriteResults(Task[] obj)
         {
             var resultsBuilder = new StringBuilder();
 
@@ -62,7 +62,9 @@ namespace Dominion.AIWorkbench
 
             var output = resultsBuilder.ToString();
 
-            File.WriteAllText(Path.Combine(Name, "scores.csv"), output);              
+            File.WriteAllText(Path.Combine(Name, "scores.csv"), output);
+
+            WriteSummaryToFile(CreateSummary());
         }
 
 
@@ -114,8 +116,7 @@ namespace Dominion.AIWorkbench
             }
             
             summary.CompletedGameCount = resultsCopy.Count();
-
-            WriteSummaryToFile(summary);
+            
             return summary;
         }
 

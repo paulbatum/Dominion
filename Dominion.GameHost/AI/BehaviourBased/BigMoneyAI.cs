@@ -12,11 +12,13 @@
             Behaviours.Add(new DefaultSelectFromRevealedBehaviour());
             Behaviours.Add(new DefaultSelectFixedNumberOfCardsForPlayBehaviour());            
             Behaviours.Add(new DefaultSelectUpToNumberOfCardsToTrashBehaviour());
-            
-            Behaviours.Add(new BuyPointsBehaviour(6));
-            Behaviours.Add(new BigMoneyBuyBehaviour());
 
             Behaviours.Add(new SkipActionsBehaviour());
+
+            Behaviours.Add(new BuyPointsBehaviour(6));
+            Behaviours.Add(new BigMoneyBuyBehaviour());
+            Behaviours.Add(new SkipBuyBehaviour());
+
         }
     }
 }

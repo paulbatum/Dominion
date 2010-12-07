@@ -13,11 +13,14 @@
             Behaviours.Add(new DefaultSelectFixedNumberOfCardsForPlayBehaviour());
             Behaviours.Add(new DefaultSelectUpToNumberOfCardsToTrashBehaviour());
 
-            Behaviours.Add(new BuyPointsBehaviour(6));
-            Behaviours.Add(new BuyAlternatingMoneyAndActionsBehaviour());
-
             Behaviours.Add(new PlaySimpleActionsBehaviour());
             Behaviours.Add(new SkipActionsBehaviour());
+
+            Behaviours.Add(new BuyPointsBehaviour(6));
+            Behaviours.Add(new BuyAlternatingMoneyAndActionsBehaviour());
+            Behaviours.Add(new SkipBuyBehaviour());
+
+            
         }
     }
 }

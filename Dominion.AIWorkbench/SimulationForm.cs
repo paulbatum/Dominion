@@ -34,7 +34,7 @@ namespace Dominion.AIWorkbench
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            Text = "Simulation " + _simulationNumber;
+            Text = "Simulation " + DateTime.Now.ToString("yyyyMMdd hhmmss");
             txtOutputFilename.Text = Text;
             LoadAIs();
             LoadCards();
@@ -60,6 +60,8 @@ namespace Dominion.AIWorkbench
            
             cbPlayers.Items.Clear();
             cbPlayers.Items.AddRange(_aiTypes.Select(t => t.Name).ToArray());
+
+
         }
 
         private void btnRun_Click(object sender, EventArgs e)

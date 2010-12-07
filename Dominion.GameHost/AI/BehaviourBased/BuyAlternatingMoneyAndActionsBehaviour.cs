@@ -31,7 +31,7 @@ namespace Dominion.GameHost.AI.BehaviourBased
 
         public void Respond(IGameClient client, ActivityModel activity, GameViewModel state)
         {            
-            if(!_enumerator.Current.CanRespond(activity, state))
+            while(!_enumerator.Current.CanRespond(activity, state))
                 _enumerator.MoveNext();
 
             _enumerator.Current.Respond(client, activity, state);
