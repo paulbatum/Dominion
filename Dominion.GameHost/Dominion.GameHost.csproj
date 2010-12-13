@@ -88,6 +88,9 @@
     <Compile Include="AI\BehaviourBased\DefaultSelectFromRevealedBehaviour.cs" />
     <Compile Include="AI\BehaviourBased\DefaultSelectUpToNumberOfCardsToTrashBehaviour.cs" />
     <Compile Include="AI\BehaviourBased\PlaySimpleActionsBehaviour.cs" />
+    <Compile Include="AI\BehaviourBased\ProbabilisticBuyBehaviour.cs" />
+    <Compile Include="AI\BehaviourBased\ProbabilityDistribution.cs" />
+    <Compile Include="AI\BehaviourBased\ProbabilityExtensions.cs" />
     <Compile Include="AI\BehaviourBased\SelectFixedNumberOfCardsBehaviourBase.cs" />
     <Compile Include="AI\BehaviourBased\SimpleAI.cs" />
     <Compile Include="AI\AISupportedActions.cs" />
