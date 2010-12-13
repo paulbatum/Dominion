@@ -13,6 +13,7 @@ namespace Dominion.GameHost
     {
         void RegisterGameClient(IGameClient client, Player associatedPlayer);
         GameViewModel GetGameState(IGameClient client);
+        IList<CardViewModel> GetDecklist(IGameClient client);
         void AcceptMessage(IGameActionMessage message);
         void SendChatMessage(string message);
         IObservable<string> ChatMessages { get; }
@@ -45,6 +46,30 @@ namespace Dominion.GameHost
             try
             {
                 return new GameViewModel(_game, _players[client]);
+            }
+            finally
+            {
+                _lock.ExitReadLock();
+            }
+        }
+
+        public IList<CardViewModel> GetDecklist(IGameClient client)
+        {
+            _lock.EnterReadLock();
+            try
+            {
+                var player = _players[client];
+
+                var cards = new List<ICard>();
+                cards.AddRange(player.Deck.Contents);
+                cards.AddRange(player.Discards);
+                cards.AddRange(player.Hand);
+                cards.AddRange(player.PlayArea);
+
+                return cards
+                    .Select(c => new CardViewModel(c))
+                    .OrderBy(c => c.Name)
+                    .ToList();
             }
             finally
             {

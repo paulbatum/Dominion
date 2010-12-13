@@ -7,10 +7,12 @@ namespace Dominion.GameHost
     public interface IGameClient
     {
         Guid PlayerId { get; }
+        string PlayerName { get; }
         void RaiseGameStateUpdated();
         IObservable<GameViewModel> GameStateUpdates { get; }
         IObservable<string> ChatMessages { get; }
         GameViewModel GetGameState();
+        IList<CardViewModel> GetDecklist();
         void AssociateWithHost(IGameHost gameHost);
         void AcceptMessage(IGameActionMessage message);
         void SendChatMessage(string message);
@@ -49,6 +51,11 @@ namespace Dominion.GameHost
         public GameViewModel GetGameState()
         {
             return _host.GetGameState(this);
+        }
+
+        public IList<CardViewModel> GetDecklist()
+        {
+            return _host.GetDecklist(this);
         }
 
         public void AssociateWithHost(IGameHost gameHost)
