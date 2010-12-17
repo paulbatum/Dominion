@@ -29,8 +29,11 @@ namespace Dominion.Cards.Actions
                     context.ActivePlayer.Deck.MoveTop(5, revealZone);
                     revealZone.LogReveal(context.Game.Log);
 
-                    var activity = CreateChooseCardActivity(context, revealZone, leftPlayer, source);
-                    _activities.Add(activity);
+                    if (revealZone.CardCount > 0)
+                    {
+                        var activity = CreateChooseCardActivity(context, revealZone, leftPlayer, source);
+                        _activities.Add(activity);
+                    }
                 }
             }
 

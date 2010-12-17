@@ -14,3 +14,11 @@ Scenario: Player plays Envoy, draws 4 cards
 	When Player1 plays a Envoy
 	When Player2 selects Silver from the revealed cards
 	Then Player1 should have a hand of Copper, Estate, Copper, Copper, Copper, Estate, Copper, Copper	
+
+Scenario: Player plays Envoy with empty deck and discards
+	Given A new game with 3 players
+	And Player1 has a hand of Envoy, Copper, Estate, Copper, Copper	
+	And Player1 has an empty deck
+	When Player1 plays a Envoy
+	Then Player1 should have 4 cards in hand
+	And All actions should be resolved

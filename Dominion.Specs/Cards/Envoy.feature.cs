@@ -96,6 +96,29 @@ testRunner.Then("Player1 should have a hand of Copper, Estate, Copper, Copper, C
 #line hidden
             testRunner.CollectScenarioErrors();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Player plays Envoy with empty deck and discards")]
+        public virtual void PlayerPlaysEnvoyWithEmptyDeckAndDiscards()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Player plays Envoy with empty deck and discards", ((string[])(null)));
+#line 18
+this.ScenarioSetup(scenarioInfo);
+#line 19
+testRunner.Given("A new game with 3 players");
+#line 20
+testRunner.And("Player1 has a hand of Envoy, Copper, Estate, Copper, Copper");
+#line 21
+testRunner.And("Player1 has an empty deck");
+#line 22
+testRunner.When("Player1 plays a Envoy");
+#line 23
+testRunner.Then("Player1 should have 4 cards in hand");
+#line 24
+testRunner.And("All actions should be resolved");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
     }
 }
 #endregion
