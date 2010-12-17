@@ -33,7 +33,7 @@ namespace Dominion.Cards.Actions
                     activity.AfterCardsSelected = cardList =>
                     {
                         var cardToSalvage = cardList.Single();
-                        context.AvailableSpend += cardToSalvage.Cost;
+                        context.AvailableSpend += cardToSalvage.Cost.Money;
                         context.Trash(context.ActivePlayer, cardToSalvage);
                     };
                     _activities.Add(activity);

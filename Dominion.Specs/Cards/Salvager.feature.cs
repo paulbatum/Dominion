@@ -120,6 +120,27 @@ testRunner.And("Player1 should have 2 buys");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Salvaging a potion card does not let the player buy a potion card")]
+        public virtual void SalvagingAPotionCardDoesNotLetThePlayerBuyAPotionCard()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Salvaging a potion card does not let the player buy a potion card", ((string[])(null)));
+#line 27
+this.ScenarioSetup(scenarioInfo);
+#line 28
+testRunner.Given("A new game with 3 players");
+#line 29
+testRunner.And("Player1 has a hand of Salvager, Golem, Estate, Estate, Estate");
+#line 30
+testRunner.When("Player1 plays a Salvager");
+#line 31
+testRunner.And("Player1 selects a Golem to trash");
+#line 32
+testRunner.Then("Player1 should have 4 to spend");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
     }
 }
 #endregion
