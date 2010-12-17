@@ -245,6 +245,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ShantyTown.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\Tactician.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Tactician.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\Thief.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -484,6 +489,10 @@
     <None Include="Cards\ShantyTown.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ShantyTown.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\Tactician.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Tactician.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\Thief.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

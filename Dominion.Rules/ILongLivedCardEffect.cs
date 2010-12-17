@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Dominion.Rules.CardTypes;
 
 namespace Dominion.Rules
 {
@@ -11,4 +12,6 @@ namespace Dominion.Rules
         void OnTurnStarting(TurnContext context);
         bool IsFinished { get; }
     }
+    
+
 }

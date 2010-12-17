@@ -85,6 +85,7 @@
     <Compile Include="DrawDeck.cs" />
     <Compile Include="CardTypes\IMoneyCard.cs" />
     <Compile Include="DiscardPile.cs" />
+    <Compile Include="DurationEffect.cs" />
     <Compile Include="EnumerableCardZone.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Activities\SelectCardsActivity.cs" />

@@ -7,7 +7,7 @@ using Dominion.Rules.CardTypes;
 
 namespace Dominion.Cards.Actions
 {
-    public class FishingVillage : Card, IActionCard
+    public class FishingVillage : Card, IActionCard, IDurationCard
     {
         public FishingVillage()
             : base(3)
@@ -22,25 +22,19 @@ namespace Dominion.Cards.Actions
             context.AddLongLivedEffect(new FishingVillageEffect(this));
         }
 
-        public class FishingVillageEffect : ILongLivedCardEffect
+        public class FishingVillageEffect : DurationEffect
         {
-            public FishingVillageEffect(FishingVillage card)
-            {
-                IsFinished = false;
-                SourceCard = card;
-            }
+            public FishingVillageEffect(FishingVillage sourceCard) : base(sourceCard)
+            {}
 
-            public ICard SourceCard { get; private set; }
-
-            public void OnTurnStarting(TurnContext context)
+            public override void OnTurnStarting(TurnContext context)
             {
+                base.OnTurnStarting(context);
+
                 context.RemainingActions += 1;
                 context.AvailableSpend += 1;
-                IsFinished = true;
                 context.Game.Log.LogMessage("FishingVillage adds one action and one spend");
             }
-
-            public bool IsFinished { get; private set; }
         }
     }
 }

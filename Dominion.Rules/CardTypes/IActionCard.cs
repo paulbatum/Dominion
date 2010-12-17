@@ -21,4 +21,9 @@
     {
         
     }
+
+    public interface IDurationCard : IActionCard
+    {
+
+    }
 }
