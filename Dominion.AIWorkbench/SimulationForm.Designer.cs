@@ -54,6 +54,7 @@
             this.colTotalScore = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label2 = new System.Windows.Forms.Label();
             this.pbProgress = new System.Windows.Forms.ProgressBar();
+            this.btnLastCardSet = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             this.gbCards.SuspendLayout();
             this.gbPlayers.SuspendLayout();
@@ -77,6 +78,7 @@
             // 
             // gbCards
             // 
+            this.gbCards.Controls.Add(this.btnLastCardSet);
             this.gbCards.Controls.Add(this.btnRandomCards);
             this.gbCards.Controls.Add(this.lbSelectedCards);
             this.gbCards.Controls.Add(this.btnUnselectCard);
@@ -315,6 +317,16 @@
             this.pbProgress.Size = new System.Drawing.Size(425, 23);
             this.pbProgress.TabIndex = 0;
             // 
+            // btnLastCardSet
+            // 
+            this.btnLastCardSet.Location = new System.Drawing.Point(159, 154);
+            this.btnLastCardSet.Name = "btnLastCardSet";
+            this.btnLastCardSet.Size = new System.Drawing.Size(53, 23);
+            this.btnLastCardSet.TabIndex = 5;
+            this.btnLastCardSet.Text = "Last 10";
+            this.btnLastCardSet.UseVisualStyleBackColor = true;
+            this.btnLastCardSet.Click += new System.EventHandler(this.btnLastCardSet_Click);
+            // 
             // SimulationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -363,5 +375,6 @@
         private System.Windows.Forms.Button btnRandomCards;
         private System.Windows.Forms.TextBox txtOutputFilename;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnLastCardSet;
     }
 }

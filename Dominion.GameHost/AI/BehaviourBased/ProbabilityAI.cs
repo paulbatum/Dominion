@@ -2,11 +2,11 @@
 {
     public class ProbabilityAI : BehaviourBasedAI
     {
-        public ProbabilityAI()
+        public ProbabilityAI(ProbabilityDistribution buyDistribution)
         {
-            var buyBehaviour = new ProbabilisticBuyBehaviour();
+            var buyBehaviour = new ProbabilisticBuyBehaviour(buyDistribution);
 
-            Behaviours.Add(new ProbabilisticBuyBehaviour.LearnFromGameResultBehaviour(buyBehaviour));
+            Behaviours.Add(new ProbabilisticBuyBehaviour.LearnFromGameResultBehaviour(buyDistribution));
 
             Behaviours.Add(new DefaultDiscardOrRedrawCardsBehaviour());
             Behaviours.Add(new DefaultMakeChoiceBehaviour());

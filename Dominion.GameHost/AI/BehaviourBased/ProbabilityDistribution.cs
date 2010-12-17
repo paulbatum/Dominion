@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Dominion.GameHost.AI.BehaviourBased
 {
@@ -30,13 +31,19 @@ namespace Dominion.GameHost.AI.BehaviourBased
 
         public void IncreaseLikelihood(string item)
         {
-            _probabilities[item]++;
+            lock(_probabilities)
+                _probabilities[item]++;
         }
 
 
         public string RandomItem(IEnumerable<string> options)
         {
-            var validProbabilities = _probabilities.Where(kvp => options.Contains(kvp.Key)).ToList();
+            List<KeyValuePair<string, int>> validProbabilities;
+            lock (_probabilities)
+            {
+                validProbabilities = _probabilities.Where(kvp => options.Contains(kvp.Key)).ToList();
+            }
+
             var upperBound = validProbabilities
                 .Sum(kvp => kvp.Value);
 
@@ -51,6 +58,19 @@ namespace Dominion.GameHost.AI.BehaviourBased
         {
             var item = RandomItem(items.Select(selector));
             return items.Single(i => selector(i) == item);
+        }
+
+        public override string ToString()
+        {
+            lock (_probabilities)
+            {
+                var builder = new StringBuilder();
+                foreach (var kvp in _probabilities)
+                {
+                    builder.AppendFormat("{0} - {1}", kvp.Key, kvp.Value).AppendLine();
+                }
+                return builder.ToString();
+            }
         }
 
     }

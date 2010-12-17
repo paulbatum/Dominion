@@ -18,10 +18,13 @@ namespace Dominion.AIWorkbench
         public int NumberOfGamesToExecute { get; set; }
         public string Name { get; set; }
         private GameResultsViewModel[] _results;
+        private AIFactory _aiFactory;
 
         public Simulation()
         {
             NumberOfGamesToExecute = 1000;
+            _aiFactory = new AIFactory();
+
         }
 
         public void Run(Action<Task<ResultsSummary>> onUpdateResults, Action<Task> onDone)
@@ -65,6 +68,12 @@ namespace Dominion.AIWorkbench
             File.WriteAllText(Path.Combine(Name, "scores.csv"), output);
 
             WriteSummaryToFile(CreateSummary());
+            WriteProbabilityAIToFile();
+        }
+
+        private void WriteProbabilityAIToFile()
+        {
+            File.WriteAllText(Path.Combine(Name, "probabilityAI.txt"), _aiFactory.ProbabilityAIDistribution.ToString());
         }
 
 
@@ -80,7 +89,7 @@ namespace Dominion.AIWorkbench
                 IGameClient client = new GameClient(player.Id, player.Name);
                 clients.Add(client);
 
-                var ai = (BaseAIClient)Activator.CreateInstance(Players[player.Name]);
+                var ai = _aiFactory.Create(Players[player.Name]);
                 ai.Attach(client);
 
                 host.RegisterGameClient(client, player);
@@ -131,6 +140,24 @@ namespace Dominion.AIWorkbench
             }
 
             File.WriteAllText(Path.Combine(Name, "summary.txt"), builder.ToString());
+        }
+    }
+
+    public class AIFactory
+    {
+        public ProbabilityDistribution ProbabilityAIDistribution;
+
+        public AIFactory() 
+        {
+            ProbabilityAIDistribution = new ProbabilityDistribution(AISupportedActions.All, Treasure.Basic);    
+        }
+
+        public BaseAIClient Create(Type type)
+        {
+            if (type == typeof(ProbabilityAI))
+                return (BaseAIClient) Activator.CreateInstance(type, ProbabilityAIDistribution);
+
+            return (BaseAIClient) Activator.CreateInstance(type);
         }
     }
 

@@ -97,9 +97,7 @@
     <Compile Include="AI\AISupportedActions.cs" />
     <Compile Include="AI\BehaviourBased\SkipActionsBehaviour.cs" />
     <Compile Include="AI\BehaviourBased\SkipBuyBehaviour.cs" />
-    <Compile Include="AI\OldBigMoneyAI.cs" />
     <Compile Include="AI\GameViewModelExtensions.cs" />
-    <Compile Include="AI\MilitiaAI.cs" />
     <Compile Include="AI\Treasure.cs" />
     <Compile Include="BeginGameMessage.cs" />
     <Compile Include="BuyCardMessage.cs" />

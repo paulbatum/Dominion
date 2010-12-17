@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Concurrency;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using Dominion.Rules.Activities;
 
 namespace Dominion.GameHost.AI
 {
@@ -51,63 +49,5 @@ namespace Dominion.GameHost.AI
         protected abstract void HandleActivity(ActivityModel activity, GameViewModel state);
 
        
-    }
-
-    public abstract class OldAI : BaseAIClient
-    {
-        protected override void HandleActivity(ActivityModel activity, GameViewModel state)
-        {
-            ActivityType activityType = (ActivityType)Enum.Parse(typeof(ActivityType), activity.Type);
-
-            switch (activityType)
-            {
-                case ActivityType.PlayActions:
-                case ActivityType.DoBuys:
-                    _client.AcceptMessage(DoTurn(state));
-                    break;
-                case ActivityType.SelectFixedNumberOfCards:
-                    {
-                        int cardsToDiscard = int.Parse(activity.Properties["NumberOfCardsToSelect"].ToString());
-                        DiscardCards(cardsToDiscard, state);
-                        break;
-                    }
-                case ActivityType.SelectFromRevealed:
-                    {
-                        SelectFromRevealed(activity, state);
-                        break;
-                    }
-                case ActivityType.MakeChoice:
-                    {
-                        MakeChoice(activity, state);
-                        break;
-                    }
-            }
-        }
-
-        protected IList<CardPileViewModel> GetValidBuys(GameViewModel state)
-        {
-            return state.Bank.Where(p => p.CanBuy).ToList();
-        }
-
-
-        protected virtual void MakeChoice(ActivityModel activity, GameViewModel state)
-        {
-            IEnumerable<string> options = (IEnumerable<string>)activity.Properties["AllowedOptions"];
-
-            var choice = options.FirstOrDefault(x => x == "Yes") ??
-                         options.First();
-
-            _client.AcceptMessage(new ChoiceMessage(_client.PlayerId, choice));
-        }
-
-        protected virtual void SelectFromRevealed(ActivityModel activity, GameViewModel state)
-        {
-            var selected = state.Revealed.First();
-            _client.AcceptMessage(new SelectCardsMessage(_client.PlayerId, new[] { selected.Id }));
-        }
-
-        protected abstract void DiscardCards(int count, GameViewModel currentState);
-
-        protected abstract IGameActionMessage DoTurn(GameViewModel currentState);
     }
 }

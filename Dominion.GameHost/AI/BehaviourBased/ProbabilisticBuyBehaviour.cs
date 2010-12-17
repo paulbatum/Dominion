@@ -7,9 +7,9 @@ namespace Dominion.GameHost.AI.BehaviourBased
     {
         private readonly ProbabilityDistribution _distribution;
 
-        public ProbabilisticBuyBehaviour()
+        public ProbabilisticBuyBehaviour(ProbabilityDistribution distribution)
         {
-            _distribution = new ProbabilityDistribution(AISupportedActions.All, Treasure.Basic);
+            _distribution = distribution;
         }
 
         public override bool CanRespond(ActivityModel activity, GameViewModel state)
@@ -20,7 +20,7 @@ namespace Dominion.GameHost.AI.BehaviourBased
 
         protected override CardPileViewModel SelectPile(GameViewModel state)
         {
-            var options = GetValidBuys(state);
+            var options = GetValidBuys(state).Where(c => _distribution.Contains(c.Name));
 
             var exactValueOptions = options
                 .Where(pile => pile.Cost.ToString() == state.Status.AvailableSpend.DisplayValue);
@@ -34,12 +34,12 @@ namespace Dominion.GameHost.AI.BehaviourBased
         {
             private readonly ProbabilityDistribution _distribution;
 
-            public LearnFromGameResultBehaviour(ProbabilisticBuyBehaviour buyBehaviour)
+            public LearnFromGameResultBehaviour(ProbabilityDistribution distribution)
             {
-                _distribution = buyBehaviour._distribution;
+                _distribution = distribution;
             }
 
-            public virtual bool CanRespond(ActivityModel activity, GameViewModel state)
+           public virtual bool CanRespond(ActivityModel activity, GameViewModel state)
             {
                 return state.Status.GameIsComplete;
             }

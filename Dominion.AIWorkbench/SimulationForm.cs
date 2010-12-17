@@ -67,6 +67,11 @@ namespace Dominion.AIWorkbench
         private void btnRun_Click(object sender, EventArgs e)
         {
             this.Cursor = Cursors.WaitCursor;
+            btnRun.Enabled = false;
+
+            var cards = lbSelectedCards.Items.Cast<string>();
+
+            File.WriteAllLines("lastSet.txt", cards);
 
             var players = new Dictionary<string, Type>();
             for (int i = 0; i < lbPlayers.Items.Count; i++)
@@ -80,7 +85,7 @@ namespace Dominion.AIWorkbench
                 Directory.CreateDirectory(txtOutputFilename.Text);
 
             _simulation.Name = txtOutputFilename.Text;
-            _simulation.Cards = lbSelectedCards.Items.Cast<string>().ToList();
+            _simulation.Cards = cards.ToList();
             _simulation.Players = players;
             _simulation.NumberOfGamesToExecute = (int) nudGameCount.Value;
             pbProgress.Maximum = (int)nudGameCount.Value;
@@ -108,6 +113,8 @@ namespace Dominion.AIWorkbench
         private void OnDone(Task t)
         {
             this.Cursor = Cursors.Default;
+            btnRun.Enabled = true;
+
         }
 
         private void UpdateResults(Task<ResultsSummary> task)
@@ -162,6 +169,16 @@ namespace Dominion.AIWorkbench
         private void lbSelectedCards_DoubleClick(object sender, EventArgs e)
         {
             btnUnselectCard_Click(sender, e);
+        }
+
+        private void btnLastCardSet_Click(object sender, EventArgs e)
+        {
+            lbSelectedCards.Items.Clear();
+            foreach(string card in File.ReadAllLines("lastSet.txt"))
+            {
+                lbSelectedCards.Items.Add(card);
+                lbAllCards.Items.Remove(card);
+            }
         }
 
 

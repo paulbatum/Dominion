@@ -20,7 +20,12 @@ namespace Dominion.Rules
 
         public void LogReveal(IGameLog log)
         {
-            log.LogMessage("{0} revealed {1}.", Owner.Name, this);
+            if(this.CardCount > 0)
+                log.LogMessage("{0} revealed {1}.", Owner.Name, this);
+            else
+            {
+                log.LogMessage("{0} revealed nothing.", Owner.Name);
+            }
         }
     }
 

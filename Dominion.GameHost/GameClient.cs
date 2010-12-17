@@ -36,6 +36,9 @@ namespace Dominion.GameHost
         {
             var state = GetGameState();
             _subject.OnNext(state);
+
+            if(state.Status.GameIsComplete)
+                _subject.OnCompleted();
         }
 
         public IObservable<GameViewModel> GameStateUpdates
