@@ -21,15 +21,15 @@ namespace Dominion.Cards.Actions
 
         private class RabbleAttack : AttackEffect
         {
-            public override void Attack(Player player, TurnContext context, ICard source)
+            public override void Attack(Player victim, TurnContext context, ICard source)
             {
-                var revealZone = new RevealZone(player);
-                player.Deck.MoveTop(3, revealZone);
+                var revealZone = new RevealZone(victim);
+                victim.Deck.MoveTop(3, revealZone);
 
                 revealZone.LogReveal(context.Game.Log);
-                revealZone.MoveWhere(c => c is IActionCard || c is ITreasureCard, player.Discards);
+                revealZone.MoveWhere(c => c is IActionCard || c is ITreasureCard, victim.Discards);
 
-                foreach (var activity in Activities.SelectMultipleRevealedCardsToPutOnTopOfDeck(context.Game.Log, player, revealZone, source))
+                foreach (var activity in Activities.SelectMultipleRevealedCardsToPutOnTopOfDeck(context.Game.Log, victim, revealZone, source))
                     _activities.Add(activity);
             }
 

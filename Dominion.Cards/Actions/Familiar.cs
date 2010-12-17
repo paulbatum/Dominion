@@ -19,9 +19,9 @@ namespace Dominion.Cards.Actions
 
         private class FamiliarAttack : AttackEffect
         {
-            public override void Attack(Player player, TurnContext context, ICard source)
+            public override void Attack(Player victim, TurnContext context, ICard source)
             {
-                var gainUtil = new GainUtility(context, player);
+                var gainUtil = new GainUtility(context, victim);
                 gainUtil.Gain<Curse>();
             }
         }

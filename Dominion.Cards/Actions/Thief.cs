@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using Dominion.Rules;
 using Dominion.Rules.Activities;
@@ -19,10 +20,10 @@ namespace Dominion.Cards.Actions
 
         private class ThiefAttack : AttackEffect
         {
-            public override void Attack(Player player, TurnContext context, ICard source)
+            public override void Attack(Player victim, TurnContext context, ICard source)
             {                
-                var revealZone = new RevealZone(player);
-                player.Deck.MoveTop(2, revealZone);
+                var revealZone = new RevealZone(victim);
+                victim.Deck.MoveTop(2, revealZone);
                 revealZone.LogReveal(context.Game.Log);                
 
                 var revealedTreasures = revealZone.OfType<ITreasureCard>().WithDistinctTypes();
@@ -30,7 +31,7 @@ namespace Dominion.Cards.Actions
                 switch(revealedTreasures.Count())
                 {
                     case 0:
-                        revealZone.MoveAll(player.Discards);
+                        revealZone.MoveAll(victim.Discards);
                         return;
                     case 1:
                         var trashedCard = TrashAndDiscard(context, revealZone, revealedTreasures);

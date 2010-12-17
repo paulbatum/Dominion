@@ -56,6 +56,7 @@ namespace Dominion.Rules.Activities
         RedrawCards,
         GainCards,
         TrashCards,
-        PlayCards
+        PlayCards,
+        OpponentGainCards
     }
 }

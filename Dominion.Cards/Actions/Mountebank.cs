@@ -22,20 +22,20 @@ namespace Dominion.Cards.Actions
 
         public class MountebankAttack : AttackEffect
         {
-            public override void Attack(Player player, TurnContext context, ICard source)
+            public override void Attack(Player victim, TurnContext context, ICard source)
             {
-                var curseInHand = player.Hand.OfType<Curse>().FirstOrDefault();
+                var curseInHand = victim.Hand.OfType<Curse>().FirstOrDefault();
 
                 if(curseInHand == null)
                 {
-                    GainCopperAndCurse(player, context);
+                    GainCopperAndCurse(victim, context);
                 }
                 else
                 {
-                    var activity = Activities.ChooseYesOrNo(context.Game.Log, player, "Discard a curse?",
+                    var activity = Activities.ChooseYesOrNo(context.Game.Log, victim, "Discard a curse?",
                         source,
-                        () => context.DiscardCard(player, curseInHand),
-                        () => GainCopperAndCurse(player, context));                  
+                        () => context.DiscardCard(victim, curseInHand),
+                        () => GainCopperAndCurse(victim, context));                  
 
                     _activities.Add(activity);
                     

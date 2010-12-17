@@ -214,7 +214,7 @@ namespace Dominion.Specs.Bindings
             activity.SelectCards(cards);
         }
 
-        [When(@"(.*) selects a (.*) to .*")]
+        [When(@"(.*) selects a ([a-zA-Z]*) to .*")]
         public void WhenPlayerSelectACard(string playerName, string selectedCard)
         {
             var player = Game.Players.Single(p => p.Name == playerName);
@@ -303,7 +303,16 @@ namespace Dominion.Specs.Bindings
             activity.SelectCards(new[] { card });            
         }
 
-       
+        [When(@"(.*) selects a[n]? ([a-zA-Z]*) for .* to gain")]
+        public void WhenPlayerSelectsACardForOpponentToGain(string playerName, string cardName)
+        {
+            var player = Game.Players.Single(p => p.Name == playerName);
+
+            var activity = (ISelectPileActivity)Game.GetPendingActivity(player);
+            var pile = this.Game.Bank.Piles.Single(p => p.Name == cardName);
+            activity.SelectPile(pile);            
+        }
+
 
 
 
@@ -676,6 +685,19 @@ namespace Dominion.Specs.Bindings
         {
             this.Game.Bank.Piles.Any(p => p.Name == pileName).ShouldBeFalse();
         }
+
+        [Then(@"(.*) must select a card of cost (.*) for (.*) to gain")]
+        public void ThenPlayerMustSelectACardOfCostXForOpponentToGain(string playerName, string cardCost, string opponentName)
+        {
+            var player = Game.Players.Single(p => p.Name == playerName);
+            var activity = (ISelectPileActivity)Game.GetPendingActivity(player);
+            activity.Type.ShouldEqual(ActivityType.SelectPile);
+            activity.Hint.ShouldEqual(ActivityHint.OpponentGainCards);
+            activity.GetCostProperty().ToString().ShouldEqual(cardCost);            
+        }
+
+
+
 
     }
 }

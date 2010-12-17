@@ -31,7 +31,7 @@ namespace Dominion.Rules
                 Attack(opponent, context, source);
         }
 
-        public abstract void Attack(Player player, TurnContext context, ICard source);
+        public abstract void Attack(Player victim, TurnContext context, ICard source);
 
         public void Nullify(Player player)
         {            

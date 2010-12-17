@@ -9,7 +9,7 @@ namespace Dominion.Rules.Activities
         public static ISelectCardsActivity DiscardCards(TurnContext context, Player player, int numberToDiscard, ICard source)
         {
             return new SelectCardsActivity(
-                context.Game.Log, player, string.Format("Select {0} card(s) to discard", numberToDiscard),
+                context.Game.Log, player, string.Format("Select {0} card(s) to discard.", numberToDiscard),
                 SelectionSpecifications.SelectExactlyXCards(numberToDiscard), source)
             {
                 AfterCardsSelected = cards => context.DiscardCards(player, cards),
@@ -25,7 +25,7 @@ namespace Dominion.Rules.Activities
                 AfterCardsSelected = cards =>
                 {
                     player.Deck.MoveToTop(cards.Single());
-                    log.LogMessage("{0} put a card on top of the deck", player.Name);
+                    log.LogMessage("{0} put a card on top of the deck.", player.Name);
                 },
                 Hint = ActivityHint.RedrawCards
             };
@@ -44,7 +44,7 @@ namespace Dominion.Rules.Activities
 
         public static SelectPileActivity GainACardCostingUpToX(IGameLog log, Player player, CardCost cost, CardZone destination, ICard source)
         {
-            return new SelectPileActivity(log, player, string.Format("Select a card to gain of cost {0} or less", cost),
+            return new SelectPileActivity(log, player, string.Format("Select a card to gain of cost {0} or less.", cost),
                                           SelectionSpecifications.SelectPileCostingUpToX(cost), source)
             {
                 AfterPileSelected = pile =>
@@ -59,7 +59,7 @@ namespace Dominion.Rules.Activities
 
         public static SelectPileActivity GainACardCostingExactlyX(IGameLog log, Player player, CardCost cost, CardZone destination, ICard source)
         {
-            return new SelectPileActivity(log, player, string.Format("Select a card to gain with a cost of exactly {0}", cost),
+            return new SelectPileActivity(log, player, string.Format("Select a card to gain with a cost of exactly {0}.", cost),
                                           SelectionSpecifications.SelectPileCostingExactlyX(cost), source)
             {
                 AfterPileSelected = pile =>
@@ -142,7 +142,7 @@ namespace Dominion.Rules.Activities
         public static IActivity SelectUpToXCardsToTrash(TurnContext context, Player player, int count, ICard source)
         {
             var activity = new SelectCardsActivity(context.Game.Log, player,    
-                string.Format("Select up to {0} card(s) to trash", count),
+                string.Format("Select up to {0} card(s) to trash.", count),
                  SelectionSpecifications.SelectUpToXCards(count), source);
 
             activity.Hint = ActivityHint.TrashCards;
@@ -153,6 +153,21 @@ namespace Dominion.Rules.Activities
             };
 
             return activity;
+        }
+
+        public static ISelectPileActivity SelectACardForOpponentToGain(TurnContext context, Player player, Player victim, CardCost cost, ICard source)
+        {
+            return new SelectPileActivity(context.Game.Log, player, string.Format("Select a card for {0} to gain of cost {1}.", victim.Name, cost),
+                                          SelectionSpecifications.SelectPileCostingExactlyX(cost), source)
+            {
+                AfterPileSelected = pile =>
+                {                    
+                    var card = pile.TopCard;
+                    card.MoveTo(victim.Discards);
+                    context.Game.Log.LogGain(victim, card);
+                },
+                Hint = ActivityHint.OpponentGainCards
+            };
         }
     }
 }

@@ -22,11 +22,11 @@ namespace Dominion.Cards.Actions
 
         private class GhostShipAttack : AttackEffect
         {
-            public override void Attack(Player player, TurnContext context, ICard source)
+            public override void Attack(Player victim, TurnContext context, ICard source)
             {
-                int cardsToPutBack = player.Hand.CardCount - 3;
+                int cardsToPutBack = victim.Hand.CardCount - 3;
 
-                var activities = Activities.PutMultipleCardsFromHandOnTopOfDeck(context.Game.Log, player, cardsToPutBack, source);
+                var activities = Activities.PutMultipleCardsFromHandOnTopOfDeck(context.Game.Log, victim, cardsToPutBack, source);
                 foreach(var activity in activities)
                     _activities.Add(activity);
             }

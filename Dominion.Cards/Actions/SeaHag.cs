@@ -20,13 +20,13 @@ namespace Dominion.Cards.Actions
 
         private class SeaHagAttack : AttackEffect
         {
-            public override void Attack(Player player, TurnContext context, ICard source)
+            public override void Attack(Player victim, TurnContext context, ICard source)
             {
-                if (player.Deck.CardCount + player.Discards.CardCount > 0)
-                    player.Deck.MoveTop(1, player.Discards);
+                if (victim.Deck.CardCount + victim.Discards.CardCount > 0)
+                    victim.Deck.MoveTop(1, victim.Discards);
 
-                var gainUtil = new GainUtility(context, player);
-                gainUtil.Gain<Curse>(c => player.Deck.MoveToTop(c));
+                var gainUtil = new GainUtility(context, victim);
+                gainUtil.Gain<Curse>(c => victim.Deck.MoveToTop(c));
             }
         }
     }
