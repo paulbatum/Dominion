@@ -17,6 +17,12 @@ namespace Dominion.Rules.Activities
             };
         }
 
+        public static ISelectCardsActivity PutCardFromHandOnTopOfDeck(TurnContext context, ICard source)
+        {
+            return PutCardFromHandOnTopOfDeck(context.Game.Log, context.ActivePlayer,
+                                                "Select a card to put on top of the deck.", source);
+        }
+
         public static ISelectCardsActivity PutCardFromHandOnTopOfDeck(IGameLog log, Player player, string message, ICard source)
         {
             return new SelectCardsActivity

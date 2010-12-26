@@ -110,6 +110,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CountingHouse.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\Courtyard.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Courtyard.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\Envoy.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -386,6 +391,10 @@
     <None Include="Cards\Coppersmith.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Coppersmith.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\Courtyard.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Courtyard.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\Salvager.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

@@ -67,6 +67,4 @@ namespace Dominion.Cards.Actions
             }
         }
     }
-
-
 }

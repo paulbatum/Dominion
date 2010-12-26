@@ -238,6 +238,11 @@ namespace Dominion.Rules
             else
                 return new PlayActionsActivity(ActivePlayer, this.RemainingActions);
         }
+
+        public void AddSingleActivity(IActivity activity, ICard source)
+        {
+            AddEffect(source, new SingleActivityEffect(activity));
+        }
     }
 
 }

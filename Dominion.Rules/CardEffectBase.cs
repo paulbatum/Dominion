@@ -52,4 +52,19 @@ namespace Dominion.Rules
         }
     }
 
+    public class SingleActivityEffect : CardEffectBase
+    {
+        private IActivity _activity;
+
+        public SingleActivityEffect(IActivity activity)
+        {
+            _activity = activity;
+        }
+
+        public override void Resolve(TurnContext context, ICard source)
+        {
+            _activities.Add(_activity);
+        }
+    }
+
 }
