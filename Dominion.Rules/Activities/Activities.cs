@@ -175,5 +175,21 @@ namespace Dominion.Rules.Activities
                 Hint = ActivityHint.OpponentGainCards
             };
         }
+
+        public static IActivity DiscardCardsToDrawCards(TurnContext context, ICard source)
+        {
+            var activity = new SelectCardsActivity(
+                   context,
+                   "Select any number of cards to discard, you will draw 1 new card for each discard",
+                   SelectionSpecifications.SelectUpToXCards(context.ActivePlayer.Hand.CardCount), source);
+
+            activity.AfterCardsSelected = cards =>
+            {
+                context.DiscardCards(activity.Player, cards);
+                context.DrawCards(cards.Count());
+            };
+
+            return activity;
+        }
     }
 }
