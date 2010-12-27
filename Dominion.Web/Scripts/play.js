@@ -52,6 +52,14 @@
         }
     },
     toggleCardSelection: function (event, activity) {
+        if (activity.Properties.CardMustHaveName) {
+            var selectionName = $.tmplItem(event.target).data.Name;
+            if (activity.Properties.CardMustHaveName !== selectionName) {
+                showError("Error: Must select only cards named '" + activity.Properties.CardMustHaveName + "'.");
+                return;
+            }
+        }
+
         $(event.target).toggleClass('selectedCard');
     },
     makeChoice: function (choice) {

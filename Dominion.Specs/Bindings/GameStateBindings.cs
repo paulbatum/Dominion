@@ -48,7 +48,7 @@ namespace Dominion.Specs.Bindings
             _game = startingConfig.CreateGame(names);
         }
 
-        [Given(@"(.*) has a (.*) in hand instead of a (.*)")]
+        [Given(@"(.*) has a[n]? (.*) in hand instead of a (.*)")]
         public void GivenPlayerHasACardInHandInsteadOfAnotherCard(string playerName, string cardName, string cardToReplace)
         {
             var player = Game.Players.Single(p => p.Name == playerName);
@@ -168,7 +168,7 @@ namespace Dominion.Specs.Bindings
         // When
         //
 
-        [When(@"(.*) plays a (.*)")]
+        [When(@"(.*) plays a[n]? (.*)")]
         public void WhenPlaysA(string playerName, string cardName)
         {
             if (Game.ActivePlayer.Name != playerName)
@@ -224,7 +224,7 @@ namespace Dominion.Specs.Bindings
             activity.SelectCards(cards);
         }
 
-        [When(@"(.*) selects cards (.*) to .*")]
+        [When(@"(.*) selects cards \[(.*)] to .*")]
         public void WhenPlayerSelectsCards(string playerName, string selectedCardList)
         {
             var cardNames = selectedCardList.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
@@ -232,8 +232,7 @@ namespace Dominion.Specs.Bindings
             var cardList = new List<ICard>();
             foreach (var name in cardNames)
             {
-                var card = player.Hand.Where(c => c.Name == name && !cardList.Contains(c))
-                    .Take(1).Single();
+                var card = player.Hand.First(c => c.Name == name && !cardList.Contains(c));
                 cardList.Add(card);
             }
             var activity = (ISelectCardsActivity)Game.GetPendingActivity(player);
@@ -282,10 +281,9 @@ namespace Dominion.Specs.Bindings
             activity.SelectCards(cards);
         }
 
-        [When(@"(.*) selects nothing to discard")]
-        [When(@"(.*) selects nothing to trash")]
+        [When(@"(.*) selects nothing to .*")]
         [When(@"(.*) is done with reactions")]
-        public void WhenPlayerSelectsNothingToDiscard(string playerName)
+        public void WhenPlayerSelectsNothingTo(string playerName)
         {
             var player = Game.Players.Single(p => p.Name == playerName);
 
@@ -332,7 +330,7 @@ namespace Dominion.Specs.Bindings
             }
         }
 
-        [Then(@"There should be (\d+) (.*) available to buy")]
+        [Then(@"There should be (\d+) (.*) available to buy")]        
         public void ThenThereShouldBeCountAvailableToBuy(int cardCount, string cardName)
         {
             Game.Bank.Piles.Single(x => x.TopCard.Name == cardName).CardCount.ShouldEqual(cardCount);
@@ -639,6 +637,18 @@ namespace Dominion.Specs.Bindings
             activity.GetCountProperty().ShouldEqual(cardCount);
             activity.Type.ShouldEqual(ActivityType.SelectUpToNumberOfCards);
         }
+
+        [Then(@"(.*) may select up to (\d+) (.*) card[s]? from their hand")]
+        public void ThenPlayer1MaySelectUpTo2CurseCardsToReturnToTheSupply(string playerName, int cardCount, string cardName)
+        {
+            var player = Game.Players.Single(p => p.Name == playerName);
+            var activity = (ISelectCardsActivity)Game.GetPendingActivity(player);
+
+            activity.GetCountProperty().ShouldEqual(cardCount);
+            activity.Type.ShouldEqual(ActivityType.SelectUpToNumberOfCards);
+            activity.Properties["CardMustHaveName"].ShouldEqual(cardName);
+        }
+
 
         [Then(@"(.*) should have a hand of (.*)")]
         public void ThenPlayerShouldHaveAHandOfExactly(string playerName, string cardNames)

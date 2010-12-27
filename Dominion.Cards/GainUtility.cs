@@ -23,19 +23,32 @@ namespace Dominion.Cards
             _bank = bank;
         }
 
-        public void Gain<T>(Action<T> doMove) where T : Card
+        public void Gain(CardPile pile, Action<ICard> doMove)
         {
-            var pile = _bank.NonEmptyPile<T>();
-            if (pile != null)
+            if(pile == null)
+                throw new ArgumentNullException("pile");
+
+            if (!pile.IsEmpty)
             {
-                var card = (T) pile.TopCard;
-                doMove(card);                
+                var card = pile.TopCard;
+                doMove(card);
                 _log.LogGain(_player, card);
             }
             else
             {
-                _log.LogMessage("{0} did not gain a {1} because the pile is empty", _player.Name, typeof(T).Name);                
+                _log.LogMessage("{0} did not gain a {1} because the pile is empty", _player.Name, pile.Name);
             }
+        }
+
+        public void Gain(CardPile pile)
+        {
+            Gain(pile, card => card.MoveTo(_player.Discards));           
+        }
+
+        public void Gain<T>(Action<ICard> doMove) where T : Card
+        {
+            var pile = _bank.Pile<T>();
+            Gain(pile, doMove);
         }
 
         public void Gain<T>() where T : Card

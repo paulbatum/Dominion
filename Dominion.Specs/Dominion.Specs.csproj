@@ -75,6 +75,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Adventurer.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\Ambassador.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Ambassador.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\Caravan.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -372,6 +377,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Cards\Ambassador.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Ambassador.feature.cs</LastGenOutput>
+    </None>
     <None Include="Cards\Caravan.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Caravan.feature.cs</LastGenOutput>
