@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using Dominion.Cards.Treasure;
+﻿using System;
+using System.Linq;
 
 namespace Dominion.GameHost.AI.BehaviourBased
 {
@@ -12,7 +12,7 @@ namespace Dominion.GameHost.AI.BehaviourBased
                     .Any(pile => Treasure.Basic.Contains(pile.Name));
         }
 
-        protected override CardPileViewModel SelectPile(GameViewModel state)
+        protected override CardPileViewModel SelectPile(GameViewModel state, IGameClient client)
         {
             return GetValidBuys(state)                
                 .Where(pile => Treasure.Basic.Contains(pile.Name))                

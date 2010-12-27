@@ -157,7 +157,7 @@ namespace Dominion.GameHost
             }
             else
             {
-                Cost = pile.TopCard.Cost.Money;
+                Cost = pile.TopCard.Cost;
                 Types = pile.TopCard.GetTypes();
             }
 

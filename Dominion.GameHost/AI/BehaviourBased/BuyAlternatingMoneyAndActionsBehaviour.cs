@@ -15,9 +15,11 @@ namespace Dominion.GameHost.AI.BehaviourBased
         }
 
         private IEnumerable<IAIBehaviour> Alternating()
-        {
+        {            
+            yield return new BuyPotionBehaviour();
+
             while (true)
-            {
+            {                
                 yield return _buySimpleAction;
                 yield return _bigMoney;
                 yield return _bigMoney;

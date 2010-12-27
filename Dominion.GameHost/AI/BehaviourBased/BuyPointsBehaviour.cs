@@ -41,7 +41,7 @@ namespace Dominion.GameHost.AI.BehaviourBased
             return false;
         }
 
-        protected override CardPileViewModel SelectPile(GameViewModel state)
+        protected override CardPileViewModel SelectPile(GameViewModel state, IGameClient client)
         {
             return GetValidBuys(state)
                 .Where(pile => pile.Is(CardType.Victory))

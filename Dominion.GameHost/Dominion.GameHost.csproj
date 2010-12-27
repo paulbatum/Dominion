@@ -79,6 +79,7 @@
     <Compile Include="AI\BehaviourBased\BuyAlternatingMoneyAndActionsBehaviour.cs" />
     <Compile Include="AI\BehaviourBased\BuyBehaviourBase.cs" />
     <Compile Include="AI\BehaviourBased\BuyPointsBehaviour.cs" />
+    <Compile Include="AI\BehaviourBased\BuyPotionBehaviour.cs" />
     <Compile Include="AI\BehaviourBased\BuySimpleActionsBehaviour.cs" />
     <Compile Include="AI\BehaviourBased\CommentOnGameEndBehaviour.cs" />
     <Compile Include="AI\BehaviourBased\DefaultDiscardOrRedrawCardsBehaviour.cs" />

@@ -13,13 +13,19 @@ namespace Dominion.GameHost.AI.BehaviourBased
                    GetValidBuys(state).Any(pile => AISupportedActions.All.Contains(pile.Name));
         }
 
-        protected override CardPileViewModel SelectPile(GameViewModel state)
+        protected override CardPileViewModel SelectPile(GameViewModel state, IGameClient client)
         {
-            return GetValidBuys(state)
+            var options = GetValidBuys(state)
                 .Where(pile => AISupportedActions.All.Contains(pile.Name))
                 .OrderByDescending(pile => pile.Cost)
-                .ThenBy(pile => _random.Next(100))
-                .First();
+                .ThenBy(pile => _random.Next(100));
+
+            var message = string.Format("I considered {0}.", string.Join(", ", options.Select(x => x.Name).ToArray()));
+            client.SendChatMessage(message);
+
+            return options.First();
         }
+
+        
     }
 }

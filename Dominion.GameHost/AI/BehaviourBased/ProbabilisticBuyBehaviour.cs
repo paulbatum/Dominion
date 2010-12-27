@@ -18,7 +18,7 @@ namespace Dominion.GameHost.AI.BehaviourBased
                 GetValidBuys(state).Any(c => _distribution.Contains(c.Name));
         }
 
-        protected override CardPileViewModel SelectPile(GameViewModel state)
+        protected override CardPileViewModel SelectPile(GameViewModel state, IGameClient client)
         {
             var options = GetValidBuys(state).Where(c => _distribution.Contains(c.Name));
 

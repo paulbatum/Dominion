@@ -14,7 +14,7 @@ namespace Dominion.GameHost.AI.BehaviourBased
 
         public void Respond(IGameClient client, ActivityModel activity, GameViewModel state)
         {
-            var pile = SelectPile(state);
+            var pile = SelectPile(state, client);
 
             TalkSmack(pile, client);
             var message = new BuyCardMessage(client.PlayerId, pile.Id);            
@@ -31,6 +31,6 @@ namespace Dominion.GameHost.AI.BehaviourBased
             return state.Bank.Where(p => p.CanBuy).ToList();
         }
 
-        protected abstract CardPileViewModel SelectPile(GameViewModel state);
+        protected abstract CardPileViewModel SelectPile(GameViewModel state, IGameClient client);
     }
 }
