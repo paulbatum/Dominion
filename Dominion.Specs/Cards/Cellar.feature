@@ -14,7 +14,7 @@ Scenario: Player discards one card to Cellar
 	And Player1 should have 1 actions remaining
 
 Scenario: Player discards two cards to Cellar
-	And Player1 selects cards Copper, Estate to discard
+	And Player1 selects cards [Copper, Estate] to discard
 	Then Player1 should have a Estate on top of the discard pile
 	And Player1 should have 1 actions remaining
 
