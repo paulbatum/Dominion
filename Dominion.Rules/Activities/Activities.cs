@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Dominion.Rules.CardTypes;
 
 namespace Dominion.Rules.Activities
 {
@@ -180,7 +181,7 @@ namespace Dominion.Rules.Activities
         {
             var activity = new SelectCardsActivity(
                    context,
-                   "Select any number of cards to discard, you will draw 1 new card for each discard",
+                   "Select any number of cards to discard, you will draw 1 new card for each discard.",
                    SelectionSpecifications.SelectUpToXCards(context.ActivePlayer.Hand.CardCount), source);
 
             activity.AfterCardsSelected = cards =>
@@ -188,6 +189,26 @@ namespace Dominion.Rules.Activities
                 context.DiscardCards(activity.Player, cards);
                 context.DrawCards(cards.Count());
             };
+
+            return activity;
+        }
+
+        public static IActivity GainAnActionCardCostingUpToX(IGameLog log, Player player, int cost, ICard source, bool optional)
+        {
+            var activity = new SelectPileActivity(log, player, string.Format("Select a card to gain of cost {0} or less.", cost),
+                              SelectionSpecifications.SelectPileCostingUpToX(cost), source)
+            {
+                AfterPileSelected = pile =>
+                {
+                    var card = pile.TopCard;
+                    card.MoveTo(player.Discards);
+                    log.LogGain(player, card);
+                },
+                Hint = ActivityHint.GainCards
+            };
+
+            activity.Specification.CardTypeRestriction = typeof (IActionCard);
+            activity.IsOptional = optional;
 
             return activity;
         }

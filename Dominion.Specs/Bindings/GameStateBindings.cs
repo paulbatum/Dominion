@@ -269,6 +269,15 @@ namespace Dominion.Specs.Bindings
             activity.SelectPile(pile);
         }
 
+        [When(@"(.*) gains nothing")]
+        public void WhenPlayerGainsNothing(string playerName)
+        {
+            var player = Game.Players.Single(p => p.Name == playerName);
+            var activity = (ISelectPileActivity)Game.GetPendingActivity(player);
+
+            activity.SelectPile(null);
+        }
+
         
 
         [When(@"(.*) reveals (.*)")]
@@ -604,10 +613,23 @@ namespace Dominion.Specs.Bindings
             var player = Game.Players.Single(p => p.Name == playerName);
             var activity = (ISelectPileActivity)Game.GetPendingActivity(player);
             CardCost cardCost = CardCost.Parse(cost);
-
+           
             activity.GetCostProperty().ShouldEqual(cardCost);
             activity.GetTypeRestrictionProperty().ShouldEqual(typeof (ITreasureCard).Name);
         }
+
+        [Then(@"(.*) may gain an action card of cost (.*) or less")]
+        public void ThenPlayer1MayGainAnActionCardOfCost5OrLess(string playerName, string cost)
+        {
+            var player = Game.Players.Single(p => p.Name == playerName);
+            var activity = (ISelectPileActivity)Game.GetPendingActivity(player);
+            CardCost cardCost = CardCost.Parse(cost);
+
+            activity.IsOptional.ShouldBeTrue();
+            activity.GetCostProperty().ShouldEqual(cardCost);
+            activity.GetTypeRestrictionProperty().ShouldEqual(typeof(IActionCard).Name);
+        }
+
 
         [Then(@"(.*) must wait")]
         public void ThenPlayerMustWait(string playerName)

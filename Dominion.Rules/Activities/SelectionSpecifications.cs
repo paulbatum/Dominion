@@ -9,7 +9,7 @@ namespace Dominion.Rules.Activities
     {
         bool IsMatch(CardPile pile);
         bool IsMatch(IEnumerable<ICard> cards);
-        ActivityType ActivityType { get; }
+        ActivityType ActivityType { get; set; }
         Type CardTypeRestriction { get; set; }
         void WriteProperties(IDictionary<string, object> bag);        
     }

@@ -19,7 +19,7 @@ namespace Dominion.GameHost
         public void UpdateGameState(Game game)
         {
             var player = game.Players.Single(p => p.Id == PlayerId);
-            var pile = game.Bank.Piles.Single(p => p.Id == PileId);
+            var pile = game.Bank.Piles.SingleOrDefault(p => p.Id == PileId);
             var activity = game.GetPendingActivity(player) as ISelectPileActivity;
 
             if (activity == null)

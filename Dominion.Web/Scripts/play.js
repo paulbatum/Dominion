@@ -66,8 +66,11 @@
         $.post('MakeChoice', { choice: choice }, handleInteractionResponse);
     },
     selectPile: function (event, activity) {
-        var data = $.tmplItem(event.target).data;
-        $.post('SelectPile', { id: data.Id }, handleInteractionResponse);
+        var id;
+        if (event) {
+            id = $.tmplItem(event.target).data.Id;
+        }
+        $.post('SelectPile', { id: id }, handleInteractionResponse);
     },
     chat: function (text) {
         if (text != "") {
@@ -159,6 +162,13 @@
 
             if (activity.Type == "SelectPile") {
                 controller.BankClick = function (event) { actions.selectPile(event, activity); };
+
+                if (activity.Properties.IsOptional) {
+                    controller.DoneClick = function (event) { actions.selectPile(false, activity); };
+                    $('#doneChoice').show();
+                }
+
+
             }            
 
         }

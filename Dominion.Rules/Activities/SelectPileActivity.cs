@@ -7,6 +7,7 @@ namespace Dominion.Rules.Activities
     {
         void SelectPile(CardPile pile);
         ISelectionSpecification Specification { get; }
+        bool IsOptional { get; set; }
     }
 
     public class SelectPileActivity : ActivityBase, ISelectPileActivity
@@ -15,21 +16,32 @@ namespace Dominion.Rules.Activities
             : base(log, player, message, specification.ActivityType, source)
         {
             Specification = specification;
+
         }
 
         public ISelectionSpecification Specification { get; private set; }
         public Action<CardPile> AfterPileSelected { get; set; }
+        public bool IsOptional { get; set; }
 
         protected void CheckPile(CardPile pile)
-        {
+        {            
             if (!Specification.IsMatch(pile))
                 throw new ArgumentException("Pile does not match specification!", "pile");
         }
         
         public virtual void SelectPile(CardPile pile)
         {
-            CheckPile(pile);
-            AfterPileSelected(pile);
+            if (pile != null)
+            {
+                CheckPile(pile);
+                AfterPileSelected(pile);
+            }
+            else
+            {
+                if (IsOptional == false)
+                    throw new InvalidOperationException("No pile selected, but activity is not optional!");
+            }
+
             IsSatisfied = true;
         }
 
@@ -39,10 +51,10 @@ namespace Dominion.Rules.Activities
             {
                 var properties = base.Properties;
                 Specification.WriteProperties(properties);
+                properties["IsOptional"] = IsOptional;
                 return properties;
             }
         }
-
 
     }
 }

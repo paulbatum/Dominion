@@ -73,6 +73,7 @@
     <Compile Include="Actions\Masquerade.cs" />
     <Compile Include="Actions\Salvager.cs" />
     <Compile Include="Actions\Swindler.cs" />
+    <Compile Include="Actions\University.cs" />
     <Compile Include="Actions\Warehouse.cs" />
     <Compile Include="Actions\MiningVillage.cs" />
     <Compile Include="Actions\Moneylender.cs" />
