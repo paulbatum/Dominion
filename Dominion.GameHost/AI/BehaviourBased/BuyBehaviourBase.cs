@@ -9,7 +9,9 @@ namespace Dominion.GameHost.AI.BehaviourBased
     {
         public virtual bool CanRespond(ActivityModel activity, GameViewModel state)
         {
-            return activity.ParseType() == ActivityType.DoBuys;
+            var activityType = activity.ParseType();
+            return activityType == ActivityType.DoBuys 
+                || activityType == ActivityType.SelectPile;
         }
 
         public void Respond(IGameClient client, ActivityModel activity, GameViewModel state)
@@ -17,7 +19,18 @@ namespace Dominion.GameHost.AI.BehaviourBased
             var pile = SelectPile(state, client);
 
             TalkSmack(pile, client);
-            var message = new BuyCardMessage(client.PlayerId, pile.Id);            
+
+            IGameActionMessage message = null;
+
+            if (activity.ParseType() == ActivityType.DoBuys)
+            {
+                message = new BuyCardMessage(client.PlayerId, pile.Id);
+            }
+            else if (activity.ParseType() == ActivityType.SelectPile)
+            {
+                message = new ChooseAPileMessage(client.PlayerId, pile == null ? Guid.Empty : pile.Id);
+            }
+
             client.AcceptMessage(message);
         }
 

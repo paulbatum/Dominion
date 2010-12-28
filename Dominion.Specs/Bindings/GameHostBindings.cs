@@ -127,7 +127,8 @@ namespace Dominion.Specs.Bindings
             card.Types.Single().ShouldEqual(type);            
         }
 
-        [Then(@"(.*)'s view includes a (.*) in the bank that can be bought")]        
+        [Then(@"(.*)'s view includes a (.*) in the bank that can be bought")]
+        [Then(@"(.*)'s view includes a (.*) in the bank that can be gained")]        
         public void ThenPlayerViewIncludesACardInTheBankThatCanBeBought(string playerName, string cardName)
         {
             var client = _clients.Single(c => c.PlayerName == playerName);

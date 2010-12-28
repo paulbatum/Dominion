@@ -36,8 +36,8 @@ namespace Dominion.GameHost.AI
             list.AddSimpleAction<ShantyTown>();
             list.AddSimpleAction<Village>();
             list.AddSimpleAction<Warehouse>();
-            list.AddSimpleAction<Apothecary>();
-            list.AddSimpleAction<Golem>();
+            list.AddSimpleAction<Apothecary>();           
+            list.AddSimpleAction<University>();
             return list;
         }
 
@@ -70,6 +70,8 @@ namespace Dominion.GameHost.AI
             list.AddSimpleAction<Woodcutter>();
             list.AddSimpleAction<ThroneRoom>();
             list.AddSimpleAction<Golem>();
+            list.AddSimpleAction<Workshop>();
+            list.AddSimpleAction<Feast>();            
             // Chapel behavior has to be more sophisticated before it can be turned on.
             // list.AddSimpleAction<Chapel>(); 
             return list;

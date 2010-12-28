@@ -44,7 +44,6 @@ namespace Dominion.Specs.Cards
         public virtual void ScenarioSetup(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
         {
             testRunner.OnScenarioStart(scenarioInfo);
-            this.FeatureBackground();
         }
         
         [NUnit.Framework.TearDownAttribute()]
@@ -53,26 +52,20 @@ namespace Dominion.Specs.Cards
             testRunner.OnScenarioEnd();
         }
         
-        public virtual void FeatureBackground()
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Player must choose a card to gain")]
+        public virtual void PlayerMustChooseACardToGain()
         {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Player must choose a card to gain", ((string[])(null)));
 #line 3
+this.ScenarioSetup(scenarioInfo);
 #line 4
 testRunner.Given("A new game with 3 players");
 #line 5
 testRunner.And("Player1 has a Workshop in hand instead of a Copper");
 #line 6
 testRunner.When("Player1 plays a Workshop");
-#line hidden
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Player must choose a card to gain")]
-        public virtual void PlayerMustChooseACardToGain()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Player must choose a card to gain", ((string[])(null)));
-#line 8
-this.ScenarioSetup(scenarioInfo);
-#line 9
+#line 7
 testRunner.Then("Player1 must gain a card of cost 4 or less");
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -83,12 +76,41 @@ testRunner.Then("Player1 must gain a card of cost 4 or less");
         public virtual void PlayerGainsCard()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Player gains card", ((string[])(null)));
-#line 11
+#line 9
 this.ScenarioSetup(scenarioInfo);
+#line 10
+testRunner.Given("A new game with 3 players");
+#line 11
+testRunner.And("Player1 has a Workshop in hand instead of a Copper");
 #line 12
-testRunner.When("Player1 gains a Silver");
+testRunner.When("Player1 plays a Workshop");
 #line 13
+testRunner.When("Player1 gains a Silver");
+#line 14
 testRunner.Then("Player1 should have a Silver on top of the discard pile");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Valid choices for workshop gain are marked accordingly in view")]
+        [NUnit.Framework.CategoryAttribute("Hosted")]
+        public virtual void ValidChoicesForWorkshopGainAreMarkedAccordinglyInView()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Valid choices for workshop gain are marked accordingly in view", new string[] {
+                        "Hosted"});
+#line 17
+this.ScenarioSetup(scenarioInfo);
+#line 18
+testRunner.Given("A new hosted game with 3 players");
+#line 19
+testRunner.And("Player1 has a Workshop in hand instead of a Copper");
+#line 20
+testRunner.When("The game begins");
+#line 21
+testRunner.And("Player1 tells the host to play Workshop");
+#line 22
+testRunner.Then("Player1\'s view includes a Silver in the bank that can be gained");
 #line hidden
             testRunner.CollectScenarioErrors();
         }

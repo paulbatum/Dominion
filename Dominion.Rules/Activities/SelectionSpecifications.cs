@@ -92,6 +92,9 @@ namespace Dominion.Rules.Activities
 
             public bool IsMatch(CardPile pile)
             {
+                if (pile.IsEmpty)
+                    return false;
+
                 return IsMatch(new[] {pile.TopCard});
             }
 

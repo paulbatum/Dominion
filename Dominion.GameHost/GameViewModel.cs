@@ -161,8 +161,9 @@ namespace Dominion.GameHost
                 Types = pile.TopCard.GetTypes();
             }
 
-
-            CanBuy = context.CanBuy(pile, player);
+            var activity = context.Game.GetPendingActivity(player) as SelectPileActivity;
+            var canGain = activity != null && activity.Specification.IsMatch(pile);
+            CanBuy = canGain || context.CanBuy(pile, player);
         }
 
         public Guid Id { get; set; }
