@@ -23,7 +23,7 @@ namespace Dominion.Cards
 
         public override bool IsEmpty
         {
-            get { return Cards.Any(); }
+            get { return !Cards.Any(); }
         }
 
         public override ICard TopCard

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Dominion.Cards.Treasure;
 using Dominion.Rules;
 using Dominion.Rules.Activities;
 using Dominion.Rules.CardTypes;
@@ -37,35 +36,34 @@ namespace Dominion.Cards.Actions
         }
     }
 
-    public class Apothecary : Card, IActionCard
+    public class Tribute : Card, IActionCard
     {
-        public Apothecary() : base(CardCost.Parse("2P"))
+        public Tribute()
+            : base(5)
         {
+
         }
 
         public void Play(TurnContext context)
         {
-            context.DrawCards(1);
-            context.RemainingActions += 1;
-
-            context.AddEffect(this, new ApothecaryEffect());           
-        }
-
-        public class ApothecaryEffect : CardEffectBase
-        {
-            public override void Resolve(TurnContext context, ICard source)
+            var leftPlayer = context.Opponents.FirstOrDefault();
+            if (leftPlayer != null)
             {
-                var revealZone = new RevealZone(context.ActivePlayer);
-                context.ActivePlayer.Deck.MoveTop(4, revealZone);
-
+                var revealZone = new RevealZone(leftPlayer);
+                leftPlayer.Deck.MoveTop(2, revealZone);
                 revealZone.LogReveal(context.Game.Log);
-                revealZone.MoveWhere(c => c is Copper || c is Potion, context.ActivePlayer.Hand);
 
-                foreach (var activity in Activities.SelectMultipleRevealedCardsToPutOnTopOfDeck(context.Game.Log, context.ActivePlayer, revealZone, source))
-                    _activities.Add(activity);
+                foreach (var card in revealZone.WithDistinctTypes())
+                {
+                    if (card is IActionCard) context.RemainingActions += 2;
+                    if (card is ITreasureCard) context.AvailableSpend += 2;
+                    if (card is IVictoryCard) context.DrawCards(2);
+                }
+
+                revealZone.MoveAll(leftPlayer.Discards);
             }
+
+
         }
     }
-
-    
 }

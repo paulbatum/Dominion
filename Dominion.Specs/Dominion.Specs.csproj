@@ -285,6 +285,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TreasureMap.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\Tribute.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Tribute.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\University.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -546,6 +551,10 @@
     <None Include="Cards\TreasureMap.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>TreasureMap.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\Tribute.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Tribute.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\University.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
