@@ -125,6 +125,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Courtyard.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\Cutpurse.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Cutpurse.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Cards\Duke.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Duke.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\Envoy.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -423,6 +433,14 @@
     <None Include="Cards\Courtyard.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Courtyard.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\Cutpurse.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Cutpurse.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\Duke.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Duke.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\Salvager.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

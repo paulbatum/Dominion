@@ -7,6 +7,6 @@ namespace Dominion.Rules.CardTypes
 {
     public interface IScoreCard : ICard
     {
-        int Score(CardZone allCards);
+        int Score(EnumerableCardZone allCards);
     }
 }

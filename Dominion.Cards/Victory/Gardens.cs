@@ -1,4 +1,6 @@
-﻿using Dominion.Rules.CardTypes;
+﻿using System;
+using System.Linq;
+using Dominion.Rules.CardTypes;
 using Dominion.Rules;
 
 namespace Dominion.Cards.Victory
@@ -11,7 +13,7 @@ namespace Dominion.Cards.Victory
         {
         }
 
-        public int Score(Dominion.Rules.CardZone allCards)
+        public int Score(EnumerableCardZone allCards)
         {
             return (allCards.CardCount / 10);
         }
@@ -22,4 +24,17 @@ namespace Dominion.Cards.Victory
             get { return 0; }
         }
     }
+
+    public class Duke : Card, IVictoryCard
+    {
+        public Duke() : base(5)
+        {
+        }
+
+        public int Score(EnumerableCardZone allCards)
+        {
+            return allCards.OfType<Duchy>().Count();
+        }
+    }
+
 }

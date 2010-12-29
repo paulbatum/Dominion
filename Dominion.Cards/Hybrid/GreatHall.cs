@@ -22,7 +22,7 @@ namespace Dominion.Cards.Hybrid
             set;
         }
 
-        public int Score(CardZone allCards)
+        public int Score(EnumerableCardZone allCards)
         {
             return Value;
         }

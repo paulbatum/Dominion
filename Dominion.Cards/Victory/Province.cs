@@ -14,7 +14,7 @@ namespace Dominion.Cards.Victory
             get { return 6; }
         }
 
-        public int Score(CardZone allCards)
+        public int Score(EnumerableCardZone allCards)
         {
             return Value;
         }

@@ -7,7 +7,7 @@ namespace Dominion.Cards.Curses
     {
         public Curse() : base(0) { }
 
-        public int Score(CardZone allCards)
+        public int Score(EnumerableCardZone allCards)
         {
             return -1;
         }
