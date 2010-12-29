@@ -42,13 +42,18 @@ namespace Dominion.Cards
 
         public void Gain(CardPile pile)
         {
-            Gain(pile, card => card.MoveTo(_player.Discards));           
+            Gain(pile, card => card.MoveTo(_player.Discards));
         }
 
         public void Gain<T>(Action<ICard> doMove) where T : Card
         {
             var pile = _bank.Pile<T>();
             Gain(pile, doMove);
+        }
+
+        public void Gain<T>(CardZone targetZone) where T : Card
+        {
+            Gain<T>(card => card.MoveTo(targetZone));
         }
 
         public void Gain<T>() where T : Card

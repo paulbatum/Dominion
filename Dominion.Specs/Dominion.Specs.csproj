@@ -145,6 +145,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Expand.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\Explorer.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Explorer.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\Familiar.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -441,6 +446,10 @@
     <None Include="Cards\Duke.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Duke.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\Explorer.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Explorer.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\Salvager.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

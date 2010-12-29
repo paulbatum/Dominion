@@ -1,4 +1,3 @@
-using System;
 using Dominion.Rules;
 using Dominion.Rules.Activities;
 using Dominion.Rules.CardTypes;
@@ -7,7 +6,8 @@ namespace Dominion.Cards.Actions
 {
     public class Chancellor : Card, IActionCard
     {
-        public Chancellor() : base(3)
+        public Chancellor()
+            : base(3)
         {
         }
 
