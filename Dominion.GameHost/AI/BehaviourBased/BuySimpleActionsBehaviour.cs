@@ -20,7 +20,8 @@ namespace Dominion.GameHost.AI.BehaviourBased
             var options = GetValidBuys(state)
                 .Where(pile => AISupportedActions.All.Contains(pile.Name))
                 .OrderByDescending(pile => pile.Cost)
-                .ThenBy(pile => _random.Next(100));
+                .ThenBy(pile => _random.Next(100))
+                .ToList();
 
             var message = string.Format("I considered {0}.", string.Join(", ", options.Select(x => x.Name).ToArray()));
             client.SendChatMessage(message);
