@@ -100,6 +100,7 @@
     <Compile Include="AI\BehaviourBased\SkipBuyBehaviour.cs" />
     <Compile Include="AI\GameViewModelExtensions.cs" />
     <Compile Include="AI\Treasure.cs" />
+    <Compile Include="AI\VictoryCards.cs" />
     <Compile Include="BeginGameMessage.cs" />
     <Compile Include="BuyCardMessage.cs" />
     <Compile Include="CardBuilderExtensions.cs" />

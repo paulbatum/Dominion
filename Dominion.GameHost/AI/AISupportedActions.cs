@@ -38,6 +38,7 @@ namespace Dominion.GameHost.AI
             list.AddSimpleAction<Warehouse>();
             list.AddSimpleAction<Apothecary>();           
             list.AddSimpleAction<University>();
+            list.AddSimpleAction<Tribute>();
             return list;
         }
 
@@ -72,6 +73,8 @@ namespace Dominion.GameHost.AI
             list.AddSimpleAction<Golem>();
             list.AddSimpleAction<Workshop>();
             list.AddSimpleAction<Feast>();            
+            list.AddSimpleAction<Explorer>();
+            list.AddSimpleAction<Cutpurse>();
             // Chapel behavior has to be more sophisticated before it can be turned on.
             // list.AddSimpleAction<Chapel>(); 
             return list;

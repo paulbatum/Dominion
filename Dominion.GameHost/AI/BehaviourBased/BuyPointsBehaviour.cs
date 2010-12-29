@@ -45,7 +45,7 @@ namespace Dominion.GameHost.AI.BehaviourBased
         {
             return GetValidBuys(state)
                 .Where(pile => pile.Is(CardType.Victory))
-                .OrderByDescending(pile => pile.Cost)
+                .OrderByDescending(pile => VictoryCards.Basic.Contains(pile.Name))
                 .First();
         }
 
