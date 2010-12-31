@@ -55,6 +55,7 @@ namespace Dominion.GameHost.AI
             list.AddSimpleAction<Masquerade>();
             list.AddSimpleAction<Courtyard>();
             list.AddSimpleAction<Familiar>();
+            list.AddSimpleAction<Wharf>();
             
             return list;
         }
@@ -75,6 +76,8 @@ namespace Dominion.GameHost.AI
             list.AddSimpleAction<Feast>();            
             list.AddSimpleAction<Explorer>();
             list.AddSimpleAction<Cutpurse>();
+            list.AddSimpleAction<MerchantShip>();
+
             // Chapel behavior has to be more sophisticated before it can be turned on.
             // list.AddSimpleAction<Chapel>(); 
             return list;
