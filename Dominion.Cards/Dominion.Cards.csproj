@@ -70,6 +70,7 @@
     <Compile Include="Actions\Adventurer.cs" />
     <Compile Include="Actions\Courtyard.cs" />
     <Compile Include="Actions\Explorer.cs" />
+    <Compile Include="Actions\MerchantShip.cs" />
     <Compile Include="Actions\SeaHag.cs" />
     <Compile Include="Actions\GhostShip.cs" />
     <Compile Include="Actions\Masquerade.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="Actions\TreasureMap.cs" />
     <Compile Include="Actions\Upgrade.cs" />
     <Compile Include="Actions\Village.cs" />
+    <Compile Include="Actions\Wharf.cs" />
     <Compile Include="Actions\Witch.cs" />
     <Compile Include="Actions\Woodcutter.cs" />
     <Compile Include="Actions\Workshop.cs" />

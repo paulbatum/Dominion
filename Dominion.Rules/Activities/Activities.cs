@@ -195,7 +195,7 @@ namespace Dominion.Rules.Activities
 
         public static IActivity GainAnActionCardCostingUpToX(IGameLog log, Player player, int cost, ICard source, bool optional)
         {
-            var activity = new SelectPileActivity(log, player, string.Format("Select a card to gain of cost {0} or less.", cost),
+            var activity = new SelectPileActivity(log, player, string.Format("Select an action card to gain of cost {0} or less.", cost),
                               SelectionSpecifications.SelectPileCostingUpToX(cost), source)
             {
                 AfterPileSelected = pile =>

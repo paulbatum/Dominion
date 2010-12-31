@@ -210,6 +210,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Masquerade.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\MerchantShip.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MerchantShip.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\Militia.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -319,6 +324,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Warehouse.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Cards\Wharf.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Wharf.feature</DependentUpon>
     </Compile>
     <Compile Include="Cards\Witch.feature.cs">
       <AutoGen>True</AutoGen>
@@ -450,6 +460,10 @@
     <None Include="Cards\Explorer.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Explorer.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\MerchantShip.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>MerchantShip.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\Salvager.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -594,6 +608,10 @@
     <None Include="Cards\Warehouse.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Warehouse.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\Wharf.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Wharf.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\Witch.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

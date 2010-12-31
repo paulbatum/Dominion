@@ -7,7 +7,7 @@ using Dominion.Rules.CardTypes;
 
 namespace Dominion.Cards.Actions
 {
-    public class FishingVillage : Card, IActionCard, IDurationCard
+    public class FishingVillage : Card, IDurationCard
     {
         public FishingVillage()
             : base(3)
