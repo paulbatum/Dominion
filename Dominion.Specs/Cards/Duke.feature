@@ -1,6 +1,5 @@
 ﻿Feature: Duke
 
-
 Scenario: Duke is worth zero points if there are no duchies in the deck
 	Given A new game with 3 players	
 	And Player1 has a hand of Copper, Copper, Copper, Copper, Copper

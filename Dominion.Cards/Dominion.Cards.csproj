@@ -129,6 +129,7 @@
     <Compile Include="Victory\Duchy.cs" />
     <Compile Include="Victory\Estate.cs" />
     <Compile Include="Victory\Province.cs" />
+    <Compile Include="Victory\Vineyard.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dominion.Rules\Dominion.Rules.csproj">

@@ -320,6 +320,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Upgrade.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\Vineyard.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Vineyard.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\Warehouse.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -604,6 +609,10 @@
     <None Include="Cards\Upgrade.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Upgrade.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\Vineyard.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Vineyard.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\Warehouse.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
