@@ -76,6 +76,7 @@
     <Compile Include="Actions\Masquerade.cs" />
     <Compile Include="Actions\Salvager.cs" />
     <Compile Include="Actions\Swindler.cs" />
+    <Compile Include="Actions\Transmute.cs" />
     <Compile Include="Actions\Tribute.cs" />
     <Compile Include="Actions\University.cs" />
     <Compile Include="Actions\Warehouse.cs" />

@@ -214,7 +214,7 @@ namespace Dominion.Specs.Bindings
             activity.SelectCards(cards);
         }
 
-        [When(@"(.*) selects a ([a-zA-Z]*) to .*")]
+        [When(@"(.*) selects a[n]? ([a-zA-Z]*) to .*")]
         public void WhenPlayerSelectACard(string playerName, string selectedCard)
         {
             var player = Game.Players.Single(p => p.Name == playerName);
@@ -442,14 +442,14 @@ namespace Dominion.Specs.Bindings
             Game.IsComplete.ShouldBeFalse();
         }
 
-        [Then(@"(.*) should have a (.*) on top of the discard pile")]
+        [Then(@"(.*) should have a[n]? (.*) on top of the discard pile")]
         public void PlayerShouldHaveCardOnTopOfDiscardPile(string playerName, string cardName)
         {
             var player = Game.Players.Single(p => p.Name == playerName);                 
             player.Discards.TopCard.Name.ShouldEqual(cardName);
         }
 
-        [Then(@"(.*) should not have a (.*) on top of the discard pile")]
+        [Then(@"(.*) should not have a[n]? (.*) on top of the discard pile")]
         public void PlayerShouldNotHaveCardOnTopOfDiscardPile(string playerName, string cardName)
         {
             var player = Game.Players.Single(p => p.Name == playerName);
@@ -464,7 +464,7 @@ namespace Dominion.Specs.Bindings
             player.Discards.ToString().ShouldEqual(cards);
         }
 
-        [Then(@"There should be a (.*) on top of the trash pile")]
+        [Then(@"There should be a[n]? (.*) on top of the trash pile")]
         public void ThenThereShouldBeACardOnTopOfTrashPile(string cardName)
         {
             Game.Trash.TopCard.Name.ShouldEqual(cardName);

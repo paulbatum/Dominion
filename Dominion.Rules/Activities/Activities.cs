@@ -146,6 +146,24 @@ namespace Dominion.Rules.Activities
             return choiceActivity;
         }
 
+        public static IActivity SelectACardToTrash(TurnContext context, Player player, ICard source, Action<ICard> afterTrash)
+        {
+            var activity = new SelectCardsActivity(context.Game.Log, player,
+                "Select a card to trash.",
+                 SelectionSpecifications.SelectExactlyXCards(1), source);
+
+            activity.Hint = ActivityHint.TrashCards;
+            activity.AfterCardsSelected = cards =>
+            {
+                foreach (var cardToTrash in cards)
+                    context.Trash(activity.Player, cardToTrash);
+
+                afterTrash(cards.Single());
+            };
+
+            return activity;
+        }
+
         public static IActivity SelectUpToXCardsToTrash(TurnContext context, Player player, int count, ICard source)
         {
             var activity = new SelectCardsActivity(context.Game.Log, player,    
