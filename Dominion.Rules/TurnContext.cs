@@ -219,6 +219,12 @@ namespace Dominion.Rules
             card.MoveTo(this.Game.Trash);
         }
 
+        public void TrashAll(Player player, IEnumerable<ICard> cardZone)
+        {
+            foreach (var card in cardZone.ToList())
+                Trash(player, card);
+        }
+
         public void DiscardCard(Player player, ICard card)
         {
             Game.Log.LogDiscard(player, card);

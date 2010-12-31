@@ -300,6 +300,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ThroneRoom.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\TradingPost.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TradingPost.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\Transmute.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -598,6 +603,10 @@
     <None Include="Cards\ThroneRoom.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ThroneRoom.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\TradingPost.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>TradingPost.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\Transmute.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

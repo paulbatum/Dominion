@@ -164,18 +164,31 @@ namespace Dominion.Rules.Activities
             return activity;
         }
 
-        public static IActivity SelectUpToXCardsToTrash(TurnContext context, Player player, int count, ICard source)
+        public static IActivity SelectXCardsToTrash(TurnContext context, Player player, int count, ICard source, Action afterTrash)
         {
-            var activity = new SelectCardsActivity(context.Game.Log, player,    
-                string.Format("Select up to {0} card(s) to trash.", count),
-                 SelectionSpecifications.SelectUpToXCards(count), source);
+            var activity = new SelectCardsActivity(context.Game.Log, player,
+                string.Format("Select {0} card(s) to trash.", count),
+                SelectionSpecifications.SelectExactlyXCards(count), source);
 
             activity.Hint = ActivityHint.TrashCards;
             activity.AfterCardsSelected = cards =>
             {
-                foreach (var cardToTrash in cards)
-                    context.Trash(activity.Player, cardToTrash);
+                context.TrashAll(player, cards);
+                afterTrash();
             };
+            
+            return activity;
+        }
+
+
+        public static IActivity SelectUpToXCardsToTrash(TurnContext context, Player player, int count, ICard source)
+        {
+            var activity = new SelectCardsActivity(context.Game.Log, player,
+                string.Format("Select up to {0} card(s) to trash.", count),
+                 SelectionSpecifications.SelectUpToXCards(count), source);
+
+            activity.Hint = ActivityHint.TrashCards;
+            activity.AfterCardsSelected = cards => context.TrashAll(player, cards);
 
             return activity;
         }
