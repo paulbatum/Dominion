@@ -300,6 +300,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ThroneRoom.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\Torturer.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Torturer.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\TradingPost.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -603,6 +608,10 @@
     <None Include="Cards\ThroneRoom.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ThroneRoom.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\Torturer.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Torturer.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\TradingPost.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

@@ -46,6 +46,10 @@ namespace Dominion.Cards.Actions
 
                     _activities.Add(activity);
                 }
+                else
+                {
+                    context.Game.Log.LogMessage("{0} did not have any actions to use Throne Room on.", player.Name);
+                }
                     
             }
 
