@@ -4,6 +4,8 @@
 <asp:Content runat="server" ID="Content1" ContentPlaceHolderID="HeadContent">
 <script type="text/javascript">
     $(document).ready(function () {
+        $("form").resetForm();
+
         $('#numberOfPlayers')
             .change(function (event) {
                 populateNames(event.target.value);
@@ -24,16 +26,7 @@
     }
 
     function checkIfSubmitAllowed() {
-        //currently only checking that there are 10 cards picked.
-        //should update this to check the player count and names.
-        var allCardCheckboxes = $(".someCard");
-        var selectedCount = 0;
-        for (var iCheckbox = 0; iCheckbox < allCardCheckboxes.length; iCheckbox++) {
-            var checkBox = allCardCheckboxes[iCheckbox];
-            if (checkBox.checked)
-                selectedCount++;
-        }
-        $("#submitbutton").attr("disabled", selectedCount != 10);
+        $("#submitbutton").attr("disabled", $(".someCard:checked").length != 10);
     }
 </script>
 </asp:Content>
@@ -54,6 +47,7 @@
            <div style="float:left; padding:5px;">
                <img style="height:200px" src="<%= ResolveUrl("~/content/images/cards/" + cardName) %>.jpg" />
                <br />
+               <%--<%= Html.CheckBox("chosenCards", Model.ChosenCards.Contains(cardName), new { value = cardName, @class ="someCard", onclick = "checkIfSubmitAllowed()" })%>--%>
                <input type="checkbox" name="chosenCards" class="someCard" value="<%=cardName%>" onclick="checkIfSubmitAllowed()" <%= Model.ChosenCards.Contains(cardName) ? "checked=checked" : "" %> />
                <%= cardName%>
            </div>
