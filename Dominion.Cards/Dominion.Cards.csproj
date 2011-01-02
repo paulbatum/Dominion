@@ -70,6 +70,7 @@
     <Compile Include="Actions\Adventurer.cs" />
     <Compile Include="Actions\Courtyard.cs" />
     <Compile Include="Actions\Explorer.cs" />
+    <Compile Include="Actions\KingsCourt.cs" />
     <Compile Include="Actions\MerchantShip.cs" />
     <Compile Include="Actions\SeaHag.cs" />
     <Compile Include="Actions\GhostShip.cs" />

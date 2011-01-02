@@ -243,5 +243,42 @@ namespace Dominion.Rules.Activities
 
             return activity;
         }
+
+        public static ISelectCardsActivity SelectActionToPlayMultipleTimes(TurnContext context, Player player, IGameLog log, ICard source, int count)
+        {
+            var activity = new SelectCardsActivity(
+                log, player,
+                string.Format("Select an action to play {0} times", count),
+                SelectionSpecifications.SelectExactlyXCards(1), source);
+
+            activity.Hint = ActivityHint.PlayCards;
+            activity.Specification.CardTypeRestriction = typeof(IActionCard);
+            activity.AfterCardsSelected = cards =>
+            {
+                var actionCard = cards.OfType<IActionCard>().Single();
+                log.LogMessage("{0} selected {1} to be played {2} times.", player.Name, actionCard.Name, count);
+
+                actionCard.MoveTo(context.ActivePlayer.PlayArea);
+
+                count.Times(() => context.AddEffect(source, new PlayCardEffect(actionCard)));
+            };
+
+            return activity;
+        }
+
+        private class PlayCardEffect : CardEffectBase
+        {
+            private readonly IActionCard _card;
+
+            public PlayCardEffect(IActionCard card)
+            {
+                _card = card;
+            }
+
+            public override void Resolve(TurnContext context, ICard source)
+            {
+                _card.Play(context);
+            }
+        }
     }
 }

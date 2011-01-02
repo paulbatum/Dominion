@@ -40,6 +40,9 @@ namespace Dominion.GameHost.AI
             list.AddSimpleAction<University>();
             list.AddSimpleAction<Tribute>();
             list.AddSimpleAction<WorkersVillage>();
+            list.AddSimpleAction<ThroneRoom>();
+            list.AddSimpleAction<KingsCourt>();
+
             return list;
         }
 
@@ -72,7 +75,6 @@ namespace Dominion.GameHost.AI
             list.AddSimpleAction<Mountebank>();
             list.AddSimpleAction<SeaHag>();
             list.AddSimpleAction<Woodcutter>();
-            list.AddSimpleAction<ThroneRoom>();
             list.AddSimpleAction<Golem>();
             list.AddSimpleAction<Workshop>();
             list.AddSimpleAction<Feast>();            

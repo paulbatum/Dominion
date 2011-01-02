@@ -64,10 +64,8 @@ testRunner.Given("A new game with 3 players");
 #line 5
 testRunner.And("Player1 has a Salvager in hand instead of a Copper");
 #line 6
-testRunner.And("Player1 has a Salvager in hand instead of a Copper");
-#line 7
 testRunner.When("Player1 plays a Salvager");
-#line 8
+#line 7
 testRunner.Then("Player1 must select 1 card to trash");
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -78,23 +76,21 @@ testRunner.Then("Player1 must select 1 card to trash");
         public virtual void SalvagerTrashingEstateGivesPlus2Spend()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Salvager trashing estate gives plus 2 spend", ((string[])(null)));
-#line 10
+#line 9
 this.ScenarioSetup(scenarioInfo);
-#line 11
+#line 10
 testRunner.Given("A new game with 3 players");
+#line 11
+testRunner.And("Player1 has a hand of Salvager, Estate, Copper, Copper, Copper");
 #line 12
-testRunner.And("Player1 has a Salvager in hand instead of a Copper");
-#line 13
-testRunner.And("Player1 has a Salvager in hand instead of a Copper");
-#line 14
 testRunner.When("Player1 plays a Salvager");
-#line 15
+#line 13
 testRunner.And("Player1 selects a Estate to trash");
-#line 16
+#line 14
 testRunner.Then("Player1 should have 2 to spend");
-#line 17
+#line 15
 testRunner.And("Player1 should have 2 buys");
-#line 18
+#line 16
 testRunner.And("There should be a Estate on top of the trash pile");
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -105,17 +101,17 @@ testRunner.And("There should be a Estate on top of the trash pile");
         public virtual void SalvagerWithNoOtherCardsInHand()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Salvager with no other cards in hand", ((string[])(null)));
-#line 20
+#line 18
 this.ScenarioSetup(scenarioInfo);
-#line 21
+#line 19
 testRunner.Given("A new game with 3 players");
-#line 22
+#line 20
 testRunner.And("Player1 has a hand of Salvager");
-#line 23
+#line 21
 testRunner.When("Player1 plays a Salvager");
-#line 24
+#line 22
 testRunner.Then("All actions should be resolved");
-#line 25
+#line 23
 testRunner.And("Player1 should have 2 buys");
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -126,17 +122,17 @@ testRunner.And("Player1 should have 2 buys");
         public virtual void SalvagingAPotionCardDoesNotLetThePlayerBuyAPotionCard()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Salvaging a potion card does not let the player buy a potion card", ((string[])(null)));
-#line 27
+#line 25
 this.ScenarioSetup(scenarioInfo);
-#line 28
+#line 26
 testRunner.Given("A new game with 3 players");
-#line 29
+#line 27
 testRunner.And("Player1 has a hand of Salvager, Golem, Estate, Estate, Estate");
-#line 30
+#line 28
 testRunner.When("Player1 plays a Salvager");
-#line 31
+#line 29
 testRunner.And("Player1 selects a Golem to trash");
-#line 32
+#line 30
 testRunner.Then("Player1 should have 4 to spend");
 #line hidden
             testRunner.CollectScenarioErrors();

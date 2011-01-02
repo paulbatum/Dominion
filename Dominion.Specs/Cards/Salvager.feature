@@ -3,14 +3,12 @@
 Scenario: Salvager trashes a card
 	Given A new game with 3 players	
 	And Player1 has a Salvager in hand instead of a Copper
-	And Player1 has a Salvager in hand instead of a Copper
 	When Player1 plays a Salvager
 	Then Player1 must select 1 card to trash
 
 Scenario: Salvager trashing estate gives plus 2 spend
 	Given A new game with 3 players	
-	And Player1 has a Salvager in hand instead of a Copper
-	And Player1 has a Salvager in hand instead of a Copper
+	And Player1 has a hand of Salvager, Estate, Copper, Copper, Copper
 	When Player1 plays a Salvager
 	And Player1 selects a Estate to trash
 	Then Player1 should have 2 to spend

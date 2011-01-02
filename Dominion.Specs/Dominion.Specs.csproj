@@ -195,6 +195,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Harem.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\KingsCourt.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KingsCourt.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\Laboratory.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -485,6 +490,10 @@
     <None Include="Cards\Explorer.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Explorer.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\KingsCourt.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>KingsCourt.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\MerchantShip.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
