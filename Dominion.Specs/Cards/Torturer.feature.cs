@@ -97,6 +97,29 @@ testRunner.Then("Player2 must select 2 cards to discard");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Player plays Torturer and opponent decides to gain a curse")]
+        public virtual void PlayerPlaysTorturerAndOpponentDecidesToGainACurse()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Player plays Torturer and opponent decides to gain a curse", ((string[])(null)));
+#line 18
+this.ScenarioSetup(scenarioInfo);
+#line 19
+testRunner.Given("A new game with 2 players");
+#line 20
+testRunner.And("Player1 has a Torturer in hand instead of a Copper");
+#line 21
+testRunner.When("Player1 plays a Torturer");
+#line 22
+testRunner.And("Player2 chooses to gain a curse (No)");
+#line 23
+testRunner.Then("Player2 should have 6 cards in hand");
+#line 24
+testRunner.And("All actions should be resolved");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
     }
 }
 #endregion

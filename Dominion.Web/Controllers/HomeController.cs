@@ -32,7 +32,9 @@ namespace Dominion.Web.Controllers
         [HttpGet]
         public ActionResult NewGame()
         {
-            this.Response.Cache.SetNoStore();
+            //this.Response.Cache.SetNoStore();
+            this.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+
 
             var model = new NewGameViewModel();
             model.CardsToChooseFrom = CardFactory.OptionalCardsForBank.OrderBy(c => c).ToList();

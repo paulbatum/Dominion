@@ -4,7 +4,6 @@
 <asp:Content runat="server" ID="Content1" ContentPlaceHolderID="HeadContent">
 <script type="text/javascript">
     $(document).ready(function () {
-        $("form").resetForm();
 
         $('#numberOfPlayers')
             .change(function (event) {
