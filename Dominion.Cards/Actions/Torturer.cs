@@ -22,7 +22,15 @@ namespace Dominion.Cards.Actions
         {
             public override void Attack(Player victim, TurnContext context, ICard source)
             {
-                Action discardCards = () => _activities.Add(Activities.DiscardCards(context, victim, 2, source));
+                Action discardCards;
+
+                if (victim.Hand.CardCount > 2)
+                    discardCards = () => _activities.Add(Activities.DiscardCards(context, victim, 2, source));
+                else if(victim.Hand.CardCount > 0)
+                    discardCards = () => context.DiscardCards(victim, victim.Hand);
+                else
+                    discardCards = () => context.Game.Log.LogMessage("{0} had no cards to discard.", victim.Name);
+   
                 Action gainCurse = () => new GainUtility(context, victim).Gain<Curse>(victim.Hand);
 
                 var decideActivity = Activities.ChooseYesOrNo(context.Game.Log, victim, "Discard two cards to Torturer?",

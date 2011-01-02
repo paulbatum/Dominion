@@ -120,6 +120,31 @@ testRunner.And("All actions should be resolved");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Player decides to discard to torturer with only 1 card in hand")]
+        public virtual void PlayerDecidesToDiscardToTorturerWithOnly1CardInHand()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Player decides to discard to torturer with only 1 card in hand", ((string[])(null)));
+#line 26
+this.ScenarioSetup(scenarioInfo);
+#line 27
+testRunner.Given("A new game with 2 players");
+#line 28
+testRunner.And("Player1 has a Torturer in hand instead of a Copper");
+#line 29
+testRunner.And("Player2 has a hand of Copper");
+#line 30
+testRunner.When("Player1 plays a Torturer");
+#line 31
+testRunner.And("Player2 chooses to discard cards (Yes)");
+#line 32
+testRunner.Then("Player2 should have 0 cards in hand");
+#line 33
+testRunner.And("All actions should be resolved");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
     }
 }
 #endregion

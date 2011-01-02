@@ -8,7 +8,7 @@ namespace Dominion.Rules.Activities
     public static class Activities
     {
         public static ISelectCardsActivity DiscardCards(TurnContext context, Player player, int numberToDiscard, ICard source)
-        {
+        {            
             return new SelectCardsActivity(
                 context.Game.Log, player, string.Format("Select {0} card(s) to discard.", numberToDiscard),
                 SelectionSpecifications.SelectExactlyXCards(numberToDiscard), source)

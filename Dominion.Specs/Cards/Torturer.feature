@@ -22,3 +22,12 @@ Scenario: Player plays Torturer and opponent decides to gain a curse
 	And Player2 chooses to gain a curse (No)
 	Then Player2 should have 6 cards in hand
 	And All actions should be resolved
+
+Scenario: Player decides to discard to torturer with only 1 card in hand
+	Given A new game with 2 players	
+	And Player1 has a Torturer in hand instead of a Copper
+	And Player2 has a hand of Copper
+	When Player1 plays a Torturer	
+	And Player2 chooses to discard cards (Yes)
+	Then Player2 should have 0 cards in hand
+	And All actions should be resolved
