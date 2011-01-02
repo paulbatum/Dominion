@@ -137,7 +137,7 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\Images\" />
+    <Folder Include="Content\Images\Cards\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\site.Master" />

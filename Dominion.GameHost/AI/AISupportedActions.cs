@@ -39,6 +39,7 @@ namespace Dominion.GameHost.AI
             list.AddSimpleAction<Apothecary>();           
             list.AddSimpleAction<University>();
             list.AddSimpleAction<Tribute>();
+            list.AddSimpleAction<WorkersVillage>();
             return list;
         }
 

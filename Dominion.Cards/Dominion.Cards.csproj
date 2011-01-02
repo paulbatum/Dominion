@@ -114,6 +114,7 @@
     <Compile Include="Actions\Wharf.cs" />
     <Compile Include="Actions\Witch.cs" />
     <Compile Include="Actions\Woodcutter.cs" />
+    <Compile Include="Actions\WorkersVillage.cs" />
     <Compile Include="Actions\Workshop.cs" />
     <Compile Include="Curses\Curse.cs" />
     <Compile Include="GainUtility.cs" />

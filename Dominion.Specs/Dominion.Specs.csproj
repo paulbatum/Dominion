@@ -355,6 +355,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Witch.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\WorkersVillage.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WorkersVillage.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\Workshop.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -652,6 +657,10 @@
     <None Include="Cards\Witch.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Witch.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\WorkersVillage.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>WorkersVillage.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\Workshop.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
