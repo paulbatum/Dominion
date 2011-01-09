@@ -8,7 +8,7 @@ using Dominion.Rules.CardTypes;
 
 namespace Dominion.Cards.Actions
 {
-    class Salvager : Card, IActionCard
+    public class Salvager : Card, IActionCard
     {
         public Salvager()
             : base(4)
@@ -27,7 +27,7 @@ namespace Dominion.Cards.Actions
             {
                 if (context.ActivePlayer.Hand.CardCount > 0)
                 {
-                    var activity = new SelectCardsActivity(context, "Select a card to salvage",
+                    var activity = new SelectCardsActivity(context, "Select a card to trash",
                         SelectionSpecifications.SelectExactlyXCards(1), source);
 
                     activity.AfterCardsSelected = cardList =>

@@ -85,6 +85,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Apothecary.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\Apprentice.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Apprentice.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\Caravan.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -454,6 +459,10 @@
     <None Include="Cards\Apothecary.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Apothecary.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\Apprentice.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Apprentice.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\Caravan.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
