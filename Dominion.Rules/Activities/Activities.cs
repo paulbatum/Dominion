@@ -275,6 +275,47 @@ namespace Dominion.Rules.Activities
             return activity;
         }
 
+        public static IActivity ChooseWhetherToMillTopCard(TurnContext context, Player choosingPlayer, Player targetPlayer, ICard source)
+        {
+            var revealZone = new RevealZone(targetPlayer);
+            targetPlayer.Deck.TopCard.MoveTo(revealZone);
+            revealZone.LogReveal(context.Game.Log);
+
+            var otherPlayerMessage = string.Format("Put {0}'s card in the discard pile?", targetPlayer.Name);
+            var selfMessage = "Put your own card in the discard pile?";
+
+            var activity = new ChooseBasedOnRevealedCardsActivity(
+                context.Game.Log,
+                choosingPlayer,
+                revealZone,
+                choosingPlayer == targetPlayer ? selfMessage : otherPlayerMessage,
+                source,
+                Choice.Yes,
+                Choice.No
+                );
+
+            activity.ActOnChoice = choice =>
+            {
+                var card = revealZone.Single();
+                string actionDescription;
+                if (choice == Choice.Yes)
+                {
+                    actionDescription = "into the discard pile";
+                    card.MoveTo(targetPlayer.Discards);
+                }
+                else
+                {
+                    actionDescription = "back on top";
+                    targetPlayer.Deck.MoveToTop(card);
+                }
+
+                var message = string.Format("{0} put {1}'s {2} {3}.", context.ActivePlayer, targetPlayer, card.Name, actionDescription);
+                context.Game.Log.LogMessage(message);
+            };
+
+            return activity;
+        }
+
         private class PlayCardEffect : CardEffectBase
         {
             private readonly IActionCard _card;

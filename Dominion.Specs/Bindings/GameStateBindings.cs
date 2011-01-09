@@ -728,6 +728,13 @@ namespace Dominion.Specs.Bindings
             activity.GetCostProperty().ToString().ShouldEqual(cardCost);            
         }
 
+        [Then(@"(.*) should be revealed to (.*)")]
+        public void ThenCardsShouldBeRevealedToPlayer(string cardNames, string playerName)
+        {
+            var player = Game.Players.Single(p => p.Name == playerName);
+            var activity = (IRevealedCardsActivity)Game.GetPendingActivity(player);
+            activity.RevealedCards.ToString().ShouldEqual(cardNames);
+        }
 
 
 

@@ -77,6 +77,7 @@
     <Compile Include="Actions\GhostShip.cs" />
     <Compile Include="Actions\Masquerade.cs" />
     <Compile Include="Actions\Salvager.cs" />
+    <Compile Include="Actions\Spy.cs" />
     <Compile Include="Actions\Swindler.cs" />
     <Compile Include="Actions\Torturer.cs" />
     <Compile Include="Actions\TradingPost.cs" />

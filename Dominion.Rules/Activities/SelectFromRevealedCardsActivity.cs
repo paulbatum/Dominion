@@ -22,4 +22,21 @@
             Type = ActivityType.SelectFromRevealed;
         }
     }
+
+    public class ChooseBasedOnRevealedCardsActivity : ChoiceActivity, IRevealedCardsActivity
+    {
+        public RevealZone RevealedCards { get; private set; }
+
+        public ChooseBasedOnRevealedCardsActivity(TurnContext context, Player player, RevealZone revealZone, string message, ICard source, params Choice[] options) 
+            : base(context, player, message, source, options)
+        {
+            RevealedCards = revealZone;                        
+        }
+
+        public ChooseBasedOnRevealedCardsActivity(IGameLog log, Player player, RevealZone revealZone, string message, ICard source, params Choice[] options) 
+            : base(log, player, message, source, options)
+        {
+            RevealedCards = revealZone;
+        }
+    }
 }
