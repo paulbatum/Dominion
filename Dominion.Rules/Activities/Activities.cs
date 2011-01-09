@@ -103,7 +103,16 @@ namespace Dominion.Rules.Activities
             return new SelectFromRevealedCardsActivity(log, player, revealZone, message,
                                                        SelectionSpecifications.SelectExactlyXCards(1), source)
             {
-                AfterCardsSelected = cards => player.Deck.MoveToTop(cards.Single()),
+                AfterCardsSelected = cards =>
+                {
+                    player.Deck.MoveToTop(cards.Single());
+                    if(revealZone.CardCount == 1)
+                    {
+                        var lastCard = revealZone.Single();
+                        player.Deck.MoveToTop(lastCard);
+                        //log.LogMessage("{0} put a {1} on top.", player.Name, lastCard.Name);
+                    }
+                },
                 Hint = ActivityHint.RedrawCards
             };
         }
@@ -114,7 +123,7 @@ namespace Dominion.Rules.Activities
             return count.Items(
                 (i) => SelectARevealedCardToPutOnTopOfDeck(log, player, revealZone,
                     string.Format("Select the {0} (of {1}) card to put on top of the deck.", i.ToOrderString(), count), source)
-            );               
+            ).Take(count - 1);               
         }
 
         public static IActivity ChooseYesOrNo(IGameLog log, Player player, string message, ICard source, Action ifYes)

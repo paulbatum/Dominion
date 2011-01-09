@@ -105,12 +105,8 @@ testRunner.Then("Player1 must select a revealed card from: Curse, Gold");
 #line 22
 testRunner.When("Player1 selects Curse from the revealed cards");
 #line 23
-testRunner.Then("Player1 must select a revealed card from: Gold");
-#line 24
-testRunner.When("Player1 selects Gold from the revealed cards");
-#line 25
 testRunner.Then("Player1 should have a deck of: Gold, Curse, Silver, Estate");
-#line 26
+#line 24
 testRunner.And("All actions should be resolved");
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -121,19 +117,19 @@ testRunner.And("All actions should be resolved");
         public virtual void ApothecaryIsPlayedWithNoOtherCardsInHandNoDiscardsAndNoDeck()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Apothecary is played with no other cards in hand, no discards and no deck", ((string[])(null)));
-#line 28
+#line 26
 this.ScenarioSetup(scenarioInfo);
-#line 29
+#line 27
 testRunner.Given("A new game with 3 players");
-#line 30
+#line 28
 testRunner.And("Player1 has a hand of Apothecary");
-#line 31
+#line 29
 testRunner.And("Player1 has an empty deck");
-#line 32
+#line 30
 testRunner.When("Player1 plays a Apothecary");
-#line 33
+#line 31
 testRunner.Then("Player1 should have 0 cards in hand");
-#line 34
+#line 32
 testRunner.And("All actions should be resolved");
 #line hidden
             testRunner.CollectScenarioErrors();

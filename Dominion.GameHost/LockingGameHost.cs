@@ -111,34 +111,43 @@ namespace Dominion.GameHost
 
         private void AutomaticallyReact()
         {
-            foreach(var player in _game.Players)
+            bool repeat = true;
+            while (repeat)
             {
-                var activity = _game.GetPendingActivity(player);
-                
-                if(activity is SelectReactionActivity)                    
-                {
-                    var reactionActivity = ((SelectReactionActivity)activity);
-                    var reactions = player.Hand.OfType<IReactionCard>();
+                repeat = false;
 
-                    // This could happen if a player uses a secret chamber and hides it, leaving no reactions in hand.
-                    // An argument could be made for checking this in the SelectReactionActivity somehow. It seemed easier to do it here.
-                    if(reactions.Count() == 0)
-                        reactionActivity.CloseWindow(); 
-                    
-                    if(reactions.Select(r => r.Name).Distinct().Count() == 1)
+                foreach (var player in _game.Players)
+                {
+                    var activity = _game.GetPendingActivity(player);
+
+                    if (activity is SelectReactionActivity)
                     {
-                        // All the reaction cards are of the same type.
-                        var reaction = reactions.First();                       
-                        
-                        if(!reaction.ContinueReactingIfOnlyReaction)
+                        var reactionActivity = ((SelectReactionActivity) activity);
+                        var reactions = player.Hand.OfType<IReactionCard>();
+
+                        // This could happen if a player uses a secret chamber and hides it, leaving no reactions in hand.
+                        // An argument could be made for checking this in the SelectReactionActivity somehow. It seemed easier to do it here.
+                        if (reactions.Count() == 0)
                         {
-                            // It doesn't make sense for the reaction window to stay open after playing this
-                            // reaction, so its safe to play it and then close the window.
-                            reactionActivity.SelectReaction(reaction);                                                                      
-                            reactionActivity.CloseWindow(); 
-                        }                                            
+                            reactionActivity.CloseWindow();
+                            repeat = true;
+                        }
+
+                        if (reactions.Select(r => r.Name).Distinct().Count() == 1)
+                        {
+                            // All the reaction cards are of the same type.
+                            var reaction = reactions.First();
+
+                            if (!reaction.ContinueReactingIfOnlyReaction)
+                            {
+                                // It doesn't make sense for the reaction window to stay open after playing this
+                                // reaction, so its safe to play it and then close the window.
+                                reactionActivity.SelectReaction(reaction);
+                                reactionActivity.CloseWindow();
+                                repeat = true;
+                            }
+                        }
                     }
-                    
                 }
             }
         }

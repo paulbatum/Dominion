@@ -17,3 +17,4 @@ Scenario: Play Witch with only 1 Curse left
 	Then Player2 should have 6 cards in hand
 	Then Player3 should have a Curse on top of the discard pile
 	Then Player1 should not have a Curse on top of the discard pile
+

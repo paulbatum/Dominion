@@ -23,18 +23,25 @@ namespace Dominion.Cards.Actions
         {
             public override void Resolve(TurnContext context, ICard source)
             {
-                var activity = new SelectCardsActivity(context, "Select a treasure card to mine", 
-                    SelectionSpecifications.SelectExactlyXCards(1), source);
-
-                activity.Specification.CardTypeRestriction = typeof(ITreasureCard);
-                activity.AfterCardsSelected = cardList =>
+                if (context.ActivePlayer.Hand.OfType<ITreasureCard>().Any())
                 {
-                    var cardToMine = cardList.Single();
-                    context.Trash(context.ActivePlayer, cardToMine);
-                    AddGainActivity(context.Game.Log, context.ActivePlayer, cardToMine.Cost + 3, source);
-                };
+                    var activity = new SelectCardsActivity(context, "Select a treasure card to mine",
+                                                           SelectionSpecifications.SelectExactlyXCards(1), source);
 
-                _activities.Add(activity);
+                    activity.Specification.CardTypeRestriction = typeof (ITreasureCard);
+                    activity.AfterCardsSelected = cardList =>
+                    {
+                        var cardToMine = cardList.Single();
+                        context.Trash(context.ActivePlayer, cardToMine);
+                        AddGainActivity(context.Game.Log, context.ActivePlayer, cardToMine.Cost + 3, source);
+                    };
+
+                    _activities.Add(activity);
+                }
+                else
+                {
+                    context.Game.Log.LogMessage("No treasure cards to trash.");
+                }
             }
 
             public void AddGainActivity(IGameLog log, Player player, CardCost upToCost, ICard source)

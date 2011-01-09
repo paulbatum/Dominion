@@ -148,6 +148,33 @@ testRunner.Then("Player2 must select 2 cards to discard");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Kings Court a Witch with opponent having Moat in hand")]
+        public virtual void KingsCourtAWitchWithOpponentHavingMoatInHand()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Kings Court a Witch with opponent having Moat in hand", ((string[])(null)));
+#line 39
+this.ScenarioSetup(scenarioInfo);
+#line 40
+testRunner.Given("A new hosted game with 3 players");
+#line 41
+testRunner.And("Player1 has a hand of Witch, KingsCourt, Copper, Copper, Curse");
+#line 42
+testRunner.And("Player2 has a Moat in hand instead of a Copper");
+#line 43
+testRunner.When("Player1 tells the host to play KingsCourt");
+#line 44
+testRunner.And("Player1 tells the host to select Witch");
+#line 45
+testRunner.Then("All actions should be resolved");
+#line 46
+testRunner.And("Player2 should have 0 cards in the discard pile");
+#line 47
+testRunner.And("Player3 should have a Curse on top of the discard pile");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
     }
 }
 #endregion

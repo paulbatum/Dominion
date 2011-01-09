@@ -116,12 +116,8 @@ testRunner.Then("Player2 must select a revealed card from: Estate, Curse");
 #line 23
 testRunner.When("Player2 selects Estate from the revealed cards");
 #line 24
-testRunner.Then("Player2 must select a revealed card from: Curse");
-#line 25
-testRunner.When("Player2 selects Curse from the revealed cards");
-#line 26
 testRunner.Then("Player2 should have a deck of: Curse, Estate, Copper, Estate");
-#line 27
+#line 25
 testRunner.And("All actions should be resolved");
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -134,23 +130,23 @@ testRunner.And("All actions should be resolved");
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Information on Rabble effect", new string[] {
                         "Hosted"});
-#line 30
+#line 28
 this.ScenarioSetup(scenarioInfo);
-#line 31
+#line 29
 testRunner.Given("A new hosted game with 2 players");
-#line 32
+#line 30
 testRunner.And("Player1 has a Rabble in hand instead of a Copper");
-#line 33
+#line 31
 testRunner.And("Player2 has a deck of Estate, Curse, Copper, Copper, Estate");
-#line 34
+#line 32
 testRunner.When("The game begins");
-#line 35
+#line 33
 testRunner.And("Player1 tells the host to play Rabble");
-#line 36
+#line 34
 testRunner.Then("Player2\'s current activity should have a type of SelectFromRevealed");
-#line 37
+#line 35
 testRunner.Then("Player2\'s current activity should have a hint of RedrawCards");
-#line 38
+#line 36
 testRunner.Then("Player2\'s current activity should have a source of Rabble");
 #line hidden
             testRunner.CollectScenarioErrors();

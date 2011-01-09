@@ -78,7 +78,8 @@ namespace Dominion.Specs.Bindings
         [When(@"(.*) tells the host to reveal (.*)")]
         [When(@"(.*) tells the host to pass (.*)")]
         [When(@"(.*) tells the host to put (.*) on top")]
-        public void WhenPlayerTellsTheHostToReveal(string playerName, string cardName)
+        [When(@"(.*) tells the host to select (.*)")]
+        public void WhenPlayerTellsTheHostToSelect(string playerName, string cardName)
         {
             var client = _clients.Single(c => c.PlayerName == playerName);
             var gameState = _gameHost.GetGameState(client);

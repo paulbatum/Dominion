@@ -35,3 +35,13 @@ Scenario: Automatically pass if a Player uses Secret Chamber and puts it on top,
 	And Player2 tells the host to put SecretChamber on top
 	And Player2 tells the host to put Copper on top
 	Then Player2 must select 2 cards to discard		
+
+Scenario: Kings Court a Witch with opponent having Moat in hand
+	Given A new hosted game with 3 players
+	And Player1 has a hand of Witch, KingsCourt, Copper, Copper, Curse
+	And Player2 has a Moat in hand instead of a Copper
+	When Player1 tells the host to play KingsCourt
+	And Player1 tells the host to select Witch
+	Then All actions should be resolved
+	And Player2 should have 0 cards in the discard pile
+	And Player3 should have a Curse on top of the discard pile

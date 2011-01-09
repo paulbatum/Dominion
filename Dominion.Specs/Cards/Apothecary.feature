@@ -20,8 +20,6 @@ Scenario: Play Apothecary with no potions or coppers on top
 	When Player1 selects Silver from the revealed cards
 	Then Player1 must select a revealed card from: Curse, Gold	
 	When Player1 selects Curse from the revealed cards
-	Then Player1 must select a revealed card from: Gold	
-	When Player1 selects Gold from the revealed cards
 	Then Player1 should have a deck of: Gold, Curse, Silver, Estate
 	And All actions should be resolved		
 		

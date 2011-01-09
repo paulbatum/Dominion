@@ -21,8 +21,6 @@ Scenario: Player plays Rabble and the revealed cards include two non-treasure no
 	When Player1 plays a Rabble	
 	Then Player2 must select a revealed card from: Estate, Curse	
 	When Player2 selects Estate from the revealed cards
-	Then Player2 must select a revealed card from: Curse	
-	When Player2 selects Curse from the revealed cards
 	Then Player2 should have a deck of: Curse, Estate, Copper, Estate
 	And All actions should be resolved
 
