@@ -24,6 +24,14 @@ Scenario: Player plays Rabble and the revealed cards include two non-treasure no
 	Then Player2 should have a deck of: Curse, Estate, Copper, Estate
 	And All actions should be resolved
 
+Scenario: Player plays Rabble and the revealed cards include one non-treasure non-action card
+	Given A new game with 2 players
+	And Player1 has a Rabble in hand instead of a Copper
+	And Player2 has a deck of Estate, Copper, Copper, Copper, Estate
+	When Player1 plays a Rabble	
+	Then Player2 should have a deck of: Estate, Copper, Estate
+	And All actions should be resolved
+
 @Hosted
 Scenario: Information on Rabble effect
 	Given A new hosted game with 2 players		

@@ -1,4 +1,5 @@
-﻿using Dominion.Cards.Treasure;
+﻿using System.Linq;
+using Dominion.Cards.Treasure;
 using Dominion.Rules;
 using Dominion.Rules.Activities;
 using Dominion.Rules.CardTypes;
@@ -28,6 +29,9 @@ namespace Dominion.Cards.Actions
 
                 revealZone.LogReveal(context.Game.Log);
                 revealZone.MoveWhere(c => c is Copper || c is Potion, context.ActivePlayer.Hand);
+
+                if (revealZone.CardCount == 1)
+                    context.ActivePlayer.Deck.MoveToTop(revealZone.Single());
 
                 foreach (var activity in Activities.SelectMultipleRevealedCardsToPutOnTopOfDeck(context.Game.Log, context.ActivePlayer, revealZone, source))
                     _activities.Add(activity);

@@ -118,8 +118,11 @@ namespace Dominion.Rules.Activities
         }
 
         public static IEnumerable<IActivity> SelectMultipleRevealedCardsToPutOnTopOfDeck(IGameLog log, Player player, RevealZone revealZone, ICard source)
-        {
+        {            
             var count = revealZone.Count();
+            if (count == 1)
+                throw new ArgumentException("The reveal zone only contains one card. Cannot select multiples.");
+
             return count.Items(
                 (i) => SelectARevealedCardToPutOnTopOfDeck(log, player, revealZone,
                     string.Format("Select the {0} (of {1}) card to put on top of the deck.", i.ToOrderString(), count), source)

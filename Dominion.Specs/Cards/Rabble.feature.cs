@@ -124,29 +124,54 @@ testRunner.And("All actions should be resolved");
         }
         
         [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Player plays Rabble and the revealed cards include one non-treasure non-action ca" +
+            "rd")]
+        public virtual void PlayerPlaysRabbleAndTheRevealedCardsIncludeOneNon_TreasureNon_ActionCard()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Player plays Rabble and the revealed cards include one non-treasure non-action ca" +
+                    "rd", ((string[])(null)));
+#line 27
+this.ScenarioSetup(scenarioInfo);
+#line 28
+testRunner.Given("A new game with 2 players");
+#line 29
+testRunner.And("Player1 has a Rabble in hand instead of a Copper");
+#line 30
+testRunner.And("Player2 has a deck of Estate, Copper, Copper, Copper, Estate");
+#line 31
+testRunner.When("Player1 plays a Rabble");
+#line 32
+testRunner.Then("Player2 should have a deck of: Estate, Copper, Estate");
+#line 33
+testRunner.And("All actions should be resolved");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Information on Rabble effect")]
         [NUnit.Framework.CategoryAttribute("Hosted")]
         public virtual void InformationOnRabbleEffect()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Information on Rabble effect", new string[] {
                         "Hosted"});
-#line 28
-this.ScenarioSetup(scenarioInfo);
-#line 29
-testRunner.Given("A new hosted game with 2 players");
-#line 30
-testRunner.And("Player1 has a Rabble in hand instead of a Copper");
-#line 31
-testRunner.And("Player2 has a deck of Estate, Curse, Copper, Copper, Estate");
-#line 32
-testRunner.When("The game begins");
-#line 33
-testRunner.And("Player1 tells the host to play Rabble");
-#line 34
-testRunner.Then("Player2\'s current activity should have a type of SelectFromRevealed");
-#line 35
-testRunner.Then("Player2\'s current activity should have a hint of RedrawCards");
 #line 36
+this.ScenarioSetup(scenarioInfo);
+#line 37
+testRunner.Given("A new hosted game with 2 players");
+#line 38
+testRunner.And("Player1 has a Rabble in hand instead of a Copper");
+#line 39
+testRunner.And("Player2 has a deck of Estate, Curse, Copper, Copper, Estate");
+#line 40
+testRunner.When("The game begins");
+#line 41
+testRunner.And("Player1 tells the host to play Rabble");
+#line 42
+testRunner.Then("Player2\'s current activity should have a type of SelectFromRevealed");
+#line 43
+testRunner.Then("Player2\'s current activity should have a hint of RedrawCards");
+#line 44
 testRunner.Then("Player2\'s current activity should have a source of Rabble");
 #line hidden
             testRunner.CollectScenarioErrors();

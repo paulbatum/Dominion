@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Dominion.Rules;
 using Dominion.Rules.Activities;
 using Dominion.Rules.CardTypes;
@@ -27,6 +28,9 @@ namespace Dominion.Cards.Actions
 
                 revealZone.LogReveal(context.Game.Log);
                 revealZone.MoveWhere(c => c is IActionCard || c is ITreasureCard, victim.Discards);
+
+                if(revealZone.CardCount == 1)
+                    victim.Deck.MoveToTop(revealZone.Single());
 
                 foreach (var activity in Activities.SelectMultipleRevealedCardsToPutOnTopOfDeck(context.Game.Log, victim, revealZone, source))
                     _activities.Add(activity);
