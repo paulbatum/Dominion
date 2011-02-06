@@ -1,4 +1,5 @@
-﻿using Dominion.Cards.Treasure;
+﻿using System;
+using Dominion.Cards.Treasure;
 using Dominion.Cards.Victory;
 using Dominion.Rules;
 using Dominion.Rules.Activities;

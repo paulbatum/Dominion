@@ -34,7 +34,8 @@ namespace Dominion.Rules.Activities
             if (pile != null)
             {
                 CheckPile(pile);
-                AfterPileSelected(pile);
+                if(AfterPileSelected != null)
+                    AfterPileSelected(pile);
             }
             else
             {

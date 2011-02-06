@@ -205,6 +205,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Harem.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\Ironworks.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Ironworks.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\KingsCourt.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -513,6 +518,10 @@
     <None Include="Cards\Explorer.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Explorer.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\Ironworks.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Ironworks.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\KingsCourt.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

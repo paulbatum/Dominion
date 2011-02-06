@@ -44,39 +44,22 @@ namespace Dominion.Rules.Activities
                                                                string.Format("Select the {0} (of {1}) card to put on top of the deck.", i.ToOrderString(), count), source));
         }
 
-        public static SelectPileActivity GainACardCostingUpToX(IGameLog log, Player player, CardCost cost, ICard source)
+        public static GainACardActivity GainACardCostingUpToX(IGameLog log, Player player, CardCost cost, ICard source)
         {
             return GainACardCostingUpToX(log, player, cost, player.Discards, source);
         }
 
-        public static SelectPileActivity GainACardCostingUpToX(IGameLog log, Player player, CardCost cost, CardZone destination, ICard source)
+        public static GainACardActivity GainACardCostingUpToX(IGameLog log, Player player, CardCost cost, CardZone destination, ICard source)
         {
-            return new SelectPileActivity(log, player, string.Format("Select a card to gain of cost {0} or less.", cost),
-                                          SelectionSpecifications.SelectPileCostingUpToX(cost), source)
-            {
-                AfterPileSelected = pile =>
-                {
-                    var card = pile.TopCard;
-                    card.MoveTo(destination);
-                    log.LogGain(player, card);
-                },
-                Hint = ActivityHint.GainCards
-            };
+            return new GainACardActivity(log, player, string.Format("Select a card to gain of cost {0} or less.", cost),
+                                         SelectionSpecifications.SelectPileCostingUpToX(cost), destination, source);
         }
 
-        public static SelectPileActivity GainACardCostingExactlyX(IGameLog log, Player player, CardCost cost, CardZone destination, ICard source)
+        public static GainACardActivity GainACardCostingExactlyX(IGameLog log, Player player, CardCost cost, CardZone destination, ICard source)
         {
-            return new SelectPileActivity(log, player, string.Format("Select a card to gain with a cost of exactly {0}.", cost),
-                                          SelectionSpecifications.SelectPileCostingExactlyX(cost), source)
-            {
-                AfterPileSelected = pile =>
-                {
-                    var card = pile.TopCard;
-                    card.MoveTo(destination);
-                    log.LogGain(player, card);
-                },
-                Hint = ActivityHint.GainCards
-            };
+            return new GainACardActivity(log, player,
+                                         string.Format("Select a card to gain with a cost of exactly {0}.", cost),
+                                         SelectionSpecifications.SelectPileCostingExactlyX(cost), destination, source);
         }
 
         public static IActivity GainOpponentsCardChoice(TurnContext context, Card card, Player cardOwner, ICard source)

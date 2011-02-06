@@ -259,7 +259,7 @@ namespace Dominion.Specs.Bindings
         }
 
 
-        [When(@"(.*) gains a (.*)")]
+        [When(@"(.*) gains a[n]? (.*)")]
         public void WhenPlayerGainsACard(string playerName, string cardName)
         {
             var player = Game.Players.Single(p => p.Name == playerName);
