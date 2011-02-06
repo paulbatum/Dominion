@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Actions\Apothecary.cs" />
     <Compile Include="Actions\Apprentice.cs" />
+    <Compile Include="Actions\Baron.cs" />
     <Compile Include="Actions\Bazaar.cs" />
     <Compile Include="Actions\Caravan.cs" />
     <Compile Include="Actions\Cellar.cs" />
