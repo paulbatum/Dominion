@@ -38,6 +38,24 @@ namespace Dominion.Rules.Activities
             };
         }
 
+        public static ISelectCardsActivity PutCardOfTypeFromHandOnTopOfDeck(IGameLog log, Player player, string message, Type cardType, ICard source)
+        {
+            var spec = SelectionSpecifications.SelectExactlyXCards(1);
+            spec.CardTypeRestriction = cardType;
+
+            return new SelectCardsActivity
+                (log, player, message, spec, source)
+            {
+                AfterCardsSelected = cards =>
+                {
+                    var card = cards.Single();
+                    player.Deck.MoveToTop(card);
+                    log.LogMessage("{0} put a {1} on top of the deck.", player.Name, card.Name);
+                },
+                Hint = ActivityHint.RedrawCards
+            };
+        }
+
         public static IEnumerable<ISelectCardsActivity> PutMultipleCardsFromHandOnTopOfDeck(IGameLog log, Player player, int count, ICard source)
         {
             return count.Items(i => PutCardFromHandOnTopOfDeck(log, player, 
@@ -176,7 +194,7 @@ namespace Dominion.Rules.Activities
         }
 
 
-        public static IActivity SelectUpToXCardsToTrash(TurnContext context, Player player, int count, ICard source)
+        public static ISelectCardsActivity SelectUpToXCardsToTrash(TurnContext context, Player player, int count, ICard source)
         {
             var activity = new SelectCardsActivity(context.Game.Log, player,
                 string.Format("Select up to {0} card(s) to trash.", count),

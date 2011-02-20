@@ -7,7 +7,8 @@ namespace Dominion.Rules.Activities
 {
     public interface ISelectCardsActivity : IActivity
     {        
-        void SelectCards(IEnumerable<ICard> cards);                
+        void SelectCards(IEnumerable<ICard> cards);
+        Action<IEnumerable<ICard>> AfterCardsSelected { get; set; }
     }
 
     public class SelectCardsActivity : ActivityBase, ISelectCardsActivity

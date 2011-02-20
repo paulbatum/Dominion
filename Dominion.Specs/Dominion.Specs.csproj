@@ -95,6 +95,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Baron.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\Bureaucrat.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Bureaucrat.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\Caravan.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -179,6 +184,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FishingVillage.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Cards\Forge.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Forge.feature</DependentUpon>
     </Compile>
     <Compile Include="Cards\Gardens.feature.cs">
       <AutoGen>True</AutoGen>
@@ -483,6 +493,10 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Baron.feature.cs</LastGenOutput>
     </None>
+    <None Include="Cards\Bureaucrat.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Bureaucrat.feature.cs</LastGenOutput>
+    </None>
     <None Include="Cards\Caravan.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Caravan.feature.cs</LastGenOutput>
@@ -518,6 +532,10 @@
     <None Include="Cards\Explorer.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Explorer.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\Forge.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Forge.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\Ironworks.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

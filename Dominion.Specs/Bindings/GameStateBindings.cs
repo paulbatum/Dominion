@@ -494,6 +494,13 @@ namespace Dominion.Specs.Bindings
             Game.Log.Contents.ShouldContain(playerName + " played a " + cardName);
         }
 
+        [Then(@"The game log should report that (.*) revealed (.*)")]
+        public void ThenTheGameLogShouldReportThatRevealedA(string playerName, string cards)
+        {
+            var expected = string.Format("{0} has the following cards in hand: {1}", playerName, cards);
+            Game.Log.Contents.ShouldContain(expected);
+        }
+
         [Then(@"The game log should report the scores")]
         public void ThenTheGameLogShouldReportTheScores()
         {
@@ -569,6 +576,16 @@ namespace Dominion.Specs.Bindings
 
             activity.GetCountProperty().ShouldEqual(cardCount);
             activity.GetTypeRestrictionProperty().ShouldEqual(typeof (IActionCard).Name);
+        }
+
+        [Then(@"(.*) must select (\d+) victory card[s]?")]
+        public void ThenPlayerMustSelectVictoryCard(string playerName, int cardCount)
+        {
+            var player = Game.Players.Single(p => p.Name == playerName);
+            var activity = (ISelectCardsActivity)Game.GetPendingActivity(player);
+
+            activity.GetCountProperty().ShouldEqual(cardCount);
+            activity.GetTypeRestrictionProperty().ShouldEqual(typeof(IVictoryCard).Name);
         }
 
         [Then(@"(.*) must select (\d+) treasure card[s]? to .*")]

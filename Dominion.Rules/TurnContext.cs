@@ -108,6 +108,11 @@ namespace Dominion.Rules
             return this.ActivePlayer == player && CanBuy(pile);
         }
 
+        public bool CanGainOfCost(CardCost cardCost)
+        {
+            return Game.Bank.Piles.Any(p => !p.IsEmpty && p.TopCard.Cost == cardCost);
+        }
+
         public void Buy(CardPile pile)
         {
             if (!CanBuy(pile))

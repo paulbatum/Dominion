@@ -64,6 +64,7 @@
     <Compile Include="Actions\Apprentice.cs" />
     <Compile Include="Actions\Baron.cs" />
     <Compile Include="Actions\Bazaar.cs" />
+    <Compile Include="Actions\Bureaucrat.cs" />
     <Compile Include="Actions\Caravan.cs" />
     <Compile Include="Actions\Cellar.cs" />
     <Compile Include="Actions\Chancellor.cs" />
@@ -71,7 +72,9 @@
     <Compile Include="Actions\City.cs" />
     <Compile Include="Actions\Adventurer.cs" />
     <Compile Include="Actions\Courtyard.cs" />
+    <Compile Include="Actions\Cutpurse.cs" />
     <Compile Include="Actions\Explorer.cs" />
+    <Compile Include="Actions\Forge.cs" />
     <Compile Include="Actions\Ironworks.cs" />
     <Compile Include="Actions\KingsCourt.cs" />
     <Compile Include="Actions\MerchantShip.cs" />
