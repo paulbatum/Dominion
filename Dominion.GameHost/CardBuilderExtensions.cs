@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Dominion.Rules;
 using System;
+using Dominion.Rules.CardTypes;
 
 namespace Dominion.GameHost
 {

@@ -76,6 +76,7 @@
     <Compile Include="CardBank.cs" />
     <Compile Include="CardCost.cs" />
     <Compile Include="CardEffectBase.cs" />
+    <Compile Include="CardPile.cs" />
     <Compile Include="CardTypes\SameTypeEqualityComparer.cs" />
     <Compile Include="CardTypes\IActionCard.cs" />
     <Compile Include="Card.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="Activities\SelectCardsActivity.cs" />
     <Compile Include="GameScores.cs" />
     <Compile Include="ICard.cs" />
+    <Compile Include="LimitedSupplyCardPile.cs" />
     <Compile Include="PassiveCardEffectBase.cs" />
     <Compile Include="PlayArea.cs" />
     <Compile Include="ILongLivedCardEffect.cs" />
@@ -106,6 +108,7 @@
     <Compile Include="CardTypes\ITreasureCard.cs" />
     <Compile Include="TrashPile.cs" />
     <Compile Include="TurnContext.cs" />
+    <Compile Include="UnlimitedSupplyCardPile.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

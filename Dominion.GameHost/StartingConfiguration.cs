@@ -5,6 +5,7 @@ using Dominion.Cards.Curses;
 using Dominion.Cards.Treasure;
 using Dominion.Cards.Victory;
 using Dominion.Rules;
+using Dominion.Rules.CardTypes;
 
 namespace Dominion.GameHost
 {
@@ -103,6 +104,12 @@ namespace Dominion.GameHost
         private CardPile Potions
         {
             get { return new LimitedSupplyCardPile().WithNewCards<Potion>(20); }
+        }
+
+        public int GetStartingCount(string cardName)
+        {
+            var card = CardFactory.CreateCard(cardName);
+            return card is IVictoryCard ? 12 : 10;
         }
     }
 }

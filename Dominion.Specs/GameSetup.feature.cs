@@ -83,14 +83,34 @@ testRunner.Then("Each player should have 5 cards in hand");
             testRunner.CollectScenarioErrors();
         }
         
-        public virtual void AvailableProvincesForNumberOfPlayers(string playerCount, string provinceCount)
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Ten of each non-victory kingdom card, 12 of each victory kingdom card")]
+        public virtual void TenOfEachNon_VictoryKingdomCard12OfEachVictoryKingdomCard()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Available provinces for number of players", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Ten of each non-victory kingdom card, 12 of each victory kingdom card", ((string[])(null)));
 #line 14
 this.ScenarioSetup(scenarioInfo);
 #line 15
-testRunner.Given(string.Format("A new game with {0} players", playerCount));
+testRunner.Given("A new game with 3 players and bank of Gardens, Nobles, Smithy, Village, Cellar, M" +
+                    "arket, Festival, Witch, CouncilRoom, Moat");
 #line 16
+testRunner.Then("There should be 12 Gardens available to buy");
+#line 17
+testRunner.Then("There should be 12 Nobles available to buy");
+#line 18
+testRunner.Then("There should be 10 Smithy available to buy");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        public virtual void AvailableProvincesForNumberOfPlayers(string playerCount, string provinceCount)
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Available provinces for number of players", ((string[])(null)));
+#line 20
+this.ScenarioSetup(scenarioInfo);
+#line 21
+testRunner.Given(string.Format("A new game with {0} players", playerCount));
+#line 22
 testRunner.Then(string.Format("There should be {0} Province available to buy", provinceCount));
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -141,11 +161,11 @@ testRunner.Then(string.Format("There should be {0} Province available to buy", p
         public virtual void AvailableCursesForNumberOfPlayers(string playerCount, string curseCount)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Available curses for number of players", ((string[])(null)));
-#line 27
+#line 33
 this.ScenarioSetup(scenarioInfo);
-#line 28
+#line 34
 testRunner.Given(string.Format("A new game with {0} players", playerCount));
-#line 29
+#line 35
 testRunner.Then(string.Format("There should be {0} Curse available to buy", curseCount));
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -198,11 +218,11 @@ testRunner.Then(string.Format("There should be {0} Curse available to buy", curs
         public virtual void NoPotionsAreAvailableIfThereAreNoCardsThatCostThem()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("No potions are available if there are no cards that cost them", ((string[])(null)));
-#line 41
+#line 47
 this.ScenarioSetup(scenarioInfo);
-#line 42
+#line 48
 testRunner.Given("A new game with 3 players");
-#line 43
+#line 49
 testRunner.Then("There should be no Potion pile");
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -213,12 +233,12 @@ testRunner.Then("There should be no Potion pile");
         public virtual void PotionsAreAvailableIfThereAreCardsThatCostThem()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Potions are available if there are cards that cost them", ((string[])(null)));
-#line 45
+#line 51
 this.ScenarioSetup(scenarioInfo);
-#line 46
+#line 52
 testRunner.Given("A new game with 3 players and bank of Familiar, Militia, Smithy, Village, Cellar," +
                     " Gardens, Market, Festival, Witch, CouncilRoom");
-#line 47
+#line 53
 testRunner.Then("There should be 20 Potion available to buy");
 #line hidden
             testRunner.CollectScenarioErrors();

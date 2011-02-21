@@ -29,8 +29,8 @@ namespace Dominion.GameHost
 
         public override void InitializeBank(CardBank bank)
         {
-            foreach (var card in _chosenCards)
-                bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards(card, 10));
+            foreach (string card in _chosenCards)
+                bank.AddCardPile(new LimitedSupplyCardPile().WithNewCards(card, GetStartingCount(card)));
 
             if (_useProsperity)            
                 AddProsperityCards(bank);                            

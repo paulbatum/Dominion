@@ -11,6 +11,12 @@ Scenario: Draw opening hand
 	Given A new game with 3 players	
 	Then Each player should have 5 cards in hand 
 
+Scenario: Ten of each non-victory kingdom card, 12 of each victory kingdom card
+	Given A new game with 3 players and bank of Gardens, Nobles, Smithy, Village, Cellar, Market, Festival, Witch, CouncilRoom, Moat
+	Then There should be 12 Gardens available to buy
+	Then There should be 12 Nobles available to buy
+	Then There should be 10 Smithy available to buy
+
 Scenario Outline: Available provinces for number of players
 	Given A new game with <player count> players
 	Then There should be <province count> Province available to buy
@@ -45,3 +51,4 @@ Scenario: No potions are available if there are no cards that cost them
 Scenario: Potions are available if there are cards that cost them
 	Given A new game with 3 players and bank of Familiar, Militia, Smithy, Village, Cellar, Gardens, Market, Festival, Witch, CouncilRoom
 	Then There should be 20 Potion available to buy
+
