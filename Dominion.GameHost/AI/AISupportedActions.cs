@@ -81,6 +81,9 @@ namespace Dominion.GameHost.AI
             list.AddSimpleAction<Explorer>();
             list.AddSimpleAction<Cutpurse>();
             list.AddSimpleAction<MerchantShip>();
+            list.AddSimpleAction<Bureaucrat>();
+            list.AddSimpleAction<Ironworks>();
+            list.AddSimpleAction<Baron>();   
 
             // Chapel behavior has to be more sophisticated before it can be turned on.
             // list.AddSimpleAction<Chapel>(); 

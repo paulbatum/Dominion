@@ -575,7 +575,7 @@ namespace Dominion.Specs.Bindings
             var activity = (ISelectCardsActivity) Game.GetPendingActivity(player);
 
             activity.GetCountProperty().ShouldEqual(cardCount);
-            activity.GetTypeRestrictionProperty().ShouldEqual(typeof (IActionCard).Name);
+            activity.GetTypeRestrictionProperty().ShouldEqual(typeof (IActionCard));
         }
 
         [Then(@"(.*) must select (\d+) victory card[s]?")]
@@ -585,7 +585,7 @@ namespace Dominion.Specs.Bindings
             var activity = (ISelectCardsActivity)Game.GetPendingActivity(player);
 
             activity.GetCountProperty().ShouldEqual(cardCount);
-            activity.GetTypeRestrictionProperty().ShouldEqual(typeof(IVictoryCard).Name);
+            activity.GetTypeRestrictionProperty().ShouldEqual(typeof(IVictoryCard));
         }
 
         [Then(@"(.*) must select (\d+) treasure card[s]? to .*")]
@@ -595,7 +595,7 @@ namespace Dominion.Specs.Bindings
             var activity = (ISelectCardsActivity) Game.GetPendingActivity(player);
 
             activity.GetCountProperty().ShouldEqual(cardCount);
-            activity.GetTypeRestrictionProperty().ShouldEqual(typeof(ITreasureCard).Name);
+            activity.GetTypeRestrictionProperty().ShouldEqual(typeof(ITreasureCard));
         }
 
         [Then(@"(.*) must gain a card of cost (.*) or less")]
@@ -632,7 +632,7 @@ namespace Dominion.Specs.Bindings
             CardCost cardCost = CardCost.Parse(cost);
            
             activity.GetCostProperty().ShouldEqual(cardCost);
-            activity.GetTypeRestrictionProperty().ShouldEqual(typeof (ITreasureCard).Name);
+            activity.GetTypeRestrictionProperty().ShouldEqual(typeof (ITreasureCard));
         }
 
         [Then(@"(.*) may gain an action card of cost (.*) or less")]
@@ -644,7 +644,7 @@ namespace Dominion.Specs.Bindings
 
             activity.IsOptional.ShouldBeTrue();
             activity.GetCostProperty().ShouldEqual(cardCost);
-            activity.GetTypeRestrictionProperty().ShouldEqual(typeof(IActionCard).Name);
+            activity.GetTypeRestrictionProperty().ShouldEqual(typeof(IActionCard));
         }
 
 

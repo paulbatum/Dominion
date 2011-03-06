@@ -213,5 +213,14 @@ namespace Dominion.Specs.Bindings
 
             gameState.PendingActivity.Source.ShouldEqual(source);
         }
+
+        [Then(@"(.*)'s current activity should have a type restriction of (.*)")]
+        public void ThenPlayersCurrentActivityHasATypeRestrictionOf(string playerName, string type)
+        {
+            var client = _clients.Single(c => c.PlayerName == playerName);
+            var gameState = _gameHost.GetGameState(client);
+
+            gameState.PendingActivity.GetTypeRestrictionProperty().ShouldEqual(type);
+        }
     }
 }

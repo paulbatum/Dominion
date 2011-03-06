@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Dominion.Rules.Activities;
 
@@ -14,7 +15,9 @@ namespace Dominion.GameHost.AI.BehaviourBased
 
         protected override IEnumerable<CardViewModel> PrioritiseCards(GameViewModel state, ActivityModel activity)
         {
+
             return state.Hand
+                .Where(c => !activity.HasTypeRestriction() || c.Types.Contains(activity.ParseTypeRestriction()))                
                 .OrderByDescending(c => c.Is(CardType.Treasure) == false)
                 .ThenByDescending(c => c.Is(CardType.Action) == false)
                 .ThenBy(c => c.Cost);

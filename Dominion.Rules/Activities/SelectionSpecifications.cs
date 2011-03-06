@@ -84,7 +84,7 @@ namespace Dominion.Rules.Activities
                     bag["NumberOfCardsToSelect"] = Count;
 
                 if (CardTypeRestriction != null)
-                    bag["CardsMustBeOfType"] = this.CardTypeRestriction.Name;
+                    bag["CardsMustBeOfType"] = this.CardTypeRestriction;
 
                 if (CardNameRestriction != null)
                     bag["CardMustHaveName"] = this.CardNameRestriction;

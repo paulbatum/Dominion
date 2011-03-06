@@ -23,6 +23,16 @@ namespace Dominion.GameHost.AI
             return int.Parse(activity.Properties["NumberOfCardsToSelect"].ToString());
         }
 
+        public static bool HasTypeRestriction(this ActivityModel activity)
+        {
+            return activity.Properties.ContainsKey("CardsMustBeOfType");
+        }
+
+        public static string ParseTypeRestriction(this ActivityModel activity)
+        {
+            return (string) activity.Properties["CardsMustBeOfType"];
+        }
+
         public static IEnumerable<Choice> ParseOptions(this ActivityModel activity)
         {
             var options = (IEnumerable<string>)activity.Properties["AllowedOptions"];

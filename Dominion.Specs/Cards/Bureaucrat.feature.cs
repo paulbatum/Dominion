@@ -152,6 +152,31 @@ testRunner.And("All actions should be resolved");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("The view indicates that only victory cards may be selected")]
+        [NUnit.Framework.CategoryAttribute("Hosted")]
+        public virtual void TheViewIndicatesThatOnlyVictoryCardsMayBeSelected()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The view indicates that only victory cards may be selected", new string[] {
+                        "Hosted"});
+#line 39
+this.ScenarioSetup(scenarioInfo);
+#line 40
+testRunner.Given("A new hosted game with 3 players");
+#line 41
+testRunner.And("Player1 has a Bureaucrat in hand instead of a Copper");
+#line 42
+testRunner.And("Player2 has a hand of Copper, Copper, Copper, Duchy, Estate");
+#line 43
+testRunner.When("The game begins");
+#line 44
+testRunner.And("Player1 tells the host to play Bureaucrat");
+#line 45
+testRunner.Then("Player2\'s current activity should have a type restriction of Victory");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
     }
 }
 #endregion

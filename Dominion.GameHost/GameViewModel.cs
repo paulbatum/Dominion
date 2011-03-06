@@ -14,7 +14,7 @@ namespace Dominion.GameHost
             Log = game.Log.Contents;
 
             Version = game.Version;
-            
+
             PopulateActivityRelated(game, player);
 
             Bank = game.Bank.Piles
@@ -40,7 +40,7 @@ namespace Dominion.GameHost
 
             Discards = new DiscardPileViewModel(player.Discards);
 
-            if(Status.GameIsComplete)
+            if (Status.GameIsComplete)
             {
                 Results = new GameResultsViewModel(game.Scores);
             }
@@ -50,7 +50,7 @@ namespace Dominion.GameHost
         {
             var activity = game.GetPendingActivity(player);
 
-            if(activity != null)
+            if (activity != null)
                 PendingActivity = new ActivityModel(activity);
 
             if (activity is IRevealedCardsActivity)
@@ -77,15 +77,27 @@ namespace Dominion.GameHost
     {
         public ActivityModel(IActivity activity)
         {
-            Properties = activity.Properties;
-            Type = activity.Type.ToString();            
+            Properties = ConvertProperties(activity);
+            Type = activity.Type.ToString();
             Message = activity.Message;
             Id = activity.Id;
 
             Hint = activity.Hint.ToString();
             Source = activity.Source;
         }
-        
+
+        private static IDictionary<string, object> ConvertProperties(IActivity activity)
+        {
+            // TODO: Here be dragons, etc. Really need a way to handle this better.
+            var viewModelProperties = new Dictionary<string, object>(activity.Properties);
+            if (activity.Properties.ContainsKey("CardsMustBeOfType"))
+            {
+                viewModelProperties["CardsMustBeOfType"] =
+                    ((Type)viewModelProperties["CardsMustBeOfType"]).GetCardTypes().Single();
+            }
+            return viewModelProperties;
+        }
+
         public string Type { get; set; }
         public string Message { get; set; }
         public string Source { get; set; }
@@ -99,8 +111,8 @@ namespace Dominion.GameHost
         public TurnContextViewModel(TurnContext currentTurn, Player player)
         {
             GameIsComplete = currentTurn.Game.IsComplete;
-            
-            if(currentTurn.ActivePlayer == player && !GameIsComplete)
+
+            if (currentTurn.ActivePlayer == player && !GameIsComplete)
             {
                 BuyCount = currentTurn.Buys;
                 RemainingActions = currentTurn.RemainingActions;
@@ -115,7 +127,7 @@ namespace Dominion.GameHost
             }
 
             ActivePlayerName = currentTurn.ActivePlayer.Name;
-            
+
         }
 
         public bool GameIsComplete { get; set; }
@@ -158,7 +170,7 @@ namespace Dominion.GameHost
             else
             {
                 Cost = pile.TopCard.Cost;
-                Types = pile.TopCard.GetTypes();
+                Types = pile.TopCard.GetCardTypes();
             }
 
             var activity = context.Game.GetPendingActivity(player) as SelectPileActivity;
@@ -197,10 +209,11 @@ namespace Dominion.GameHost
             Id = card.Id;
             Cost = card.Cost.Money;
             Name = card.Name;
-            Types = card.GetTypes();
+            Types = card.GetCardTypes();
         }
 
-        public CardViewModel(ICard card, TurnContext currentTurn, Player player) : this(card)
+        public CardViewModel(ICard card, TurnContext currentTurn, Player player)
+            : this(card)
         {
             CanPlay = currentTurn.CanPlay(card, player);
         }
@@ -249,7 +262,7 @@ namespace Dominion.GameHost
         {
             Winner = scores.Winner.Name;
             Scores = scores
-                .Select(s => new PlayerResultViewModel {PlayerName = s.Key.Name, Score = s.Value})
+                .Select(s => new PlayerResultViewModel { PlayerName = s.Key.Name, Score = s.Value })
                 .ToArray();
         }
 
@@ -267,20 +280,31 @@ namespace Dominion.GameHost
 
     public static class ViewModelExtensions
     {
-        public static string[] GetTypes(this ICard card)
+        public static string[] GetCardTypes(this ICard card)
+        {
+            return card.GetType().GetCardTypes();
+        }
+
+        private static bool ImplementsOrIsInterface<TInterface>(this Type type)
+        {
+            return (type.IsInterface && type == typeof(TInterface))
+               || type.GetInterfaces().Contains(typeof(TInterface));
+        }
+
+        public static string[] GetCardTypes(this Type type)
         {
             var types = new List<CardType>();
-            if (card is IActionCard)
+            if (type.ImplementsOrIsInterface<IActionCard>())
                 types.Add(CardType.Action);
-            if (card is IReactionCard)
+            if (type.ImplementsOrIsInterface<IReactionCard>())
                 types.Add(CardType.Reaction);
-            if (card is IAttackCard)
+            if (type.ImplementsOrIsInterface<IAttackCard>())
                 types.Add(CardType.Attack);
-            if (card is IVictoryCard)
+            if (type.ImplementsOrIsInterface<IVictoryCard>())
                 types.Add(CardType.Victory);
-            if (card is ICurseCard)
+            if (type.ImplementsOrIsInterface<ICurseCard>())
                 types.Add(CardType.Curse);
-            if (card is ITreasureCard)
+            if (type.ImplementsOrIsInterface<ITreasureCard>())
                 types.Add(CardType.Treasure);
 
             return types.Select(t => t.ToString()).ToArray();

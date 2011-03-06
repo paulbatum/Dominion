@@ -20,9 +20,14 @@ namespace Dominion.Specs.Bindings
             return (CardCost)activity.Properties["Cost"];
         }
 
-        public static string GetTypeRestrictionProperty(this IActivity activity)
+        public static Type GetTypeRestrictionProperty(this IActivity activity)
         {
-            return (string)activity.Properties["CardsMustBeOfType"];
+            return (Type)activity.Properties["CardsMustBeOfType"];
+        }
+
+        public static string GetTypeRestrictionProperty(this ActivityModel activity)
+        {
+            return (string) activity.Properties["CardsMustBeOfType"];
         }
 
         public static string GetCardNames(this CardViewModel[] cards)

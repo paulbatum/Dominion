@@ -34,3 +34,12 @@ Scenario: Opponents automatically reveal if there are no victory cards
 	When Player1 plays a Bureaucrat
 	Then The game log should report that Player2 revealed Copper, Copper, Copper, Copper, Copper
 	And All actions should be resolved
+
+@Hosted
+Scenario: The view indicates that only victory cards may be selected
+	Given A new hosted game with 3 players			
+	And Player1 has a Bureaucrat in hand instead of a Copper
+	And Player2 has a hand of Copper, Copper, Copper, Duchy, Estate
+	When The game begins
+	And Player1 tells the host to play Bureaucrat		
+	Then Player2's current activity should have a type restriction of Victory
