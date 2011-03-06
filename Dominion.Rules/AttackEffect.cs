@@ -27,7 +27,12 @@ namespace Dominion.Rules
 
         public override void Resolve(TurnContext context, ICard source)
         {
-            foreach(var opponent in context.Opponents.Where(o => !_nullifications.Contains(o)))
+           DistributeAttacks(context, source);
+        }
+
+        protected void DistributeAttacks(TurnContext context, ICard source)
+        {
+            foreach (var opponent in context.Opponents.Where(o => !_nullifications.Contains(o)))
                 Attack(opponent, context, source);
         }
 

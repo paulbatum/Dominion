@@ -260,6 +260,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MiningVillage.feature</DependentUpon>
     </Compile>
+    <Compile Include="Cards\Minion.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Minion.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cards\Moat.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -548,6 +553,10 @@
     <None Include="Cards\MerchantShip.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>MerchantShip.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cards\Minion.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Minion.feature.cs</LastGenOutput>
     </None>
     <None Include="Cards\Salvager.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

@@ -60,8 +60,7 @@ namespace Dominion.GameHost.AI
             list.AddSimpleAction<Courtyard>();
             list.AddSimpleAction<Familiar>();
             list.AddSimpleAction<Wharf>();
-            list.AddSimpleAction<Torturer>();
-            
+            list.AddSimpleAction<Torturer>();            
             return list;
         }
 
