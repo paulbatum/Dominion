@@ -27,6 +27,12 @@ namespace Dominion.Cards.Actions
         {
             public override void Resolve(TurnContext context, ICard source)
             {
+                if(context.ActivePlayer.Hand.CardCount == 0)
+                {
+                    context.Game.Log.LogMessage("{0} did not have any cards to upgrade.", context.ActivePlayer.Name);
+                    return;
+                }
+
                 var upgradeActivity = new SelectCardsActivity(context, "Select a card to Upgrade",
                     SelectionSpecifications.SelectExactlyXCards(1), source);
 
